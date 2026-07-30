@@ -1,0 +1,8 @@
+node_modules
+.next
+coverage
+pnpm-lock.yaml
+.claude
+.cursor
+docs
+CLAUDE.md

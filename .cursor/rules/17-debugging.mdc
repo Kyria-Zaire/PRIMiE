@@ -1,0 +1,495 @@
+---
+description: Méthode de diagnostic, recherche de cause racine et correction des défauts PRIMiE
+globs: app/**/*, components/**/*, lib/**/*, content/**/*, public/**/*, tests/**/*, e2e/**/*, *.config.ts, package.json
+alwaysApply: false
+---
+
+# PRIMiE — Debugging
+
+## 1. Principe
+
+Déboguer consiste à expliquer un défaut par des preuves, pas à modifier du code
+jusqu'à ce que le symptôme disparaisse.
+
+Ordre obligatoire :
+
+```text
+observer → reproduire → réduire → formuler → tester → corriger → prévenir
+```
+
+Ne pas implémenter une correction lorsque la demande porte uniquement sur un audit ou
+un diagnostic. Dans ce cas, fournir la cause probable, les preuves et la proposition.
+
+---
+
+## 2. Définir le défaut
+
+Avant toute hypothèse, consigner :
+
+- comportement attendu ;
+- comportement observé ;
+- route et section concernées ;
+- appareil, viewport et navigateur ;
+- environnement : Development, Preview ou Production ;
+- fréquence : systématique ou intermittente ;
+- étapes minimales de reproduction ;
+- première version connue comme affectée ;
+- message d'erreur exact ;
+- impact utilisateur.
+
+Ne pas résumer « ça ne marche pas » en inventant une cause.
+
+---
+
+## 3. Respecter le périmètre
+
+Une demande « diagnostique » autorise :
+
+- lecture des fichiers ;
+- commandes non destructives ;
+- reproduction locale ;
+- tests ciblés ;
+- collecte de logs non sensibles ;
+- rapport de cause.
+
+Elle n'autorise pas :
+
+- correction du code ;
+- installation de dépendance ;
+- modification de configuration distante ;
+- commit, push ou merge ;
+- déploiement ou rollback ;
+- nettoyage destructif.
+
+Demander l'autorisation avant de passer du diagnostic à la correction.
+
+---
+
+## 4. Reproduction
+
+Chercher la reproduction la plus petite et stable.
+
+Vérifier :
+
+1. le défaut existe-t-il sur la route attendue ?
+2. survient-il après un rechargement complet ?
+3. dépend-il d'un viewport ?
+4. dépend-il du clavier, du tactile ou de la souris ?
+5. apparaît-il en navigation privée ?
+6. existe-t-il dans un autre navigateur ?
+7. existe-t-il en build Production local ?
+8. existe-t-il uniquement sur Vercel ?
+
+Une impossibilité de reproduire doit être signalée, pas transformée en réussite.
+
+---
+
+## 5. Collecte de preuves
+
+Collecter seulement ce qui aide à trancher :
+
+- stack trace complète ;
+- première erreur console ;
+- requête réseau en échec ;
+- statut, méthode et type de contenu ;
+- DOM et styles calculés ;
+- dimensions et position de l'élément ;
+- configuration et versions ;
+- test ciblé ;
+- trace Playwright ;
+- différence entre commit sain et commit affecté.
+
+Masquer jetons, cookies, identifiants, paramètres privés et valeurs d'environnement.
+
+La première erreur utile est souvent plus importante que les erreurs en cascade.
+
+---
+
+## 6. Hypothèses falsifiables
+
+Pour chaque hypothèse, écrire :
+
+```text
+Hypothèse :
+Preuve attendue si vraie :
+Test le moins coûteux :
+Résultat :
+Conclusion :
+```
+
+Tester une variable à la fois.
+
+Prioriser :
+
+1. cause compatible avec tous les symptômes ;
+2. changement récent ;
+3. configuration ou donnée réellement utilisée ;
+4. explication la plus simple qui peut être réfutée.
+
+Ne pas modifier plusieurs fichiers pour tester une seule hypothèse.
+
+---
+
+## 7. Réduire le problème
+
+Réduire successivement :
+
+- route ;
+- section ;
+- composant ;
+- état interactif ;
+- prop ;
+- règle CSS ;
+- ressource ;
+- commit ;
+- navigateur ;
+- environnement.
+
+Désactiver temporairement une partie uniquement si :
+
+- le changement est local et réversible ;
+- il ne détruit pas le travail existant ;
+- il sert un test précis ;
+- il n'est pas présenté comme correction.
+
+Retirer toute instrumentation temporaire avant livraison.
+
+---
+
+## 8. Versions et configuration
+
+Lire les versions réelles dans :
+
+- `package.json` ;
+- `pnpm-lock.yaml` ;
+- configuration TypeScript ;
+- `next.config.ts` ;
+- configuration Tailwind ;
+- configuration Playwright/Vitest ;
+- logs Vercel si le défaut est distant.
+
+Ne pas appliquer une solution trouvée pour une autre version sans vérifier sa
+compatibilité.
+
+Lorsque la syntaxe ou le comportement peut avoir changé, consulter la documentation
+officielle correspondant à la version installée.
+
+---
+
+## 9. TypeScript, lint et build
+
+Exécuter la commande la plus ciblée disponible :
+
+```bash
+pnpm typecheck
+pnpm lint
+pnpm build
+```
+
+Pour une erreur :
+
+- lire le fichier et la ligne ;
+- inspecter le type source, pas uniquement le type final ;
+- vérifier alias et casse du chemin ;
+- distinguer erreur locale et erreur en cascade ;
+- confirmer qu'un import serveur ne fuit pas vers le client ;
+- vérifier les variables requises au build.
+
+Ne pas résoudre par `any`, `@ts-ignore`, règle ESLint désactivée ou option Next.js
+ignorant les erreurs.
+
+---
+
+## 10. Hydratation React
+
+Le HTML serveur et le premier rendu client doivent correspondre.
+
+Causes fréquentes :
+
+- `Date.now()` ou `Math.random()` pendant le rendu ;
+- branche `typeof window !== "undefined"` qui change le markup ;
+- lecture de `localStorage` au premier rendu ;
+- formatage dépendant de la locale ;
+- donnée externe différente entre serveur et client ;
+- balisage HTML invalide ;
+- identifiants générés de manière instable ;
+- extension navigateur qui modifie le DOM.
+
+Corriger la cause. `suppressHydrationWarning` est un échappatoire exceptionnel, pas une
+solution générique.
+
+Utiliser `useId` pour les identifiants d'accessibilité qui doivent rester cohérents.
+
+---
+
+## 11. Server et Client Components
+
+En cas d'erreur de frontière :
+
+- localiser le premier `"use client"` ;
+- vérifier hooks, événements et API navigateur ;
+- vérifier qu'une donnée sérialisable traverse la frontière ;
+- éviter d'importer un module serveur dans un Client Component ;
+- déplacer l'interactivité dans le plus petit composant client ;
+- ne pas convertir toute la page en client pour masquer le problème.
+
+Un composant statique reste serveur par défaut.
+
+---
+
+## 12. Console et réseau
+
+Dans DevTools :
+
+- recharger avec la Console ouverte ;
+- traiter la première erreur ;
+- inspecter l'onglet Network ;
+- filtrer les requêtes en échec ;
+- vérifier statut, URL, type MIME, taille et initiateur ;
+- désactiver temporairement le cache pour reproduire ;
+- vérifier les headers lorsque pertinent.
+
+Une erreur `404` d'image ne se corrige pas par un délai. Vérifier chemin, casse, import,
+configuration et fichier publié.
+
+Ne pas copier dans un rapport des headers contenant des secrets.
+
+---
+
+## 13. CSS et responsive
+
+Pour un défaut visuel, inspecter :
+
+- box model ;
+- largeur calculée ;
+- `min-width` et `max-width` ;
+- overflow ;
+- flex/grid et contraintes des enfants ;
+- positionnement ;
+- stacking context et `z-index` ;
+- styles hérités ;
+- breakpoint actif ;
+- zoom et taille de police.
+
+Tester au minimum le viewport qui reproduit et les breakpoints voisins.
+
+Ne pas ajouter un `z-index` extrême ou `overflow-hidden` global sans comprendre la
+cause.
+
+---
+
+## 14. Images, SVG et polices
+
+Pour une ressource absente ou instable :
+
+- vérifier le nom exact et la casse ;
+- vérifier le chemin depuis `public/` ou l'import ;
+- confirmer dimensions et format ;
+- vérifier `next/image` et les origines distantes ;
+- inspecter statut et type MIME ;
+- confirmer le chargement de la police ;
+- tester le fallback.
+
+Pour un CLS, rechercher une dimension absente, une police tardive ou un contenu injecté.
+
+Ne pas remplacer une ressource cassée par une image aléatoire.
+
+---
+
+## 15. Navigation et CTA
+
+Pour chaque défaut de conversion, vérifier la valeur réellement rendue :
+
+```text
+tel:+33749616582
+https://wa.me/33749616582
+```
+
+Inspecter :
+
+- `href` ;
+- encodage du message ;
+- élément superposé qui bloque le clic ;
+- état `disabled` ;
+- zone tactile ;
+- nom accessible ;
+- comportement clavier ;
+- ouverture externe.
+
+Ne pas déclencher réellement un appel ou envoyer un message pendant un test automatisé.
+
+---
+
+## 16. Tests défaillants
+
+Relancer d'abord le test seul :
+
+```bash
+pnpm test -- chemin/du/test
+pnpm test:e2e -- chemin/du/test
+```
+
+Adapter la syntaxe aux scripts réels.
+
+Vérifier :
+
+- comportement produit réellement cassé ;
+- assertion obsolète ;
+- sélecteur lié à l'implémentation ;
+- état partagé ;
+- dépendance au temps ;
+- réseau externe ;
+- animation ;
+- différence de navigateur ;
+- artefact CI.
+
+Pour Playwright, utiliser le rapport, UI Mode et la trace. Ne pas ajouter
+`waitForTimeout` ou des retries pour masquer la cause.
+
+---
+
+## 17. Différence local, Preview et Production
+
+Comparer :
+
+- commit exact ;
+- versions Node et `pnpm` ;
+- variables par environnement ;
+- commande de build ;
+- cache ;
+- domaine et redirections ;
+- headers ;
+- casse des chemins ;
+- ressources publiées ;
+- navigateur.
+
+Une réussite locale ne prouve pas la Production.
+
+Ne pas modifier directement la Production pendant le diagnostic. Préparer une
+correction reproductible et la valider en Preview.
+
+---
+
+## 18. Correction
+
+Une correction doit :
+
+- traiter la cause racine ;
+- modifier la plus petite surface cohérente ;
+- préserver le comportement valide ;
+- éviter une dépendance nouvelle si inutile ;
+- supprimer l'instrumentation temporaire ;
+- ne pas créer une exception globale pour un cas local.
+
+Si la cause révèle un problème d'architecture, séparer le correctif immédiat du
+refactor éventuel.
+
+Ne pas profiter d'un bugfix pour effectuer une refonte sans rapport.
+
+---
+
+## 19. Test de régression
+
+Ajouter un test lorsque le défaut est :
+
+- reproductible automatiquement ;
+- susceptible de revenir ;
+- lié à un contrat métier ou utilisateur ;
+- causé par une interaction ou branche logique.
+
+Le test doit échouer avant la correction et passer après.
+
+Pour un défaut purement visuel, ajouter une comparaison ciblée ou une checklist
+reproductible. Ne pas créer un snapshot massif sans valeur.
+
+---
+
+## 20. Validation du correctif
+
+Valider :
+
+1. reproduction initiale devenue impossible ;
+2. test de régression ;
+3. contrôles ciblés ;
+4. types et lint ;
+5. build ;
+6. tests concernés ;
+7. QA responsive et accessibilité ;
+8. absence de nouvelle erreur console ou réseau.
+
+Tester les états voisins, pas uniquement le chemin exact du bug.
+
+Si une validation ne peut pas être exécutée, l'indiquer avec la raison.
+
+---
+
+## 21. Rapport de diagnostic
+
+Format :
+
+```md
+## Symptôme
+Comportement observable et impact.
+
+## Cause
+Cause racine confirmée ou hypothèse restante.
+
+## Preuves
+Fichiers, erreurs, commandes et reproduction.
+
+## Correction
+Modification réalisée ou proposée.
+
+## Validation
+Contrôles exécutés et résultats.
+
+## Limites
+Éléments non vérifiés ou suivi.
+```
+
+Ne pas noyer la cause dans un journal de terminal.
+
+---
+
+## 22. Anti-patterns interdits
+
+- Modifier avant de reproduire.
+- Confondre corrélation et cause.
+- Essayer plusieurs correctifs à la fois.
+- Supprimer cache, lockfile ou configuration au hasard.
+- Utiliser `any`, `@ts-ignore` ou `suppressHydrationWarning` par défaut.
+- Convertir toute la page en Client Component.
+- Masquer une erreur console.
+- Ajouter un délai fixe à un test instable.
+- Corriger uniquement Chromium sans vérifier le navigateur affecté.
+- Désactiver une règle d'accessibilité.
+- Déployer pour tester une hypothèse locale.
+- Déclarer la cause sans preuve.
+- Oublier l'instrumentation de debug.
+
+---
+
+## 23. Definition of Done
+
+Le défaut est résolu lorsque :
+
+- le comportement attendu est défini ;
+- la reproduction initiale est documentée ;
+- la cause racine est expliquée par des preuves ;
+- la correction est ciblée ;
+- le travail existant est préservé ;
+- le test de régression pertinent existe ;
+- les contrôles ciblés et globaux adaptés passent ;
+- les environnements affectés sont vérifiés ;
+- aucune erreur voisine n'est introduite ;
+- l'instrumentation temporaire est retirée ;
+- les limites restantes sont explicites.
+
+---
+
+## 24. Références
+
+- Next.js — Debugging
+- React — `hydrateRoot`
+- Playwright — Debugging Tests et Trace Viewer
+- Chrome DevTools — Console, Network et JavaScript Debugging

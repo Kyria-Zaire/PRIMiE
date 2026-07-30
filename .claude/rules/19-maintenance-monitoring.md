@@ -1,0 +1,482 @@
+---
+paths:
+  - "app/**/*"
+  - "components/**/*"
+  - "public/**/*"
+  - "tests/**/*"
+  - "e2e/**/*"
+  - "package.json"
+  - "pnpm-lock.yaml"
+  - "next.config.ts"
+  - "vercel.json"
+  - ".github/workflows/**/*"
+---
+
+# Maintenance et monitoring
+
+## 1. Objectif
+Après la mise en ligne, PRIMiE doit rester :
+
+- disponible ;
+- rapide ;
+- sécurisé ;
+- fidèle aux informations validées ;
+- compatible avec les navigateurs ciblés ;
+- simple à maintenir ;
+- récupérable après incident.
+
+Le monitoring sert à détecter un problème exploitable.
+
+Il ne doit pas devenir une collecte de données « au cas où ».
+
+---
+
+## 2. Monitoring technique et analytics
+Différencier :
+
+| Besoin | But |
+| --- | --- |
+| Disponibilité | Savoir si le site répond |
+| Erreurs | Détecter une panne ou régression |
+| Performance | Mesurer Core Web Vitals et ressources |
+| Déploiements | Suivre build, Preview et Production |
+| Analytics | Comprendre l’audience et les comportements |
+
+Analytics, pixels et replay de session ne sont pas nécessaires au monitoring
+technique minimal.
+
+Tout outil qui collecte des données visiteur exige une revue :
+
+- sécurité ;
+- confidentialité ;
+- traceurs et consentement ;
+- rétention ;
+- transferts éventuels.
+
+Cette revue doit précéder toute installation.
+
+---
+
+## 3. Autorité de Claude
+Claude peut, dans le périmètre demandé :
+
+- lire l’état public du site ;
+- inspecter des logs ou métriques accessibles ;
+- exécuter des contrôles non destructifs ;
+- analyser une alerte ;
+- préparer un rapport ou une correction ;
+- proposer une procédure.
+
+Sans demande explicite, Claude ne doit pas :
+
+- activer un service de monitoring ;
+- créer une alerte ou tâche planifiée ;
+- installer un SDK ;
+- changer une rétention ;
+- accéder à des données visiteur ;
+- modifier Vercel, DNS ou GitHub ;
+- déployer, rollback ou supprimer une ressource.
+
+Une alerte n’autorise pas automatiquement une action distante.
+
+---
+
+## 4. Signaux minimaux
+Suivre au minimum :
+
+- disponibilité de `/` ;
+- statut des déploiements Production ;
+- erreurs de build ;
+- erreurs JavaScript bloquantes ;
+- ressources critiques en échec ;
+- validité du domaine et HTTPS ;
+- téléphone et WhatsApp ;
+- Core Web Vitals lorsqu’une donnée terrain est disponible ;
+- alertes de sécurité des dépendances ;
+- présence de traceurs inattendus.
+
+Un signal doit être relié à une action possible.
+
+Ne pas conserver une métrique que personne ne sait interpréter.
+
+---
+
+## 5. Contrôle de disponibilité
+Le contrôle principal doit utiliser une requête `GET /` ou équivalente et
+vérifier :
+
+- réponse `200` ;
+- temps de réponse raisonnable ;
+- contenu distinctif attendu ;
+- HTTPS ;
+- absence de redirection infinie.
+
+Ne pas se contenter d’un ping réseau : il ne prouve pas que la page fonctionne.
+
+Contrôles complémentaires :
+
+```text
+/robots.txt
+/sitemap.xml
+/favicon.ico
+```
+
+Ne pas créer un endpoint `/health` dynamique pour la V1 sans besoin réel.
+
+---
+
+## 6. Fréquence de contrôle
+Cadence recommandée :
+
+| Moment | Contrôle |
+| --- | --- |
+| Chaque changement | Lint, types et tests ciblés |
+| Chaque déploiement | Smoke test Production ou Preview |
+| Hebdomadaire | Disponibilité, liens critiques et alertes |
+| Mensuel | Dépendances, contenu, performance et médias |
+| Trimestriel | Audit global accessibilité, sécurité et documentation |
+
+La cadence peut être ajustée selon le trafic, les incidents et les coûts.
+
+Ne pas annoncer qu’un contrôle planifié existe tant qu’il n’est pas réellement
+configuré.
+
+---
+
+## 7. Smoke test post-déploiement
+Après chaque Production :
+
+1. charger `/` ;
+2. vérifier les sections ;
+3. ouvrir le menu mobile ;
+4. tester la FAQ ;
+5. inspecter galerie et images ;
+6. vérifier `tel:+33749616582` ;
+7. vérifier `https://wa.me/33749616582` ;
+8. vérifier console et réseau ;
+9. vérifier HTTPS et headers ;
+10. tester un viewport mobile.
+
+Le test automatisé ne doit pas réellement appeler ou envoyer un message.
+
+---
+
+## 8. Observabilité Vercel
+Utiliser d’abord les capacités déjà disponibles du projet Vercel :
+
+- historique des déploiements ;
+- logs de build ;
+- état Production ;
+- Observability selon le plan actif ;
+- Speed Insights uniquement s’il est explicitement activé et approuvé.
+
+Ne pas supposer qu’une fonction payante ou un tableau de bord est disponible.
+
+Vérifier les limites, le coût, les données collectées et la rétention avant
+activation.
+
+---
+
+## 9. Performance terrain
+Lorsque des métriques réelles existent, suivre au 75e percentile :
+
+| Métrique | Objectif « bon » |
+| --- | --- |
+| LCP | `≤ 2,5 s` |
+| INP | `≤ 200 ms` |
+| CLS | `≤ 0,1` |
+
+Segmenter au minimum mobile et desktop lorsque le volume le permet.
+
+Une baisse doit être comparée :
+
+- avant et après déploiement ;
+- par route ;
+- par appareil ;
+- avec les changements de médias, scripts et polices.
+
+Ne pas conclure avec un échantillon insuffisant.
+
+Ne pas confondre données terrain et Lighthouse local.
+
+---
+
+## 10. Alertes utiles
+Une alerte doit définir :
+
+- signal ;
+- seuil ;
+- durée ;
+- environnement ;
+- sévérité ;
+- destinataire réel ;
+- première action ;
+- condition de résolution.
+
+Éviter :
+
+- alerte sur chaque requête ;
+- doublons entre outils ;
+- seuil sans baseline ;
+- alerte sans destinataire ;
+- notification qui ne demande aucune action ;
+- secret dans le message.
+
+Une alerte bruyante est corrigée, pas simplement ignorée.
+
+---
+
+## 11. Sévérité des incidents
+| Niveau | Exemple PRIMiE | Réponse |
+| --- | --- | --- |
+| SEV-1 | Site indisponible ou secret publié | Confinement immédiat |
+| SEV-2 | Mauvais contact ou CTA bloqué | Correction ou rollback prioritaire |
+| SEV-3 | Régression limitée ou image cassée | Corriger rapidement |
+| SEV-4 | Détail cosmétique | Maintenance planifiée |
+
+La sévérité dépend de l’impact réel, pas de la difficulté technique.
+
+Un défaut d’accessibilité bloquant l’action principale peut être SEV-2.
+
+---
+
+## 12. Cycle d’incident
+Procédure :
+
+```text
+détecter → qualifier → contenir → restaurer → corriger → vérifier → apprendre
+```
+
+Pour chaque incident :
+
+1. confirmer le signal ;
+2. identifier environnement et version ;
+3. mesurer l’impact ;
+4. arrêter les promotions ;
+5. choisir rollback ou correction ;
+6. restaurer le service ;
+7. valider les parcours critiques ;
+8. documenter la cause ;
+9. ajouter la prévention adaptée.
+
+Ne pas effectuer des redéploiements successifs sans hypothèse.
+
+---
+
+## 13. Rollback
+Le dernier déploiement Production sain doit rester identifiable.
+
+Avant rollback :
+
+- confirmer le déploiement affecté ;
+- confirmer le candidat sain ;
+- vérifier que son contenu et ses contacts restent valides ;
+- obtenir l’autorisation ;
+- préparer les smoke tests.
+
+Après rollback :
+
+- vérifier le site public ;
+- consigner version et heure ;
+- corriger la cause sur une branche ;
+- générer une nouvelle Preview ;
+- ne pas réappliquer automatiquement le changement fautif.
+
+Un rollback ne révoque pas un secret compromis.
+
+---
+
+## 14. Dépendances
+Surveiller :
+
+- alertes de vulnérabilité ;
+- versions non maintenues ;
+- changements de licence ;
+- dépendances directes et transitives ;
+- actions CI utilisées ;
+- compatibilité Node, Next.js et React.
+
+Une alerte Dependabot ou équivalente est un point de départ, pas une autorisation
+de merge.
+
+Pour chaque mise à jour :
+
+1. comprendre la vulnérabilité ou le besoin ;
+2. vérifier si PRIMiE est exposé ;
+3. lire les notes officielles ;
+4. appliquer la plus petite mise à jour sûre ;
+5. inspecter le lockfile ;
+6. exécuter tests et build ;
+7. valider une Preview.
+
+Ne pas exécuter une mise à jour majeure forcée sans revue.
+
+---
+
+## 15. Politique de vulnérabilité
+Priorité interne :
+
+- critique et exploitable : triage immédiat, confinement le jour même ;
+- élevée et applicable : plan de correction sous trois jours ouvrés ;
+- modérée : prochain cycle de maintenance ;
+- faible ou non applicable : documenter la décision.
+
+Ces délais sont des objectifs PRIMiE, pas une garantie universelle.
+
+Ne pas fermer une alerte comme « non applicable » sans preuve liée au code
+réellement utilisé.
+
+---
+
+## 16. Contenu
+Contrôler régulièrement :
+
+- nom `Chez PRIMiE Coiffure` ;
+- services ;
+- téléphone ;
+- WhatsApp ;
+- textes d’appel à l’action ;
+- mentions légales réelles ;
+- images autorisées ;
+- liens ;
+- orthographe ;
+- cohérence mobile et desktop.
+
+Toute modification métier doit venir de la propriétaire ou d’une source validée.
+
+Ne pas déduire horaires, tarifs ou adresse à partir d’une ancienne capture.
+
+---
+
+## 17. Domaine, DNS et certificat
+Surveiller :
+
+- résolution du domaine ;
+- canonical ;
+- redirection apex et `www` ;
+- HTTPS ;
+- certificat ;
+- redirection HTTP vers HTTPS ;
+- sitemap et robots ;
+- domaine Vercel réellement attaché.
+
+Documenter le fournisseur et le renouvellement seulement lorsqu’ils sont
+confirmés.
+
+Une modification DNS exige une cible vérifiée et une autorisation explicite.
+
+---
+
+## 18. Sauvegarde et restauration
+Pour la V1, les éléments récupérables sont :
+
+- dépôt Git ;
+- historique des déploiements ;
+- configuration documentée ;
+- médias sources autorisés ;
+- accès au domaine.
+
+Il n’existe aucune sauvegarde de base de données à prévoir tant qu’aucune base
+n’existe.
+
+Vérifier périodiquement qu’une personne autorisée peut :
+
+- récupérer le dépôt ;
+- reconstruire avec le lockfile ;
+- retrouver les variables nécessaires ;
+- identifier un déploiement sain ;
+- restaurer le domaine.
+
+Ne pas stocker les secrets dans un document de sauvegarde.
+
+---
+
+## 19. Rapport de maintenance
+Format recommandé :
+
+```md
+## Périmètre
+Version, environnement et date.
+
+## État
+Disponibilité, erreurs, performance, sécurité et contenu.
+
+## Changements
+Actions réellement réalisées.
+
+## Validation
+Commandes et contrôles avec résultat.
+
+## Risques
+Éléments ouverts et priorité.
+
+## Prochaine revue
+Date ou condition, si elle est réellement planifiée.
+```
+
+Ne pas copier des métriques sans interprétation.
+
+---
+
+## 20. Confidentialité et rétention
+Pour chaque outil, documenter :
+
+- données collectées ;
+- finalité ;
+- accès ;
+- fournisseur ;
+- emplacement ou transfert pertinent ;
+- durée de conservation ;
+- mécanisme de suppression ;
+- besoin de consentement.
+
+Collecter le minimum et supprimer ce qui n’est plus utile.
+
+Ne pas conserver indéfiniment logs, traces, captures ou rapports contenant des
+identifiants.
+
+---
+
+## 21. Anti-patterns interdits
+- Monitoring présenté comme configuré sans preuve.
+- Analytics installé pour surveiller la disponibilité.
+- Alerte sans seuil ni destinataire.
+- Secret dans un log ou une notification.
+- Métrique collectée sans action possible.
+- Mise à jour automatique fusionnée sans tests.
+- `audit --fix --force` comme procédure normale.
+- Alerte de sécurité ignorée sans analyse.
+- Incident résolu sans vérification publique.
+- Rollback effectué au hasard.
+- Domaine ou certificat supposé.
+- Sauvegarde annoncée mais jamais restaurable.
+- Information métier corrigée sans validation.
+- Conservation indéfinie des données d’observabilité.
+
+---
+
+## 22. Definition of Done
+La maintenance est terminée lorsque :
+
+- la version et l’environnement sont identifiés ;
+- la disponibilité et les parcours critiques sont vérifiés ;
+- les erreurs et performances sont évaluées avec des preuves ;
+- les alertes de dépendances sont triées ;
+- le contenu et les contacts restent exacts ;
+- domaine, HTTPS et ressources critiques fonctionnent ;
+- aucune collecte non approuvée n’est active ;
+- les corrections passent lint, types, tests et build ;
+- la Preview est validée avant Production ;
+- le rollback reste possible ;
+- les données de monitoring respectent la rétention ;
+- les risques ouverts sont consignés sans faux statut.
+
+---
+
+## 23. Références officielles
+- Vercel — Observability : https://vercel.com/docs/observability
+- Vercel — Alerts : https://vercel.com/docs/observability/alerts
+- Vercel — Speed Insights : https://vercel.com/docs/speed-insights
+- GitHub — Dependency Review : https://docs.github.com/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review
+- GitHub — Dependabot Security Updates : https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-security-updates
+- web.dev — Core Web Vitals : https://web.dev/articles/vitals

@@ -1,0 +1,459 @@
+---
+description: Standards TypeScript, React, Next.js et qualité du code pour PRIMiE
+globs: **/*.ts, **/*.tsx, **/*.mjs, **/*.css
+alwaysApply: false
+---
+
+# PRIMiE — Standards de code
+
+## 1. Objectif
+
+Appliquer cette règle lors de toute création, modification, revue ou refactorisation
+de code.
+
+Le code PRIMiE doit être :
+
+- correct ;
+- strictement typé ;
+- lisible sans explication orale ;
+- simple à tester ;
+- accessible ;
+- performant par défaut ;
+- cohérent avec l'architecture validée ;
+- facile à reprendre par une autre personne ou IA.
+
+La réussite d'un build ne suffit pas si le code est fragile, trompeur ou inutilement
+complexe.
+
+---
+
+## 2. Principes généraux
+
+- Résoudre le besoin demandé, pas un besoin hypothétique.
+- Préférer la solution la plus simple qui respecte les contraintes.
+- Écrire des unités petites avec une responsabilité claire.
+- Préserver les conventions déjà présentes dans le dépôt.
+- Réutiliser avant de dupliquer.
+- Refactoriser uniquement dans le périmètre utile à la tâche.
+- Ne jamais masquer une erreur pour terminer plus vite.
+- Ne pas laisser de code mort, de log de debug ou de TODO vague.
+- Ne pas modifier un fichier sans comprendre son rôle et ses dépendances.
+
+Une IA doit inspecter l'existant avant de générer une nouvelle abstraction.
+
+---
+
+## 3. TypeScript strict
+
+TypeScript doit rester en mode strict.
+
+Obligations :
+
+- typer les propriétés des composants ;
+- typer les données métier ;
+- typer les paramètres et valeurs de retour lorsque l'inférence n'est pas claire ;
+- utiliser des unions discriminées pour les états exclusifs ;
+- utiliser `unknown` avant validation lorsqu'un type n'est pas connu ;
+- rendre `readonly` les collections ou propriétés qui ne doivent pas muter ;
+- traiter les valeurs optionnelles explicitement ;
+- préférer une validation réelle à une assertion de type.
+
+Interdictions :
+
+- `any` explicite ou implicite ;
+- `@ts-ignore` ;
+- `@ts-nocheck` ;
+- double assertion comme `value as unknown as TargetType` ;
+- assertion non nulle `!` sans invariant démontrable ;
+- `as` utilisé uniquement pour faire taire le compilateur ;
+- affaiblissement de `tsconfig.json` pour contourner une erreur.
+
+Lorsqu'une assertion est réellement nécessaire, documenter l'invariant qui la rend
+sûre.
+
+---
+
+## 4. Modélisation des types
+
+Utiliser :
+
+- `type` pour les unions, intersections, alias et modèles de contenu ;
+- `interface` lorsqu'une extension publique et intentionnelle est réellement utile ;
+- des littéraux `as const` pour les valeurs de configuration immuables ;
+- `satisfies` pour vérifier une structure sans perdre l'inférence précise.
+
+Exemple :
+
+```ts
+export const services = [
+  {
+    id: "braids",
+    title: "Tresses",
+    description: "Description validée",
+  },
+] as const satisfies readonly Service[];
+```
+
+Ne pas créer un type global pour une valeur utilisée dans un seul fichier.
+
+---
+
+## 5. Nommage
+
+Les noms doivent décrire l'intention.
+
+Conventions :
+
+- composants : `PascalCase` ;
+- types et interfaces : `PascalCase` ;
+- variables et fonctions : `camelCase` ;
+- handlers : préfixe `handle`, par exemple `handleMenuClose` ;
+- propriétés callbacks : préfixe `on`, par exemple `onClose` ;
+- booléens : préfixes `is`, `has`, `can` ou `should` ;
+- fichiers et dossiers : `kebab-case` ;
+- identifiants de contenu : anglais stable et sans accent ;
+- textes visibles : français naturel et correctement accentué.
+
+Éviter les noms vagues :
+
+- `data`
+- `item`
+- `thing`
+- `temp`
+- `helper`
+- `utils2`
+- `component`
+
+Ces noms ne sont acceptables que lorsque le contexte les rend réellement précis.
+
+---
+
+## 6. Fonctions
+
+Une fonction doit :
+
+- avoir une responsabilité principale ;
+- retourner un résultat prévisible ;
+- limiter les effets de bord ;
+- utiliser des clauses de garde lorsque cela améliore la lecture ;
+- éviter les paramètres booléens ambigus ;
+- ne pas muter une donnée reçue sans contrat explicite.
+
+Préférer :
+
+```ts
+createWhatsAppUrl({ phone, message });
+```
+
+à :
+
+```ts
+createUrl(phone, message, true, false);
+```
+
+Extraire une fonction uniquement si cela clarifie le code, permet une réutilisation
+réelle ou facilite un test utile.
+
+---
+
+## 7. Composants React
+
+Règles :
+
+- utiliser des fonctions nommées ;
+- typer les props explicitement ;
+- ne pas utiliser `React.FC` par défaut ;
+- conserver un composant centré sur une responsabilité visuelle ;
+- préférer la composition aux nombreuses options booléennes ;
+- utiliser des clés stables issues des données ;
+- ne jamais utiliser l'index d'un tableau comme clé si l'ordre peut changer ;
+- ne pas déclarer un composant React à l'intérieur d'un autre composant ;
+- ne pas copier des données métier dans le JSX ;
+- ne pas rendre du HTML invalide pour satisfaire le design.
+
+Exemple :
+
+```tsx
+type SectionHeadingProps = {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+};
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+}: SectionHeadingProps) {
+  return (
+    <header>
+      {eyebrow ? <p>{eyebrow}</p> : null}
+      <h2>{title}</h2>
+      {description ? <p>{description}</p> : null}
+    </header>
+  );
+}
+```
+
+---
+
+## 8. Server Components et Client Components
+
+Un composant reste serveur par défaut.
+
+Ajouter `"use client"` uniquement si le fichier utilise réellement :
+
+- un hook React client ;
+- un événement navigateur ;
+- une API du navigateur ;
+- une bibliothèque qui impose le client.
+
+Règles :
+
+- placer la frontière client au plus bas ;
+- ne transmettre que des props sérialisables ;
+- ne pas convertir une page ou une section complète pour une interaction locale ;
+- ne pas utiliser un Client Component pour afficher uniquement du contenu statique ;
+- ne pas déplacer du contenu statique dans un hook.
+
+---
+
+## 9. État React
+
+Utiliser l'état local uniquement pour une donnée qui change dans le temps et qui
+affecte le rendu.
+
+Ne pas stocker dans le state :
+
+- une valeur dérivable des props ;
+- une liste filtrée calculable pendant le rendu ;
+- une constante ;
+- une donnée de configuration ;
+- une valeur utilisée par un seul événement sans impact visuel.
+
+Règles :
+
+- utiliser des mises à jour fonctionnelles lorsque le nouvel état dépend du précédent ;
+- ne pas synchroniser deux states représentant la même information ;
+- éviter `useEffect` pour calculer une valeur dérivée ;
+- éviter `useMemo` et `useCallback` sans besoin mesuré ;
+- nettoyer les listeners et timers ;
+- ne pas introduire de state manager global dans la V1.
+
+---
+
+## 10. Effets
+
+`useEffect` est réservé à la synchronisation avec un système externe :
+
+- API navigateur ;
+- listener ;
+- timer ;
+- bibliothèque impérative ;
+- ressource extérieure à React.
+
+Avant d'ajouter un effet, vérifier si le besoin peut être résolu :
+
+- pendant le rendu ;
+- dans un handler ;
+- par une prop ;
+- par une clé React ;
+- par CSS ;
+- côté serveur.
+
+Un effet sans tableau de dépendances maîtrisé est interdit.
+
+---
+
+## 11. Next.js
+
+- Utiliser `next/image` pour les images de contenu.
+- Utiliser `next/link` pour la navigation interne.
+- Utiliser l'API `metadata` de l'App Router.
+- Garder `app/page.tsx` déclaratif.
+- Ne pas créer de route API pour une opération purement frontend.
+- Ne pas utiliser le router pour une simple ancre de page.
+- Ne pas désactiver l'optimisation d'image globalement.
+- Ne pas importer un module client dans un module serveur sans nécessité.
+- Ne pas ajouter une bibliothèque pour une fonction native de Next.js.
+
+Les fichiers spéciaux Next.js conservent leurs exports par défaut lorsque le
+framework l'exige.
+
+---
+
+## 12. Tailwind CSS
+
+Utiliser Tailwind comme méthode principale de style.
+
+Règles :
+
+- employer les tokens du design system ;
+- conserver un ordre de classes cohérent via le formateur configuré ;
+- utiliser `cn()` pour les classes conditionnelles ;
+- éviter les valeurs arbitraires répétées ;
+- extraire un token lorsqu'une même valeur visuelle devient une convention ;
+- utiliser `globals.css` pour les variables, bases et rares styles globaux ;
+- éviter les classes CSS métier dispersées sans nécessité.
+
+Les styles inline sont réservés aux valeurs réellement dynamiques, notamment une
+variable CSS calculée.
+
+Ne pas construire des classes Tailwind par concaténation dynamique non détectable :
+
+```ts
+// Interdit
+const className = `text-${color}-500`;
+```
+
+Utiliser une table de correspondance explicite.
+
+---
+
+## 13. Imports
+
+Ordre recommandé :
+
+1. modules Node ou framework ;
+2. dépendances externes ;
+3. imports internes avec `@/` ;
+4. imports relatifs locaux ;
+5. types lorsque leur séparation améliore la lecture ;
+6. styles.
+
+Règles :
+
+- aucun import inutilisé ;
+- aucun chemin relatif profond comme `../../../` ;
+- aucun import circulaire ;
+- aucun réexport massif via un barrel file sans bénéfice démontré ;
+- utiliser `import type` lorsqu'un import ne sert qu'au typage ;
+- ne pas renommer arbitrairement un import pour masquer un conflit de conception.
+
+---
+
+## 14. Gestion des erreurs
+
+- Ne jamais utiliser un `catch` vide.
+- Ne jamais ignorer silencieusement une promesse rejetée.
+- Fournir un fallback visuel pour un média optionnel.
+- Faire échouer clairement une configuration invalide pendant le développement.
+- Ne pas exposer une information sensible dans un message d'erreur.
+- Distinguer erreur attendue, contenu absent et bug.
+- Ne pas retourner une valeur fictive qui donne l'impression que l'opération a réussi.
+
+Un commentaire n'est pas un traitement d'erreur.
+
+---
+
+## 15. Commentaires et documentation
+
+Le code doit expliquer le « quoi ». Les commentaires expliquent le « pourquoi ».
+
+Commentaires utiles :
+
+- contrainte navigateur inhabituelle ;
+- compromis de performance ;
+- invariant non évident ;
+- décision métier qui pourrait sembler arbitraire ;
+- référence à une dette explicitement suivie.
+
+Commentaires interdits :
+
+- paraphrase de la ligne suivante ;
+- code commenté conservé « au cas où » ;
+- TODO sans propriétaire, raison ou condition de résolution ;
+- mention d'une conversation introuvable comme seule justification.
+
+Les fonctions et composants évidents n'ont pas besoin de JSDoc.
+
+---
+
+## 16. Dépendances
+
+Avant d'ajouter une dépendance, l'IA doit :
+
+1. vérifier que le besoin n'est pas couvert par la stack ou le navigateur ;
+2. vérifier qu'une dépendance déjà installée ne couvre pas le besoin ;
+3. évaluer le poids et l'impact client ;
+4. vérifier la maintenance et la compatibilité ;
+5. expliquer pourquoi l'ajout est justifié.
+
+Ne jamais :
+
+- installer plusieurs bibliothèques pour le même rôle ;
+- ajouter une dépendance pour quelques lignes simples ;
+- modifier le lockfile avec un autre gestionnaire que `pnpm` ;
+- exécuter un script d'installation non audité ;
+- supprimer une dépendance sans vérifier ses usages.
+
+---
+
+## 17. Secrets et données
+
+- Aucun secret dans le code, les tests, les commentaires ou la documentation.
+- Aucun fichier `.env*` sensible dans Git.
+- Aucune coordonnée privée différente des données publiques validées.
+- Aucun contenu client réel utilisé comme donnée de démonstration sans autorisation.
+- Aucune télémétrie ajoutée implicitement.
+
+Les valeurs publiques répétées doivent venir de la configuration centralisée.
+
+---
+
+## 18. Contrôles avant livraison
+
+Exécuter les commandes disponibles et pertinentes :
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+Ne pas prétendre qu'une commande a réussi si elle n'a pas été exécutée.
+
+Si un script n'existe pas :
+
+- ne pas inventer son résultat ;
+- indiquer qu'il est absent ;
+- proposer son ajout uniquement s'il appartient au périmètre.
+
+Les erreurs existantes hors périmètre doivent être distinguées des régressions
+introduites par la tâche.
+
+---
+
+## 19. Interdictions absolues
+
+Il est interdit de :
+
+- laisser `console.log`, `debugger` ou du code de test dans la production ;
+- désactiver ESLint globalement ;
+- affaiblir TypeScript ;
+- ajouter `eslint-disable` sans justification locale ;
+- utiliser `dangerouslySetInnerHTML` sans contenu maîtrisé et besoin démontré ;
+- utiliser une clé de tableau instable ;
+- lancer une requête réseau depuis un rendu React ;
+- copier-coller un composant pour changer uniquement son texte ;
+- mélanger refactorisation étendue et correction ciblée ;
+- modifier des fichiers non concernés « pour harmoniser » ;
+- générer des centaines de lignes lorsque quelques lignes claires suffisent ;
+- effectuer un commit ou un push sans demande explicite.
+
+---
+
+## 20. Compte rendu obligatoire de l'IA
+
+Après une modification, indiquer :
+
+- le résultat obtenu ;
+- les fichiers modifiés ;
+- les décisions techniques importantes ;
+- les contrôles réellement exécutés ;
+- les contrôles non exécutés et leur raison ;
+- les limites ou contenus provisoires ;
+- toute dette créée.
+
+Le compte rendu doit être factuel, court et vérifiable.

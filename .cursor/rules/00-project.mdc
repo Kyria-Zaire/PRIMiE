@@ -1,0 +1,326 @@
+---
+description: Constitution du projet PRIMiE, vision produit, périmètre V1 et règles fondamentales
+alwaysApply: true
+---
+
+# PRIMiE — Constitution du projet
+
+## 1. Rôle de cette règle
+
+Ce fichier est la source de vérité principale du projet PRIMiE.
+
+Toute IA intervenant sur le dépôt doit le lire avant de proposer, créer, modifier,
+supprimer ou refactoriser du code.
+
+En cas de conflit entre plusieurs instructions, respecter cet ordre de priorité :
+
+1. demande explicite et actuelle du CTO ;
+2. décisions consignées dans ce fichier ;
+3. autres règles présentes dans `.cursor/rules/` ;
+4. documentation technique du dépôt ;
+5. conventions existantes dans le code ;
+6. préférences ou suppositions de l'IA.
+
+Une IA ne doit jamais remplacer une décision validée par une préférence personnelle.
+
+---
+
+## 2. Identité du projet
+
+- Nom officiel : `PRIMiE`
+- Nom commercial affiché : `Chez PRIMiE Coiffure`
+- Activité : coiffure et beauté afro à domicile
+- Porteuse du projet : Prisca
+- Langue principale : français
+- Marché initial : clientèle locale en France
+- Canal de conversion principal : WhatsApp
+- Numéro de contact validé : `+33 7 49 61 65 82`
+- Lien WhatsApp canonique : `https://wa.me/33749616582`
+
+Respecter exactement la graphie `PRIMiE` dans l'interface, les métadonnées et la
+documentation destinée au public, sauf contrainte technique justifiée.
+
+---
+
+## 3. Vision produit
+
+PRIMiE doit offrir une présence numérique élégante, rassurante et immédiatement
+utile à une professionnelle indépendante de la coiffure afro.
+
+Le site ne doit pas seulement présenter des prestations. Il doit :
+
+- valoriser le savoir-faire de Prisca ;
+- montrer la qualité des réalisations ;
+- rassurer les nouvelles clientes ;
+- faciliter une prise de contact rapide ;
+- transformer une visite en conversation WhatsApp ;
+- rester simple à maintenir sans équipe technique permanente.
+
+L'expérience recherchée est premium, humaine, chaleureuse et accessible.
+
+---
+
+## 4. Objectif de la V1
+
+Construire une landing page haut de gamme, rapide et mobile-first qui permet à une
+visiteuse de :
+
+1. comprendre immédiatement l'activité ;
+2. découvrir les principales prestations ;
+3. consulter des réalisations ;
+4. comprendre pourquoi choisir PRIMiE ;
+5. lire des éléments de réassurance ;
+6. obtenir les réponses aux questions fréquentes ;
+7. contacter Prisca ou demander une réservation sur WhatsApp.
+
+La conversion WhatsApp constitue l'action principale de la V1.
+
+---
+
+## 5. Parcours officiel de la landing page
+
+L'ordre de référence est :
+
+1. Header
+2. Hero
+3. Services
+4. Galerie — Nos réalisations
+5. Pourquoi me choisir ?
+6. Avis clientes
+7. FAQ
+8. Réserver
+9. Contact
+10. Footer
+
+Cet ordre ne doit pas être modifié sans validation explicite du CTO.
+
+Le header doit permettre une navigation claire vers les sections importantes.
+Les appels à l'action principaux doivent mener vers WhatsApp.
+
+---
+
+## 6. Prestations de référence
+
+Les catégories actuellement prévues sont :
+
+- tresses afro ;
+- coiffure afro-texturée ;
+- twists et vanilles ;
+- pose et traitement de perruque ;
+- tissage ;
+- look et twist ;
+- autres prestations pertinentes validées par la porteuse du projet.
+
+Ne jamais inventer :
+
+- un prix ;
+- une durée ;
+- une disponibilité ;
+- une adresse ;
+- une zone de déplacement ;
+- une promotion ;
+- une certification ;
+- un avis client ;
+- une politique d'annulation ;
+- une prestation non confirmée.
+
+Lorsqu'une donnée métier manque, utiliser un contenu clairement identifiable comme
+provisoire ou centraliser la valeur dans la configuration prévue à cet effet.
+
+---
+
+## 7. Direction artistique validée
+
+La direction visuelle repose sur :
+
+- une palette noire, dorée, beige et crème ;
+- une esthétique élégante et premium ;
+- des photographies mettant en valeur les coiffures afro et les textures ;
+- une typographie éditoriale raffinée pour les titres ;
+- une typographie très lisible pour le contenu ;
+- des surfaces aérées ;
+- des détails dorés utilisés avec retenue ;
+- des cartes et médias aux formes douces et cohérentes.
+
+Le site ne doit jamais devenir :
+
+- criard ;
+- surchargé ;
+- générique ;
+- excessivement animé ;
+- difficile à lire ;
+- visuellement incohérent avec l'univers beauté premium.
+
+Le luxe recherché vient de la composition, de la qualité typographique, des images,
+de l'espacement et de la cohérence — pas d'une accumulation d'effets.
+
+---
+
+## 8. Contraintes produit de la V1
+
+La V1 ne comprend pas :
+
+- d'authentification ;
+- de compte client ;
+- de tableau de bord ;
+- de back-office ;
+- de base de données ;
+- de paiement en ligne ;
+- de calendrier de réservation complexe ;
+- de marketplace ;
+- d'application mobile native ;
+- de fonctionnalités sociales ;
+- de collecte de données non nécessaire.
+
+Ne pas introduire l'un de ces éléments sans une décision explicite du CTO.
+
+Une fonctionnalité hors périmètre ne doit pas être ajoutée « pour plus tard » si elle
+augmente la complexité actuelle.
+
+---
+
+## 9. Stack technique validée
+
+La stack cible est :
+
+- Next.js 15 avec App Router ;
+- TypeScript en mode strict ;
+- Tailwind CSS ;
+- shadcn/ui lorsque pertinent ;
+- Framer Motion pour des animations mesurées ;
+- Lucide pour les icônes ;
+- déploiement sur Vercel.
+
+Principes structurants :
+
+- privilégier le rendu serveur et les composants serveur ;
+- utiliser un composant client uniquement lorsqu'une interaction l'exige ;
+- limiter les dépendances ;
+- ne pas dupliquer une capacité déjà fournie par la stack ;
+- conserver une architecture adaptée à une landing page ;
+- éviter toute abstraction prématurée.
+
+Toute proposition de changement de stack doit expliquer le problème réel résolu,
+l'impact, les alternatives et le coût de maintenance, puis attendre une validation.
+
+---
+
+## 10. Mobile-first et qualité
+
+Le mobile est l'expérience prioritaire.
+
+Chaque implémentation doit être pensée et vérifiée dans cet ordre :
+
+1. petit écran mobile ;
+2. mobile standard ;
+3. tablette ;
+4. ordinateur portable ;
+5. grand écran.
+
+La qualité attendue couvre au minimum :
+
+- responsive sans débordement horizontal ;
+- navigation utilisable au clavier ;
+- contrastes lisibles ;
+- textes alternatifs pertinents ;
+- chargement rapide ;
+- images optimisées ;
+- métadonnées SEO cohérentes ;
+- absence d'erreur console ;
+- absence de lien ou bouton factice en production.
+
+---
+
+## 11. Architecture éditable et réutilisable
+
+Les contenus métier amenés à changer doivent être centralisés autant que possible :
+
+- identité ;
+- coordonnées ;
+- liens ;
+- services ;
+- réalisations ;
+- avis validés ;
+- FAQ ;
+- navigation ;
+- réseaux sociaux ;
+- textes d'appel à l'action.
+
+Éviter de disperser les mêmes valeurs dans plusieurs composants.
+
+PRIMiE est aussi le premier cas d'usage du futur `IMORIA Business Kit`.
+La réutilisabilité doit être préparée par une séparation propre entre :
+
+- contenu métier ;
+- composants d'interface ;
+- tokens visuels ;
+- logique générique.
+
+Cette ambition ne doit toutefois jamais transformer la V1 en framework complexe.
+On extrait uniquement ce qui est réellement réutilisable et déjà utile à PRIMiE.
+
+---
+
+## 12. Comportement obligatoire de l'IA
+
+Avant toute modification, l'IA doit :
+
+1. lire les règles concernées ;
+2. inspecter l'existant ;
+3. identifier le périmètre exact de la demande ;
+4. signaler les informations bloquantes réellement manquantes ;
+5. préserver les décisions déjà validées.
+
+Pendant l'implémentation, l'IA doit :
+
+- effectuer des changements petits et cohérents ;
+- conserver le style et l'architecture existants ;
+- typer correctement les données ;
+- éviter les valeurs métier dupliquées ;
+- traiter les états responsive et accessibles ;
+- ne jamais masquer une erreur avec un contournement fragile ;
+- documenter uniquement ce qui apporte une valeur durable.
+
+Après l'implémentation, l'IA doit :
+
+- exécuter les contrôles disponibles et pertinents ;
+- distinguer ce qui a été vérifié de ce qui ne l'a pas été ;
+- résumer les fichiers modifiés ;
+- signaler les risques, limites ou contenus provisoires ;
+- attendre la validation du CTO avant un commit si aucun commit n'a été demandé.
+
+---
+
+## 13. Interdictions fondamentales
+
+Il est interdit de :
+
+- inventer des informations commerciales ;
+- exposer un secret, token ou identifiant sensible ;
+- ajouter une dépendance sans nécessité démontrable ;
+- affaiblir TypeScript, ESLint ou les contrôles qualité pour faire passer un build ;
+- désactiver une règle d'accessibilité sans justification ;
+- utiliser des images sans origine ou droit d'utilisation maîtrisé ;
+- ajouter des textes génériques incohérents avec PRIMiE ;
+- dupliquer inutilement des composants ou des données ;
+- modifier le périmètre produit sans validation ;
+- supprimer un comportement existant sans mesurer son impact ;
+- effectuer un commit, push ou déploiement sans demande explicite.
+
+---
+
+## 14. Critère de décision
+
+Lorsqu'il existe plusieurs solutions valides, choisir celle qui maximise, dans cet
+ordre :
+
+1. la clarté pour la cliente ;
+2. la conversion vers WhatsApp ;
+3. la qualité mobile ;
+4. l'accessibilité ;
+5. la performance ;
+6. la maintenabilité ;
+7. la cohérence visuelle ;
+8. la réutilisabilité raisonnable.
+
+La solution la plus sophistiquée n'est pas automatiquement la meilleure.

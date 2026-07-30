@@ -1,0 +1,498 @@
+---
+description: Garde-fous obligatoires pour préserver les invariants, parcours et travaux existants de PRIMiE
+globs: "**/*"
+alwaysApply: true
+---
+
+# PRIMiE — Do Not Break
+
+## 1. Directive principale
+
+Toute modification doit améliorer le besoin demandé sans casser :
+
+- les faits métier validés ;
+- les parcours existants ;
+- le rendu responsive ;
+- l'accessibilité ;
+- la sécurité et la vie privée ;
+- les performances ;
+- le référencement ;
+- le build ;
+- les tests ;
+- le travail local d'une autre personne.
+
+« Ça compile » ne signifie pas « rien n'est cassé ».
+
+---
+
+## 2. Invariants métier
+
+Ne jamais modifier sans validation explicite :
+
+```text
+Marque : Chez PRIMiE Coiffure
+Prénom : Prisca
+Téléphone affiché : +33 7 49 61 65 82
+Téléphone E.164 : +33749616582
+WhatsApp : https://wa.me/33749616582
+```
+
+Services :
+
+- Tresses & coiffure femme et homme ;
+- Traitement de perruque ;
+- Pose perruque ;
+- Look & twist ;
+- Vente et pose de perruques ;
+- Tissage.
+
+Ne pas corriger, reformuler, compléter ou déduire ces informations silencieusement.
+
+---
+
+## 3. Périmètre V1 protégé
+
+PRIMiE est une landing page.
+
+Ne pas ajouter implicitement :
+
+- compte ;
+- authentification ;
+- dashboard ;
+- formulaire ;
+- calendrier ;
+- paiement ;
+- API métier ;
+- base de données ;
+- espace d'administration ;
+- chatbot ;
+- WhatsApp Cloud API ;
+- analytics ou pixel ;
+- CMS.
+
+Toute extension de ce périmètre exige une décision produit et une nouvelle analyse de
+sécurité.
+
+---
+
+## 4. Parcours critiques
+
+Après chaque changement, préserver :
+
+1. chargement de `/` ;
+2. lecture du Hero ;
+3. navigation par ancres ;
+4. menu mobile ;
+5. consultation des services ;
+6. galerie ;
+7. FAQ ;
+8. ouverture WhatsApp ;
+9. appel téléphonique ;
+10. accès clavier au contenu et aux CTA.
+
+Une régression sur téléphone ou WhatsApp est critique.
+
+---
+
+## 5. Contrats de contact
+
+Tous les CTA WhatsApp utilisent :
+
+```text
+https://wa.me/33749616582
+```
+
+Tous les liens d'appel utilisent :
+
+```text
+tel:+33749616582
+```
+
+Règles :
+
+- une source de vérité ;
+- aucun numéro local dupliqué ;
+- aucun message non validé ;
+- aucun envoi automatique ;
+- aucun appel réel dans les tests ;
+- aucun paramètre utilisateur dans la destination.
+
+---
+
+## 6. Qualité protégée
+
+Toute modification doit préserver les règles spécialisées de :
+
+- design et composants ;
+- responsive aux viewports `320`, `390`, `768` et `1440 px` ;
+- accessibilité clavier, focus, contraste, zoom et mouvement réduit ;
+- sécurité, secrets et vie privée ;
+- performance et Core Web Vitals ;
+- SEO, métadonnées, sitemap et contenu indexable.
+
+Interdictions :
+
+- hack CSS global pour un défaut local ;
+- suppression d'un attribut ou test d'accessibilité ;
+- affaiblissement d'une CSP ou d'un contrôle ;
+- nouveau tracker ou script tiers implicite ;
+- `"use client"` ajouté à une grande sous-arborescence ;
+- image lourde ou sans dimensions ;
+- domaine canonique inventé.
+
+Tout changement visible exige une comparaison du rendu.
+
+---
+
+## 7. Travail existant
+
+Avant toute édition :
+
+```bash
+git status --short --branch
+git diff --stat
+git diff
+```
+
+Si le projet n'est pas encore un dépôt Git, inspecter directement les fichiers
+existants.
+
+Considérer toute modification inconnue comme appartenant à l'utilisatrice.
+
+Ne pas :
+
+- restaurer ;
+- écraser ;
+- reformater hors périmètre ;
+- supprimer un fichier inconnu ;
+- nettoyer un dépôt sale ;
+- inclure un changement sans rapport.
+
+---
+
+## 8. Baseline avant changement
+
+Avant une modification risquée, établir l'état initial avec les contrôles disponibles :
+
+```bash
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm build
+```
+
+Pour un changement visuel :
+
+- inspecter la page ;
+- relever les viewports ;
+- conserver une preuve avant si utile ;
+- noter les erreurs préexistantes.
+
+Ne pas attribuer à son changement un défaut déjà présent ni prétendre avoir une
+baseline si elle n'a pas été exécutée.
+
+---
+
+## 9. Carte d'impact
+
+Avant de modifier une source partagée, identifier :
+
+- importateurs ;
+- composants consommateurs ;
+- types ;
+- tests ;
+- styles ;
+- contenu ;
+- metadata ;
+- variantes responsive ;
+- effets serveur/client ;
+- configuration de déploiement.
+
+Une modification de `site-config`, d'un token, d'un composant partagé ou de
+`next.config.ts` n'est jamais locale par défaut.
+
+Utiliser la recherche du dépôt pour confirmer l'impact.
+
+---
+
+## 10. Diff minimal
+
+Le correctif doit toucher la plus petite surface cohérente.
+
+Préférer :
+
+- source de vérité ;
+- type précis ;
+- composant existant ;
+- test de régression ;
+- suppression du code devenu inutile ;
+- modification réversible.
+
+Éviter :
+
+- réécriture complète ;
+- renommage global non demandé ;
+- abstraction prématurée ;
+- formatage massif ;
+- dépendance pour une fonction triviale ;
+- refactor mêlé à un bugfix.
+
+---
+
+## 11. Refactor sans régression
+
+Un refactor doit conserver le comportement observable.
+
+Avant :
+
+- identifier les contrats ;
+- vérifier les tests ;
+- ajouter un test si le contrat n'est pas protégé.
+
+Après :
+
+- comparer rendu et interactions ;
+- vérifier les exports ;
+- vérifier les chemins ;
+- vérifier Server/Client Components ;
+- relancer les contrôles.
+
+Ne pas présenter une nouvelle fonctionnalité comme un refactor.
+
+---
+
+## 12. Configuration et dépendances
+
+Ne pas modifier sans nécessité démontrée :
+
+- `package.json` ;
+- `pnpm-lock.yaml` ;
+- `tsconfig.json` ;
+- `next.config.ts` ;
+- Tailwind ;
+- ESLint ;
+- Playwright ;
+- Vitest ;
+- Vercel ;
+- variables d'environnement.
+
+Une dépendance ajoutée doit être justifiée, auditée et testée.
+
+Ne jamais supprimer le lockfile, utiliser `--force` ou désactiver un contrôle pour
+faire passer une installation.
+
+---
+
+## 13. Contenu et médias
+
+Ne pas :
+
+- remplacer une photo validée sans demande ;
+- écraser un original ;
+- publier une photo non autorisée ;
+- retirer une alternative utile ;
+- modifier les prestations pour équilibrer une grille ;
+- fabriquer un avis ;
+- conserver des métadonnées privées ;
+- ajouter une image distante aléatoire.
+
+Une optimisation conserve le sens, le cadrage validé et une qualité suffisante.
+
+---
+
+## 14. Tests protégés
+
+Ne jamais :
+
+- supprimer un test en échec sans justification ;
+- utiliser `.skip` pour obtenir du vert ;
+- affaiblir une assertion ;
+- régénérer aveuglément un snapshot ;
+- ajouter `waitForTimeout` ;
+- multiplier les retries ;
+- ignorer TypeScript ou ESLint ;
+- mocker le comportement que le test doit vérifier.
+
+Un test existant peut être corrigé seulement si le contrat attendu a réellement changé
+et que ce changement est validé.
+
+---
+
+## 15. Vérification progressive
+
+Après modification :
+
+1. relire le diff ;
+2. exécuter le test ciblé ;
+3. typecheck ;
+4. lint ;
+5. tests ;
+6. build ;
+7. E2E si parcours affecté ;
+8. QA visuelle si rendu affecté ;
+9. contrôle accessibilité ;
+10. console et réseau.
+
+Ne pas déclarer une vérification qui n'a pas été exécutée.
+
+Si une commande est absente ou impossible, l'indiquer avec la raison.
+
+---
+
+## 16. Comparaison avant/après
+
+Pour un changement fonctionnel ou visuel, confirmer :
+
+| Dimension | Question |
+| --- | --- |
+| Fonction | le besoin demandé fonctionne-t-il ? |
+| Régression | les parcours voisins fonctionnent-ils encore ? |
+| Visuel | le rendu validé est-il préservé ? |
+| Mobile | les petits écrans restent-ils utilisables ? |
+| Accessibilité | clavier, focus et noms sont-ils corrects ? |
+| Performance | une ressource ou du JavaScript a-t-il augmenté ? |
+| Sécurité | une donnée ou permission nouvelle apparaît-elle ? |
+| Contenu | les faits sont-ils toujours exacts ? |
+
+Une capture seule ne valide pas le comportement.
+
+---
+
+## 17. Commandes destructives
+
+Ne jamais exécuter sans demande explicite et cible vérifiée :
+
+```bash
+git reset --hard
+git clean -fd
+git clean -fdx
+git restore .
+git checkout -- .
+rm -rf
+```
+
+Ne pas supprimer en masse via glob ou variable non résolue.
+
+Préférer une action limitée, réversible et appliquée à un chemin précis.
+
+---
+
+## 18. Git et actions distantes
+
+Sans demande explicite, ne jamais :
+
+- `git add` ;
+- commit ou amend ;
+- changer de branche ;
+- pull, rebase ou merge ;
+- push ou force push ;
+- ouvrir ou fusionner une pull request ;
+- changer Vercel ou DNS ;
+- créer une variable distante ;
+- déployer ou rollback.
+
+Une autorisation pour une action n'autorise pas la suivante.
+
+---
+
+## 19. Conditions d'arrêt
+
+Arrêter et demander une décision si :
+
+- deux règles ou sources se contredisent ;
+- une information métier manque ;
+- un changement validé serait supprimé ;
+- la même zone contient un travail inconnu ;
+- une action destructive est ambiguë ;
+- une dépendance runtime importante est nécessaire ;
+- une permission ou un secret manque ;
+- la Production ou un domaine serait affecté ;
+- le correctif impose une rupture de contrat ;
+- la cause du défaut reste inconnue après diagnostic.
+
+Ne pas combler un blocage par une hypothèse risquée.
+
+---
+
+## 20. Régression détectée
+
+Si la modification casse un invariant :
+
+1. arrêter l'élargissement du changement ;
+2. identifier précisément le diff responsable ;
+3. préserver le travail non lié ;
+4. corriger la cause ;
+5. ajouter un test de régression ;
+6. relancer les contrôles ciblés ;
+7. relancer le parcours complet ;
+8. signaler l'incident et sa résolution.
+
+Ne pas masquer la régression par CSS global, exception, suppression de test ou
+rollback destructif local.
+
+---
+
+## 21. Compte rendu obligatoire
+
+À la fin, indiquer :
+
+- résultat obtenu ;
+- fichiers modifiés ;
+- invariants vérifiés ;
+- commandes exécutées ;
+- résultats ;
+- QA manuelle ;
+- éléments non vérifiés ;
+- risques restants.
+
+Exemple :
+
+```md
+- WhatsApp : URL canonique vérifiée.
+- Tests : `pnpm test` réussi.
+- Build : réussi.
+- QA : mobile 390 px vérifié.
+- Non vérifié : Safari réel.
+```
+
+Ne pas cacher une limite derrière « tout est bon ».
+
+---
+
+## 22. Anti-patterns interdits
+
+- Corriger un composant en cassant un composant partagé.
+- Modifier un fait métier pour adapter le layout.
+- Ajouter un faux contenu pour remplir un espace.
+- Désactiver une protection ou un test.
+- Convertir toute la page en client.
+- Réécrire largement pour une petite demande.
+- Ajouter une dépendance sans besoin.
+- Optimiser sans mesure.
+- Corriger uniquement le viewport visible.
+- Écraser une modification utilisateur.
+- Déployer pour vérifier une hypothèse.
+- Confondre absence d'erreur TypeScript et absence de régression.
+- Déclarer « rien n'est cassé » sans contrôles.
+
+---
+
+## 23. Definition of Done
+
+Une modification est terminée lorsque :
+
+- le besoin demandé fonctionne ;
+- les invariants métier sont inchangés ou explicitement validés ;
+- le périmètre V1 reste respecté ;
+- les parcours critiques fonctionnent ;
+- téléphone et WhatsApp sont exacts ;
+- le design et le responsive sont préservés ;
+- l'accessibilité n'a pas régressé ;
+- sécurité, vie privée, SEO et performance ne sont pas affaiblis ;
+- le travail existant est préservé ;
+- le diff est ciblé ;
+- les tests pertinents passent ;
+- le build réussit ;
+- le rendu est inspecté lorsqu'il change ;
+- aucune action distante n'a été déduite ;
+- les limites restantes sont explicitement signalées.

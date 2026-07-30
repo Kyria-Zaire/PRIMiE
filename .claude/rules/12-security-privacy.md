@@ -1,0 +1,495 @@
+---
+paths:
+  - "app/**/*.{ts,tsx,css}"
+  - "components/**/*.tsx"
+  - "lib/**/*.ts"
+  - "public/**/*"
+  - "next.config.ts"
+  - "package.json"
+  - "pnpm-lock.yaml"
+  - ".env*"
+---
+
+# Sécurité et vie privée
+
+## 1. Objectif
+
+PRIMiE est une landing page publique qui présente les prestations de Chez PRIMiE
+Coiffure et oriente vers un appel ou WhatsApp.
+
+La V1 ne comporte :
+
+- ni compte ;
+- ni authentification ;
+- ni paiement ;
+- ni formulaire ;
+- ni calendrier ;
+- ni API métier ;
+- ni base de données ;
+- ni espace d’administration.
+
+Ne pas ajouter une de ces capacités sous couvert d’une amélioration technique.
+Toute évolution qui collecte, transmet ou stocke des données exige une nouvelle
+analyse de risques et une validation explicite.
+
+---
+
+## 2. Modèle de données V1
+
+Le parcours attendu est :
+
+```text
+navigateur → site statique PRIMiE sur Vercel → appel téléphonique ou WhatsApp
+```
+
+Le site :
+
+- affiche du contenu public ;
+- charge uniquement les ressources approuvées ;
+- ne reçoit pas les détails d’une demande de rendez-vous ;
+- ne stocke pas de données de visite dans une base applicative ;
+- ne dépose aucun traceur non essentiel par défaut.
+
+WhatsApp est un service externe. Le changement de destination doit être clair
+pour l’utilisatrice.
+
+---
+
+## 3. Secrets et variables d’environnement
+
+Ne jamais écrire dans le code, les règles, la documentation, les captures, les
+logs ou les commits :
+
+- mot de passe ;
+- jeton d’accès ;
+- clé d’API ;
+- secret de signature ;
+- identifiant privé ;
+- chaîne de connexion ;
+- contenu complet d’une variable d’environnement sensible.
+
+Règles obligatoires :
+
+- les fichiers `.env*` contenant des valeurs réelles restent ignorés par Git ;
+- `.env.example` ne contient que des noms et exemples manifestement factices ;
+- une variable `NEXT_PUBLIC_*` est publique et visible dans le navigateur ;
+- les informations publiques stables vont dans `content/site-config.ts`, pas
+  dans une fausse variable secrète ;
+- Preview et Production ont des valeurs séparées lorsque cela devient
+  nécessaire ;
+- aucun secret de production n’est injecté dans une preview sans justification.
+
+Si un secret est exposé, le supprimer du dernier fichier ne suffit pas :
+
+1. révoquer ou faire tourner le secret ;
+2. vérifier les journaux d’utilisation ;
+3. nettoyer l’historique concerné avec une procédure approuvée ;
+4. documenter l’incident sans recopier la valeur.
+
+---
+
+## 4. Contenu public validé
+
+Les seuls contacts canoniques sont :
+
+```ts
+export const PHONE_DISPLAY = "+33 7 49 61 65 82";
+export const PHONE_E164 = "+33749616582";
+export const WHATSAPP_URL = "https://wa.me/33749616582";
+```
+
+Ne pas inventer ou déduire :
+
+- adresse ;
+- ville ;
+- horaires ;
+- zone d’intervention ;
+- tarifs ;
+- liens sociaux ;
+- identité légale ;
+- avis clients ;
+- données personnelles sur Prisca ou ses clientes.
+
+Toute nouvelle donnée métier vient d’une source validée par la propriétaire.
+
+---
+
+## 5. Prévention XSS et injections
+
+Conserver l’échappement automatique de React.
+
+Interdictions :
+
+- `dangerouslySetInnerHTML` ;
+- `innerHTML`, `outerHTML` ou `document.write` ;
+- `eval`, `new Function` ou exécution de code construit dynamiquement ;
+- HTML provenant d’une URL, d’un CMS ou d’une saisie non fiable ;
+- concaténation de données non fiables dans un script ;
+- schéma d’URL `javascript:` ;
+- rendu direct d’un paramètre de recherche sans validation.
+
+Le contenu éditorial reste du texte ou des données structurées typées.
+
+S’il faut un jour accepter du HTML externe, utiliser une bibliothèque de
+nettoyage reconnue, configurée avec une liste d’éléments autorisés, puis ajouter
+des tests d’attaque.
+
+Pour du JSON-LD généré dynamiquement :
+
+```tsx
+const jsonLd = JSON.stringify(data).replace(/</g, "\\u003c");
+```
+
+Les données doivent rester contrôlées et validées avant insertion dans un
+`<script type="application/ld+json">`.
+
+---
+
+## 6. Liens et redirections externes
+
+Construire les messages WhatsApp avec `URLSearchParams` ou
+`encodeURIComponent`.
+
+Ne jamais concaténer une saisie brute dans une URL.
+
+Exemple :
+
+```ts
+const url = new URL(WHATSAPP_URL);
+url.searchParams.set("text", message);
+```
+
+Règles :
+
+- les destinations externes viennent d’une configuration autorisée ;
+- aucun paramètre utilisateur ne décide librement de la destination ;
+- aucune redirection ouverte ;
+- `target="_blank"` seulement si un nouvel onglet est utile ;
+- avec `target="_blank"`, ajouter `rel="noopener noreferrer"` ;
+- les boutons d’appel utilisent `tel:+33749616582` ;
+- vérifier les liens après chaque modification de contact.
+
+---
+
+## 7. Scripts et services tiers
+
+Aucun script tiers n’est chargé par défaut.
+
+Avant d’ajouter analytics, pixel, chat, carte, vidéo intégrée, widget social,
+gestionnaire de tags ou outil marketing :
+
+1. confirmer le besoin métier ;
+2. identifier les domaines, cookies, traceurs et données transmis ;
+3. vérifier les obligations juridiques et le besoin de consentement ;
+4. évaluer sécurité, accessibilité et performance ;
+5. limiter le chargement aux pages nécessaires ;
+6. documenter comment désactiver et supprimer l’outil ;
+7. obtenir une validation explicite.
+
+Ne pas :
+
+- coller un snippet reçu sans revue ;
+- autoriser `*` dans une politique de sécurité pour faire fonctionner un widget ;
+- charger un outil avant le consentement lorsqu’il n’est pas exempté ;
+- considérer le mode « anonymisé » d’un fournisseur comme une preuve suffisante ;
+- multiplier les outils qui remplissent la même fonction.
+
+---
+
+## 8. Images, SVG et métadonnées
+
+Avant publication :
+
+- confirmer les droits d’utilisation ;
+- obtenir l’accord nécessaire pour les personnes reconnaissables ;
+- supprimer les métadonnées EXIF inutiles, notamment la géolocalisation ;
+- vérifier les arrière-plans, miroirs, documents et écrans visibles ;
+- éviter les noms de fichiers contenant le nom complet d’une cliente ;
+- optimiser les fichiers sans conserver une copie privée dans `public/`.
+
+Un SVG non fiable peut contenir du code ou des liens actifs.
+
+Ne jamais insérer un SVG externe brut dans le DOM. Inspecter, nettoyer et
+versionner tout SVG utilisé.
+
+---
+
+## 9. Dépendances et chaîne d’approvisionnement
+
+Utiliser uniquement `pnpm` et committer `pnpm-lock.yaml`.
+
+Avant d’ajouter une dépendance :
+
+- vérifier qu’elle est réellement nécessaire ;
+- consulter sa maintenance, sa licence et ses avis de sécurité ;
+- préférer les API natives ou une dépendance déjà approuvée ;
+- examiner les scripts d’installation ;
+- éviter les paquets homonymes ou faiblement maintenus ;
+- limiter les permissions et la surface importée.
+
+Ne pas exécuter automatiquement une correction majeure de type
+`audit --fix --force`.
+
+Examiner le rapport, la portée de la vulnérabilité, la version corrigée et les
+changements incompatibles.
+
+Les mises à jour sont petites, testées et réversibles.
+
+Une alerte critique exploitable en production est traitée en priorité.
+
+---
+
+## 10. En-têtes HTTP
+
+Configurer les en-têtes au niveau Next.js ou de l’hébergement, puis vérifier la
+réponse réellement servie.
+
+Socle attendu :
+
+```text
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+```
+
+Ajouter une politique d’encadrement :
+
+```text
+Content-Security-Policy: frame-ancestors 'none'; …
+```
+
+ou, en compatibilité lorsque nécessaire :
+
+```text
+X-Frame-Options: DENY
+```
+
+La production utilise HTTPS.
+
+Ne pas modifier HSTS, ses sous-domaines ou son preload sans comprendre les
+conséquences et la configuration réelle de l’hébergeur.
+
+---
+
+## 11. Content Security Policy
+
+La CSP complète doit refléter les ressources réellement utilisées.
+
+Principes :
+
+- envoyer la CSP en en-tête HTTP ;
+- commencer avec une liste d’origines minimale ;
+- privilégier `'self'`, les nonces ou hashes lorsqu’ils sont nécessaires ;
+- ne pas ajouter `*`, `'unsafe-eval'` ou `'unsafe-inline'` pour masquer une
+  erreur ;
+- définir `object-src 'none'` si aucun objet embarqué n’est requis ;
+- définir `base-uri 'self'` ;
+- définir `frame-ancestors 'none'` si le site ne doit pas être intégré ;
+- limiter précisément `img-src`, `font-src`, `style-src`, `script-src` et
+  `connect-src` ;
+- tester toutes les routes et variantes avant l’activation bloquante.
+
+Utiliser d’abord `Content-Security-Policy-Report-Only` si la politique doit être
+observée sur un site existant.
+
+Les rapports CSP peuvent contenir des URL : ne pas les journaliser
+indéfiniment ni y exposer des données sensibles.
+
+Une navigation vers WhatsApp n’exige pas d’ajouter `wa.me` à `connect-src`.
+
+N’autoriser une origine que pour le type de ressource effectivement chargé.
+
+---
+
+## 12. Vie privée par défaut
+
+Appliquer la minimisation :
+
+- ne collecter aucune donnée « au cas où » ;
+- ne pas créer d’identifiant visiteur ;
+- ne pas enregistrer le contenu d’un message WhatsApp ;
+- ne pas envoyer de données personnelles dans les logs ;
+- ne pas inclure de données personnelles dans les paramètres d’URL ;
+- conserver uniquement ce qui est nécessaire à une finalité définie.
+
+La V1 ne nécessite pas de bannière cookies si elle ne dépose ni ne lit de
+traceur soumis au consentement.
+
+Ne jamais ajouter une bannière décorative pour justifier des traceurs déjà
+actifs.
+
+Si une mesure d’audience est envisagée :
+
+- vérifier si sa configuration remplit réellement les conditions d’exemption ;
+- sinon, bloquer le traceur jusqu’au consentement ;
+- permettre un refus aussi simple que l’acceptation ;
+- documenter finalités, destinataires, durées et droits ;
+- respecter le retrait du consentement ;
+- réévaluer les transferts éventuels hors Espace économique européen.
+
+---
+
+## 13. Mentions légales et transparence
+
+Avant la mise en production publique, prévoir les pages ou informations requises
+pour le contexte réel du site :
+
+- mentions légales ;
+- politique de confidentialité si des traitements existent ;
+- informations sur les traceurs s’ils existent ;
+- coordonnées et identité exactes fournies par la responsable.
+
+Ne jamais inventer un nom d’entreprise, statut, SIRET, adresse, hébergeur
+contractuel ou responsable de publication.
+
+Le lien vers WhatsApp doit être identifiable comme une sortie vers un service
+tiers.
+
+La politique du site ne doit pas prétendre contrôler les traitements propres à
+WhatsApp.
+
+---
+
+## 14. Journaux et erreurs
+
+La production ne doit pas exposer :
+
+- stack trace détaillée ;
+- variable d’environnement ;
+- objet de requête complet ;
+- URL contenant des données personnelles ;
+- contenu de message ;
+- information interne sur l’infrastructure.
+
+Supprimer les `console.log` de débogage.
+
+Un suivi technique futur doit journaliser le minimum, avec durée de conservation,
+accès restreint et procédure de suppression.
+
+Un message d’erreur utilisateur reste sobre, utile et sans détail exploitable.
+
+---
+
+## 15. Formulaire ou API futurs
+
+L’ajout futur d’un formulaire, webhook ou API impose au minimum :
+
+- validation côté serveur avec schéma strict ;
+- normalisation et limites de taille ;
+- limitation de débit ;
+- protection anti-spam ;
+- contrôle CSRF lorsque pertinent ;
+- authentification et autorisation pour toute donnée non publique ;
+- stockage chiffré et accès minimal ;
+- durée de conservation définie ;
+- information des personnes ;
+- procédure d’accès, rectification et suppression ;
+- tests d’abus et supervision.
+
+Une validation client améliore l’expérience mais n’est jamais une frontière de
+sécurité.
+
+---
+
+## 16. Git, previews et déploiement
+
+Avant un commit :
+
+- inspecter le diff ;
+- rechercher les secrets et fichiers `.env` ;
+- vérifier les nouveaux binaires et médias ;
+- confirmer que le lockfile correspond à la modification ;
+- ne pas committer de sauvegarde locale ou export client.
+
+Une URL de preview est publique pour toute personne qui la reçoit sauf protection
+explicite.
+
+Ne jamais y placer une donnée confidentielle.
+
+`noindex` protège le référencement, pas l’accès.
+
+Il ne remplace ni authentification ni contrôle d’autorisation.
+
+Ne pas pousser, publier ou déployer sans demande explicite.
+
+---
+
+## 17. Validation avant livraison
+
+Exécuter ou vérifier :
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm audit
+```
+
+Puis contrôler :
+
+- absence de secret et de `.env` réel dans Git ;
+- absence de `dangerouslySetInnerHTML`, `eval` et script tiers imprévu ;
+- réponses HTTPS et en-têtes HTTP de la production ;
+- console navigateur sans violation CSP non comprise ;
+- liens `tel:` et WhatsApp ;
+- absence de traceur avant consentement ;
+- métadonnées des images publiées ;
+- dépendances et lockfile ;
+- pages de transparence avec informations réelles ;
+- absence de données personnelles dans les erreurs et URL.
+
+Une commande indisponible doit être ajoutée au projet ou son absence signalée.
+
+Ne pas prétendre qu’un contrôle a réussi sans l’avoir exécuté.
+
+---
+
+## 18. Anti-patterns interdits
+
+- Secret préfixé `NEXT_PUBLIC_`.
+- Clé factice ressemblant à une vraie clé.
+- CSP permissive copiée sans test.
+- Bannière cookies sans blocage effectif.
+- Analytics ajouté « juste pour voir ».
+- Pixel marketing chargé avant le consentement.
+- SVG externe injecté dans le DOM.
+- Coordonnées personnelles inventées.
+- Données clientes dans `public/`.
+- Dépendance installée uniquement pour une fonction triviale.
+- Correctif de sécurité majeur appliqué sans tests.
+- Suppression d’un secret sans rotation.
+- Formulaire envoyant des données vers un service non documenté.
+- `noindex` présenté comme une mesure de sécurité.
+
+---
+
+## 19. Definition of Done
+
+Une modification sensible est terminée lorsque :
+
+- son flux de données est compris ;
+- aucune collecte inutile n’a été ajoutée ;
+- aucun secret n’est exposé au navigateur ou au dépôt ;
+- les entrées et destinations sont validées ;
+- les dépendances sont justifiées et verrouillées ;
+- les scripts tiers sont absents ou explicitement approuvés ;
+- les en-têtes sont testés sur la réponse réelle ;
+- les droits et métadonnées des médias sont vérifiés ;
+- la transparence utilisateur correspond au fonctionnement réel ;
+- lint, types, build et tests pertinents passent.
+
+---
+
+## 20. Références officielles
+
+- OWASP — XSS Prevention : https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+- OWASP — Content Security Policy : https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html
+- OWASP — HTTP Security Headers : https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+- OWASP — Third Party JavaScript : https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Javascript_Management_Cheat_Sheet.html
+- OWASP — Secrets Management : https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+- MDN — Content Security Policy : https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
+- CNIL — Minimisation : https://www.cnil.fr/fr/definition/minimisation
+- CNIL — Cookies et autres traceurs : https://www.cnil.fr/fr/cookies-et-autres-traceurs/que-dit-la-loi
+- CNIL — Mesure d’audience : https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience
+
+En cas de doute, ne pas collecter, ne pas exposer et demander une validation.

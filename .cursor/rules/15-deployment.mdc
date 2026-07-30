@@ -1,0 +1,496 @@
+---
+description: Déploiements Vercel, environnements, validations, promotion et rollback pour PRIMiE
+globs: app/**/*, components/**/*, public/**/*, next.config.ts, package.json, pnpm-lock.yaml, vercel.json, .vercelignore, .github/workflows/**/*
+alwaysApply: false
+---
+
+# PRIMiE — Déploiement
+
+## 1. Objectif
+
+Chaque déploiement PRIMiE doit être :
+
+- volontaire ;
+- reproductible depuis un commit identifié ;
+- vérifié en Preview avant Production ;
+- sans secret ni donnée privée ;
+- réversible ;
+- observable après mise en ligne.
+
+La vitesse de publication ne doit jamais remplacer la validation du contenu, du
+responsive, de l'accessibilité ou des CTA.
+
+---
+
+## 2. Périmètre V1
+
+La V1 est une landing page Next.js sur Vercel, sans API métier, base de données,
+migration, authentification, paiement, tâche planifiée ni stockage utilisateur. Ne
+pas créer d'infrastructure ou de procédure pour une capacité absente.
+
+---
+
+## 3. Autorité de l'IA
+
+Une IA peut :
+
+- inspecter la configuration ;
+- exécuter les validations locales ;
+- analyser un log de build fourni ou accessible ;
+- préparer une checklist ;
+- proposer une correction ;
+- vérifier une Preview déjà autorisée.
+
+Sans demande explicite, une IA ne doit jamais :
+
+- lier le dépôt à un projet Vercel ;
+- modifier les paramètres d'un projet distant ;
+- ajouter ou supprimer une variable distante ;
+- créer un déploiement ;
+- promouvoir une Preview ;
+- déployer en Production ;
+- modifier un domaine ou le DNS ;
+- effectuer un rollback ;
+- supprimer un déploiement.
+
+« Corrige le site » n'autorise pas le déploiement. « Déploie en Preview » n'autorise
+pas la Production. Toute promotion et tout rollback exigent une confirmation claire.
+
+---
+
+## 4. Environnements
+
+Utiliser trois environnements distincts :
+
+| Environnement | Usage | Données |
+| --- | --- | --- |
+| Development | travail local | valeurs locales non sensibles |
+| Preview | revue d'une branche ou version candidate | configuration de test |
+| Production | site public validé | configuration publique réelle |
+
+Une Preview sert à tester dans un environnement hébergé sans affecter la Production.
+
+Ne jamais utiliser une Preview comme stockage permanent ou comme substitut à un
+environnement protégé.
+
+---
+
+## 5. Source de vérité
+
+Le déploiement doit provenir :
+
+- d'un commit Git identifié ;
+- du `pnpm-lock.yaml` versionné ;
+- de la version Node déclarée par le projet ;
+- de la configuration suivie dans le dépôt ;
+- des variables définies pour l'environnement ciblé.
+
+Éviter un déploiement de fichiers locaux non committés : il est difficile à reproduire
+et à auditer.
+
+Après livraison, noter au minimum :
+
+```text
+commit SHA
+environnement
+URL de déploiement
+date
+résultat des validations
+```
+
+---
+
+## 6. Configuration du projet
+
+Vercel doit détecter Next.js sans configuration inutile.
+
+Vérifier :
+
+- Framework Preset : Next.js ;
+- Root Directory : racine réelle de PRIMiE ;
+- install command compatible avec `pnpm` ;
+- build command : `pnpm build` sauf besoin démontré ;
+- Output Directory géré par Next.js/Vercel ;
+- branche de Production : `main` sauf décision contraire ;
+- version Node cohérente entre local, CI et Vercel.
+
+Ne pas dupliquer la même configuration dans le dashboard, `vercel.json`,
+`next.config.ts` et les scripts sans nécessité.
+
+Versionner `vercel.json` uniquement s'il apporte une configuration requise et comprise.
+
+---
+
+## 7. Gestionnaire de paquets
+
+Utiliser uniquement `pnpm` et respecter le lockfile :
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build
+```
+
+Committer `pnpm-lock.yaml`, ne jamais le supprimer pour débloquer un build et déclarer
+la version de `pnpm` via `packageManager`.
+
+---
+
+## 8. Variables d'environnement
+
+Définir chaque variable uniquement dans les environnements nécessaires.
+
+Rappels :
+
+- `NEXT_PUBLIC_*` est exposée au navigateur ;
+- une valeur sensible n'utilise jamais ce préfixe ;
+- les secrets ne sont jamais committés ;
+- les valeurs Preview et Production sont séparées ;
+- une modification de variable exige un nouveau déploiement pour être prise en compte ;
+- les logs ne doivent jamais afficher une valeur complète.
+
+Pour la V1, le téléphone et l'URL WhatsApp sont des données publiques stables et
+doivent rester dans la configuration de contenu, pas dans un faux secret.
+
+Ne pas ajouter une variable d'environnement sans consommateur identifié.
+
+---
+
+## 9. Fichiers locaux Vercel
+
+Ne pas committer les fichiers locaux :
+
+```text
+.vercel
+.next
+node_modules
+.env*
+```
+
+Conserver seulement `.env.example` sans valeur sensible. Ne pas partager le contenu
+de `.vercel`, d'un `.env` ou d'une sortie CLI révélant des identifiants.
+
+---
+
+## 10. Contrôles avant Preview
+
+Exécuter :
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+Puis vérifier :
+
+- diff Git compris ;
+- aucun secret ;
+- aucun fichier privé ;
+- contenu métier validé ;
+- numéro `+33 7 49 61 65 82` ;
+- WhatsApp `https://wa.me/33749616582` ;
+- aucune dépendance imprévue ;
+- aucun TODO bloquant ;
+- aucune erreur de build ignorée.
+
+Ne pas désactiver TypeScript, ESLint ou les tests dans la configuration Next.js pour
+obtenir artificiellement un build vert.
+
+---
+
+## 11. Déploiement Preview
+
+Une Preview est créée depuis une branche ou un commit dédié.
+
+Elle doit permettre de vérifier :
+
+- rendu réel Vercel ;
+- assets, images et polices ;
+- variables Preview ;
+- headers ;
+- navigation ;
+- responsive ;
+- accessibilité ;
+- performance ;
+- erreurs console et réseau.
+
+Une URL Preview peut être transmise à la propriétaire pour validation visuelle.
+
+Ne pas y publier :
+
+- photo non approuvée ;
+- donnée cliente ;
+- secret ;
+- contenu juridique fictif ;
+- information commerciale encore confidentielle.
+
+---
+
+## 12. Référencement des Previews
+
+Une Preview ne doit pas concurrencer la Production. Utiliser les protections et
+en-têtes adaptés, puis vérifier leur réponse réelle. `noindex` limite l'indexation
+mais ne protège pas l'accès et ne rend aucune donnée privée publiable.
+
+---
+
+## 13. QA de la Preview
+
+Tester sur l'URL générée, pas uniquement en local.
+
+### Fonctionnel
+
+- Hero, sections, ancres, menu mobile, FAQ, galerie et page 404 ;
+- CTA WhatsApp et téléphone.
+
+### Visuel
+
+- mobile `320 px` et `390 px`, tablette et desktop ;
+- zoom `200 %`, aucun scroll horizontal, images sans déformation.
+
+### Technique
+
+- aucune erreur console ou ressource interne en échec ;
+- HTTPS, headers, metadata, favicon, sitemap et robots ;
+- aucun traceur inattendu et audit performance de contrôle.
+
+---
+
+## 14. Gate de Production
+
+La promotion est interdite si :
+
+- build, lint, types ou tests échouent ;
+- le téléphone ou WhatsApp est incorrect ;
+- un secret est exposé ;
+- une image ou police critique ne charge pas ;
+- le menu mobile ou un CTA principal est bloqué ;
+- un défaut majeur d'accessibilité subsiste ;
+- le contenu n'est pas validé ;
+- la Preview n'a pas été vérifiée ;
+- aucun rollback viable n'est identifié.
+
+Un avertissement non bloquant doit être documenté avec son risque et son suivi.
+
+---
+
+## 15. Promotion en Production
+
+Préférer promouvoir un déploiement Preview déjà inspecté plutôt que reconstruire une
+version différente sans nouvelle validation.
+
+Avant promotion :
+
+1. identifier exactement la Preview ;
+2. confirmer le commit ;
+3. vérifier les contrôles ;
+4. confirmer les variables Production ;
+5. confirmer le domaine cible ;
+6. obtenir l'autorisation explicite ;
+7. préparer le contrôle post-déploiement.
+
+Ne jamais lancer :
+
+```bash
+vercel --prod
+vercel promote
+```
+
+sans autorisation explicite et cible vérifiée.
+
+---
+
+## 16. Domaine et HTTPS
+
+Ne pas inventer le domaine de Production.
+
+Lorsqu'il est fourni et configuré :
+
+- vérifier le domaine canonique ;
+- vérifier les variantes `www` et apex selon la décision retenue ;
+- choisir une redirection unique ;
+- attendre la propagation DNS ;
+- confirmer le certificat HTTPS ;
+- vérifier les redirections HTTP vers HTTPS ;
+- mettre à jour canonical, sitemap, robots et métadonnées sociales.
+
+Une modification DNS est une action externe sensible et exige une validation de la
+cible avant écriture.
+
+---
+
+## 17. Contrôles post-déploiement
+
+Immédiatement après la Production, vérifier :
+
+```text
+GET /
+GET /robots.txt
+GET /sitemap.xml
+GET /favicon.ico
+```
+
+Puis contrôler :
+
+- statut `200` attendu ;
+- HTTPS et redirections ;
+- titre et description ;
+- images critiques ;
+- menu mobile ;
+- FAQ ;
+- téléphone ;
+- URL WhatsApp ;
+- erreurs console ;
+- requêtes en échec ;
+- headers de sécurité ;
+- absence de traceur non validé.
+
+Tester sur au moins un vrai mobile ou un navigateur mobile disponible.
+
+---
+
+## 18. Observabilité minimale
+
+Détecter au minimum l'indisponibilité, un build échoué, les erreurs JavaScript
+importantes, les ressources cassées et une forte dégradation des performances.
+
+Ne pas ajouter analytics, replay de session ou pixels sous couvert de monitoring.
+Tout outil collectant des données utilisateur passe par la règle sécurité et vie
+privée. Ne pas journaliser le contenu d'un message WhatsApp.
+
+---
+
+## 19. Rollback
+
+Un rollback remet rapidement en service un déploiement Production antérieur connu
+comme sain.
+
+Déclencheurs possibles :
+
+- page indisponible ;
+- mauvais numéro ou mauvaise destination ;
+- régression critique mobile ;
+- secret exposé ;
+- contenu manifestement erroné ;
+- erreur JavaScript bloquante ;
+- asset principal cassé.
+
+Procédure :
+
+1. arrêter les promotions ;
+2. identifier le dernier déploiement sain ;
+3. confirmer sa date et son commit ;
+4. obtenir l'autorisation de rollback ;
+5. restaurer ce déploiement ;
+6. exécuter les smoke tests ;
+7. corriger la cause sur une nouvelle branche ;
+8. produire une nouvelle Preview validée.
+
+Ne pas masquer l'incident en redéployant plusieurs versions au hasard.
+
+---
+
+## 20. Incident de sécurité
+
+En cas de secret ou donnée privée publiée : limiter l'exposition, révoquer le secret,
+retirer la version selon la procédure autorisée, vérifier les copies, corriger le
+dépôt et documenter sans recopier la valeur. Un rollback ne révoque pas un secret.
+
+---
+
+## 21. Échec de build
+
+Diagnostiquer dans cet ordre :
+
+1. première erreur utile du log ;
+2. version Node et `pnpm` ;
+3. installation avec lockfile figé ;
+4. variable manquante ;
+5. différence de casse dans un chemin ;
+6. import ou fichier absent ;
+7. TypeScript, lint ou tests ;
+8. configuration spécifique à l'environnement.
+
+Reproduire localement avec une version propre et les mêmes paramètres lorsque
+possible.
+
+Ne pas :
+
+- ignorer l'étape en échec ;
+- changer plusieurs variables au hasard ;
+- supprimer le lockfile ;
+- exposer un secret dans un log ;
+- relancer indéfiniment sans diagnostic.
+
+---
+
+## 22. Anti-patterns interdits
+
+- Déploiement depuis un état local non identifié.
+- Production utilisée comme environnement de test.
+- `vercel --prod` exécuté sans autorisation.
+- Variables Preview copiées aveuglément en Production.
+- Secret préfixé `NEXT_PUBLIC_`.
+- Build vert obtenu en désactivant les contrôles.
+- Preview présentée comme privée grâce à `noindex`.
+- Domaine ou DNS modifié sans cible confirmée.
+- Déploiements successifs au hasard pendant un incident.
+- Rollback sans smoke test.
+- Analytics ajouté comme monitoring technique.
+- Suppression d'un déploiement sans comprendre son statut.
+- Annonce de succès avant vérification de l'URL publique.
+
+---
+
+## 23. Checklist Production
+
+### Avant
+
+- [ ] commit identifié
+- [ ] diff et lockfile validés
+- [ ] lint, types, tests et build réussis
+- [ ] Preview inspectée
+- [ ] contenu, médias, téléphone et WhatsApp validés
+- [ ] responsive et accessibilité vérifiés
+- [ ] variables Production confirmées
+- [ ] rollback identifié et autorisation explicite
+
+### Après
+
+- [ ] domaine et HTTPS
+- [ ] page, robots, sitemap et favicon
+- [ ] navigation, menu, FAQ, galerie, téléphone et WhatsApp
+- [ ] images, polices, console et réseau
+- [ ] headers de sécurité et absence de traceur inattendu
+- [ ] mobile réel
+- [ ] commit et URL consignés
+
+---
+
+## 24. Definition of Done
+
+Un déploiement est terminé lorsque :
+
+- la version publiée correspond au commit autorisé ;
+- la Preview a été validée ;
+- les contrôles automatiques passent ;
+- les variables correspondent à l'environnement ;
+- le domaine sert la version attendue en HTTPS ;
+- les parcours critiques fonctionnent en Production ;
+- aucun secret ni traceur inattendu n'est exposé ;
+- les erreurs console et réseau critiques sont absentes ;
+- le rollback est possible ;
+- les résultats post-déploiement sont consignés ;
+- aucune action distante supplémentaire n'a été déduite sans autorisation.
+
+---
+
+## 25. Références
+
+- Vercel — Environments
+- Vercel — Environment Variables
+- Vercel — Promote a Preview to Production
+- Vercel — Rolling Back a Production Deployment
+- Next.js — Deploying

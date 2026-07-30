@@ -1,0 +1,320 @@
+---
+description: Exigences fonctionnelles et critères d'acceptation de la landing page PRIMiE
+globs: app/**/*.ts, app/**/*.tsx, components/**/*.ts, components/**/*.tsx, content/**/*.ts, data/**/*.ts
+alwaysApply: false
+---
+
+# PRIMiE — Périmètre produit V1
+
+## 1. Utilisation de cette règle
+
+Appliquer cette règle pour toute tâche qui :
+
+- crée ou modifie une section de la landing page ;
+- change un texte, un CTA, une navigation ou un parcours ;
+- ajoute une interaction visible par la cliente ;
+- touche aux services, réalisations, avis, FAQ ou coordonnées ;
+- vérifie la conformité fonctionnelle de la V1.
+
+La constitution `00-project.mdc` reste prioritaire.
+
+---
+
+## 2. Résultat produit attendu
+
+La V1 est une landing page unique qui transforme une visite en prise de contact
+WhatsApp.
+
+Une nouvelle visiteuse doit pouvoir, sans créer de compte :
+
+1. identifier PRIMiE et son activité ;
+2. comprendre les prestations proposées ;
+3. observer des réalisations ;
+4. trouver des éléments de réassurance ;
+5. obtenir des réponses pratiques ;
+6. contacter Prisca ou demander une réservation.
+
+Chaque section doit servir au moins l'un de ces objectifs.
+
+---
+
+## 3. Navigation et ancres
+
+Utiliser des ancres stables et explicites :
+
+- `#accueil`
+- `#services`
+- `#galerie`
+- `#a-propos`
+- `#avis`
+- `#faq`
+- `#reserver`
+- `#contact`
+
+Exigences :
+
+- le logo ou nom de marque ramène vers `#accueil` ;
+- les liens pointent vers une section existante ;
+- le menu mobile est utilisable au clavier et se ferme après sélection ;
+- le CTA principal du header mène vers WhatsApp ou `#reserver` ;
+- le scroll ne doit pas masquer le titre de la section ciblée ;
+- aucun lien vide, `#` générique ou bouton factice n'est autorisé en production.
+
+---
+
+## 4. Header
+
+Le header doit contenir :
+
+- l'identité PRIMiE ;
+- la navigation principale sur desktop ;
+- un accès clair à la réservation ;
+- un menu adapté aux petits écrans.
+
+Critères d'acceptation :
+
+- lisible sur le hero et sur les sections claires ;
+- aucune collision entre logo, navigation et CTA ;
+- état ouvert/fermé compréhensible sur mobile ;
+- focus visible sur chaque contrôle interactif ;
+- aucune navigation dupliquée inutilement.
+
+---
+
+## 5. Hero
+
+Le hero doit afficher :
+
+- le nom ou logo `Chez PRIMiE Coiffure` ;
+- une proposition de valeur courte ;
+- un visuel principal de qualité ;
+- un CTA WhatsApp prioritaire ;
+- un CTA secondaire vers les réalisations.
+
+Le message doit permettre de comprendre immédiatement :
+
+- qu'il s'agit de coiffure et beauté afro ;
+- que le service est humain et professionnel ;
+- que la prise de contact est simple.
+
+Critères d'acceptation :
+
+- contenu essentiel visible rapidement sur mobile ;
+- CTA principal identifiable sans ambiguïté ;
+- texte lisible quelle que soit l'image ;
+- image correctement cadrée sur mobile et desktop ;
+- aucune statistique, promesse ou distinction inventée.
+
+---
+
+## 6. Services
+
+Présenter les prestations validées sous forme de cartes ou blocs homogènes.
+
+Chaque service comprend idéalement :
+
+- un titre ;
+- une courte description utile ;
+- une image pertinente lorsqu'elle est disponible ;
+- une action permettant de demander des informations.
+
+Catégories de référence :
+
+- tresses et coiffure femme et homme ;
+- traitement de perruque ;
+- pose de perruque ;
+- vente et pose de perruques ;
+- look et twist ;
+- tissage.
+
+Critères d'acceptation :
+
+- libellés compréhensibles par la clientèle ;
+- cartes cohérentes en hauteur et en rythme visuel ;
+- images représentatives du service annoncé ;
+- aucun tarif ou délai non confirmé ;
+- données centralisées, non répétées dans chaque composant.
+
+---
+
+## 7. Galerie — Nos réalisations
+
+La galerie doit privilégier une grille visuelle. Ne pas utiliser de carrousel comme
+seul moyen d'accès aux réalisations.
+
+Fonctions prévues :
+
+- affichage responsive en grille ;
+- filtres par catégorie si suffisamment de contenus existent ;
+- ouverture d'une image agrandie dans une lightbox ;
+- fermeture par bouton, touche `Escape` et action adaptée au mobile ;
+- navigation accessible entre les images si elle est implémentée.
+
+Critères d'acceptation :
+
+- chaque réalisation possède un texte alternatif utile ;
+- les filtres ne créent pas de page vide incompréhensible ;
+- la lightbox conserve un focus clavier maîtrisé ;
+- les médias sont optimisés sans perte visuelle excessive ;
+- aucune réalisation tierce ne doit être présentée comme celle de PRIMiE.
+
+---
+
+## 8. Pourquoi me choisir ?
+
+Cette section doit présenter des raisons concrètes et crédibles de faire confiance à
+Prisca.
+
+Thèmes autorisés lorsqu'ils sont vérifiables :
+
+- attention portée à la cliente ;
+- soin et précision ;
+- écoute du besoin ;
+- accompagnement personnalisé ;
+- respect du cheveu et du style souhaité ;
+- prestation à domicile.
+
+Ne pas transformer ces thèmes en certifications, garanties ou résultats chiffrés
+non confirmés.
+
+---
+
+## 9. Avis clientes
+
+N'afficher en production que des témoignages :
+
+- réellement reçus ;
+- validés pour publication ;
+- reproduits fidèlement ;
+- accompagnés uniquement des informations autorisées.
+
+En développement, les avis provisoires doivent être clairement identifiés dans les
+données et ne jamais être présentés comme authentiques sur le site public.
+
+Critères d'acceptation :
+
+- lecture confortable sur mobile ;
+- pas de faux score global ;
+- pas de nom complet ou photo sans autorisation ;
+- pas de dépendance à un slider pour lire tous les avis.
+
+---
+
+## 10. FAQ
+
+La FAQ répond uniquement à des informations métier confirmées, par exemple :
+
+- fonctionnement de la prise de rendez-vous ;
+- préparation avant la prestation ;
+- fournitures nécessaires ;
+- déplacement à domicile ;
+- entretien après la coiffure ;
+- moyens de contact.
+
+Critères d'acceptation :
+
+- questions et réponses gérées depuis une source de données unique ;
+- accordéon utilisable au clavier ;
+- état ouvert communiqué correctement aux technologies d'assistance ;
+- une réponse inconnue n'est jamais inventée.
+
+---
+
+## 11. Réserver
+
+La section Réserver doit expliquer simplement le parcours :
+
+1. la cliente contacte PRIMiE sur WhatsApp ;
+2. elle précise la prestation souhaitée ;
+3. Prisca confirme les détails et la disponibilité.
+
+Le CTA utilise le numéro canonique :
+
+`https://wa.me/33749616582`
+
+Un message prérempli peut être ajouté, mais son texte doit être centralisé et rester
+modifiable.
+
+La V1 n'intègre ni calendrier, ni paiement, ni réservation automatisée.
+
+---
+
+## 12. Contact
+
+Afficher uniquement les coordonnées confirmées :
+
+- téléphone : `+33 7 49 61 65 82` ;
+- WhatsApp : `https://wa.me/33749616582` ;
+- réseaux sociaux seulement après validation de leurs URL ;
+- zone géographique ou adresse seulement après confirmation.
+
+Critères d'acceptation :
+
+- numéro cliquable avec un lien `tel:` ;
+- WhatsApp identifiable comme canal principal ;
+- aucun faux horaire ou emplacement ;
+- absence de formulaire inutile dans la V1.
+
+---
+
+## 13. Footer
+
+Le footer doit contenir au minimum :
+
+- l'identité PRIMiE ;
+- les raccourcis réellement utiles ;
+- les coordonnées validées ;
+- les mentions légales nécessaires ;
+- une année gérée automatiquement.
+
+Ne pas afficher de lien vers une page inexistante.
+
+---
+
+## 14. Règles de conversion WhatsApp
+
+Tous les CTA de réservation doivent :
+
+- utiliser le même numéro canonique ;
+- avoir un libellé explicite ;
+- fonctionner sur mobile et desktop ;
+- ouvrir WhatsApp sans JavaScript complexe ;
+- inclure les attributs de sécurité adaptés en cas de nouvel onglet ;
+- rester mesurables ultérieurement sans imposer d'outil analytics dans la V1.
+
+Ne jamais copier le numéro directement dans plusieurs composants. Utiliser la
+configuration métier centralisée.
+
+---
+
+## 15. États fonctionnels obligatoires
+
+Toute interaction ajoutée doit prévoir :
+
+- état initial ;
+- survol lorsque pertinent ;
+- focus clavier ;
+- état actif ou sélectionné ;
+- état ouvert/fermé ;
+- comportement sans contenu ;
+- comportement en cas de média indisponible.
+
+Une dégradation doit rester propre : une image manquante ne doit pas casser la mise
+en page et un contenu absent ne doit pas produire un bloc vide.
+
+---
+
+## 16. Définition fonctionnelle de terminé
+
+Une section est fonctionnellement terminée lorsque :
+
+- son objectif utilisateur est clair ;
+- ses contenus viennent de données validées ou explicitement provisoires ;
+- ses CTA mènent à la bonne destination ;
+- ses interactions fonctionnent au clavier et au tactile ;
+- son affichage est vérifié sur mobile et desktop ;
+- elle ne crée aucun lien mort ni information inventée ;
+- elle respecte le périmètre V1 ;
+- ses critères d'acceptation peuvent être démontrés.
+
+Si l'un de ces points n'est pas vérifié, l'IA doit l'indiquer dans son compte rendu.

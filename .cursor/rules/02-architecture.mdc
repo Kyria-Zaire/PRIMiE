@@ -1,0 +1,436 @@
+---
+description: Architecture Next.js, organisation des dossiers et séparation des responsabilités pour PRIMiE
+globs: app/**/*.ts, app/**/*.tsx, components/**/*.ts, components/**/*.tsx, content/**/*.ts, lib/**/*.ts, types/**/*.ts
+alwaysApply: false
+---
+
+# PRIMiE — Architecture frontend
+
+## 1. Objectif
+
+Cette règle définit l'architecture technique de la V1.
+
+L'objectif est de construire une landing page :
+
+- claire à comprendre ;
+- simple à modifier ;
+- performante par défaut ;
+- compatible avec Next.js 15 App Router ;
+- préparée pour une réutilisation raisonnable dans IMORIA Business Kit ;
+- sans architecture surdimensionnée.
+
+La constitution `00-project.mdc` et le périmètre `01-product-scope.mdc` restent
+prioritaires.
+
+---
+
+## 2. Décisions structurantes
+
+- Utiliser une application Next.js unique, sans monorepo.
+- Conserver `app/` à la racine, sans dossier `src/`.
+- Utiliser l'App Router.
+- Utiliser TypeScript en mode strict.
+- Utiliser `pnpm` comme gestionnaire de paquets.
+- Rendre les composants côté serveur par défaut.
+- Ajouter `"use client"` uniquement à la frontière interactive minimale.
+- Centraliser le contenu métier hors des composants de présentation.
+- Ne créer ni backend, ni API interne, ni base de données pour la V1.
+- Éviter tout état global.
+
+Ne pas modifier ces choix sans validation explicite du CTO.
+
+---
+
+## 3. Arborescence cible
+
+```text
+PRIMIE/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
+│   ├── favicon.ico
+│   ├── manifest.ts
+│   ├── robots.ts
+│   ├── sitemap.ts
+│   ├── not-found.tsx
+│   └── opengraph-image.*
+├── components/
+│   ├── layout/
+│   │   ├── header.tsx
+│   │   ├── mobile-menu.tsx
+│   │   └── footer.tsx
+│   ├── sections/
+│   │   ├── hero-section.tsx
+│   │   ├── services-section.tsx
+│   │   ├── gallery-section.tsx
+│   │   ├── why-choose-section.tsx
+│   │   ├── testimonials-section.tsx
+│   │   ├── faq-section.tsx
+│   │   ├── booking-section.tsx
+│   │   └── contact-section.tsx
+│   ├── shared/
+│   │   ├── section-heading.tsx
+│   │   ├── whatsapp-link.tsx
+│   │   └── responsive-image.tsx
+│   └── ui/
+├── content/
+│   ├── site-config.ts
+│   ├── navigation.ts
+│   ├── services.ts
+│   ├── gallery.ts
+│   ├── benefits.ts
+│   ├── testimonials.ts
+│   └── faq.ts
+├── lib/
+│   ├── utils.ts
+│   ├── whatsapp.ts
+│   └── seo.ts
+├── types/
+│   └── content.ts
+├── public/
+│   ├── brand/
+│   └── images/
+│       ├── hero/
+│       ├── services/
+│       └── gallery/
+├── .cursor/
+│   └── rules/
+├── .claude/
+├── CLAUDE.md
+├── components.json
+├── next.config.ts
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── tailwind.config.ts
+└── tsconfig.json
+```
+
+Cette arborescence est une cible. Ne pas créer un fichier vide uniquement pour la
+reproduire. Un fichier apparaît lorsqu'un besoin réel existe.
+
+---
+
+## 4. Responsabilités des dossiers
+
+### `app/`
+
+Contient uniquement :
+
+- les routes ;
+- les layouts ;
+- les métadonnées et fichiers spéciaux Next.js ;
+- les styles globaux ;
+- la composition générale des pages.
+
+`app/page.tsx` orchestre les sections. Il ne doit pas contenir toute leur
+implémentation ni les données métier complètes.
+
+### `components/layout/`
+
+Contient les éléments structurants présents autour du contenu principal :
+
+- header ;
+- navigation mobile ;
+- footer.
+
+### `components/sections/`
+
+Contient les grandes sections métier de la landing page.
+
+Une section :
+
+- reçoit ou importe des données typées ;
+- compose des éléments visuels ;
+- reste centrée sur un objectif utilisateur ;
+- ne contient pas de configuration métier dupliquée.
+
+### `components/shared/`
+
+Contient les composants propres à PRIMiE utilisés dans plusieurs sections.
+
+Un composant n'y entre que lorsqu'une deuxième utilisation réelle existe ou
+lorsqu'il porte une responsabilité transversale claire.
+
+### `components/ui/`
+
+Contient les primitives d'interface, notamment celles générées ou adaptées depuis
+shadcn/ui.
+
+Ne pas y placer de contenu métier PRIMiE.
+
+### `content/`
+
+Contient les informations éditoriales et commerciales publiques :
+
+- identité ;
+- coordonnées ;
+- navigation ;
+- services ;
+- galerie ;
+- avantages ;
+- avis validés ;
+- FAQ.
+
+Les composants ne doivent pas redéclarer ces valeurs.
+
+### `lib/`
+
+Contient les fonctions pures et utilitaires partagés :
+
+- création des liens WhatsApp ;
+- helpers de métadonnées ;
+- assemblage conditionnel de classes ;
+- transformations sans dépendance à l'interface.
+
+Ne pas utiliser `lib/` comme dossier fourre-tout.
+
+### `types/`
+
+Contient uniquement les types réellement partagés entre plusieurs fichiers.
+
+Un type utilisé dans un seul fichier reste local à ce fichier.
+
+### `public/`
+
+Contient les ressources statiques publiques.
+
+Organiser les médias par rôle. Utiliser des noms descriptifs, stables et sans
+espaces.
+
+---
+
+## 5. Composition de la page
+
+`app/page.tsx` doit rester déclaratif et lisible.
+
+Exemple de niveau de composition attendu :
+
+```tsx
+export default function HomePage() {
+  return (
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <ServicesSection />
+        <GallerySection />
+        <WhyChooseSection />
+        <TestimonialsSection />
+        <FaqSection />
+        <BookingSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </>
+  );
+}
+```
+
+Ne pas introduire de logique métier complexe dans la page.
+
+---
+
+## 6. Frontières serveur et client
+
+Tout composant est un Server Component par défaut.
+
+Un Client Component est autorisé uniquement pour :
+
+- le menu mobile ;
+- les filtres interactifs de galerie ;
+- la lightbox ;
+- l'accordéon FAQ si la primitive choisie l'exige ;
+- une animation nécessitant réellement le navigateur.
+
+Règles :
+
+- placer `"use client"` au niveau le plus bas possible ;
+- ne pas transformer une section entière en Client Component pour un seul bouton ;
+- transmettre uniquement des propriétés sérialisables ;
+- ne pas importer un module serveur dans un composant client ;
+- éviter les effets React pour dériver une valeur calculable pendant le rendu ;
+- ne pas ajouter de state manager global.
+
+---
+
+## 7. Architecture des données de contenu
+
+Les données publiques sont définies dans `content/` avec des types explicites.
+
+Exemple :
+
+```ts
+export type Service = {
+  id: string;
+  title: string;
+  description: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  category: string;
+};
+```
+
+Exigences :
+
+- identifiants stables ;
+- valeurs `readonly` lorsque pertinent ;
+- aucun `any` ;
+- aucune donnée métier recopiée dans plusieurs tableaux ;
+- aucun texte commercial caché dans un composant UI générique ;
+- contenus provisoires clairement signalés dans le code.
+
+Le numéro WhatsApp et l'identité du site appartiennent à `content/site-config.ts`.
+
+---
+
+## 8. Dépendances entre couches
+
+Respecter le sens suivant :
+
+```text
+app
+  → components/sections et components/layout
+    → components/shared et components/ui
+      → lib et types
+
+content
+  → types
+```
+
+Principes :
+
+- `components/ui/` ne dépend jamais de `components/sections/` ;
+- `lib/` ne dépend jamais de React ni des composants ;
+- `content/` ne dépend jamais d'un composant ;
+- une section peut consommer du contenu, des types, des helpers et des primitives ;
+- éviter les dépendances circulaires ;
+- éviter les fichiers `index.ts` uniquement destinés à réexporter tout un dossier.
+
+---
+
+## 9. Imports et conventions de fichiers
+
+Utiliser l'alias `@/` pour les imports internes.
+
+Exemple :
+
+```ts
+import { siteConfig } from "@/content/site-config";
+import { createWhatsAppUrl } from "@/lib/whatsapp";
+```
+
+Conventions :
+
+- fichiers et dossiers : `kebab-case` ;
+- composants React exportés : `PascalCase` ;
+- fonctions et variables : `camelCase` ;
+- types et interfaces : `PascalCase` ;
+- constantes réellement globales : `UPPER_SNAKE_CASE` avec retenue ;
+- un composant principal par fichier ;
+- préférer les exports nommés, sauf conventions imposées par Next.js.
+
+---
+
+## 10. Images, polices et icônes
+
+- Utiliser `next/image` pour les images de contenu.
+- Fournir des dimensions ou un conteneur au ratio maîtrisé.
+- Utiliser `next/font` pour les polices du projet.
+- Utiliser Lucide pour les icônes d'interface courantes.
+- Ne pas importer plusieurs bibliothèques d'icônes.
+- Ne pas charger une image distante sans configurer explicitement sa source.
+- Ne pas encoder de grande image directement dans le code.
+- Ne pas utiliser une image de galerie comme simple décoration sans texte alternatif.
+
+Les images purement décoratives doivent être ignorées par les technologies
+d'assistance.
+
+---
+
+## 11. Métadonnées et fichiers système
+
+Utiliser les mécanismes natifs de l'App Router :
+
+- `metadata` dans `app/layout.tsx` ;
+- `app/robots.ts` ;
+- `app/sitemap.ts` ;
+- `app/manifest.ts` ;
+- image Open Graph dédiée ;
+- `app/not-found.tsx`.
+
+Ne pas ajouter une bibliothèque SEO si les fonctions natives répondent au besoin.
+
+---
+
+## 12. Gestion de la configuration
+
+La V1 ne nécessite normalement aucun secret.
+
+Règles :
+
+- conserver les données publiques dans `content/site-config.ts` ;
+- utiliser une variable d'environnement uniquement si la valeur varie réellement
+  selon l'environnement ;
+- ne jamais placer un secret dans une variable `NEXT_PUBLIC_*` ;
+- fournir `.env.example` dès qu'une variable d'environnement devient nécessaire ;
+- ne jamais commiter `.env`, `.env.local` ou leurs variantes sensibles.
+
+---
+
+## 13. Réutilisation IMORIA Business Kit
+
+Préparer la réutilisation à travers trois frontières :
+
+1. contenu métier centralisé ;
+2. tokens de design remplaçables ;
+3. composants génériques sans texte PRIMiE en dur.
+
+Ne pas créer dans la V1 :
+
+- un package npm interne ;
+- un monorepo ;
+- un moteur de thèmes dynamique ;
+- un CMS abstrait ;
+- un générateur de sites ;
+- une couche de plugins.
+
+L'extraction vers IMORIA Business Kit aura lieu après validation de plusieurs cas
+d'usage réels.
+
+---
+
+## 14. Anti-patterns interdits
+
+Ne jamais :
+
+- créer un composant géant contenant toute la landing page ;
+- mettre `"use client"` dans `app/page.tsx` sans nécessité démontrée ;
+- dupliquer les services, coordonnées ou liens WhatsApp ;
+- ajouter Redux, Zustand ou Context pour des états locaux simples ;
+- créer une route API pour construire un lien WhatsApp ;
+- ajouter une base de données pour stocker du contenu statique ;
+- mélanger données métier et primitives `components/ui/` ;
+- créer des abstractions sans deuxième usage réel ;
+- ignorer une dépendance circulaire ;
+- utiliser `any` pour éviter de modéliser les données ;
+- déplacer l'application dans `src/` sans décision d'architecture validée.
+
+---
+
+## 15. Validation d'une modification architecturale
+
+Avant de modifier l'arborescence ou une frontière, l'IA doit expliquer :
+
+1. le problème observé ;
+2. pourquoi l'architecture actuelle ne suffit pas ;
+3. la solution proposée ;
+4. les fichiers déplacés ou affectés ;
+5. les risques de régression ;
+6. le coût de maintenance ajouté.
+
+Une modification architecturale n'est pas un simple nettoyage. Elle doit être
+justifiée et validée.

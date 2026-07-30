@@ -1,0 +1,479 @@
+---
+description: Exigences WCAG 2.2 AA, clavier, focus, sémantique et composants accessibles pour PRIMiE
+globs: app/**/*.tsx, app/**/*.css, components/**/*.tsx, content/**/*.ts
+alwaysApply: false
+---
+
+# PRIMiE — Accessibilité
+
+## 1. Objectif
+
+PRIMiE vise la conformité WCAG 2.2 niveau AA.
+
+L'accessibilité est une exigence fonctionnelle, pas une finition ajoutée après le
+design.
+
+Chaque interface doit rester utilisable :
+
+- au clavier ;
+- au tactile ;
+- avec un lecteur d'écran ;
+- avec un zoom à `200 %` ;
+- avec une largeur de `320px` ;
+- avec du texte agrandi ;
+- sans perception fiable des couleurs ;
+- avec les animations réduites ;
+- sans souris.
+
+Une bibliothèque accessible ne garantit pas que son intégration le soit.
+
+---
+
+## 2. HTML sémantique
+
+Utiliser l'élément natif correspondant à l'intention :
+
+- `<header>` pour l'en-tête ;
+- `<nav>` pour la navigation ;
+- `<main>` pour le contenu principal ;
+- `<section>` pour une région thématique nommée ;
+- `<footer>` pour le pied de page ;
+- `<button>` pour une action ;
+- `<a>` pour une destination ;
+- `<ul>` ou `<ol>` pour une liste ;
+- `<blockquote>` pour un témoignage lorsque pertinent ;
+- `<address>` uniquement pour des coordonnées de contact appropriées.
+
+Règles :
+
+- un seul `<main>` ;
+- chaque section sémantique possède un nom accessible, généralement son titre ;
+- ne pas ajouter un `role` qui répète la sémantique native ;
+- ne pas utiliser un `<div>` cliquable ;
+- ne pas imbriquer des contrôles interactifs ;
+- conserver un ordre DOM logique.
+
+---
+
+## 3. Langue
+
+Définir la langue principale :
+
+```tsx
+<html lang="fr">
+```
+
+Marquer une portion dans une autre langue seulement lorsque sa prononciation ou sa
+compréhension le justifie.
+
+Les noms de marque comme `WhatsApp` ne nécessitent pas systématiquement un
+changement de langue.
+
+---
+
+## 4. Titres
+
+Règles :
+
+- un seul `h1` sur la landing page ;
+- ne pas choisir un niveau de titre pour sa taille visuelle ;
+- respecter une hiérarchie logique ;
+- chaque grande section possède un titre ;
+- ne pas masquer un titre nécessaire uniquement pour la composition ;
+- un titre visuellement masqué reste disponible aux lecteurs d'écran si nécessaire ;
+- ne pas injecter du texte de titre uniquement dans une image.
+
+La taille d'un titre appartient au CSS. Son niveau appartient à la structure.
+
+---
+
+## 5. Landmarks
+
+La page doit permettre une navigation rapide par régions :
+
+```text
+header
+navigation
+main
+footer
+```
+
+Si plusieurs navigations existent, fournir un nom distinct :
+
+- `Navigation principale`
+- `Navigation du pied de page`
+
+Ne pas créer trop de landmarks. Une carte ou un simple wrapper n'est pas une région.
+
+---
+
+## 6. Lien d'évitement
+
+Ajouter un lien visible au focus avant la navigation :
+
+```text
+Aller au contenu principal
+```
+
+Il doit :
+
+- être le premier contrôle pertinent ;
+- devenir visible au focus ;
+- pointer vers le contenu principal ;
+- déplacer effectivement le focus ou la position de lecture ;
+- rester lisible sur le header ;
+- ne pas être masqué par un élément sticky.
+
+---
+
+## 7. Clavier
+
+Toute fonctionnalité doit être disponible au clavier.
+
+Touches attendues selon le composant :
+
+- `Tab` et `Shift+Tab` : déplacement entre contrôles ;
+- `Enter` : activation d'un lien ou bouton ;
+- `Space` : activation d'un bouton ;
+- `Escape` : fermeture d'un menu ou dialog ;
+- flèches : uniquement lorsque le pattern choisi les prévoit.
+
+Règles :
+
+- aucun piège clavier ;
+- aucun `tabIndex` positif ;
+- ordre de tabulation identique à l'ordre logique ;
+- pas de raccourci basé sur une lettre seule ;
+- ne pas rendre un élément non interactif focusable sans raison ;
+- ne pas utiliser `onKeyDown` pour imiter un bouton natif.
+
+---
+
+## 8. Focus visible
+
+Tout contrôle interactif doit avoir un indicateur de focus visible.
+
+Patron recommandé :
+
+```css
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+```
+
+Le focus doit :
+
+- être suffisamment contrasté avec l'état non focalisé ;
+- rester visible sur fond clair et sombre ;
+- entourer la zone interactive réelle ;
+- ne pas être coupé par `overflow: hidden` ;
+- ne pas être masqué par le header sticky ;
+- être distinguable du hover.
+
+Il est interdit de supprimer `outline` sans remplacement équivalent.
+
+---
+
+## 9. Focus non masqué
+
+Lorsqu'un contrôle reçoit le focus :
+
+- le header sticky ne doit pas le recouvrir ;
+- un footer ou CTA flottant ne doit pas le masquer ;
+- un scroll automatique doit laisser le contrôle visible ;
+- une section ciblée doit utiliser un `scroll-margin-top` approprié.
+
+Tester les ancres et le lien d'évitement avec le header dans son état final.
+
+---
+
+## 10. Contraste
+
+Minimums WCAG AA :
+
+- texte standard : `4.5:1` ;
+- grand texte : `3:1` ;
+- composants et états visuels nécessaires : `3:1` avec les couleurs adjacentes.
+
+Règles PRIMiE :
+
+- ne pas utiliser le doré pour un petit texte sur fond clair ;
+- vérifier le texte posé sur une photographie ;
+- utiliser un overlay stable si le contraste de l'image varie ;
+- vérifier les états hover, focus, actif et désactivé ;
+- ne pas rendre une bordure essentielle presque invisible ;
+- tester les couleurs finales, pas seulement les tokens isolés.
+
+Un logo bénéficie d'une exception de contraste, mais son environnement doit rester
+lisible.
+
+---
+
+## 11. Couleur
+
+La couleur ne doit jamais être le seul moyen de transmettre :
+
+- l'état actif d'un filtre ;
+- le focus ;
+- une erreur ;
+- un lien ;
+- la sélection ;
+- la disponibilité d'une action.
+
+Ajouter selon le cas :
+
+- texte ;
+- icône ;
+- forme ;
+- soulignement ;
+- bordure ;
+- attribut sémantique.
+
+---
+
+## 12. Taille et zoom
+
+La page doit :
+
+- fonctionner avec un zoom à `200 %` ;
+- refluer sans perte à `320px` CSS ;
+- accepter l'agrandissement du texte ;
+- ne pas bloquer le zoom ;
+- ne pas couper un contenu après modification de l'espacement du texte ;
+- éviter les hauteurs fixes sur les blocs textuels.
+
+Ne pas utiliser :
+
+- `user-scalable=no` ;
+- `maximum-scale=1` ;
+- texte dans une image lorsqu'un texte HTML est possible ;
+- troncature sur une information nécessaire.
+
+---
+
+## 13. Cibles tactiles
+
+WCAG 2.2 AA définit un minimum de `24 × 24px` avec exceptions.
+
+PRIMiE applique une cible de projet plus confortable :
+
+`44 × 44px` minimum pour les contrôles principaux.
+
+Règles :
+
+- espacer les contrôles proches ;
+- ne pas réduire la zone cliquable à l'icône visible ;
+- conserver une cible suffisante dans le header ;
+- rendre les boutons de lightbox faciles à atteindre ;
+- ne pas exiger un geste de glissement ;
+- fournir une alternative simple à toute interaction de drag.
+
+---
+
+## 14. Images
+
+- Fournir un `alt` utile aux images informatives.
+- Utiliser `alt=""` pour les images décoratives.
+- Ne pas répéter la légende mot pour mot si cela n'apporte rien.
+- Ne pas utiliser le nom de fichier comme alternative.
+- Décrire la coiffure lorsque c'est l'information principale.
+- Ne pas renseigner `title` à la place de `alt`.
+- Ne pas intégrer un texte essentiel dans une photographie.
+
+Une icône décorative utilise `aria-hidden="true"`.
+
+---
+
+## 15. ARIA
+
+Première règle d'ARIA :
+
+utiliser le HTML natif avant d'ajouter un rôle ou un attribut.
+
+Règles :
+
+- ne pas ajouter `role="button"` à un vrai bouton ;
+- ne pas ajouter `aria-label` qui contredit le texte visible ;
+- ne pas masquer un élément focusable avec `aria-hidden="true"` ;
+- ne pas utiliser un rôle sans implémenter le comportement clavier associé ;
+- mettre à jour `aria-expanded` pour un contrôle qui ouvre une zone ;
+- relier correctement déclencheur et contenu lorsque le pattern l'exige ;
+- ne pas ajouter des annonces live inutiles.
+
+Une mauvaise ARIA peut dégrader un HTML natif correct.
+
+---
+
+## 16. Menu mobile
+
+Utiliser une primitive accessible `Sheet` ou `Dialog`.
+
+À l'ouverture :
+
+- déplacer le focus vers le menu ou son premier contrôle logique ;
+- rendre le fond non interactif si le composant est modal ;
+- annoncer le nom du panneau.
+
+Pendant l'ouverture :
+
+- conserver le focus dans le panneau modal ;
+- permettre `Escape` ;
+- rendre le bouton fermer accessible ;
+- garder chaque lien utilisable au clavier.
+
+À la fermeture :
+
+- restaurer le focus sur le bouton d'ouverture ;
+- fermer après sélection d'une ancre.
+
+Ne pas utiliser le pattern ARIA `menu` pour une simple liste de liens de navigation.
+
+---
+
+## 17. Accordéon FAQ
+
+Utiliser la primitive shadcn/ui/Radix ou un pattern WAI-ARIA conforme.
+
+Chaque question :
+
+- est un bouton ;
+- est associée à un titre ;
+- expose son état ouvert ;
+- contrôle la région de réponse correspondante ;
+- conserve un focus visible ;
+- fonctionne avec `Enter` et `Space`.
+
+Les réponses doivent rester dans le DOM ou être gérées proprement par la primitive.
+
+Ne pas utiliser un simple `<div onClick>`.
+
+---
+
+## 18. Lightbox
+
+La lightbox suit le pattern dialog modal.
+
+Obligations :
+
+- nom accessible ;
+- focus placé à l'ouverture ;
+- focus piégé dans le dialog ;
+- fond inert/non interactif ;
+- fermeture par `Escape` ;
+- bouton fermer ;
+- focus restauré au déclencheur ;
+- image avec alternative ;
+- contrôles précédent/suivant nommés ;
+- scroll de fond bloqué sans casser le viewport.
+
+Ne pas fermer uniquement en cliquant sur l'overlay.
+
+Le swipe peut être ajouté, mais ne doit jamais être l'unique moyen de navigation.
+
+---
+
+## 19. Filtres de galerie
+
+Utiliser des boutons ou tabs selon le comportement réel.
+
+Règles :
+
+- indiquer le filtre actif par texte, forme et état sémantique ;
+- permettre l'activation clavier ;
+- conserver un ordre logique ;
+- annoncer un changement important du nombre de résultats si nécessaire ;
+- ne pas déplacer le focus sans demande de l'utilisatrice ;
+- ne pas masquer les résultats aux lecteurs d'écran avec une simple opacité ;
+- fournir une option `Toutes`.
+
+Ne pas utiliser des checkboxes si une seule catégorie peut être active.
+
+---
+
+## 20. Mouvement
+
+Respecter `prefers-reduced-motion`.
+
+Lorsque la réduction est demandée :
+
+- supprimer les révélations non essentielles ;
+- réduire les translations ;
+- éviter la parallaxe ;
+- désactiver le scroll animé si nécessaire ;
+- garder les transitions indispensables très courtes ;
+- ne jamais cacher durablement un contenu en attente d'animation.
+
+Éviter :
+
+- autoplay ;
+- clignotement ;
+- animation de plus de cinq secondes sans contrôle ;
+- mouvement déclenché en boucle.
+
+---
+
+## 21. Outils et tests
+
+Effectuer au minimum :
+
+- navigation complète au clavier ;
+- vérification du focus ;
+- contrôle des contrastes ;
+- zoom `200 %` ;
+- viewport `320px` ;
+- réduction des animations ;
+- test du menu, de l'accordéon et de la lightbox ;
+- audit automatisé avec axe ou équivalent lorsqu'il est configuré ;
+- audit Lighthouse comme signal complémentaire.
+
+Un audit automatisé ne prouve pas à lui seul la conformité.
+
+Ne jamais annoncer « conforme WCAG » sans audit manuel suffisamment complet.
+
+---
+
+## 22. Interdictions absolues
+
+Il est interdit de :
+
+- utiliser un `<div>` comme bouton ;
+- supprimer le focus visible ;
+- utiliser un `tabIndex` positif ;
+- bloquer le zoom ;
+- utiliser la couleur seule pour un état ;
+- afficher du texte insuffisamment contrasté ;
+- ajouter une ARIA incorrecte ;
+- masquer un élément focusable aux lecteurs d'écran ;
+- créer un dialog sans gestion du focus ;
+- exiger un hover ou un swipe ;
+- jouer automatiquement une animation ou un média intrusif ;
+- utiliser une image de texte pour un contenu réalisable en HTML ;
+- considérer Lighthouse comme preuve unique ;
+- corriger l'accessibilité en désactivant une règle de lint.
+
+---
+
+## 23. Définition de terminé
+
+Une interface est accessible lorsqu'elle :
+
+- utilise un HTML sémantique ;
+- possède une hiérarchie de titres logique ;
+- fonctionne entièrement au clavier ;
+- ne piège jamais le focus ;
+- conserve un focus visible et non masqué ;
+- respecte les contrastes ;
+- reflue à `320px` ;
+- fonctionne avec un zoom à `200 %` ;
+- possède des noms accessibles ;
+- décrit correctement ses images ;
+- respecte la réduction des animations ;
+- suit les patterns accessibles pour menu, accordéon et dialog ;
+- a été contrôlée automatiquement et manuellement ;
+- ne contient aucune régression connue bloquante.
+
+## Références normatives
+
+- WCAG 2.2 : `https://www.w3.org/TR/WCAG22/`
+- WAI-ARIA Authoring Practices : `https://www.w3.org/WAI/ARIA/apg/patterns/`

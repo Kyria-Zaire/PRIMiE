@@ -1,0 +1,485 @@
+---
+description: Règles mobile-first, breakpoints, grilles et validation responsive de PRIMiE
+globs: app/**/*.css, app/**/*.tsx, components/**/*.tsx
+alwaysApply: false
+---
+
+# PRIMiE — Responsive design
+
+## 1. Principe directeur
+
+PRIMiE est conçu pour le mobile en premier.
+
+L'ordre de conception et de vérification est :
+
+1. petit mobile ;
+2. mobile standard ;
+3. grand mobile ;
+4. tablette ;
+5. ordinateur portable ;
+6. grand écran.
+
+Une version desktop réussie ne valide jamais automatiquement la version mobile.
+
+Le responsive ne consiste pas à réduire proportionnellement une composition
+desktop. Chaque largeur doit conserver :
+
+- la hiérarchie ;
+- la lisibilité ;
+- le parcours ;
+- les actions principales ;
+- la qualité des images ;
+- un rythme visuel cohérent.
+
+---
+
+## 2. Largeur minimale
+
+La landing page doit fonctionner sans débordement horizontal à partir de `320px`.
+
+À `320px` :
+
+- le contenu essentiel reste complet ;
+- les textes ne sont pas tronqués ;
+- les CTA restent utilisables ;
+- aucun élément n'impose une largeur fixe supérieure au viewport ;
+- les images conservent un cadrage utile ;
+- le menu mobile reste accessible.
+
+Ne pas réduire la taille des textes sous les limites du design system pour résoudre
+un problème de largeur.
+
+---
+
+## 3. Breakpoints de référence
+
+Utiliser les breakpoints Tailwind standards sauf besoin démontré :
+
+| Préfixe | Largeur minimale | Usage |
+| --- | --- | --- |
+| base | `0px` | mobile-first |
+| `sm` | `640px` | grand mobile et petits changements de disposition |
+| `md` | `768px` | tablette |
+| `lg` | `1024px` | ordinateur et navigation desktop |
+| `xl` | `1280px` | grands layouts |
+| `2xl` | `1536px` | ajustements rares |
+
+Règles :
+
+- écrire le style mobile sans préfixe ;
+- ajouter uniquement les changements nécessaires aux breakpoints ;
+- éviter un breakpoint personnalisé pour corriger un composant mal conçu ;
+- choisir les ruptures selon le contenu, pas selon un modèle d'appareil précis ;
+- ne pas utiliser de détection user-agent pour la mise en page.
+
+---
+
+## 4. Matrice de contrôle
+
+Vérifier au minimum les largeurs suivantes :
+
+```text
+320px
+360px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+```
+
+Vérifier également :
+
+- un mobile en orientation paysage ;
+- une hauteur d'écran réduite ;
+- un zoom navigateur à `200 %` ;
+- un texte agrandi ;
+- le menu et la lightbox ouverts.
+
+La validation ne doit pas reposer sur un seul preset DevTools.
+
+---
+
+## 5. Conteneurs
+
+Le conteneur principal suit le design system :
+
+- largeur maximale : `1280px` ;
+- padding mobile : `20px` ;
+- padding tablette : `32px` ;
+- padding desktop : `48px`.
+
+Patron recommandé :
+
+```tsx
+<div className="mx-auto w-full max-w-7xl px-5 md:px-8 lg:px-12">
+  {children}
+</div>
+```
+
+Adapter les classes au token réellement configuré. Ne pas créer plusieurs largeurs
+de conteneur presque identiques.
+
+Un enfant de grille ou flex doit recevoir `min-w-0` lorsqu'un contenu long peut
+provoquer un débordement.
+
+---
+
+## 6. Espacement fluide
+
+Les sections utilisent les valeurs du design system.
+
+Repères :
+
+- mobile : `72–88px` verticalement ;
+- tablette : `88–104px` ;
+- desktop : `112–144px`.
+
+Utiliser `clamp()` lorsque cela évite des ruptures brusques.
+
+Exemple :
+
+```css
+padding-block: clamp(4.5rem, 8vw, 8rem);
+```
+
+Ne pas multiplier les overrides breakpoint par breakpoint lorsqu'une valeur fluide
+suffit.
+
+---
+
+## 7. Typographie responsive
+
+Les grands titres utilisent une taille fluide dans les limites validées.
+
+Exemple :
+
+```css
+font-size: clamp(3rem, 9vw, 6rem);
+```
+
+Règles :
+
+- aucune taille basée uniquement sur `vw` ;
+- le body reste au minimum à `1rem` ;
+- les titres peuvent revenir sur plusieurs lignes ;
+- ne pas forcer un titre sur une ligne avec `whitespace-nowrap` ;
+- utiliser `text-wrap: balance` pour les titres lorsque pertinent ;
+- utiliser `text-wrap: pretty` pour les paragraphes lorsque supporté ;
+- limiter les largeurs de lecture ;
+- éviter les césures artificielles.
+
+La forme d'un titre peut varier avec la largeur, mais ses mots et son sens restent
+identiques.
+
+---
+
+## 8. Ordre du contenu
+
+L'ordre du DOM doit suivre l'ordre logique de lecture mobile.
+
+Utiliser les propriétés CSS d'ordre uniquement pour une variation visuelle mineure.
+
+Il est interdit de :
+
+- dupliquer un contenu pour avoir une version mobile et desktop ;
+- produire deux navigations depuis deux tableaux différents ;
+- inverser visuellement des éléments au point de casser la lecture clavier ;
+- masquer une information essentielle sur mobile ;
+- réserver une action importante au hover desktop.
+
+---
+
+## 9. Header
+
+Comportement recommandé :
+
+- mobile et tablette : identité, CTA essentiel si l'espace le permet, bouton menu ;
+- desktop à partir de `lg` : navigation complète et CTA ;
+- hauteur stable ;
+- zone tactile minimale de `44px` ;
+- aucun chevauchement avec le hero.
+
+Règles :
+
+- le logo doit rester lisible à `320px` ;
+- les liens desktop ne doivent pas être compressés ;
+- basculer vers le menu mobile avant collision ;
+- ne pas masquer brutalement le CTA principal sans alternative ;
+- les sections ciblées utilisent un `scroll-margin-top` adapté ;
+- un header sticky ne doit pas occuper une portion excessive du petit écran.
+
+---
+
+## 10. Menu mobile
+
+Le menu mobile doit :
+
+- utiliser toute la largeur utile ;
+- respecter les zones sûres de l'appareil ;
+- rester utilisable avec une hauteur réduite ;
+- permettre un scroll interne si nécessaire ;
+- présenter des liens suffisamment espacés ;
+- conserver le CTA WhatsApp visible ;
+- ne jamais dépasser le viewport.
+
+Préférer les unités de viewport modernes :
+
+- `svh` pour une hauteur stable ;
+- `dvh` pour une hauteur dynamique ;
+- éviter `100vh` comme unique solution sur mobile.
+
+---
+
+## 11. Hero
+
+### Mobile
+
+- contenu textuel prioritaire ;
+- CTA empilés ou pleine largeur si nécessaire ;
+- média cadré sans repousser l'action principale trop bas ;
+- aucun décor ne doit créer de débordement ;
+- hauteur guidée par le contenu.
+
+### Tablette
+
+- autoriser une composition asymétrique si l'espace le permet ;
+- garder une taille de titre maîtrisée ;
+- conserver un écart clair entre texte et image.
+
+### Desktop
+
+- grille texte/média ou composition éditoriale validée ;
+- largeur de texte limitée ;
+- image suffisamment grande pour montrer la coiffure ;
+- éviter un vide artificiel uniquement pour remplir l'écran.
+
+Ne pas imposer `min-height: 100vh` si le contenu ou un petit écran rend le hero
+inconfortable. Préférer `min-height` avec `svh` et une hauteur de contenu libre.
+
+---
+
+## 12. CTA
+
+Sur petit écran :
+
+- CTA principal pleine largeur si cela améliore la prise en main ;
+- CTA secondaires empilés avec un écart clair ;
+- zone tactile minimale de `44px` ;
+- libellé jamais tronqué ;
+- icône conservée sans réduire le texte.
+
+À partir de `sm` ou lorsque l'espace le permet :
+
+- les CTA peuvent être alignés horizontalement ;
+- aucune largeur fixe inutile ;
+- conserver l'ordre de priorité.
+
+Un CTA ne doit jamais sortir de son conteneur à cause d'un texte plus long.
+
+---
+
+## 13. Grilles de contenu
+
+Repères initiaux :
+
+| Contenu | Mobile | Tablette | Desktop |
+| --- | --- | --- | --- |
+| Services | 1 colonne | 2 colonnes | 3 colonnes |
+| Bénéfices | 1 colonne | 2 colonnes | 3 colonnes |
+| Avis | 1 colonne | 2 colonnes | 3 colonnes si lisible |
+| Contact | 1 colonne | 1 ou 2 colonnes | 2 colonnes |
+
+Ces valeurs sont des points de départ. Le contenu décide du nombre final.
+
+Règles :
+
+- utiliser `gap` plutôt que des marges entre enfants ;
+- ne pas fixer la hauteur d'une carte pour égaliser artificiellement ;
+- autoriser les cartes à s'étirer naturellement dans une même ligne ;
+- une colonne supplémentaire ne doit pas réduire la lisibilité ;
+- utiliser `auto-fit` ou `minmax()` seulement si le résultat reste prévisible.
+
+---
+
+## 14. Galerie
+
+Repères :
+
+- petit mobile : 2 colonnes si chaque aperçu reste lisible, sinon 1 ;
+- grand mobile : 2 colonnes ;
+- tablette : 3 colonnes ;
+- desktop : 3 ou 4 colonnes selon le ratio des médias.
+
+Règles :
+
+- conserver des gaps suffisamment grands pour distinguer les images ;
+- ne pas charger toutes les images en priorité ;
+- conserver un ratio cohérent par famille de médias ;
+- éviter une masonry complexe en V1 ;
+- les filtres peuvent défiler horizontalement uniquement avec un indicateur visuel
+  et sans masquer d'option ;
+- la lightbox doit fonctionner sur écran étroit et en paysage ;
+- les boutons précédent, suivant et fermer restent dans la zone visible.
+
+---
+
+## 15. Images responsives
+
+Utiliser `next/image` avec un attribut `sizes` correspondant à la grille réelle.
+
+Exemple indicatif pour une carte :
+
+```tsx
+sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+```
+
+Adapter la valeur au conteneur, pas uniquement au viewport.
+
+Règles :
+
+- définir le ratio via le conteneur ;
+- utiliser `fill` uniquement avec un parent positionné et dimensionné ;
+- définir le point focal avec `object-position` si nécessaire ;
+- fournir une image ou composition adaptée au hero ;
+- ne pas utiliser `priority` sur toute la galerie ;
+- éviter les sources surdimensionnées ;
+- vérifier le cadrage à chaque largeur cible.
+
+---
+
+## 16. Contenus longs
+
+Tester :
+
+- titre plus long ;
+- description sur plusieurs lignes ;
+- nom de service long ;
+- numéro de téléphone ;
+- URL de réseau social ;
+- réponse FAQ longue ;
+- CTA avec libellé explicite.
+
+Utiliser selon le contexte :
+
+- `min-w-0` ;
+- `overflow-wrap: anywhere` pour une URL incontrôlable ;
+- `break-words` ;
+- une largeur maximale de lecture.
+
+Ne pas appliquer `truncate` à un contenu dont la version complète est nécessaire.
+
+---
+
+## 17. Débordements
+
+Avant d'utiliser `overflow-x-hidden`, identifier la cause du débordement.
+
+Causes fréquentes :
+
+- largeur fixe ;
+- `100vw` dans un conteneur avec scrollbar ;
+- élément absolu décoratif ;
+- transformation ;
+- image sans contrainte ;
+- chaîne non cassable ;
+- grille avec une largeur minimale trop grande ;
+- padding ajouté à une largeur totale.
+
+`overflow-x-hidden` ne doit pas servir à masquer un bug de layout.
+
+Un décor absolu peut être isolé dans un wrapper avec overflow contrôlé.
+
+---
+
+## 18. CSS et JavaScript
+
+Utiliser CSS pour la mise en page responsive.
+
+Ne pas :
+
+- lire `window.innerWidth` pendant le rendu ;
+- créer deux arbres React selon la largeur ;
+- ajouter un listener resize pour changer une simple grille ;
+- utiliser JavaScript pour une adaptation réalisable avec media queries ;
+- provoquer un décalage d'hydratation selon le viewport.
+
+JavaScript est acceptable uniquement lorsqu'un comportement, et non une simple
+présentation, dépend réellement de la largeur.
+
+---
+
+## 19. Accessibilité au zoom
+
+À `200 %` :
+
+- le contenu reste disponible ;
+- la navigation bascule vers un mode utilisable avant collision ;
+- aucun texte n'est coupé ;
+- les dialogs restent contrôlables ;
+- le focus reste visible ;
+- aucune action n'est inaccessible ;
+- la page ne force pas un scroll horizontal et vertical combiné sans nécessité.
+
+Ne pas désactiver le zoom dans le viewport.
+
+---
+
+## 20. Validation section par section
+
+Pour chaque section, vérifier :
+
+1. ordre de lecture ;
+2. largeur des textes ;
+3. retours à la ligne ;
+4. taille des CTA ;
+5. cadrage des images ;
+6. nombre de colonnes ;
+7. gaps et padding ;
+8. focus clavier ;
+9. absence de débordement ;
+10. contenu long ;
+11. orientation paysage ;
+12. zoom.
+
+Une capture desktop seule ne constitue pas une validation responsive.
+
+---
+
+## 21. Interdictions
+
+Il est interdit de :
+
+- construire desktop puis « corriger » mobile à la fin ;
+- utiliser des largeurs fixes pour le contenu principal ;
+- masquer un contenu important sur mobile ;
+- dupliquer le DOM par breakpoint ;
+- utiliser `100vh` sans considérer les navigateurs mobiles ;
+- ajouter des breakpoints pour chaque appareil ;
+- utiliser la détection user-agent pour la mise en page ;
+- tronquer un CTA ;
+- réduire le body sous `1rem` ;
+- cacher un débordement sans en corriger la cause ;
+- exiger un hover ;
+- bloquer le zoom ;
+- charger une image desktop énorme sur mobile sans `sizes` adapté ;
+- valider uniquement à `375px` et `1440px`.
+
+---
+
+## 22. Définition de terminé
+
+Une interface est responsive lorsqu'elle :
+
+- fonctionne de `320px` au grand écran ;
+- conserve le parcours WhatsApp ;
+- ne présente aucun débordement involontaire ;
+- garde une hiérarchie lisible ;
+- utilise des images correctement dimensionnées et cadrées ;
+- reste utilisable au tactile et au clavier ;
+- supporte le zoom et le texte agrandi ;
+- reste fonctionnelle en orientation paysage ;
+- n'utilise pas JavaScript pour une simple mise en page ;
+- a été vérifiée sur la matrice de contrôle.

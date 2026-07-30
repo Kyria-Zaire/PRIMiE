@@ -1,0 +1,498 @@
+---
+paths:
+  - "**/*.md"
+  - "**/*.mdx"
+  - "README*"
+  - "CHANGELOG*"
+  - "docs/**/*"
+  - "package.json"
+  - "content/**/*.ts"
+---
+
+# Documentation
+
+## 1. Objectif
+
+La documentation PRIMiE doit aider une personne à :
+
+- comprendre le produit ;
+- installer et exécuter le projet ;
+- localiser les sources de vérité ;
+- contribuer sans casser les décisions validées ;
+- tester et déployer correctement ;
+- reprendre un incident ou une maintenance.
+
+Documenter ce qui est durable et difficile à déduire.
+
+Le code reste la source de vérité du comportement exécutable.
+
+---
+
+## 2. Principe de proportion
+
+PRIMiE est une landing page : ne pas créer une encyclopédie.
+
+Une documentation est justifiée si elle :
+
+- répond à une question récurrente ;
+- protège une décision ;
+- explique une procédure ;
+- évite une erreur coûteuse.
+
+Ne pas créer :
+
+- un document par composant ;
+- une page pour une information évidente dans le code ;
+- un rapport permanent pour chaque petite tâche ;
+- plusieurs fichiers décrivant la même décision ;
+- une architecture future présentée comme actuelle.
+
+Préférer un petit document maintenu à un grand document ignoré.
+
+---
+
+## 3. Types de documentation
+
+Séparer les besoins :
+
+| Type | Question | Exemple PRIMiE |
+| --- | --- | --- |
+| Tutoriel | Comment apprendre ? | Prise en main du projet |
+| Guide | Comment accomplir une tâche ? | Déployer une Preview |
+| Référence | Quelle est la règle exacte ? | Variables et scripts |
+| Explication | Pourquoi ce choix ? | Architecture ou design |
+
+Ne pas mélanger une procédure pas à pas avec une longue justification au milieu
+de chaque étape.
+
+Lier vers l’explication si nécessaire.
+
+---
+
+## 4. Sources de vérité
+
+| Information | Source principale |
+| --- | --- |
+| Identité et contexte global | `CLAUDE.md` |
+| Périmètre produit | `.claude/rules/01-product-scope.md` |
+| Contenu affiché | `content/` et configuration de contenu |
+| Services validés | Règle produit/contenu et données centrales |
+| Architecture | `.claude/rules/02-architecture.md` |
+| Design tokens | Règle design et code des tokens |
+| Scripts exécutables | `package.json` |
+| Dépendances exactes | `package.json` et `pnpm-lock.yaml` |
+| Workflow Git | `.claude/rules/14-git-workflow.md` |
+| Déploiement | `.claude/rules/15-deployment.md` |
+| Décisions majeures | ADR validés |
+| Changements publiés | `CHANGELOG.md` lorsqu’il existe |
+
+Un document secondaire doit lier vers la source au lieu de recopier une longue
+liste.
+
+---
+
+## 5. Éviter les doublons
+
+Avant d’ajouter une information :
+
+1. rechercher si elle existe ;
+2. identifier la source la plus légitime ;
+3. mettre à jour cette source ;
+4. remplacer les copies par des liens ;
+5. vérifier les références.
+
+Si une duplication courte est nécessaire pour la lisibilité, indiquer clairement
+la source canonique.
+
+Ne pas synchroniser manuellement trois versions d’une même commande, couleur ou
+donnée de contact.
+
+---
+
+## 6. README racine
+
+`README.md` est la porte d’entrée du dépôt.
+
+Il doit contenir :
+
+1. nom du projet ;
+2. objectif en quelques lignes ;
+3. statut réel ;
+4. stack réellement installée ;
+5. prérequis ;
+6. installation ;
+7. commandes utiles ;
+8. structure principale ;
+9. variables nécessaires sans valeur secrète ;
+10. tests ;
+11. déploiement ou lien vers le guide ;
+12. gouvernance IA ;
+13. propriétaire ou mainteneur seulement si confirmé.
+
+Exemple de démarrage :
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Ne pas inclure une commande qui n’existe pas dans `package.json`.
+
+---
+
+## 7. Statut du projet
+
+Employer des statuts explicites :
+
+- `Proposé` : idée non validée ;
+- `Validé` : décision acceptée, pas nécessairement développée ;
+- `En cours` : implémentation active ;
+- `Implémenté` : présent dans le code ;
+- `Vérifié` : contrôles exécutés avec succès ;
+- `Déployé` : accessible dans l’environnement nommé ;
+- `Déprécié` : encore présent, remplacement prévu ;
+- `Supprimé` : retiré du produit.
+
+Ne pas écrire « terminé », « prêt pour la production » ou « sécurisé » sans
+critères et preuves correspondants.
+
+---
+
+## 8. Vérité produit
+
+Seuls les faits métier confirmés peuvent être documentés comme actuels.
+
+Ne jamais inventer :
+
+- adresse ou ville ;
+- horaires ;
+- tarifs ;
+- zone d’intervention ;
+- réseaux sociaux ;
+- avis ;
+- expérience ;
+- identité légale ;
+- politique commerciale ;
+- chiffres de performance.
+
+Pour une information manquante, écrire `À confirmer` dans un document de travail,
+pas sur le site public.
+
+---
+
+## 9. Markdown
+
+Utiliser GitHub Flavored Markdown.
+
+Règles :
+
+- un seul titre `#` ;
+- hiérarchie sans saut arbitraire ;
+- paragraphes courts ;
+- listes pour des éléments comparables ;
+- tableaux pour des correspondances exactes ;
+- code inline pour fichiers, commandes et identifiants ;
+- blocs de code avec langage ;
+- ligne vide autour des listes, tableaux et blocs ;
+- liens descriptifs ;
+- aucun HTML si Markdown suffit.
+
+Ne pas utiliser le gras sur chaque phrase ni multiplier les emojis.
+
+---
+
+## 10. Commandes et exemples
+
+Chaque commande doit :
+
+- être compatible avec le projet ;
+- préciser le répertoire si nécessaire ;
+- éviter les secrets ;
+- être non destructive par défaut ;
+- indiquer les prérequis ;
+- produire le résultat décrit.
+
+Exemple :
+
+```bash
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm build
+```
+
+Tester les exemples lorsque l’environnement le permet.
+
+Sinon, les marquer comme non vérifiés.
+
+Ne pas utiliser `npm` ou `yarn` dans un exemple PRIMiE.
+
+---
+
+## 11. Liens
+
+Préférer :
+
+- liens relatifs pour les fichiers du dépôt ;
+- URL officielle pour une documentation externe ;
+- ancre précise si elle est stable ;
+- libellé qui annonce la destination.
+
+Après une modification :
+
+- vérifier le fichier cible ;
+- vérifier la casse ;
+- rechercher les liens vers un fichier renommé ;
+- éviter les liens vers une page temporaire ou une recherche.
+
+Ne pas créer un lien fictif en attendant une future page.
+
+---
+
+## 12. Documentation du code
+
+Le code doit être lisible sans commentaire constant.
+
+Commenter :
+
+- pourquoi un choix non évident existe ;
+- contrainte externe ;
+- compromis ;
+- règle métier difficile à déduire ;
+- comportement de sécurité ;
+- workaround temporaire avec condition de retrait.
+
+Ne pas commenter :
+
+- ce que la ligne fait littéralement ;
+- une ancienne implémentation supprimée ;
+- une hypothèse non vérifiée ;
+- un TODO sans action.
+
+Les API partagées peuvent utiliser TSDoc si leur contrat ne ressort pas des
+types.
+
+---
+
+## 13. ADR
+
+Créer un Architecture Decision Record seulement pour une décision :
+
+- structurante ;
+- difficile à inverser ;
+- avec plusieurs options crédibles ;
+- importante pour les futurs mainteneurs.
+
+Emplacement recommandé :
+
+```text
+docs/decisions/
+```
+
+Nom :
+
+```text
+0001-use-next-app-router.md
+```
+
+Structure :
+
+```md
+# ADR 0001 — Titre
+
+## Statut
+Proposé | Accepté | Remplacé | Rejeté
+
+## Contexte
+## Décision
+## Options considérées
+## Conséquences
+## Liens
+```
+
+Ne pas créer un ADR pour une couleur, un espacement ou une petite correction.
+
+---
+
+## 14. Guides opérationnels
+
+Une procédure de déploiement, rollback ou incident doit préciser :
+
+- objectif ;
+- prérequis ;
+- permissions ;
+- environnement ;
+- étapes ;
+- validations ;
+- critères d’arrêt ;
+- retour arrière ;
+- éléments à consigner.
+
+La commande sensible doit être précédée d’une vérification de cible.
+
+Ne jamais mettre une valeur secrète ou un identifiant personnel dans un runbook.
+
+---
+
+## 15. CHANGELOG
+
+Créer `CHANGELOG.md` lorsque PRIMiE commence à publier des versions identifiées.
+
+Le changelog est destiné aux humains.
+
+Organiser par version et catégories :
+
+```md
+## [Unreleased]
+
+### Added
+### Changed
+### Fixed
+### Security
+```
+
+Pour chaque release :
+
+- version ;
+- date `YYYY-MM-DD` ;
+- changements notables ;
+- impact utilisateur ;
+- migration éventuelle.
+
+Ne pas copier automatiquement `git log`.
+
+---
+
+## 16. Documentation IA
+
+Répartition :
+
+- `.cursor/rules/` : règles Cursor ciblées ;
+- `CLAUDE.md` : contexte Claude global et concis ;
+- `.claude/rules/` : règles Claude ciblées ;
+- `.claude/skills/` : procédures réutilisables ;
+- `.claude/commands/` : compatibilité de commandes existantes si retenue.
+
+Une règle doit être :
+
+- spécifique ;
+- vérifiable ;
+- concise ;
+- limitée à son contexte ;
+- sans contradiction.
+
+Ne pas recopier intégralement toutes les règles dans `CLAUDE.md`.
+
+---
+
+## 17. Documentation générée par IA
+
+Claude doit vérifier :
+
+- existence des fichiers cités ;
+- scripts réels ;
+- versions installées ;
+- statut des fonctionnalités ;
+- décisions validées ;
+- liens ;
+- résultats des commandes annoncés.
+
+Interdictions :
+
+- faux badge ;
+- faux test ;
+- faux endpoint ;
+- faux domaine ;
+- fausse capture ;
+- faux contributeur ;
+- licence inventée ;
+- fonctionnalité future au présent.
+
+Une formulation élégante ne compense jamais une information fausse.
+
+---
+
+## 18. Mise à jour synchronisée
+
+Mettre à jour la documentation dans le même changement lorsque :
+
+- commande modifiée ;
+- variable ajoutée ou supprimée ;
+- architecture changée ;
+- règle métier remplacée ;
+- procédure de déploiement changée ;
+- fichier déplacé ;
+- fonctionnalité visible ajoutée ou retirée ;
+- décision dépréciée.
+
+Si une documentation devient fausse, la corriger ou la supprimer.
+
+Ne pas ajouter une seconde note contradictoire à côté.
+
+---
+
+## 19. Revue documentaire
+
+Vérifier :
+
+- lecteur et objectif clairs ;
+- exactitude ;
+- source de vérité ;
+- statut ;
+- commandes ;
+- liens ;
+- structure Markdown ;
+- absence de doublon ;
+- absence de secret ou donnée privée ;
+- cohérence avec le code ;
+- date uniquement si utile ;
+- prochaine action identifiable.
+
+Lire le document rendu, pas seulement le Markdown brut.
+
+---
+
+## 20. Anti-patterns interdits
+
+- README généré sans lire le dépôt.
+- Stack annoncée mais non installée.
+- Commande absente de `package.json`.
+- Document « final » décrivant une idée.
+- Copie du même contenu dans cinq règles.
+- Long commentaire qui compense un code confus.
+- Capture contenant une donnée privée.
+- ADR pour chaque décision mineure.
+- Changelog égal au journal Git.
+- Badge sans service configuré.
+- Lien fictif ou cassé.
+- Documentation ajoutée après coup et oubliée.
+- Résultat de test annoncé sans exécution.
+- Information légale inventée.
+
+---
+
+## 21. Definition of Done
+
+Une documentation est terminée lorsque :
+
+- elle répond à un besoin identifié ;
+- son public et son statut sont clairs ;
+- les faits correspondent au code et aux validations ;
+- les informations métier sont confirmées ;
+- les commandes et chemins existent ;
+- les exemples sont testés ou marqués non vérifiés ;
+- les liens fonctionnent ;
+- aucun secret ni donnée privée n’apparaît ;
+- elle ne duplique pas une autre source ;
+- les documents affectés sont synchronisés ;
+- le rendu Markdown est lisible ;
+- son retrait futur est possible sans perdre la source canonique.
+
+---
+
+## 22. Références officielles
+
+- GitHub Docs — About READMEs : https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes
+- GitHub Docs — Writing and formatting : https://docs.github.com/en/get-started/writing-on-github
+- Diátaxis — Documentation system : https://diataxis.fr/
+- Keep a Changelog : https://keepachangelog.com/en/2.0.0/

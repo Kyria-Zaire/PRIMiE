@@ -1,0 +1,495 @@
+---
+description: Budgets, Core Web Vitals et règles de performance frontend pour PRIMiE
+globs: app/**/*.ts, app/**/*.tsx, app/**/*.css, components/**/*.tsx, public/**/*, next.config.ts, package.json
+alwaysApply: false
+---
+
+# PRIMiE — Performance
+
+## 1. Objectif
+
+PRIMiE doit rester rapide sur un téléphone courant et une connexion mobile réelle.
+
+La performance sert directement :
+
+- la découverte des prestations ;
+- la consultation des réalisations ;
+- la conversion WhatsApp ;
+- l'accessibilité ;
+- le référencement ;
+- la perception de qualité.
+
+Une animation, police ou image ne doit pas dégrader le parcours principal sans valeur
+mesurable.
+
+---
+
+## 2. Core Web Vitals
+
+Objectifs au 75e percentile, sur mobile et desktop :
+
+| Métrique | Objectif « bon » |
+| --- | --- |
+| Largest Contentful Paint — LCP | `≤ 2,5 s` |
+| Interaction to Next Paint — INP | `≤ 200 ms` |
+| Cumulative Layout Shift — CLS | `≤ 0,1` |
+
+Les données terrain sont prioritaires lorsqu'elles deviennent disponibles.
+
+Un score Lighthouse local ne remplace pas la mesure réelle des utilisatrices.
+
+---
+
+## 3. Budgets PRIMiE
+
+Budgets initiaux de la landing page :
+
+| Ressource | Budget cible |
+| --- | --- |
+| JavaScript initial compressé | `≤ 150 Ko` |
+| JavaScript total de la route compressé | `≤ 220 Ko` |
+| CSS compressé | `≤ 50 Ko` |
+| Image LCP optimisée | idéalement `≤ 400 Ko` |
+| Police totale transférée | idéalement `≤ 200 Ko` |
+| Ressources critiques au premier écran | idéalement `≤ 1 Mo` |
+
+Ces budgets sont des garde-fous internes, pas des seuils officiels universels.
+
+Une exception doit :
+
+1. identifier la ressource ;
+2. expliquer sa valeur ;
+3. mesurer son impact ;
+4. évaluer une alternative ;
+5. être signalée au CTO.
+
+---
+
+## 4. Rendu serveur par défaut
+
+Chaque composant reste un Server Component sauf interaction réelle.
+
+Bénéfices recherchés :
+
+- moins de JavaScript envoyé ;
+- contenu visible rapidement ;
+- HTML indexable ;
+- hydratation limitée ;
+- meilleure résilience.
+
+Il est interdit de placer `"use client"` :
+
+- dans `app/page.tsx` ;
+- sur une section statique ;
+- pour une animation simple réalisable en CSS ;
+- uniquement afin d'accéder à une constante ;
+- par propagation depuis un enfant interactif.
+
+La frontière client doit être placée au plus bas.
+
+---
+
+## 5. JavaScript client
+
+Le JavaScript client est réservé à :
+
+- menu mobile ;
+- filtres de galerie ;
+- lightbox ;
+- accordéon si la primitive l'exige ;
+- animations nécessitant réellement Framer Motion.
+
+Règles :
+
+- éviter les handlers sur des éléments statiques ;
+- ne pas stocker une valeur dérivable dans le state ;
+- ne pas ajouter un listener global sans nettoyage ;
+- éviter les calculs lourds pendant une interaction ;
+- ne pas hydrater des données inutiles ;
+- ne pas sérialiser un grand tableau vers plusieurs îlots clients ;
+- mesurer avant d'ajouter une optimisation complexe.
+
+---
+
+## 6. Dépendances
+
+Avant toute nouvelle dépendance :
+
+1. vérifier les API natives ;
+2. vérifier Next.js ;
+3. vérifier les dépendances déjà installées ;
+4. examiner la taille client ;
+5. vérifier le tree-shaking ;
+6. vérifier la maintenance ;
+7. justifier l'ajout.
+
+Interdictions :
+
+- deux bibliothèques pour le même rôle ;
+- bibliothèque de carrousel pour quelques cartes statiques ;
+- bibliothèque d'images en plus de `next/image` ;
+- bibliothèque SEO ;
+- bibliothèque d'icônes en plus de Lucide ;
+- utilitaire lourd pour quelques fonctions simples ;
+- import du package complet lorsqu'un import ciblé existe.
+
+---
+
+## 7. Analyse du bundle
+
+Utiliser l'analyseur de bundle Next.js lorsqu'une dépendance importante est ajoutée
+ou qu'un budget régresse.
+
+Contrôler :
+
+- modules les plus lourds ;
+- duplications ;
+- code client inattendu ;
+- import complet d'une bibliothèque ;
+- polyfill inutile ;
+- composant présent dans le bundle initial sans nécessité.
+
+Ne pas ajouter l'analyseur au runtime de production.
+
+Documenter la mesure avant et après une optimisation significative.
+
+---
+
+## 8. LCP
+
+Identifier explicitement l'élément LCP du premier écran.
+
+S'il s'agit de l'image hero :
+
+- utiliser `next/image` ;
+- fournir des dimensions ou un conteneur stable ;
+- utiliser `sizes` ;
+- charger l'image avec la priorité appropriée ;
+- éviter un lazy loading accidentel ;
+- optimiser poids et dimensions ;
+- ne pas la cacher derrière une animation d'entrée ;
+- ne pas la charger via JavaScript après hydratation.
+
+S'il s'agit d'un bloc de texte :
+
+- optimiser les polices ;
+- éviter les feuilles de style bloquantes inutiles ;
+- rendre le contenu côté serveur.
+
+Ne pas marquer plusieurs images comme prioritaires sans mesure.
+
+---
+
+## 9. Images
+
+- Utiliser `next/image`.
+- Utiliser WebP ou AVIF lorsque pertinent.
+- Définir `sizes` selon la grille réelle.
+- Réserver la priorité au média critique.
+- Charger la galerie en différé.
+- Éviter les dimensions source excessives.
+- Préserver les détails de coiffure avec une compression mesurée.
+- Ne pas utiliser un PNG lourd pour une photographie opaque.
+- Ne pas désactiver l'optimisation globalement.
+- Ne pas importer toutes les réalisations dans le bundle client si elles ne sont pas
+  nécessaires.
+
+Une image CSS de fond ne doit pas devenir le LCP principal par facilité si une image
+Next.js superposée peut offrir une meilleure stratégie de chargement.
+
+---
+
+## 10. Stabilité visuelle
+
+Pour maintenir un CLS faible :
+
+- réserver l'espace des images ;
+- utiliser des dimensions intrinsèques ;
+- réserver l'espace du header ;
+- charger les polices sans déplacement excessif ;
+- éviter l'insertion tardive au-dessus du contenu ;
+- ne pas changer la hauteur d'une section après hydratation ;
+- stabiliser les placeholders ;
+- conserver une taille cohérente pour les icônes ;
+- ne pas afficher tardivement une bannière non réservée.
+
+Une animation par transform ne doit pas modifier le flux de la page.
+
+---
+
+## 11. INP
+
+Pour conserver une interaction rapide :
+
+- handlers courts ;
+- filtrage de galerie léger ;
+- aucun calcul coûteux pendant le clic ;
+- aucun rendu massif inutile ;
+- composants clients limités ;
+- pas de listener scroll permanent sans besoin ;
+- pas de state global ;
+- pas d'effet déclenchant une cascade de rendus ;
+- utilisation de CSS pour hover et transitions simples.
+
+Si une interaction devient lente :
+
+1. mesurer ;
+2. identifier la tâche longue ;
+3. réduire le travail ;
+4. fractionner uniquement si nécessaire ;
+5. vérifier sur appareil mobile.
+
+Ne pas utiliser `useMemo` ou `useCallback` automatiquement.
+
+---
+
+## 12. Polices
+
+Utiliser `next/font`.
+
+Familles prévues :
+
+- `Cormorant Garamond` ;
+- `Manrope` ;
+- `Allura` comme accent occasionnel.
+
+Règles :
+
+- charger seulement les graisses utilisées ;
+- limiter les subsets ;
+- utiliser `display: swap` ou la stratégie produite par Next.js ;
+- définir des fallbacks proches ;
+- éviter une requête Google Fonts côté navigateur ;
+- ne pas précharger chaque variante ;
+- ne charger `Allura` que si elle est réellement utilisée ;
+- reconsidérer la police décorative si elle dégrade le premier écran.
+
+Le système visuel ne doit pas dépendre de dix fichiers de police.
+
+---
+
+## 13. CSS et Tailwind
+
+- Utiliser les classes détectables statiquement.
+- Éviter la construction dynamique de classes.
+- Supprimer les styles morts lors d'une refonte ciblée.
+- Ne pas importer une feuille de style tierce globale inutile.
+- Éviter les sélecteurs complexes.
+- Utiliser les tokens existants.
+- Préférer transform et opacity pour les animations.
+- Ne pas animer `width`, `height`, `top` ou `left` sans nécessité.
+- Ne pas multiplier les filtres, blur et backdrop-filter coûteux.
+
+Un effet glassmorphism ou blur important nécessite une vérification mobile.
+
+---
+
+## 14. Framer Motion
+
+Framer Motion doit être utilisé avec retenue.
+
+Règles :
+
+- isoler les composants animés ;
+- éviter de rendre toute la page cliente ;
+- utiliser CSS pour les micro-interactions simples ;
+- limiter les animations simultanées ;
+- utiliser `LazyMotion` si la mesure montre un gain pertinent ;
+- éviter les animations de layout sur une grande galerie ;
+- respecter `prefers-reduced-motion` ;
+- ne pas retarder le CTA ;
+- ne pas animer un contenu hors écran sans bénéfice.
+
+Une animation supprimée doit laisser la composition complète.
+
+---
+
+## 15. Lightbox et galerie
+
+- Ne pas monter toutes les images haute définition dans le viewport initial.
+- Charger le média agrandi lors de l'ouverture ou selon une stratégie mesurée.
+- Préserver une vignette optimisée dans la grille.
+- Ne pas précharger toute la galerie.
+- Garder les filtres purement locaux.
+- Utiliser des identifiants stables.
+- Ne pas reconstruire toutes les données à chaque rendu.
+- Éviter une masonry JavaScript.
+
+La galerie doit rester visible sans JavaScript ; les interactions sont une amélioration.
+
+---
+
+## 16. Chargement différé
+
+Le lazy loading est adapté à :
+
+- images sous la ligne de flottaison ;
+- lightbox ;
+- composant lourd non visible initialement ;
+- script tiers après consentement et besoin validé.
+
+Il n'est pas adapté à :
+
+- image LCP ;
+- titre principal ;
+- CTA WhatsApp ;
+- contenu du premier écran ;
+- navigation.
+
+Ne pas introduire un écran de chargement pour du contenu statique.
+
+---
+
+## 17. Imports dynamiques
+
+Utiliser `dynamic()` seulement lorsqu'il réduit réellement le bundle initial.
+
+Avant :
+
+- mesurer la taille du composant ;
+- vérifier son moment d'utilisation ;
+- prévoir un fallback stable ;
+- éviter un layout shift ;
+- vérifier l'accessibilité.
+
+Ne pas découper chaque petit composant. Trop de chunks peut également dégrader le
+chargement.
+
+---
+
+## 18. Scripts tiers
+
+La V1 ne doit pas charger par défaut :
+
+- chat widget tiers ;
+- pixel publicitaire ;
+- heatmap ;
+- tracker de session ;
+- vidéo externe lourde ;
+- widget social embarqué ;
+- carte interactive ;
+- gestionnaire de tags sans stratégie.
+
+Avant intégration :
+
+1. besoin validé ;
+2. impact vie privée ;
+3. consentement si nécessaire ;
+4. impact performance ;
+5. stratégie de chargement ;
+6. alternative légère.
+
+Un simple lien Instagram ou WhatsApp est préférable à un widget lourd.
+
+---
+
+## 19. Mesure en laboratoire
+
+Utiliser selon disponibilité :
+
+- Lighthouse ;
+- Chrome DevTools Performance ;
+- Network panel ;
+- Coverage ;
+- bundle analyzer ;
+- test avec throttling mobile.
+
+Mesurer :
+
+- build de production ;
+- cache froid ;
+- viewport mobile ;
+- connexion ralentie ;
+- CPU ralenti ;
+- premier chargement et interactions.
+
+Ne pas tirer de conclusion depuis le serveur de développement uniquement.
+
+---
+
+## 20. Données terrain
+
+Après un trafic suffisant :
+
+- consulter Search Console/Core Web Vitals ;
+- comparer mobile et desktop ;
+- observer le 75e percentile ;
+- identifier les pages ou éléments concernés ;
+- ne pas conclure à partir de quelques visites ;
+- distinguer données de laboratoire et terrain.
+
+Une collecte personnalisée de Web Vitals n'est ajoutée qu'après validation de l'outil
+d'analytics et de la politique de confidentialité.
+
+---
+
+## 21. Contrôles avant livraison
+
+Vérifier :
+
+1. `pnpm build` ;
+2. taille du bundle ;
+3. frontières client ;
+4. élément LCP ;
+5. image hero ;
+6. dimensions de toutes les images ;
+7. chargement des polices ;
+8. CLS pendant le chargement ;
+9. menu mobile ;
+10. filtres de galerie ;
+11. lightbox ;
+12. réduction des animations ;
+13. absence de script tiers imprévu ;
+14. Lighthouse mobile ;
+15. budgets du projet.
+
+Signaler toute mesure non exécutée.
+
+---
+
+## 22. Interdictions absolues
+
+Il est interdit de :
+
+- rendre toute la landing page cliente ;
+- charger toute la galerie en priorité ;
+- charger toutes les graisses de police ;
+- ajouter une dépendance sans analyser son impact ;
+- désactiver l'optimisation d'image ;
+- utiliser un GIF lourd ;
+- intégrer un widget tiers par facilité ;
+- optimiser sans mesurer ;
+- masquer un problème de CLS ;
+- ajouter des `useMemo` partout ;
+- construire une classe Tailwind dynamiquement ;
+- retarder le CTA par une animation ;
+- considérer Lighthouse comme donnée terrain ;
+- prétendre respecter un budget sans mesurer le build ;
+- dégrader l'accessibilité pour améliorer un score.
+
+---
+
+## 23. Définition de terminé
+
+Une fonctionnalité est performante lorsqu'elle :
+
+- respecte les budgets ou documente l'écart ;
+- limite le JavaScript client ;
+- conserve un LCP optimisé ;
+- évite les shifts ;
+- reste réactive ;
+- charge les images aux bonnes dimensions ;
+- charge seulement les polices nécessaires ;
+- n'ajoute aucun script tiers injustifié ;
+- fonctionne en build de production ;
+- est testée sur un profil mobile ;
+- distingue mesure laboratoire et terrain ;
+- ne sacrifie ni design, ni accessibilité, ni honnêteté.
+
+## Références officielles
+
+- Core Web Vitals : `https://web.dev/articles/vitals`
+- LCP : `https://web.dev/articles/lcp`
+- INP : `https://web.dev/articles/inp`
+- CLS : `https://web.dev/articles/cls`
+- Checklist production Next.js : `https://nextjs.org/docs/app/guides/production-checklist`

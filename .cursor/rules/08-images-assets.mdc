@@ -1,0 +1,493 @@
+---
+description: Gestion, droits, optimisation et usage des images et ressources de PRIMiE
+globs: public/**/*, content/gallery.ts, content/services.ts, components/**/*.tsx, next.config.ts
+alwaysApply: false
+---
+
+# PRIMiE — Images et ressources
+
+## 1. Objectif
+
+Les images sont une partie centrale de l'expérience PRIMiE.
+
+Cette règle garantit :
+
+- une distinction honnête entre réalisation et illustration ;
+- des droits d'utilisation vérifiables ;
+- une qualité visuelle cohérente ;
+- de bonnes performances ;
+- une organisation durable ;
+- des textes alternatifs utiles ;
+- l'absence de donnée privée cachée.
+
+Une belle image ne doit jamais être intégrée si son origine, son statut ou son droit
+d'utilisation n'est pas maîtrisé.
+
+---
+
+## 2. Catégories d'images
+
+Toute image de contenu appartient à une catégorie explicite :
+
+### `realization`
+
+Photographie d'une coiffure réellement réalisée par Prisca.
+
+Conditions :
+
+- provenance confirmée ;
+- autorisation de publication obtenue ;
+- identité de la personne protégée selon l'autorisation ;
+- aucune retouche trompeuse ;
+- peut apparaître dans « Nos réalisations ».
+
+### `illustration`
+
+Photographie de stock, image générée par IA ou visuel d'inspiration.
+
+Conditions :
+
+- droit d'utilisation maîtrisé ;
+- ne jamais l'attribuer à Prisca ;
+- ne jamais la présenter comme une cliente ;
+- ne pas l'intégrer dans une galerie intitulée « Nos réalisations » sans mention claire.
+
+### `brand`
+
+Logo, monogramme, favicon, motif ou ressource officielle PRIMiE.
+
+### `decorative`
+
+Texture, forme ou élément n'apportant aucune information.
+
+Une image décorative doit utiliser un texte alternatif vide.
+
+---
+
+## 3. Règle d'honnêteté
+
+Il est strictement interdit de :
+
+- présenter une image IA comme une réalisation réelle ;
+- présenter une image de stock comme une cliente ;
+- copier une photo de coiffure trouvée sur Internet sans autorisation ;
+- supprimer un crédit obligatoire ;
+- inventer une source ou une licence ;
+- modifier une image au point de falsifier le résultat ;
+- laisser croire qu'un modèle représente Prisca sans validation.
+
+En cas de doute, classer l'image comme non publiable jusqu'à clarification.
+
+---
+
+## 4. Registre des ressources
+
+Toute ressource externe destinée à la production doit avoir une trace vérifiable.
+
+Le registre peut contenir :
+
+- nom du fichier ;
+- catégorie ;
+- source ;
+- auteur ou fournisseur ;
+- URL d'origine ;
+- type de licence ;
+- date de récupération ;
+- preuve ou référence d'autorisation ;
+- crédit requis ;
+- statut de publication.
+
+Ne pas ajouter un outil ou une base de données pour ce registre. Un document simple
+et versionné suffit pour la V1.
+
+Les photographies directement fournies par Prisca doivent également avoir un statut
+d'autorisation clair.
+
+---
+
+## 5. Arborescence
+
+Organisation cible :
+
+```text
+public/
+├── brand/
+│   ├── logo/
+│   ├── icons/
+│   └── patterns/
+└── images/
+    ├── hero/
+    ├── services/
+    ├── gallery/
+    └── placeholders/
+```
+
+Règles :
+
+- ne pas déposer toutes les images directement dans `public/` ;
+- ne pas créer un sous-dossier par fichier ;
+- ne pas conserver plusieurs copies identiques ;
+- ne pas publier les fichiers sources de travail lourds ;
+- séparer les originaux de création des fichiers optimisés destinés au site.
+
+---
+
+## 6. Nommage des fichiers
+
+Format :
+
+```text
+primie-{usage}-{description}-{index}.{extension}
+```
+
+Exemples :
+
+```text
+primie-hero-braids-01.webp
+primie-service-wig-installation-01.webp
+primie-gallery-knotless-braids-03.webp
+primie-logo-gold.svg
+```
+
+Règles :
+
+- `kebab-case` ;
+- caractères ASCII ;
+- aucune espace ;
+- aucun accent ;
+- aucun nom personnel inutile ;
+- aucun nom de fichier d'appareil comme `IMG_4837.jpg` ;
+- aucun suffixe vague comme `final-final-2` ;
+- description courte et stable ;
+- index sur deux chiffres lorsque plusieurs fichiers appartiennent à une série.
+
+Renommer un fichier implique de mettre à jour toutes ses références.
+
+---
+
+## 7. Formats
+
+Utiliser :
+
+- `SVG` pour logo, monogramme et formes vectorielles ;
+- `WebP` ou `AVIF` pour les photographies optimisées ;
+- `PNG` uniquement pour une transparence bitmap nécessaire ;
+- `JPEG` comme source ou fallback lorsqu'il reste pertinent ;
+- `ICO` ou les formats requis par Next.js pour le favicon.
+
+Éviter :
+
+- BMP ;
+- TIFF ;
+- GIF lourd ;
+- PNG pour une grande photographie opaque ;
+- SVG provenant d'une source non fiable sans inspection ;
+- image encodée en base64 dans un composant.
+
+Une animation courte doit être évaluée en vidéo optimisée avant d'utiliser un GIF.
+
+---
+
+## 8. Dimensions sources
+
+Ne pas publier directement une photographie originale de plusieurs milliers de
+pixels si le site n'en a pas besoin.
+
+Repères avant optimisation :
+
+| Usage | Largeur source utile |
+| --- | --- |
+| Hero large | `2000–2400px` |
+| Grande galerie | `1400–1800px` |
+| Carte service | `1000–1400px` |
+| Vignette | `600–1000px` |
+| Open Graph | `1200 × 630px` |
+
+Ces valeurs sont des plafonds de travail, pas des obligations de surdimensionner
+une image plus petite.
+
+Ne jamais agrandir artificiellement une petite image floue pour atteindre ces
+dimensions.
+
+---
+
+## 9. Budgets de poids
+
+Objectifs indicatifs après optimisation :
+
+| Usage | Cible |
+| --- | --- |
+| Image hero | idéalement `≤ 400 Ko` |
+| Image de galerie | idéalement `≤ 250 Ko` |
+| Carte service | idéalement `≤ 180 Ko` |
+| Logo SVG | idéalement `≤ 50 Ko` |
+| Image Open Graph | idéalement `≤ 300 Ko` |
+
+Une exception doit être justifiée par un gain visuel perceptible.
+
+Ne pas réduire excessivement la qualité des cheveux et des détails de tresse pour
+atteindre un chiffre arbitraire.
+
+---
+
+## 10. `next/image`
+
+Utiliser `next/image` pour les images de contenu.
+
+Règles :
+
+- définir `width` et `height`, ou utiliser un parent dimensionné avec `fill` ;
+- fournir un attribut `sizes` cohérent avec la grille ;
+- utiliser `priority` uniquement pour l'image LCP réellement critique ;
+- laisser les images sous la ligne de flottaison en chargement différé ;
+- ne pas utiliser `unoptimized` sans justification ;
+- ne pas désactiver globalement l'optimisation ;
+- ne pas utiliser `fill` dans un parent sans taille ;
+- conserver le ratio pour éviter le layout shift.
+
+Exemple :
+
+```tsx
+<Image
+  src={image.src}
+  alt={image.alt}
+  width={800}
+  height={1000}
+  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+/>
+```
+
+Adapter `sizes` à la largeur réelle dans le conteneur.
+
+---
+
+## 11. Images distantes
+
+Préférer les ressources locales validées pour la V1.
+
+Si une image distante est nécessaire :
+
+- autoriser uniquement le domaine exact dans `next.config.ts` ;
+- utiliser un pattern restrictif ;
+- vérifier sa stabilité ;
+- vérifier les droits ;
+- ne pas hotlinker une ressource tierce sans autorisation ;
+- prévoir le comportement en cas d'indisponibilité.
+
+Ne jamais autoriser toutes les sources distantes avec un wildcard global.
+
+---
+
+## 12. Cadrage
+
+Ratios de référence :
+
+- service : `4 / 5` ;
+- galerie verticale : `3 / 4` ou `4 / 5` ;
+- galerie paysage : `4 / 3` ;
+- Open Graph : `1.91 / 1`.
+
+Règles :
+
+- ne pas étirer une image ;
+- cadrer pour rendre la coiffure lisible ;
+- préserver le visage avec dignité ;
+- vérifier mobile et desktop ;
+- utiliser `object-position` lorsqu'un point focal doit être conservé ;
+- éviter de couper une coiffure essentielle ;
+- ne pas imposer le même crop à des compositions incompatibles.
+
+Un point focal peut être stocké dans les données si plusieurs images l'exigent.
+
+---
+
+## 13. Direction photographique
+
+Privilégier :
+
+- lumière chaude et naturelle ;
+- peau et cheveux rendus fidèlement ;
+- texture des tresses visible ;
+- arrière-plan calme ;
+- cadrage professionnel ;
+- postures naturelles ;
+- diversité des styles et longueurs ;
+- cohérence colorimétrique entre les images proches.
+
+Éviter :
+
+- filtres beauté excessifs ;
+- peau artificiellement lissée ;
+- saturation agressive ;
+- effets HDR ;
+- arrière-plans surchargés ;
+- logos tiers visibles ;
+- watermark d'une autre marque ;
+- image floue ou fortement compressée.
+
+---
+
+## 14. Métadonnées et vie privée
+
+Avant publication d'une photographie réelle :
+
+- retirer les coordonnées GPS EXIF ;
+- retirer les métadonnées inutiles de l'appareil ;
+- vérifier qu'aucun document privé n'est visible ;
+- vérifier l'arrière-plan ;
+- vérifier les reflets ;
+- vérifier les informations personnelles affichées ;
+- confirmer le droit à l'image.
+
+Ne pas commiter un original contenant des données privées si seule la version
+nettoyée est nécessaire.
+
+---
+
+## 15. Textes alternatifs
+
+Le texte alternatif décrit l'information utile.
+
+Pour une coiffure :
+
+- type de coiffure ;
+- forme ou longueur si utile ;
+- détail distinctif.
+
+Exemple :
+
+`Longues knotless braids relevées en demi-queue`
+
+Ne pas écrire :
+
+- `image`
+- `photo`
+- nom du fichier ;
+- liste de mots-clés ;
+- description physique inutile de la personne ;
+- information impossible à déduire de l'image.
+
+Utiliser `alt=""` pour les éléments purement décoratifs.
+
+---
+
+## 16. Données d'image
+
+Une donnée d'image peut contenir :
+
+```ts
+type ContentImage = {
+  src: string;
+  alt: string;
+  kind: "realization" | "illustration";
+  width: number;
+  height: number;
+  category?: string;
+  focalPoint?: string;
+};
+```
+
+Ajouter uniquement les champs réellement utilisés.
+
+Le statut `kind` ne remplace pas le registre des droits.
+
+Une image `illustration` ne doit pas être injectée silencieusement dans les données
+des réalisations.
+
+---
+
+## 17. Logo et identité
+
+Le logo PRIMiE doit disposer au minimum des variantes réellement utiles :
+
+- doré sur fond sombre ;
+- sombre sur fond clair ;
+- monogramme ou icône si validé ;
+- favicon.
+
+Règles :
+
+- préserver les proportions ;
+- conserver une zone de respiration ;
+- ne pas recolorer arbitrairement ;
+- ne pas appliquer une ombre ou un gradient non validé ;
+- ne pas utiliser une image raster floue si un SVG existe ;
+- ne pas redessiner le logo dans un composant.
+
+---
+
+## 18. Icônes et SVG
+
+Utiliser Lucide pour les icônes d'interface courantes.
+
+Pour un SVG externe :
+
+- inspecter son contenu ;
+- retirer scripts, liens et métadonnées inutiles ;
+- vérifier sa licence ;
+- simplifier sans dégrader le rendu ;
+- ne pas injecter un SVG non fiable avec du HTML brut.
+
+Ne pas télécharger une icône aléatoire si Lucide fournit déjà un équivalent.
+
+---
+
+## 19. Placeholders
+
+Un placeholder sert uniquement pendant le développement.
+
+Règles :
+
+- il doit être clairement identifiable ;
+- il ne doit pas ressembler à une réalisation réelle ;
+- il doit respecter le ratio final ;
+- il ne doit contenir aucune fausse information ;
+- il doit être retiré avant production ;
+- sa présence doit être signalée dans le compte rendu.
+
+Ne jamais laisser une image cassée ou un carré vide comme placeholder final.
+
+---
+
+## 20. Audit avant production
+
+Vérifier chaque ressource :
+
+1. usage ;
+2. catégorie ;
+3. origine ;
+4. droit d'utilisation ;
+5. autorisation de la personne ;
+6. nom de fichier ;
+7. format ;
+8. dimensions ;
+9. poids ;
+10. cadrage ;
+11. texte alternatif ;
+12. métadonnées privées ;
+13. chargement ;
+14. comportement responsive ;
+15. distinction illustration/réalisation.
+
+Toute ressource non validée doit être exclue du build de production.
+
+---
+
+## 21. Interdictions absolues
+
+Il est interdit de :
+
+- voler ou hotlinker une image ;
+- publier une photo sans droit maîtrisé ;
+- inventer une licence ;
+- présenter une illustration comme réalisation ;
+- exposer des métadonnées GPS ;
+- publier une image source inutilement lourde ;
+- utiliser `priority` sur toutes les images ;
+- omettre `sizes` dans une grille responsive ;
+- utiliser un alt générique ;
+- intégrer du texte essentiel dans l'image ;
+- désactiver l'optimisation Next.js globalement ;
+- autoriser tous les domaines d'images ;
+- commiter des doublons ou fichiers sources temporaires ;
+- utiliser le portrait d'une personne sans autorisation confirmée.

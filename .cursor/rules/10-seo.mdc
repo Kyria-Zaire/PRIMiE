@@ -1,0 +1,483 @@
+---
+description: SEO technique, référencement local, métadonnées et données structurées de PRIMiE
+globs: app/**/*.ts, app/**/*.tsx, content/**/*.ts, public/**/*, next.config.ts
+alwaysApply: false
+---
+
+# PRIMiE — SEO
+
+## 1. Objectif
+
+Le SEO de PRIMiE doit aider une cliente pertinente à :
+
+1. découvrir l'activité ;
+2. comprendre les prestations ;
+3. vérifier la crédibilité de PRIMiE ;
+4. contacter Prisca sur WhatsApp.
+
+Le référencement doit rester :
+
+- honnête ;
+- local lorsque la zone est confirmée ;
+- cohérent avec le contenu visible ;
+- rapide ;
+- accessible ;
+- maintenable sans plugin SEO.
+
+Ne jamais sacrifier la lisibilité ou inventer une information pour viser un mot-clé.
+
+---
+
+## 2. Source de vérité
+
+Centraliser dans `content/site-config.ts` :
+
+- nom ;
+- description ;
+- URL canonique après validation du domaine ;
+- téléphone ;
+- lien WhatsApp ;
+- logo ;
+- image sociale ;
+- langue ;
+- zone géographique confirmée ;
+- réseaux sociaux confirmés.
+
+Les métadonnées, données structurées et contenus visibles doivent consommer les mêmes
+valeurs.
+
+Il est interdit de maintenir des coordonnées différentes dans plusieurs fichiers.
+
+---
+
+## 3. Faits SEO interdits sans validation
+
+Ne pas ajouter dans le contenu, les métadonnées ou le JSON-LD :
+
+- ville ;
+- adresse ;
+- code postal ;
+- zone de déplacement ;
+- horaires ;
+- prix ;
+- devise ;
+- note moyenne ;
+- nombre d'avis ;
+- disponibilité ;
+- ancienneté ;
+- distinction ;
+- position `n°1` ;
+- promesse `pas cher` ;
+- réseaux sociaux ;
+- URL de domaine non réservée.
+
+Une donnée structurée invisible n'autorise jamais un fait non confirmé.
+
+---
+
+## 4. App Router Metadata
+
+Utiliser l'API Metadata native de Next.js.
+
+Pour la landing page statique :
+
+- préférer l'export `metadata` ;
+- utiliser `generateMetadata` uniquement si les valeurs sont réellement dynamiques ;
+- définir `metadataBase` après validation du domaine ;
+- ne pas installer une bibliothèque SEO pour reproduire les fonctions natives.
+
+Exemple structurel :
+
+```ts
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: "Chez PRIMiE Coiffure",
+    template: "%s | PRIMiE",
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: "/",
+  },
+};
+```
+
+Ne pas copier cet exemple avant que `siteConfig.url` soit une URL réelle et validée.
+
+---
+
+## 5. Titre SEO
+
+Le titre doit :
+
+- inclure `PRIMiE` ;
+- décrire l'activité ;
+- rester naturel ;
+- distinguer la page ;
+- utiliser la localisation uniquement après confirmation ;
+- correspondre au contenu visible.
+
+Forme conceptuelle :
+
+```text
+Chez PRIMiE Coiffure — Coiffure afro à domicile
+```
+
+Le texte exact doit être validé avant production.
+
+Repère éditorial :
+
+- viser environ `50–60` caractères lorsque cela reste naturel ;
+- ne pas couper une information essentielle pour atteindre un nombre ;
+- accepter que Google puisse réécrire le titre.
+
+Éviter :
+
+- répétition de mots-clés ;
+- majuscules intégrales ;
+- suite de villes ;
+- promesse non prouvée ;
+- plusieurs séparateurs ;
+- emoji promotionnel.
+
+---
+
+## 6. Meta description
+
+La description doit :
+
+- résumer l'activité ;
+- présenter un bénéfice ;
+- inviter à contacter PRIMiE ;
+- rester cohérente avec la page ;
+- utiliser la localisation uniquement si elle est confirmée.
+
+Repère éditorial :
+
+- viser environ `140–160` caractères si le message reste clair ;
+- éviter la liste complète des prestations ;
+- ne pas dupliquer mot pour mot le hero ;
+- ne pas inventer de prix, zone ou disponibilité ;
+- accepter que le moteur puisse choisir un autre extrait.
+
+Une meta description influence principalement la compréhension et le clic, pas une
+garantie de classement.
+
+---
+
+## 7. URL canonique
+
+La V1 possède une URL principale canonique.
+
+Règles :
+
+- utiliser HTTPS ;
+- choisir une seule variante de domaine ;
+- déclarer la canonical vers l'URL publique finale ;
+- rediriger les variantes techniques vers la version retenue ;
+- ne pas définir une URL Vercel temporaire comme canonical de production ;
+- ne pas inclure les ancres comme pages canoniques distinctes ;
+- ne pas définir plusieurs canonicals contradictoires.
+
+Une canonical ne remplace pas une redirection correctement configurée.
+
+---
+
+## 8. Indexation par environnement
+
+### Production
+
+- indexation autorisée ;
+- canonical finale ;
+- sitemap public ;
+- robots cohérent ;
+- aucun `noindex` accidentel.
+
+### Développement et previews
+
+- éviter leur indexation ;
+- ne jamais leur donner la canonical finale si le contenu n'est pas prêt ;
+- vérifier le comportement réel des déploiements Vercel ;
+- ne pas bloquer les ressources nécessaires au rendu.
+
+L'IA doit vérifier l'environnement avant de modifier les directives d'indexation.
+
+---
+
+## 9. `robots.ts`
+
+Utiliser `app/robots.ts`.
+
+Le fichier doit :
+
+- produire une URL de sitemap valide ;
+- autoriser l'exploration de la landing page en production ;
+- refléter la stratégie des environnements ;
+- ne pas contenir une URL provisoire.
+
+Rappels :
+
+- `robots.txt` n'est pas une protection de données ;
+- une URL sensible ne devient pas privée parce qu'elle est désautorisée ;
+- `Disallow` ne garantit pas la désindexation ;
+- ne pas bloquer les images ou ressources nécessaires sans raison.
+
+---
+
+## 10. `sitemap.ts`
+
+Utiliser `app/sitemap.ts`.
+
+Pour la landing page V1 :
+
+- inclure uniquement les URL canoniques indexables ;
+- utiliser une date de modification honnête ;
+- ne pas ajouter les ancres ;
+- ne pas ajouter une route inexistante ;
+- ne pas déclarer des fréquences ou priorités arbitraires ;
+- générer des URL absolues à partir du domaine validé.
+
+Une landing page unique peut avoir un sitemap très simple.
+
+---
+
+## 11. Open Graph
+
+Fournir une image sociale PRIMiE dédiée.
+
+Repères :
+
+- format : `1200 × 630px` ;
+- identité lisible ;
+- contraste suffisant ;
+- peu de texte ;
+- coiffure visible ;
+- aucun contenu trompeur ;
+- aucun visuel non autorisé.
+
+Utiliser les conventions Next.js :
+
+- `app/opengraph-image.*` ;
+- `app/twitter-image.*` si une variante est nécessaire ;
+- ou les champs Metadata correspondants.
+
+Ne pas utiliser une image de galerie aléatoire comme visuel social permanent.
+
+---
+
+## 12. Structure du contenu
+
+Le référencement repose d'abord sur un contenu lisible.
+
+Règles :
+
+- un seul `h1` ;
+- un `h2` par grande section ;
+- hiérarchie sans saut arbitraire ;
+- contenu important présent en HTML ;
+- navigation par ancres compréhensible ;
+- texte descriptif autour des images ;
+- CTA avec libellé précis ;
+- contenu principal rendu côté serveur ;
+- aucun texte SEO invisible.
+
+Le footer ne doit pas devenir un bloc de mots-clés.
+
+---
+
+## 13. Images et SEO
+
+- Utiliser des noms de fichiers descriptifs.
+- Fournir des textes alternatifs utiles.
+- Ne pas bourrer l'alt de mots-clés.
+- Optimiser poids et dimensions.
+- Utiliser `next/image`.
+- Déclarer `sizes`.
+- Réserver `priority` au média LCP.
+- Ne pas intégrer un texte important dans l'image.
+- Ne pas présenter une illustration comme une réalisation.
+
+L'attribut `alt` sert d'abord à l'accessibilité.
+
+---
+
+## 14. Référencement local
+
+Le SEO local ne peut commencer sérieusement qu'après validation :
+
+- de la ville ;
+- de la zone desservie ;
+- de l'adresse publique ou du statut d'activité de service ;
+- des coordonnées cohérentes ;
+- du domaine ;
+- du profil Google Business Profile si créé.
+
+Après validation :
+
+- utiliser la localisation naturellement ;
+- conserver un NAP cohérent lorsque l'adresse est publique ;
+- relier les profils officiels ;
+- décrire la zone sans multiplier les pages artificielles ;
+- éviter les pages quasi identiques par ville.
+
+Il est interdit de cibler Reims ou une autre ville uniquement par supposition.
+
+---
+
+## 15. Données structurées
+
+Utiliser JSON-LD seulement lorsque :
+
+- le type décrit réellement PRIMiE ;
+- les propriétés sont confirmées ;
+- le contenu correspondant est visible ;
+- le markup peut être maintenu ;
+- la validation officielle réussit.
+
+Le JSON-LD doit être généré depuis la source de vérité.
+
+Ne pas construire du JSON-LD par concaténation de chaînes.
+
+Échapper ou sérialiser les valeurs correctement.
+
+---
+
+## 16. Type d'entité
+
+Évaluer selon les données confirmées :
+
+- `Organization` pour l'identité de marque ;
+- `Person` si le site représente principalement l'activité personnelle de Prisca ;
+- `LocalBusiness` ou un sous-type pertinent uniquement si les propriétés nécessaires
+  et la nature locale sont confirmées.
+
+Ne pas choisir `HairSalon` si le markup fait croire à un salon physique inexistant.
+
+L'IA doit expliquer le type proposé avant intégration.
+
+---
+
+## 17. Propriétés interdites sans preuve
+
+Ne pas ajouter :
+
+- `aggregateRating` ;
+- `review` ;
+- `priceRange` ;
+- `openingHoursSpecification` ;
+- `address` ;
+- `geo` ;
+- `areaServed` ;
+- `award` ;
+- `sameAs` ;
+- `hasOfferCatalog` ;
+- `makesOffer`.
+
+Ces propriétés deviennent autorisées uniquement après validation de leur valeur.
+
+Une propriété recommandée par Schema.org reste facultative si l'information n'existe
+pas.
+
+---
+
+## 18. Types structurés hors périmètre
+
+Ne pas ajouter en V1 :
+
+- `Product` ;
+- `Offer` ;
+- `Event` ;
+- `Course` ;
+- `JobPosting` ;
+- `AggregateRating` ;
+- `FAQPage` uniquement dans l'espoir d'obtenir un affichage enrichi ;
+- un carousel `ItemList` non éligible.
+
+PRIMiE ne vend ni produit en ligne ni réservation automatisée dans la V1.
+
+---
+
+## 19. Honnêteté du markup
+
+Les données structurées doivent :
+
+- décrire le contenu principal ;
+- être visibles ou vérifiables ;
+- rester à jour ;
+- ne pas tromper le moteur ;
+- ne pas usurper un avis ou une note ;
+- ne pas décrire une fonctionnalité absente ;
+- ne pas utiliser une fausse adresse ;
+- ne pas annoncer un prix inexistant.
+
+Un markup valide syntaxiquement peut toujours être trompeur et interdit.
+
+---
+
+## 20. Search Console
+
+Après mise en production et validation du domaine :
+
+- vérifier la propriété ;
+- soumettre le sitemap ;
+- inspecter l'URL canonique ;
+- contrôler l'indexation ;
+- surveiller les erreurs ;
+- analyser les requêtes sans sur-réagir aux premiers jours ;
+- corriger les données structurées invalides ;
+- surveiller les Core Web Vitals.
+
+Ne pas prétendre à un résultat SEO avant que des données réelles existent.
+
+---
+
+## 21. Validation
+
+Avant production :
+
+1. inspecter le HTML rendu ;
+2. vérifier title et description ;
+3. vérifier canonical ;
+4. vérifier robots ;
+5. vérifier sitemap ;
+6. vérifier Open Graph ;
+7. tester le partage social ;
+8. valider le JSON-LD avec l'outil officiel ;
+9. comparer markup et contenu visible ;
+10. vérifier l'absence de données inventées ;
+11. vérifier le statut d'indexation de l'environnement ;
+12. contrôler les liens et statuts HTTP.
+
+Un score Lighthouse SEO élevé n'est pas une preuve de stratégie locale réussie.
+
+---
+
+## 22. Interdictions absolues
+
+Il est interdit de :
+
+- bourrer les textes de mots-clés ;
+- créer des pages de ville artificielles ;
+- cacher du texte SEO ;
+- dupliquer title et description sans réflexion ;
+- publier une canonical provisoire ;
+- laisser `noindex` en production ;
+- indexer les previews ;
+- ajouter une adresse ou ville non confirmée ;
+- inventer des avis ou notes structurés ;
+- ajouter des prix ou horaires fictifs ;
+- utiliser un type Schema.org trompeur ;
+- installer un plugin SEO inutile ;
+- déclarer un résultat enrichi garanti ;
+- considérer un sitemap comme garantie d'indexation ;
+- lancer une action Search Console sans demande explicite.
+
+---
+
+## Références officielles
+
+- Metadata Next.js : `https://nextjs.org/docs/app/getting-started/metadata-and-og-images`
+- Robots Next.js : `https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots`
+- Sitemap Next.js : `https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap`
+- Données structurées Google : `https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data`
+- LocalBusiness Google : `https://developers.google.com/search/docs/appearance/structured-data/local-business`
