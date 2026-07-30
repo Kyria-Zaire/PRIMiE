@@ -13,6 +13,21 @@ Landing page Next.js 15 (App Router, TypeScript strict, Tailwind CSS, pnpm).
 pnpm install
 ```
 
+## Fondations visuelles et contenu
+
+| Élément          | Emplacement                                                                                        |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| Design tokens    | `app/theme.css`                                                                                    |
+| Polices          | Manrope (`font-sans`) et Cormorant Garamond (`font-display`) via `next/font` dans `app/layout.tsx` |
+| Contenu statique | `content/`                                                                                         |
+| Helper WhatsApp  | `lib/whatsapp.ts`                                                                                  |
+| Primitives UI    | `components/ui/` (`Container`, `Section`, `SectionHeading`, `Button`, `LinkButton`, `Card`)        |
+
+Règles :
+
+- aucune donnée métier inventée ;
+- galerie, témoignages et FAQ restent masqués tant que non validés (`content/` tableaux vides).
+
 ## Commandes
 
 ```bash

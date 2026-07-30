@@ -138,20 +138,15 @@ Règles :
 
 La liste de référence fournie pour PRIMiE est :
 
-- Tresses et coiffure femme et homme ;
+- Tresses & coiffure femme et homme ;
 - Traitement de perruque ;
-- Pose de perruque ;
-- Look et twist ;
+- Pose perruque ;
+- Look & twist ;
 - Vente et pose de perruques ;
 - Tissage.
 
-Une normalisation rédactionnelle légère est autorisée si le sens ne change pas.
-
-Exemples :
-
-- `Tresses & coiffures femme et homme`
-- `Traitement de perruques`
-- `Twists et looks personnalisés`
+Les intitulés doivent rester identiques à `CLAUDE.md`, `do-not-break` et
+`content/services.ts`. Ne pas reformuler silencieusement.
 
 Toute nouvelle catégorie doit être confirmée avant publication.
 

@@ -1,0 +1,64 @@
+/*
+ * PRIMiE — design tokens (source technique).
+ * Valeurs hex : .cursor/rules/04-design-system.mdc
+ * Conteneurs page : décision CTO FOUNDATION-SYSTEM-01B
+ */
+
+@theme {
+  /* --- Couleurs primitives (marque) --- */
+  --color-ink: #0b0908;
+  --color-charcoal: #191512;
+  --color-espresso: #2a211b;
+  --color-gold: #c9a45c;
+  --color-gold-light: #e5cc98;
+  --color-cream: #f7f0e6;
+  --color-beige: #e8d8c3;
+  --color-sand: #d2b895;
+  --color-paper: #fffdf8;
+
+  /* --- Couleurs primitives (fonctionnelles) --- */
+  --color-text-dark: #17120f;
+  --color-text-light: #fff9ef;
+  --color-text-muted-dark: #6e6258;
+  --color-text-muted-light: #c9bdb0;
+  --color-border-light: #d9c6ad;
+  --color-border-dark: #493a2e;
+  --color-success: #356b4f;
+  --color-danger: #a5413e;
+
+  /* --- Conteneurs (CTO) --- */
+  --max-width-page: 75rem;
+  --max-width-content: 48rem;
+  --max-width-narrow: 36rem;
+
+  /* --- Rayons --- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* --- Ombres --- */
+  --shadow-soft: 0 12px 40px rgb(11 9 8 / 0.08);
+  --shadow-card: 0 20px 60px rgb(11 9 8 / 0.12);
+  --shadow-elevated: 0 28px 80px rgb(11 9 8 / 0.18);
+
+  /* --- Transitions --- */
+  --transition-duration-short: 180ms;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Rôles sémantiques + polices next/font : références, sans hex dupliqués */
+@theme inline {
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-text-dark);
+  --color-surface: var(--color-cream);
+  --color-surface-muted: var(--color-beige);
+  --color-primary: var(--color-gold);
+  --color-primary-foreground: var(--color-ink);
+  --color-border: var(--color-border-light);
+  --color-focus: var(--color-gold);
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), ui-serif, Georgia, "Times New Roman", serif;
+}

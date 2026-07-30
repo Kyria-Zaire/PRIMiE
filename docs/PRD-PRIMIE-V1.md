@@ -343,12 +343,15 @@ Le wording définitif de la proposition de valeur doit être validé par Prisca.
 ## 15. Services
 
 ### Liste validée
-1. Tresses et coiffure femme et homme ;
+1. Tresses & coiffure femme et homme ;
 2. Traitement de perruque ;
-3. Pose de perruque ;
-4. Look et twist ;
+3. Pose perruque ;
+4. Look & twist ;
 5. Vente et pose de perruques ;
 6. Tissage.
+
+Alignement documentaire `2026-07-30` (`FOUNDATION-SYSTEM-01E`) : intitulés
+identiques à `CLAUDE.md`, `do-not-break` et `content/services.ts`.
 
 ### Exigences
 - chaque service possède un titre ;
@@ -774,6 +777,11 @@ doivent jamais être remplacés par des inventions.
 
 ### Statut actuel
 `Validé — G1 passé ; G2 passé via BMAD-PRIMIE-001`.
+
+### Trace documentaire
+`2026-07-30` — alignement des six intitulés de prestations sur la liste
+canonique CLAUDE.md / do-not-break / `content/services.ts`
+(`FOUNDATION-SYSTEM-01E`). Version PRD inchangée (`1.0`).
 
 ### Actions suivantes
 1. obtenir de Prisca les contenus métier encore ouverts ;

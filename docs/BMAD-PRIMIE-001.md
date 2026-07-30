@@ -19,7 +19,7 @@
 | Validation CTO | `Kyria — 2026-07-30` |
 | PRD source | `docs/PRD-PRIMIE-V1.md — version 1.0 — Validé` |
 | ADR | `Aucun requis à ce stade` |
-| Tickets planifiés | `18` |
+| Tickets planifiés | `22` |
 | Environnement cible | Local → Preview Vercel → Production autorisée |
 
 ### Décision validée
@@ -41,6 +41,8 @@ La validation de `G2` n’autorise pas encore le scaffold Next.js sans ticket
 validation CTO). `INIT-SCAFFOLD-01D` est `DONE`. `INIT-SCAFFOLD-01E` est
 `DONE — Validé CTO 2026-07-30`. `G4`, `G5` et `G6` sont `Passé`.
 `FEATURE-FOUNDATION-V1` est `DONE` (clôture `2026-07-30`).
+`FOUNDATION-SYSTEM-01` est `IMPLEMENTED — publication GitHub en cours`
+(découpage `01A`–`01E`, clôture `2026-07-30`).
 
 ## 1. Problème
 
@@ -187,10 +189,10 @@ Ordre officiel :
 
 Prestations canoniques :
 
-1. Tresses et coiffure femme et homme ;
+1. Tresses & coiffure femme et homme ;
 2. Traitement de perruque ;
-3. Pose de perruque ;
-4. Look et twist ;
+3. Pose perruque ;
+4. Look & twist ;
 5. Vente et pose de perruques ;
 6. Tissage.
 
@@ -400,7 +402,7 @@ multi-application.
 | Lot | But | Tickets | Sortie |
 | --- | --- | --- | --- |
 | `LOT-0 — Readiness` | confirmer contenus et décision technique | `CONTENT-VALIDATION-01`, validation BMAD | entrées qualifiées |
-| `LOT-1 — Socle` | installer une base saine et les fondations | `INIT-SCAFFOLD-01A` à `01E`, `FOUNDATION-SYSTEM-01` | build local minimal |
+| `LOT-1 — Socle` | installer une base saine et les fondations | `INIT-SCAFFOLD-01A` à `01E`, `FOUNDATION-SYSTEM-01A` à `01E` | build local minimal |
 | `LOT-2 — Parcours essentiel` | rendre le parcours principal fonctionnel | `LANDING-SHELL-01`, `LANDING-HERO-SERVICES-01`, `WHATSAPP-CONTACT-01` | page structurée et contact réel |
 | `LOT-3 — Preuve et confiance` | intégrer réalisations et réassurance | `GALLERY-EXPERIENCE-01`, `TRUST-CONTENT-01` | contenu de confiance |
 | `LOT-4 — Qualité de livraison` | compléter SEO et preuves non fonctionnelles | `SEO-FOUNDATION-01`, `QA-A11Y-RESPONSIVE-01`, `QA-PERF-SECURITY-01` | candidate Preview |
@@ -416,18 +418,23 @@ Validation BMAD (G2 passé)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
             └── INIT-SCAFFOLD-01D (DONE)
                 └── INIT-SCAFFOLD-01E (DONE — Validé CTO 2026-07-30)
-                    └── FOUNDATION-SYSTEM-01
-                        └── LANDING-SHELL-01
-                            ├── LANDING-HERO-SERVICES-01
-                            ├── WHATSAPP-CONTACT-01
-                            ├── GALLERY-EXPERIENCE-01
-                            └── TRUST-CONTENT-01
-                                └── SEO-FOUNDATION-01
-                                    ├── QA-A11Y-RESPONSIVE-01
-                                    └── QA-PERF-SECURITY-01
-                                        └── DEPLOY-PREVIEW-01
-                                            └── RELEASE-PRODUCTION-01
-                                                └── DOC-CLOSURE-01
+                    └── FOUNDATION-SYSTEM-01 (IMPLEMENTED — publication GitHub en cours)
+                        ├── FOUNDATION-SYSTEM-01A (DONE — Validé CTO 2026-07-30)
+                        ├── FOUNDATION-SYSTEM-01B (DONE — Validé CTO 2026-07-30)
+                        ├── FOUNDATION-SYSTEM-01C (DONE — Validé CTO 2026-07-30)
+                        ├── FOUNDATION-SYSTEM-01D (DONE — Validé CTO 2026-07-30)
+                        └── FOUNDATION-SYSTEM-01E (DONE — Validé CTO 2026-07-30)
+                            └── LANDING-SHELL-01
+                                ├── LANDING-HERO-SERVICES-01
+                                ├── WHATSAPP-CONTACT-01
+                                ├── GALLERY-EXPERIENCE-01
+                                └── TRUST-CONTENT-01
+                                    └── SEO-FOUNDATION-01
+                                        ├── QA-A11Y-RESPONSIVE-01
+                                        └── QA-PERF-SECURITY-01
+                                            └── DEPLOY-PREVIEW-01
+                                                └── RELEASE-PRODUCTION-01
+                                                    └── DOC-CLOSURE-01
 ```
 
 Les quatre tickets de sections ne doivent pas tous être démarrés simultanément
@@ -444,36 +451,42 @@ traçabilité.
 | `04` | `INIT-SCAFFOLD-01C` | `IMPLEMENT` | `DONE — 01C-R4 ACCEPTED` | `P0` | `INIT-SCAFFOLD-01B` + validation CTO |
 | `05` | `INIT-SCAFFOLD-01D` | `VERIFY` | `DONE` | `P0` | `INIT-SCAFFOLD-01C` |
 | `06` | `INIT-SCAFFOLD-01E` | `VERIFY` | `DONE — Validé CTO 2026-07-30` | `P0` | `INIT-SCAFFOLD-01D` |
-| `07` | `FOUNDATION-SYSTEM-01` | `IMPLEMENT` | `BLOCKED` | `P0` | `INIT-SCAFFOLD-01E` |
-| `08` | `LANDING-SHELL-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 07, maquette structurelle |
-| `09` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 08 |
-| `10` | `WHATSAPP-CONTACT-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 08 |
-| `11` | `GALLERY-EXPERIENCE-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 08, assets |
-| `12` | `TRUST-CONTENT-01` | `IMPLEMENT` | `BLOCKED` | `P1` | tickets 01, 08 |
-| `13` | `SEO-FOUNDATION-01` | `IMPLEMENT` | `BLOCKED` | `P1` | sections stables, domaine partiel |
-| `14` | `QA-A11Y-RESPONSIVE-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 08 à 13 |
-| `15` | `QA-PERF-SECURITY-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 08 à 13 |
-| `16` | `DEPLOY-PREVIEW-01` | `DEPLOY` | `BLOCKED` | `P0` | tickets 14 et 15, autorisation |
-| `17` | `RELEASE-PRODUCTION-01` | `DEPLOY` | `BLOCKED` | `P0` | Preview, domaine, mentions, autorisation |
-| `18` | `DOC-CLOSURE-01` | `VERIFY` | `BLOCKED` | `P1` | ticket 17 |
+| `07` | `FOUNDATION-SYSTEM-01A` | `DISCOVER` | `DONE — Validé CTO 2026-07-30` | `P0` | `INIT-SCAFFOLD-01E` |
+| `08` | `FOUNDATION-SYSTEM-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01A` |
+| `09` | `FOUNDATION-SYSTEM-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01B` |
+| `10` | `FOUNDATION-SYSTEM-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01B`, `FOUNDATION-SYSTEM-01C` |
+| `11` | `FOUNDATION-SYSTEM-01E` | `VERIFY` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01C`, `FOUNDATION-SYSTEM-01D` |
+| `12` | `LANDING-SHELL-01` | `IMPLEMENT` | `BLOCKED` | `P0` | `FOUNDATION-SYSTEM-01E`, maquette structurelle |
+| `13` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 12 |
+| `14` | `WHATSAPP-CONTACT-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 12 |
+| `15` | `GALLERY-EXPERIENCE-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 12, assets |
+| `16` | `TRUST-CONTENT-01` | `IMPLEMENT` | `BLOCKED` | `P1` | tickets 01, 12 |
+| `17` | `SEO-FOUNDATION-01` | `IMPLEMENT` | `BLOCKED` | `P1` | sections stables, domaine partiel |
+| `18` | `QA-A11Y-RESPONSIVE-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 12 à 17 |
+| `19` | `QA-PERF-SECURITY-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 12 à 17 |
+| `20` | `DEPLOY-PREVIEW-01` | `DEPLOY` | `BLOCKED` | `P0` | tickets 18 et 19, autorisation |
+| `21` | `RELEASE-PRODUCTION-01` | `DEPLOY` | `BLOCKED` | `P0` | Preview, domaine, mentions, autorisation |
+| `22` | `DOC-CLOSURE-01` | `VERIFY` | `BLOCKED` | `P1` | ticket 21 |
 
 `G3` est `Passé` (validation CTO `Kyria — 2026-07-30`). `INIT-SCAFFOLD-01C`
 est `DONE` (`01C-R4 — ACCEPTED`). `INIT-SCAFFOLD-01D` est `DONE`.
 `G4` est `Passé`. `INIT-SCAFFOLD-01E` est `DONE — Validé CTO 2026-07-30`.
 `G5` et `G6` sont `Passé` (clôture `2026-07-30`). `FEATURE-FOUNDATION-V1`
-est `DONE` (preuve : commit publié sur `origin/main`).
+est `DONE` (preuve : commit publié sur `origin/main`). `FOUNDATION-SYSTEM-01`
+est `IMPLEMENTED — publication GitHub en cours` (`01A`–`01E` DONE — Validé CTO
+2026-07-30).
 
 ### Traçabilité PRD → tickets
 
 | Objectif PRD | User stories | Tickets responsables | Preuves principales |
 | --- | --- | --- | --- |
 | `OBJ-001` | `US-001`, `US-002` | `LANDING-SHELL-01`, `LANDING-HERO-SERVICES-01` | compréhension, ancres, menu |
-| `OBJ-002` | `US-003`, `US-004` | `FOUNDATION-SYSTEM-01`, `LANDING-HERO-SERVICES-01` | six prestations, CTA |
+| `OBJ-002` | `US-003`, `US-004` | `FOUNDATION-SYSTEM-01C`, `LANDING-HERO-SERVICES-01` | six prestations, CTA |
 | `OBJ-003` | `US-005`, `US-006` | `CONTENT-VALIDATION-01`, `GALLERY-EXPERIENCE-01` | droits, grille, lightbox |
 | `OBJ-004` | `US-007`, `US-008`, `US-009` | `CONTENT-VALIDATION-01`, `TRUST-CONTENT-01` | sources, avis, FAQ |
 | `OBJ-005` | `US-010`, `US-011` | `WHATSAPP-CONTACT-01`, `QA-PERF-SECURITY-01` | URLs et smoke tests |
 | `OBJ-006` | toutes | `QA-A11Y-RESPONSIVE-01`, `QA-PERF-SECURITY-01` | QA non fonctionnelle |
-| `OBJ-007` | toutes | `INIT-SCAFFOLD-01A` à `01E`, `FOUNDATION-SYSTEM-01`, `DOC-CLOSURE-01` | architecture et documentation |
+| `OBJ-007` | toutes | `INIT-SCAFFOLD-01A` à `01E`, `FOUNDATION-SYSTEM-01A` à `01E`, `DOC-CLOSURE-01` | architecture et documentation |
 
 ## 15. Tickets détaillés
 
@@ -660,41 +673,65 @@ secrets, `.gitignore` et contrôles de base.
 Clôturer la feature fondation avec preuves lint/typecheck/build, rapport final
 et handoff vers `FOUNDATION-SYSTEM-01`, sans élargir le périmètre.
 
-### FOUNDATION-SYSTEM-01 — Créer les fondations de marque et de contenu
+### FOUNDATION-SYSTEM-01 — Fondations de marque, tokens et contenu
 
-**Métadonnées**
+**Métadonnées feature**
 
-- Feature : `FEATURE-FOUNDATION-V1`
+- Feature : `FOUNDATION-SYSTEM-01`
 - Mode : `IMPLEMENT`
-- Statut : `BLOCKED par INIT-SCAFFOLD-01E`
+- Statut : `IMPLEMENTED — publication GitHub en cours`
 - Priorité : `P0`
 - Autorité : Kyria — CTO / Design
+- Ouverture : `2026-07-30`
 
-**Objectif**
+**Objectif feature**
 
 Installer les tokens visuels, les polices, les primitives minimales et la source
-de contenu canonique avant les sections.
+de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 
-**Inclus**
+#### FOUNDATION-SYSTEM-01A — Audit marque, UI et contenu
 
-- variables CSS de palette, espacements, rayons, ombres et mouvement ;
-- polices via mécanisme Next.js ;
-- styles globaux, focus visible et reduced motion ;
-- `content/site-config.ts`, `navigation.ts` et `services.ts` ;
-- helper pur du lien WhatsApp ;
-- primitives Button, Container, Section et Heading si réellement partagées ;
-- tests des invariants canoniques.
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-07-30`
+- Dépendances : `INIT-SCAFFOLD-01E`
 
-**Exclus**
+#### FOUNDATION-SYSTEM-01B — Design tokens et typographie
 
-- composants de page complets ;
-- données inconnues ;
-- design system générique surdimensionné ;
-- duplication du numéro dans les composants.
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-30`
+- Dépendances : `FOUNDATION-SYSTEM-01A`
+- Inclus : `app/theme.css`, polices `next/font`, focus, reduced motion, graphie
+  `PRIMiE`, métadonnées commerciales
+- Exclus : sections landing, primitives UI, contenu structuré, Allura, npm
 
-**Critères d’acceptation**
+#### FOUNDATION-SYSTEM-01C — Contenu structuré
 
-- [ ] palette et typographies correspondent au PRD ;
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-30`
+- Dépendances : `FOUNDATION-SYSTEM-01B`
+- Inclus : `content/` canonique, helper WhatsApp, services confirmés
+- Exclus : galerie/avis non validés (masqués), invention de données
+
+#### FOUNDATION-SYSTEM-01D — Primitives UI
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-30`
+- Dépendances : `FOUNDATION-SYSTEM-01B`, `FOUNDATION-SYSTEM-01C`
+- Inclus : primitives minimales partagées (Container, Section, Heading, Button)
+- Exclus : bibliothèque UI complète, shadcn/Framer sans décision CTO
+
+#### FOUNDATION-SYSTEM-01E — QA, documentation et clôture
+
+- Mode : `VERIFY`
+- Statut : `DONE — Validé CTO 2026-07-30`
+- Dépendances : `FOUNDATION-SYSTEM-01C`, `FOUNDATION-SYSTEM-01D`
+- Inclus : QA feature, documentation, handoff vers `LANDING-SHELL-01`
+- Dette documentaire (traitée dans ce ticket) :
+  - Normaliser dans le PRD les six intitulés de services selon CLAUDE.md / do-not-break.
+
+**Critères d’acceptation feature (clôture 01E)**
+
+- [ ] palette et typographies correspondent au PRD / design system ;
 - [ ] le numéro et WhatsApp n’existent qu’en source canonique ;
 - [ ] les six prestations existent une seule fois ;
 - [ ] aucun prix, délai ou disponibilité n’est ajouté ;
@@ -707,7 +744,7 @@ de contenu canonique avant les sections.
 
 - Feature : `FEATURE-LANDING-V1`
 - Mode : `IMPLEMENT`
-- Statut : `BLOCKED par FOUNDATION-SYSTEM-01`
+- Statut : `BLOCKED par FOUNDATION-SYSTEM-01E`
 - Priorité : `P0`
 - Autorité : Kyria — CTO / Design
 
@@ -1273,14 +1310,18 @@ Arrêter l’exécution et demander une décision si :
 `INIT-SCAFFOLD-01A` à `01E` sont `DONE` (`01E` : `Validé CTO 2026-07-30`).
 `G4`, `G5` et `G6` sont `Passé`. `FEATURE-FOUNDATION-V1` est `DONE`
 (clôture `2026-07-30`, preuve : premier commit publié sur `origin/main`).
+`FOUNDATION-SYSTEM-01` est `IMPLEMENTED — publication GitHub en cours`
+(`01A`–`01E` DONE — Validé CTO 2026-07-30).
+`CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
 
 ### Après clôture FEATURE-FOUNDATION-V1
 
-1. ouvrir `FOUNDATION-SYSTEM-01` sur décision CTO ;
-2. exécuter un seul ticket technique à la fois ;
-3. maintenir la collecte de contenus en parallèle ;
-4. ne créer aucun code hors ticket `READY` ;
-5. ne déployer en Production qu’avec autorisation CTO explicite.
+1. publier `FOUNDATION-SYSTEM-01` sur `origin/main` puis marquer la feature `DONE` ;
+2. ouvrir `LANDING-SHELL-01` uniquement après clôture feature ;
+3. PRD services alignés sur CLAUDE.md / do-not-break / `content/services.ts` (`01E`) ;
+4. maintenir la collecte de contenus en parallèle (`CONTENT-VALIDATION-01`) ;
+5. ne créer aucun code hors ticket autorisé ;
+6. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 
