@@ -39,9 +39,8 @@ Le CTO a validé explicitement le `2026-07-30` :
 La validation de `G2` n’autorise pas encore le scaffold Next.js sans ticket
 `INIT-SCAFFOLD-01C`. `INIT-SCAFFOLD-01C` est `DONE` (`01C-R4 — ACCEPTED`,
 validation CTO). `INIT-SCAFFOLD-01D` est `DONE`. `INIT-SCAFFOLD-01E` est
-`DONE — Validé CTO 2026-07-30`. `G4` est `Passé`. `G5` est
-`En cours — publication baseline GitHub`. `FEATURE-FOUNDATION-V1` est
-`IMPLEMENTED — publication GitHub en cours`. `G6` reste `Non commencé`.
+`DONE — Validé CTO 2026-07-30`. `G4`, `G5` et `G6` sont `Passé`.
+`FEATURE-FOUNDATION-V1` est `DONE` (clôture `2026-07-30`).
 
 ## 1. Problème
 
@@ -461,9 +460,8 @@ traçabilité.
 `G3` est `Passé` (validation CTO `Kyria — 2026-07-30`). `INIT-SCAFFOLD-01C`
 est `DONE` (`01C-R4 — ACCEPTED`). `INIT-SCAFFOLD-01D` est `DONE`.
 `G4` est `Passé`. `INIT-SCAFFOLD-01E` est `DONE — Validé CTO 2026-07-30`.
-`G5` est `En cours — publication baseline GitHub`. `G6` reste
-`Non commencé`. `FEATURE-FOUNDATION-V1` est
-`IMPLEMENTED — publication GitHub en cours`.
+`G5` et `G6` sont `Passé` (clôture `2026-07-30`). `FEATURE-FOUNDATION-V1`
+est `DONE` (preuve : commit publié sur `origin/main`).
 
 ### Traçabilité PRD → tickets
 
@@ -1197,8 +1195,8 @@ Un ticket ne passe `DONE` que si :
 | `G2 — Solution` | solution sûre et proportionnée | `Passé` | aucune — validé CTO `2026-07-30` |
 | `G3 — Ready` | premiers tickets exécutables | `Passé` | aucune — validé CTO `Kyria — 2026-07-30` |
 | `G4 — Quality` | critères, QA et sécurité passent | `Passé` | `INIT-SCAFFOLD-01D` validé CTO |
-| `G5 — Release` | Preview et Production autorisées | `En cours — publication baseline GitHub` | publication `origin/main` |
-| `G6 — Closure` | documentation synchronisée | `Non commencé` | clôture CTO |
+| `G5 — Release` | Preview et Production autorisées | `Passé` | premier commit publié sur `origin/main` (`2026-07-30`) |
+| `G6 — Closure` | documentation synchronisée | `Passé` | clôture `FEATURE-FOUNDATION-V1` `2026-07-30` |
 
 ## 19. Plan de validation
 
@@ -1273,18 +1271,16 @@ Arrêter l’exécution et demander une décision si :
 
 `READY — G2 passé`. `G3` passé (validation CTO `Kyria — 2026-07-30`).
 `INIT-SCAFFOLD-01A` à `01E` sont `DONE` (`01E` : `Validé CTO 2026-07-30`).
-`G4` est `Passé`. `G5` est `En cours — publication baseline GitHub`.
-`G6` reste `Non commencé`. `FEATURE-FOUNDATION-V1` est
-`IMPLEMENTED — publication GitHub en cours`.
+`G4`, `G5` et `G6` sont `Passé`. `FEATURE-FOUNDATION-V1` est `DONE`
+(clôture `2026-07-30`, preuve : premier commit publié sur `origin/main`).
 
-### Après publication baseline GitHub
+### Après clôture FEATURE-FOUNDATION-V1
 
-1. passer G5 et G6 après push documentaire de clôture ;
-2. marquer `FEATURE-FOUNDATION-V1` comme `DONE` ;
-3. ouvrir `FOUNDATION-SYSTEM-01` sur décision CTO ;
-4. exécuter un seul ticket technique à la fois ;
-5. maintenir la collecte de contenus en parallèle ;
-6. ne créer aucun code hors ticket `READY`.
+1. ouvrir `FOUNDATION-SYSTEM-01` sur décision CTO ;
+2. exécuter un seul ticket technique à la fois ;
+3. maintenir la collecte de contenus en parallèle ;
+4. ne créer aucun code hors ticket `READY` ;
+5. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 
