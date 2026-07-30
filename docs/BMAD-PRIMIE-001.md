@@ -41,8 +41,7 @@ La validation de `G2` n’autorise pas encore le scaffold Next.js sans ticket
 validation CTO). `INIT-SCAFFOLD-01D` est `DONE`. `INIT-SCAFFOLD-01E` est
 `DONE — Validé CTO 2026-07-30`. `G4`, `G5` et `G6` sont `Passé`.
 `FEATURE-FOUNDATION-V1` est `DONE` (clôture `2026-07-30`).
-`FOUNDATION-SYSTEM-01` est `IMPLEMENTED — publication GitHub en cours`
-(découpage `01A`–`01E`, clôture `2026-07-30`).
+`FOUNDATION-SYSTEM-01` est `DONE` (clôture `2026-07-30`, découpage `01A`–`01E`).
 
 ## 1. Problème
 
@@ -418,7 +417,7 @@ Validation BMAD (G2 passé)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
             └── INIT-SCAFFOLD-01D (DONE)
                 └── INIT-SCAFFOLD-01E (DONE — Validé CTO 2026-07-30)
-                    └── FOUNDATION-SYSTEM-01 (IMPLEMENTED — publication GitHub en cours)
+                    └── FOUNDATION-SYSTEM-01 (DONE — clôturé 2026-07-30)
                         ├── FOUNDATION-SYSTEM-01A (DONE — Validé CTO 2026-07-30)
                         ├── FOUNDATION-SYSTEM-01B (DONE — Validé CTO 2026-07-30)
                         ├── FOUNDATION-SYSTEM-01C (DONE — Validé CTO 2026-07-30)
@@ -473,8 +472,9 @@ est `DONE` (`01C-R4 — ACCEPTED`). `INIT-SCAFFOLD-01D` est `DONE`.
 `G4` est `Passé`. `INIT-SCAFFOLD-01E` est `DONE — Validé CTO 2026-07-30`.
 `G5` et `G6` sont `Passé` (clôture `2026-07-30`). `FEATURE-FOUNDATION-V1`
 est `DONE` (preuve : commit publié sur `origin/main`). `FOUNDATION-SYSTEM-01`
-est `IMPLEMENTED — publication GitHub en cours` (`01A`–`01E` DONE — Validé CTO
-2026-07-30).
+est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
+`feat: add PRIMiE foundation system` publié sur `origin/main`). Handoff suivant :
+`LANDING-SHELL-01`.
 
 ### Traçabilité PRD → tickets
 
@@ -679,10 +679,14 @@ et handoff vers `FOUNDATION-SYSTEM-01`, sans élargir le périmètre.
 
 - Feature : `FOUNDATION-SYSTEM-01`
 - Mode : `IMPLEMENT`
-- Statut : `IMPLEMENTED — publication GitHub en cours`
+- Statut : `DONE`
 - Priorité : `P0`
 - Autorité : Kyria — CTO / Design
 - Ouverture : `2026-07-30`
+- Clôture : `2026-07-30`
+- Preuve : commit d’implémentation publié sur `origin/main`
+  (`feat: add PRIMiE foundation system`)
+- Handoff : `LANDING-SHELL-01`
 
 **Objectif feature**
 
@@ -744,7 +748,7 @@ de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 
 - Feature : `FEATURE-LANDING-V1`
 - Mode : `IMPLEMENT`
-- Statut : `BLOCKED par FOUNDATION-SYSTEM-01E`
+- Statut : `BLOCKED par FOUNDATION-SYSTEM-01` (feature `DONE` — ouverture sur décision CTO)
 - Priorité : `P0`
 - Autorité : Kyria — CTO / Design
 
@@ -1310,15 +1314,16 @@ Arrêter l’exécution et demander une décision si :
 `INIT-SCAFFOLD-01A` à `01E` sont `DONE` (`01E` : `Validé CTO 2026-07-30`).
 `G4`, `G5` et `G6` sont `Passé`. `FEATURE-FOUNDATION-V1` est `DONE`
 (clôture `2026-07-30`, preuve : premier commit publié sur `origin/main`).
-`FOUNDATION-SYSTEM-01` est `IMPLEMENTED — publication GitHub en cours`
-(`01A`–`01E` DONE — Validé CTO 2026-07-30).
+`FOUNDATION-SYSTEM-01` est `DONE` (clôture `2026-07-30`, preuve : commit
+d’implémentation publié sur `origin/main` ; `01A`–`01E` DONE — Validé CTO
+2026-07-30). Handoff suivant : `LANDING-SHELL-01`.
 `CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
 
 ### Après clôture FEATURE-FOUNDATION-V1
 
-1. publier `FOUNDATION-SYSTEM-01` sur `origin/main` puis marquer la feature `DONE` ;
-2. ouvrir `LANDING-SHELL-01` uniquement après clôture feature ;
-3. PRD services alignés sur CLAUDE.md / do-not-break / `content/services.ts` (`01E`) ;
+1. ouvrir `LANDING-SHELL-01` sur décision CTO ;
+2. exécuter un seul ticket technique à la fois ;
+3. PRD services alignés sur CLAUDE.md / do-not-break / `content/services.ts` ;
 4. maintenir la collecte de contenus en parallèle (`CONTENT-VALIDATION-01`) ;
 5. ne créer aucun code hors ticket autorisé ;
 6. ne déployer en Production qu’avec autorisation CTO explicite.
