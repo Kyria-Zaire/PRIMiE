@@ -431,12 +431,12 @@ Validation BMAD (G2 passé)
                                 └── LANDING-SHELL-01E (DONE — Validé CTO 2026-07-31)
                                     ├── LANDING-SHELL-01E-R1 (DONE — Design Sync v1.0)
                                     └── LANDING-SHELL-01E-R2 (DONE — Validé CTO 2026-07-31)
-                                        └── LANDING-CORE-01 (IN_PROGRESS)
+                                        └── LANDING-CORE-01 (DONE — clôturé le 2026-07-31)
                                             ├── LANDING-CORE-01A (DONE — Validé CTO 2026-07-31)
                                             ├── LANDING-CORE-01B (DONE — Validé CTO 2026-07-31)
                                             ├── LANDING-CORE-01C (DONE — Validé CTO 2026-07-31)
                                             ├── LANDING-CORE-01D (DONE — Validé CTO 2026-07-31)
-                                            └── LANDING-CORE-01E (IN_PROGRESS — en attente CTO)
+                                            └── LANDING-CORE-01E (DONE — Validé CTO 2026-07-31)
                                             ├── LANDING-HERO-SERVICES-01 (SUPERSEDED par LANDING-CORE-01)
                                             ├── WHATSAPP-CONTACT-01
                                             ├── GALLERY-EXPERIENCE-01
@@ -477,7 +477,7 @@ traçabilité.
 | `16c` | `LANDING-CORE-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01A` |
 | `16d` | `LANDING-CORE-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01B` |
 | `16e` | `LANDING-CORE-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01C` |
-| `16f` | `LANDING-CORE-01E` | `VERIFY` | `IN_PROGRESS — en attente CTO` | `P0` | `LANDING-CORE-01D` |
+| `16f` | `LANDING-CORE-01E` | `VERIFY` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01D` |
 | `17` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `SUPERSEDED par LANDING-CORE-01` | `P0` | — |
 | `18` | `WHATSAPP-CONTACT-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 16 |
 | `19` | `GALLERY-EXPERIENCE-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 16, assets |
@@ -499,11 +499,14 @@ est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
 `LANDING-SHELL-01` est `DONE` (clôturé le `2026-07-31`, preuve : commit
 `feat: add PRiMiE landing shell` —
 `334372718906f4e5ffdf8e977bcc8f5c6da64ddb` sur `origin/main`).
-`LANDING-CORE-01` est `IN_PROGRESS` (`01A`–`01D` DONE — Validé CTO 2026-07-31 ;
-`01E` IN_PROGRESS — en attente CTO).
+`LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31`, preuve : commit
+`feat: add PRiMiE landing core` —
+`ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main` ;
+`01A`–`01E` DONE — Validé CTO 2026-07-31).
 `LANDING-HERO-SERVICES-01` est `SUPERSEDED par LANDING-CORE-01`.
 PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.2`.
-`CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
+`CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`
+(non ouvert ; handoff recommandé uniquement).
 
 ### Traçabilité PRD → tickets
 
@@ -784,7 +787,7 @@ de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 - Clôture : `2026-07-31`
 - Preuve d’implémentation : commit `feat: add PRiMiE landing shell` —
   `334372718906f4e5ffdf8e977bcc8f5c6da64ddb` sur `origin/main`
-- Handoff : `LANDING-CORE-01` (`IN_PROGRESS`)
+- Handoff : `LANDING-CORE-01` (`DONE — clôturé le 2026-07-31`)
 
 **Objectif feature**
 
@@ -847,12 +850,26 @@ réelles uniquement et navigation filtrée sans lien mort.
 
 - Feature : `LANDING-CORE-01`
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS`
+- Statut : `DONE — clôturé le 2026-07-31`
 - Priorité : `P0`
 - Autorité : Kyria — CTO
 - Ouverture : `2026-07-31`
+- Clôture : `2026-07-31`
 - PRD : `docs/PRD-PRIMIE-V1.md` version `1.2`
 - Remplace : `LANDING-HERO-SERVICES-01` (SUPERSEDED)
+- Preuve d’implémentation : commit `feat: add PRiMiE landing core` —
+  `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`
+- Preuve de publication : push `main → origin/main` le `2026-07-31`
+  (`1940519..ed4dacf`)
+- Handoff recommandé : `CONTENT-VALIDATION-01` (reste `BLOCKED` — **non ouvert**)
+
+**Dettes transférées**
+
+- galerie, photos, avis, FAQ, « Pourquoi me choisir ? » → `CONTENT-VALIDATION-01`
+  puis tickets sections concernés ;
+- message WhatsApp prérempli → validation Prisca avant éventuel ticket contact ;
+- majeures npm disponibles (Next 16, etc.) → hors périmètre V1 ;
+- QA Safari / VoiceOver réels → tickets QA transverses.
 
 #### LANDING-CORE-01A — Audit Hero / Services / Réservation / Contact
 
@@ -887,10 +904,21 @@ réelles uniquement et navigation filtrée sans lien mort.
 #### LANDING-CORE-01E — QA, documentation et readiness de clôture
 
 - Mode : `VERIFY`
-- Statut : `IN_PROGRESS — en attente CTO`
+- Statut : `DONE — Validé CTO 2026-07-31`
 - Dépendances : `LANDING-CORE-01D`
 - Inclus : QA structure/contenu/a11y/responsive, README CORE, supply chain, rapport
-- Exclus : commit/push, clôture feature, nouvelles sections métier, assets
+- Exclus : nouvelles sections métier, assets inventés
+
+**Critères d’acceptation feature (clôture 01E)**
+
+- [x] Hero, Services, Booking, Contact rendus dans l’ordre CORE ;
+- [x] navigation Accueil / Services / Réserver / Contact sans ancre morte ;
+- [x] graphie `PRiMiE`, WhatsApp sans `?text=`, téléphone canonique ;
+- [x] aucun prix, description inventée, image, galerie, avis, FAQ ;
+- [x] contraste bronze sur ivoire pour labels Contact et numéros Services ;
+- [x] unique Client Component du parcours : `MobileNavigation` ;
+- [x] 78 tests verts ; lint, typecheck, build et check passent ;
+- [x] commit et push d’implémentation publiés sur `origin/main`.
 
 ### LANDING-HERO-SERVICES-01 — Implémenter Hero et Services
 
@@ -1433,16 +1461,18 @@ d’implémentation publié sur `origin/main` ; `01A`–`01E` DONE — Validé C
 `01A`–`01E`, `01E-R1`, `01E-R2` DONE — Validé CTO 2026-07-31 ; preuve :
 commit `feat: add PRiMiE landing shell` —
 `334372718906f4e5ffdf8e977bcc8f5c6da64ddb` sur `origin/main`).
-Handoff suivant : `LANDING-CORE-01` (`IN_PROGRESS` — `01E` en attente CTO).
-`CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
+`LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
+commit `feat: add PRiMiE landing core` —
+`ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
+Handoff recommandé : `CONTENT-VALIDATION-01` (reste
+`BLOCKED — promotion READY réservée au CTO` — **non encore ouvert**).
 
-### Après ouverture LANDING-CORE-01
+### Après clôture LANDING-CORE-01
 
-1. valider `LANDING-CORE-01E` (QA finale) auprès du CTO ;
-2. clôturer `LANDING-CORE-01` uniquement après validation CTO explicite ;
-3. maintenir la collecte de contenus en parallèle (`CONTENT-VALIDATION-01`) ;
-4. ne créer aucun code hors ticket autorisé ;
-5. ne déployer en Production qu’avec autorisation CTO explicite.
+1. ouvrir `CONTENT-VALIDATION-01` uniquement sur décision CTO explicite ;
+2. ne pas inventer médias, avis, FAQ ou descriptions en attendant Prisca ;
+3. ne créer aucun code hors ticket autorisé ;
+4. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 
