@@ -1,27 +1,39 @@
-# PRD — PRIMiE Landing Page V1
+# PRD — PRiMiE Landing Page V1
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 | --- | --- |
 | Identifiant | `PRD-PRIMIE-001` |
-| Produit | `PRIMiE` |
-| Titre | Landing page Chez PRIMiE Coiffure — V1 |
-| Version | `1.0` |
+| Produit | `PRiMiE` |
+| Titre | Landing page Chez PRiMiE Coiffure — V1 |
+| Version | `1.1` |
 | Statut | `Validé` |
 | Autorité produit | Prisca — métier et contenus |
 | Autorité technique | Kyria — CTO |
 | Date de création | `2026-07-30` |
-| Dernière mise à jour | `2026-07-30` |
-| Validation CTO | Kyria — `2026-07-30` |
+| Dernière mise à jour | `2026-07-31` |
+| Validation CTO | Kyria — `2026-07-31` |
 | Validation métier | contenus ouverts à confirmer par Prisca |
 | BMAD lié | `BMAD-PRIMIE-001 — version 1.0 — Validé` |
 | ADR liés | `Aucun requis à ce stade` |
 | Tickets liés | `BMAD-PRIMIE-001` — tickets `INIT-SCAFFOLD-01A` à `01E` et suite |
 | Environnement cible | Local → Preview Vercel → Production autorisée |
 
+## 0.1 Décision de marque — graphie officielle (2026-07-31)
+
+| Champ | Valeur |
+| --- | --- |
+| Ancienne graphie | `PRIMiE` |
+| Nouvelle graphie officielle | `PRiMiE` |
+| Nom commercial | `Chez PRiMiE Coiffure` |
+| Signature visuelle | `PRiMiE COIFFURE` |
+| Périmètre | UI, UX, metadata, contenus et communication de marque |
+| Conservé | identifiants techniques historiques (`PRD-PRIMIE-*`, `BMAD-PRIMIE-*`, URL GitHub, slugs) |
+| Autorité | CTO Kyria — `2026-07-31` |
+
 ## 1. Résumé exécutif
-PRIMiE doit fournir à Prisca une présence numérique premium, mobile-first et
+PRiMiE doit fournir à Prisca une présence numérique premium, mobile-first et
 simple à maintenir pour présenter son activité de coiffure et beauté afro à
 domicile.
 La V1 est une landing page publique unique. Elle permet à une nouvelle visiteuse
@@ -74,7 +86,7 @@ présenter son savoir-faire et faciliter les demandes.
 ### Problème utilisateur
 Pour une personne recherchant une prestation de coiffure ou beauté afro, il est
 difficile de :
-- comprendre l’offre de PRIMiE depuis une source unique ;
+- comprendre l’offre de PRiMiE depuis une source unique ;
 - visualiser la qualité et la diversité des prestations ;
 - trouver des éléments de confiance ;
 - obtenir des réponses pratiques ;
@@ -95,7 +107,7 @@ Créer une présence numérique élégante, humaine et rassurante qui valorise l
 savoir-faire de Prisca et transforme une visite en conversation WhatsApp.
 
 ### Proposition de valeur
-PRIMiE rassemble en une seule page :
+PRiMiE rassemble en une seule page :
 - une présentation claire de l’activité ;
 - les prestations validées ;
 - une galerie de réalisations autorisées ;
@@ -151,7 +163,7 @@ d’habitudes d’achat ne sont pas connus et ne doivent pas être inventés.
 
 ```text
 Lorsque je cherche une prestation de coiffure ou beauté afro,
-je veux comprendre ce que propose PRIMiE et voir son travail,
+je veux comprendre ce que propose PRiMiE et voir son travail,
 afin de décider si je souhaite contacter Prisca sur WhatsApp.
 ```
 
@@ -242,7 +254,7 @@ Aucun lien vide, `#` générique ou bouton factice n’est autorisé.
 
 ## 10. Parcours principal
 1. La visiteuse arrive sur le Hero.
-2. Elle identifie `Chez PRIMiE Coiffure`.
+2. Elle identifie `Chez PRiMiE Coiffure`.
 3. Elle comprend qu’il s’agit de coiffure et beauté afro à domicile.
 4. Elle découvre les prestations.
 5. Elle consulte les réalisations.
@@ -300,7 +312,7 @@ le lien `tel:+33749616582`.
 ## 13. Header
 
 ### Exigences
-- afficher l’identité PRIMiE ;
+- afficher l’identité PRiMiE ;
 - proposer la navigation desktop ;
 - proposer un menu mobile ;
 - fournir un accès clair à la réservation ;
@@ -321,7 +333,7 @@ le lien `tel:+33749616582`.
 ## 14. Hero
 
 ### Exigences
-- afficher `Chez PRIMiE Coiffure` ;
+- afficher `Chez PRiMiE Coiffure` ;
 - communiquer la coiffure et beauté afro à domicile ;
 - utiliser un visuel principal de qualité ;
 - afficher un CTA principal WhatsApp ;
@@ -450,7 +462,7 @@ par un contenu honnête explicitement validé par le CTO.
 
 ### Sujet déjà confirmé
 Le parcours de prise de contact peut expliquer :
-1. contacter PRIMiE sur WhatsApp ;
+1. contacter PRiMiE sur WhatsApp ;
 2. préciser la prestation souhaitée ;
 3. attendre la confirmation des détails et de la disponibilité par Prisca.
 Les fournitures, la préparation, les zones de déplacement, l’entretien, les
@@ -481,7 +493,7 @@ horaires et les modalités restent à confirmer.
 ### Message proposé à valider
 
 ```text
-Bonjour PRIMiE, je souhaite obtenir des informations concernant une prestation.
+Bonjour PRiMiE, je souhaite obtenir des informations concernant une prestation.
 ```
 Ce texte reste `Proposé` jusqu’à validation par Prisca.
 
@@ -526,7 +538,7 @@ WhatsApp : https://wa.me/33749616582
 ## 22. Footer
 
 ### Exigences
-- afficher l’identité PRIMiE ;
+- afficher l’identité PRiMiE ;
 - proposer uniquement les raccourcis utiles ;
 - afficher les coordonnées validées ;
 - inclure les mentions légales nécessaires ;

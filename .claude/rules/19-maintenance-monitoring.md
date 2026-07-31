@@ -15,7 +15,7 @@ paths:
 # Maintenance et monitoring
 
 ## 1. Objectif
-Après la mise en ligne, PRIMiE doit rester :
+Après la mise en ligne, PRiMiE doit rester :
 
 - disponible ;
 - rapide ;
@@ -227,7 +227,7 @@ Une alerte bruyante est corrigée, pas simplement ignorée.
 ---
 
 ## 11. Sévérité des incidents
-| Niveau | Exemple PRIMiE | Réponse |
+| Niveau | Exemple PRiMiE | Réponse |
 | --- | --- | --- |
 | SEV-1 | Site indisponible ou secret publié | Confinement immédiat |
 | SEV-2 | Mauvais contact ou CTA bloqué | Correction ou rollback prioritaire |
@@ -302,7 +302,7 @@ de merge.
 Pour chaque mise à jour :
 
 1. comprendre la vulnérabilité ou le besoin ;
-2. vérifier si PRIMiE est exposé ;
+2. vérifier si PRiMiE est exposé ;
 3. lire les notes officielles ;
 4. appliquer la plus petite mise à jour sûre ;
 5. inspecter le lockfile ;
@@ -321,7 +321,7 @@ Priorité interne :
 - modérée : prochain cycle de maintenance ;
 - faible ou non applicable : documenter la décision.
 
-Ces délais sont des objectifs PRIMiE, pas une garantie universelle.
+Ces délais sont des objectifs PRiMiE, pas une garantie universelle.
 
 Ne pas fermer une alerte comme « non applicable » sans preuve liée au code
 réellement utilisé.
@@ -331,7 +331,7 @@ réellement utilisé.
 ## 16. Contenu
 Contrôler régulièrement :
 
-- nom `Chez PRIMiE Coiffure` ;
+- nom `Chez PRiMiE Coiffure` ;
 - services ;
 - téléphone ;
 - WhatsApp ;

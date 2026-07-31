@@ -1,14 +1,14 @@
 ---
-description: Documentation produit, technique et opérationnelle de PRIMiE sans doublons ni informations inventées
+description: Documentation produit, technique et opérationnelle de PRiMiE sans doublons ni informations inventées
 globs: "**/*.md, **/*.mdx, **/*.mdc, README*, CHANGELOG*, docs/**/*, package.json, content/**/*.ts"
 alwaysApply: false
 ---
 
-# PRIMiE — Documentation
+# PRiMiE — Documentation
 
 ## 1. Objectif
 
-La documentation PRIMiE doit aider une personne à :
+La documentation PRiMiE doit aider une personne à :
 
 - comprendre le produit ;
 - installer et exécuter le projet ;
@@ -24,7 +24,7 @@ vérité du comportement exécutable.
 
 ## 2. Principe de proportion
 
-PRIMiE est une landing page : ne pas créer une encyclopédie.
+PRiMiE est une landing page : ne pas créer une encyclopédie.
 
 Une documentation est justifiée si elle répond à une question récurrente, protège une
 décision, explique une procédure ou évite une erreur coûteuse.
@@ -45,7 +45,7 @@ Préférer un petit document maintenu à un grand document ignoré.
 
 Séparer les besoins :
 
-| Type | Question | Exemple PRIMiE |
+| Type | Question | Exemple PRiMiE |
 | --- | --- | --- |
 | Tutoriel | Comment apprendre ? | prise en main du projet |
 | Guide | Comment accomplir une tâche ? | déployer une Preview |
@@ -210,7 +210,7 @@ pnpm build
 Tester les exemples lorsque l'environnement le permet. Sinon, les marquer comme non
 vérifiés.
 
-Ne pas utiliser `npm` ou `yarn` dans un exemple PRIMiE.
+Ne pas utiliser `npm` ou `yarn` dans un exemple PRiMiE.
 
 ---
 
@@ -320,7 +320,7 @@ Ne jamais mettre une valeur secrète ou un identifiant personnel dans un runbook
 
 ## 15. CHANGELOG
 
-Créer `CHANGELOG.md` lorsque PRIMiE commence à publier des versions identifiées.
+Créer `CHANGELOG.md` lorsque PRiMiE commence à publier des versions identifiées.
 
 Le changelog est destiné aux humains. Organiser par version et catégories :
 

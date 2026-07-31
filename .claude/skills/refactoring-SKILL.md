@@ -1,8 +1,8 @@
 ---
 name: refactoring
-description: Restructurer le code de PRIMiE sans modifier son comportement utilisateur ni son périmètre produit. Utiliser cette skill pour réduire une complexité démontrée, supprimer une duplication, clarifier des responsabilités, centraliser une source de vérité, améliorer types, imports ou frontières Server et Client Components, déplacer ou extraire des fichiers, simplifier un état React, retirer du code mort ou préparer une évolution avec baseline, tests de caractérisation et validation anti-régression.
+description: Restructurer le code de PRiMiE sans modifier son comportement utilisateur ni son périmètre produit. Utiliser cette skill pour réduire une complexité démontrée, supprimer une duplication, clarifier des responsabilités, centraliser une source de vérité, améliorer types, imports ou frontières Server et Client Components, déplacer ou extraire des fichiers, simplifier un état React, retirer du code mort ou préparer une évolution avec baseline, tests de caractérisation et validation anti-régression.
 ---
-# Refactoring PRIMiE
+# Refactoring PRiMiE
 Améliorer la structure interne sans changer le comportement observable. Refactoriser uniquement un problème démontré, avec une baseline et une surface limitée. Ne pas mélanger nettoyage, fonctionnalité et correction de bug.
 ## 1. Charger le contexte
 Avant toute modification :
@@ -84,7 +84,7 @@ Utiliser les indicateurs pertinents :
 - poids de bundle si mesuré.
 Ne pas créer une métrique artificielle pour justifier une préférence. La réduction du nombre de lignes n’est pas un objectif autonome.
 ## 6. Protéger le périmètre V1
-PRIMiE reste une landing page publique unique. Ne pas créer pendant un refactor :
+PRiMiE reste une landing page publique unique. Ne pas créer pendant un refactor :
 - monorepo ;
 - `src/` ;
 - package partagé ;
@@ -106,8 +106,8 @@ La future réutilisation IMORIA Business Kit ne justifie pas une infrastructure 
 ## 7. Protéger les invariants métier
 Préserver exactement :
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie : PRiMiE
 Porteuse : Prisca
 Téléphone affiché : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582

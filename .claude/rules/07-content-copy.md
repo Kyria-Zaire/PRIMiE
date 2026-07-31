@@ -5,11 +5,11 @@ paths:
   - "components/**/*.tsx"
 ---
 
-# PRIMiE — Contenu et copywriting
+# PRiMiE — Contenu et copywriting
 
 ## 1. Rôle de cette règle
 
-Cette règle encadre tout texte affiché, structuré ou référencé par PRIMiE :
+Cette règle encadre tout texte affiché, structuré ou référencé par PRiMiE :
 
 - titres ;
 - descriptions ;
@@ -25,7 +25,7 @@ Cette règle encadre tout texte affiché, structuré ou référencé par PRIMiE 
 
 La priorité est double :
 
-1. donner envie de contacter PRIMiE ;
+1. donner envie de contacter PRiMiE ;
 2. ne jamais tromper la cliente.
 
 Le fichier racine `CLAUDE.md` et la règle produit restent prioritaires.
@@ -35,8 +35,8 @@ Le fichier racine `CLAUDE.md` et la règle produit restent prioritaires.
 Valeurs canoniques :
 
 ```text
-Nom : Chez PRIMiE Coiffure
-Nom court : PRIMiE
+Nom : Chez PRiMiE Coiffure
+Nom court : PRiMiE
 Personne mise en avant : Prisca
 Activité : coiffure et beauté afro à domicile
 Téléphone : +33 7 49 61 65 82
@@ -45,15 +45,15 @@ WhatsApp : https://wa.me/33749616582
 
 Ne jamais :
 
-- modifier la casse de `PRIMiE` ;
-- présenter PRIMiE comme un salon physique ;
+- modifier la casse de `PRiMiE` ;
+- présenter PRiMiE comme un salon physique ;
 - attribuer une équipe à Prisca ;
 - inventer une adresse, ville ou zone d'intervention ;
 - remplacer l'identité par une formulation générique.
 
 ## 3. Voix de marque
 
-La voix PRIMiE est :
+La voix PRiMiE est :
 
 - élégante ;
 - chaleureuse ;
@@ -82,7 +82,7 @@ Exemples :
 
 - `Découvrez nos prestations`
 - `Choisissez le style qui vous ressemble`
-- `Contactez PRIMiE sur WhatsApp`
+- `Contactez PRiMiE sur WhatsApp`
 - `Préparez votre rendez-vous`
 
 Ne pas alterner entre `tu` et `vous`.
@@ -215,7 +215,7 @@ Libellés recommandés :
 - `Voir les réalisations`
 - `Découvrir les prestations`
 - `Demander des informations`
-- `Appeler PRIMiE`
+- `Appeler PRiMiE`
 
 Éviter :
 
@@ -244,7 +244,7 @@ Un message prérempli doit être :
 Exemple technique à ne pas publier sans validation :
 
 ```text
-Bonjour PRIMiE, je souhaite obtenir des informations concernant une prestation.
+Bonjour PRiMiE, je souhaite obtenir des informations concernant une prestation.
 ```
 
 Ne jamais préremplir :
@@ -330,7 +330,7 @@ Règles :
 - décrire la coiffure lorsqu'elle est le sujet ;
 - rester concis ;
 - utiliser `alt=""` pour une image purement décorative ;
-- ne pas présenter une illustration comme une réalisation PRIMiE.
+- ne pas présenter une illustration comme une réalisation PRiMiE.
 
 ## 15. Contenus provisoires
 
@@ -375,7 +375,7 @@ Les données restent typées, stables et faciles à réviser.
 
 Les métadonnées doivent :
 
-- identifier PRIMiE ;
+- identifier PRiMiE ;
 - décrire honnêtement l'activité ;
 - utiliser une localisation seulement si elle est validée ;
 - éviter le bourrage de mots-clés ;
@@ -402,7 +402,7 @@ Respecter :
 Écrire :
 
 - `WhatsApp`
-- `PRIMiE`
+- `PRiMiE`
 - `coiffure à domicile`
 - `rendez-vous`
 
@@ -452,7 +452,7 @@ Après modification, signaler :
 
 Un contenu est prêt lorsqu'il :
 
-- respecte la voix PRIMiE ;
+- respecte la voix PRiMiE ;
 - s'adresse à la cliente avec `vous` ;
 - est compréhensible dès la première lecture ;
 - ne contient aucun fait inventé ;

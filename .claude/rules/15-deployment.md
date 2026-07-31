@@ -14,7 +14,7 @@ paths:
 # Déploiement
 
 ## 1. Objectif
-Chaque déploiement PRIMiE doit être :
+Chaque déploiement PRiMiE doit être :
 - volontaire ;
 - reproductible depuis un commit identifié ;
 - vérifié en Preview avant Production ;
@@ -108,7 +108,7 @@ Vercel doit détecter Next.js sans configuration inutile.
 
 Vérifier :
 - Framework Preset : Next.js ;
-- Root Directory : racine réelle de PRIMiE ;
+- Root Directory : racine réelle de PRiMiE ;
 - install command compatible avec `pnpm` ;
 - build command : `pnpm build` sauf besoin démontré ;
 - Output Directory géré par Next.js et Vercel ;

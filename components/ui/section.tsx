@@ -1,9 +1,12 @@
 import type { ComponentPropsWithoutRef } from "react";
 
 const toneClass = {
-  paper: "bg-paper text-text-dark",
-  cream: "bg-cream text-text-dark",
-  ink: "bg-ink text-text-light",
+  /** Surface page claire (ivory) — alias historique `paper`. */
+  paper: "bg-background text-foreground",
+  /** Surface secondaire claire (warm-cream) — alias historique `cream`. */
+  cream: "bg-surface text-foreground",
+  /** Surface sombre (rich-black) — alias historique `ink`. */
+  ink: "bg-surface-dark text-on-dark",
 } as const;
 
 const spacingClass = {

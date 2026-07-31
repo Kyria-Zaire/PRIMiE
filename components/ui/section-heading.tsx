@@ -40,7 +40,7 @@ export function SectionHeading({
         .join(" ")}
     >
       {eyebrow != null && eyebrow !== "" ? (
-        <p className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-text-muted-dark">
+        <p className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
           {eyebrow}
         </p>
       ) : null}
@@ -48,7 +48,7 @@ export function SectionHeading({
         {title}
       </HeadingTag>
       {description != null && description !== "" ? (
-        <p className="font-sans text-base text-text-muted-dark sm:text-lg">{description}</p>
+        <p className="font-sans text-base text-muted-foreground sm:text-lg">{description}</p>
       ) : null}
     </div>
   );

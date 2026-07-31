@@ -1,18 +1,18 @@
 ---
-description: SEO technique, référencement local, métadonnées et données structurées de PRIMiE
+description: SEO technique, référencement local, métadonnées et données structurées de PRiMiE
 globs: app/**/*.ts, app/**/*.tsx, content/**/*.ts, public/**/*, next.config.ts
 alwaysApply: false
 ---
 
-# PRIMiE — SEO
+# PRiMiE — SEO
 
 ## 1. Objectif
 
-Le SEO de PRIMiE doit aider une cliente pertinente à :
+Le SEO de PRiMiE doit aider une cliente pertinente à :
 
 1. découvrir l'activité ;
 2. comprendre les prestations ;
-3. vérifier la crédibilité de PRIMiE ;
+3. vérifier la crédibilité de PRiMiE ;
 4. contacter Prisca sur WhatsApp.
 
 Le référencement doit rester :
@@ -92,8 +92,8 @@ Exemple structurel :
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Chez PRIMiE Coiffure",
-    template: "%s | PRIMiE",
+    default: "Chez PRiMiE Coiffure",
+    template: "%s | PRiMiE",
   },
   description: siteConfig.description,
   alternates: {
@@ -110,7 +110,7 @@ Ne pas copier cet exemple avant que `siteConfig.url` soit une URL réelle et val
 
 Le titre doit :
 
-- inclure `PRIMiE` ;
+- inclure `PRiMiE` ;
 - décrire l'activité ;
 - rester naturel ;
 - distinguer la page ;
@@ -120,7 +120,7 @@ Le titre doit :
 Forme conceptuelle :
 
 ```text
-Chez PRIMiE Coiffure — Coiffure afro à domicile
+Chez PRiMiE Coiffure — Coiffure afro à domicile
 ```
 
 Le texte exact doit être validé avant production.
@@ -148,7 +148,7 @@ La description doit :
 
 - résumer l'activité ;
 - présenter un bénéfice ;
-- inviter à contacter PRIMiE ;
+- inviter à contacter PRiMiE ;
 - rester cohérente avec la page ;
 - utiliser la localisation uniquement si elle est confirmée.
 
@@ -243,7 +243,7 @@ Une landing page unique peut avoir un sitemap très simple.
 
 ## 11. Open Graph
 
-Fournir une image sociale PRIMiE dédiée.
+Fournir une image sociale PRiMiE dédiée.
 
 Repères :
 
@@ -328,7 +328,7 @@ Il est interdit de cibler Reims ou une autre ville uniquement par supposition.
 
 Utiliser JSON-LD seulement lorsque :
 
-- le type décrit réellement PRIMiE ;
+- le type décrit réellement PRiMiE ;
 - les propriétés sont confirmées ;
 - le contenu correspondant est visible ;
 - le markup peut être maintenu ;
@@ -393,7 +393,7 @@ Ne pas ajouter en V1 :
 - `FAQPage` uniquement dans l'espoir d'obtenir un affichage enrichi ;
 - un carousel `ItemList` non éligible.
 
-PRIMiE ne vend ni produit en ligne ni réservation automatisée dans la V1.
+PRiMiE ne vend ni produit en ligne ni réservation automatisée dans la V1.
 
 ---
 

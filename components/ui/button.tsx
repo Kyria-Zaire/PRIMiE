@@ -1,12 +1,12 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes } from "react";
 
 const variantClass = {
   primary:
-    "bg-primary text-primary-foreground hover:bg-gold-light disabled:bg-beige disabled:text-text-muted-dark",
+    "bg-cta-gold text-primary-foreground hover:opacity-90 disabled:bg-champagne disabled:bg-none disabled:text-muted-foreground disabled:opacity-60",
   secondary:
-    "bg-ink text-text-light hover:bg-charcoal disabled:bg-espresso disabled:text-text-muted-light",
+    "bg-black text-on-dark hover:bg-rich-black disabled:bg-espresso disabled:text-on-dark-muted",
   ghost:
-    "bg-transparent text-foreground underline-offset-4 hover:underline disabled:text-text-muted-dark disabled:no-underline",
+    "bg-transparent text-foreground underline-offset-4 hover:underline disabled:text-muted-foreground disabled:no-underline",
 } as const;
 
 const sizeClass = {
@@ -16,7 +16,7 @@ const sizeClass = {
 } as const;
 
 const sharedClass =
-  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-semibold transition-[color,background-color,opacity] duration-short ease-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-md font-sans font-semibold transition-[color,background-color,opacity] duration-short ease-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus disabled:cursor-not-allowed";
 
 export type ButtonVariant = keyof typeof variantClass;
 export type ButtonSize = keyof typeof sizeClass;
@@ -30,20 +30,16 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: ButtonSize;
 };
 
-export function Button({
-  variant = "primary",
-  size = "md",
-  type = "button",
-  className,
-  children,
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { variant = "primary", size = "md", type = "button", className, children, ...props },
+  ref,
+) {
   return (
-    <button type={type} className={buttonClasses(variant, size, className)} {...props}>
+    <button ref={ref} type={type} className={buttonClasses(variant, size, className)} {...props}>
       {children}
     </button>
   );
-}
+});
 
 export type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;

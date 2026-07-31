@@ -1,8 +1,8 @@
 ---
 name: feature-development
-description: Piloter une fonctionnalité PRIMiE de bout en bout, depuis la compréhension du besoin jusqu’à l’implémentation vérifiée. Utiliser cette skill pour ajouter ou modifier un comportement, une section, un composant, un contenu structuré ou un parcours transversal nécessitant découverte, cadrage, analyse d’impact, design gate, planification, développement, tests, QA et compte rendu sans régression.
+description: Piloter une fonctionnalité PRiMiE de bout en bout, depuis la compréhension du besoin jusqu’à l’implémentation vérifiée. Utiliser cette skill pour ajouter ou modifier un comportement, une section, un composant, un contenu structuré ou un parcours transversal nécessitant découverte, cadrage, analyse d’impact, design gate, planification, développement, tests, QA et compte rendu sans régression.
 ---
-# Feature Development PRIMiE
+# Feature Development PRiMiE
 Livrer le plus petit changement complet qui répond au besoin utilisateur, respecte
 la V1 et préserve tous les invariants du projet.
 Ne pas confondre vitesse de génération et vitesse de livraison fiable.
@@ -51,7 +51,7 @@ l’architecture, la sécurité, le contenu public ou une action distante.
 Sinon, retenir l’hypothèse la plus prudente et la signaler.
 
 ## 4. Vérifier le périmètre V1
-PRIMiE reste une landing page publique unique.
+PRiMiE reste une landing page publique unique.
 Ne pas introduire :
 - compte ;
 - authentification ;
@@ -75,8 +75,8 @@ Ne pas préparer silencieusement une architecture future.
 
 ## 5. Protéger les invariants
 Ne jamais modifier sans validation :
-- marque : `Chez PRIMiE Coiffure` ;
-- graphie courte : `PRIMiE` ;
+- marque : `Chez PRiMiE Coiffure` ;
+- graphie courte : `PRiMiE` ;
 - porteuse : `Prisca` ;
 - téléphone affiché : `+33 7 49 61 65 82` ;
 - téléphone E.164 : `+33749616582` ;
@@ -225,7 +225,7 @@ Utiliser :
 - `app/` pour routes, composition, métadonnées et styles globaux ;
 - `components/layout/` pour Header, navigation et Footer ;
 - `components/sections/` pour les sections métier ;
-- `components/shared/` pour les composants transversaux PRIMiE ;
+- `components/shared/` pour les composants transversaux PRiMiE ;
 - `components/ui/` pour les primitives génériques ;
 - `content/` pour les données publiques ;
 - `lib/` pour la logique pure ;

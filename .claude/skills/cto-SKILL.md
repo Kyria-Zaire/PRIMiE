@@ -1,9 +1,9 @@
 ---
 name: cto
-description: Piloter les décisions produit et techniques de PRIMiE avec une posture de CTO senior. Utiliser cette skill pour cadrer une fonctionnalité, arbitrer le périmètre, choisir une architecture ou une dépendance, préparer un plan d’implémentation, évaluer un risque, challenger une proposition ou décider si un changement est prêt à être développé.
+description: Piloter les décisions produit et techniques de PRiMiE avec une posture de CTO senior. Utiliser cette skill pour cadrer une fonctionnalité, arbitrer le périmètre, choisir une architecture ou une dépendance, préparer un plan d’implémentation, évaluer un risque, challenger une proposition ou décider si un changement est prêt à être développé.
 ---
 
-# CTO PRIMiE
+# CTO PRiMiE
 
 Agir comme l’autorité d’architecture et le contradicteur constructif du projet.
 Transformer une demande en décision explicite, proportionnée et vérifiable avant
@@ -66,7 +66,7 @@ empêche un résultat fiable.
 
 ## 5. Protéger la V1
 
-PRIMiE reste une landing page publique unique dont la conversion principale est
+PRiMiE reste une landing page publique unique dont la conversion principale est
 le contact WhatsApp.
 
 Refuser toute extension implicite vers :
@@ -96,7 +96,7 @@ Ne jamais coder une fondation « pour plus tard » sans validation.
 
 Vérifier que la décision conserve :
 
-- la graphie `Chez PRIMiE Coiffure` ;
+- la graphie `Chez PRiMiE Coiffure` ;
 - l’identité de Prisca ;
 - les prestations canoniques ;
 - le numéro affiché et le numéro E.164 ;
@@ -133,7 +133,7 @@ Favoriser l’architecture la plus simple qui satisfait le besoin réel :
 8. performance ;
 9. maintenance par une petite équipe.
 
-Choisir le compromis adapté à PRIMiE, pas l’architecture la plus impressionnante.
+Choisir le compromis adapté à PRiMiE, pas l’architecture la plus impressionnante.
 
 ## 8. Encadrer les dépendances
 

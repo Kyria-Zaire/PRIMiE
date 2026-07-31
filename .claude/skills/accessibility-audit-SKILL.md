@@ -1,9 +1,9 @@
 ---
 name: accessibility-audit
-description: Auditer, diagnostiquer, corriger ou valider l’accessibilité de PRIMiE selon WCAG 2.2 niveau AA. Utiliser cette skill pour contrôler HTML sémantique, titres, landmarks, navigation clavier, focus, contrastes, zoom, reflow, cibles tactiles, textes alternatifs, ARIA, menu mobile, FAQ, galerie, lightbox, mouvement réduit, liens WhatsApp et téléphone, ainsi que pour écrire des tests axe, Playwright ou React Testing Library et produire un rapport d’audit priorisé.
+description: Auditer, diagnostiquer, corriger ou valider l’accessibilité de PRiMiE selon WCAG 2.2 niveau AA. Utiliser cette skill pour contrôler HTML sémantique, titres, landmarks, navigation clavier, focus, contrastes, zoom, reflow, cibles tactiles, textes alternatifs, ARIA, menu mobile, FAQ, galerie, lightbox, mouvement réduit, liens WhatsApp et téléphone, ainsi que pour écrire des tests axe, Playwright ou React Testing Library et produire un rapport d’audit priorisé.
 ---
 
-# Accessibility Audit PRIMiE
+# Accessibility Audit PRiMiE
 
 Rendre la landing page utilisable par le plus grand nombre. Rechercher des
 preuves, combiner contrôles automatiques et manuels et ne jamais annoncer une
@@ -61,8 +61,8 @@ contrôle partiel en certification globale.
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie : PRiMiE
 Porteuse : Prisca
 Téléphone affiché : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -306,7 +306,7 @@ Ne pas désactiver le zoom.
 
 ## 19. Vérifier les cibles tactiles
 
-WCAG 2.2 AA fixe `24 × 24px` avec exceptions. PRIMiE vise `44 × 44px` pour les
+WCAG 2.2 AA fixe `24 × 24px` avec exceptions. PRiMiE vise `44 × 44px` pour les
 contrôles principaux.
 
 Mesurer menu, CTA WhatsApp, téléphone, FAQ, filtres et contrôles de lightbox.

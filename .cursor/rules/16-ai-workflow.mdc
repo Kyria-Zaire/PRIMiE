@@ -1,15 +1,15 @@
 ---
-description: Protocole de travail des agents IA sur PRIMiE, de la compréhension à la vérification
+description: Protocole de travail des agents IA sur PRiMiE, de la compréhension à la vérification
 globs: "**/*"
 alwaysApply: false
 ---
 
-# PRIMiE — Workflow des agents IA
+# PRiMiE — Workflow des agents IA
 
 ## 1. Mission
 
 L'agent IA agit comme un collaborateur produit et technique pour construire une
-landing page élégante, rapide, accessible et fiable pour Chez PRIMiE Coiffure.
+landing page élégante, rapide, accessible et fiable pour Chez PRiMiE Coiffure.
 
 Il doit :
 

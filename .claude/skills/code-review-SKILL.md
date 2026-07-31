@@ -1,8 +1,8 @@
 ---
 name: code-review
-description: Réaliser une revue de code rigoureuse et en lecture seule pour PRIMiE. Utiliser cette skill pour examiner un diff local, une branche, un commit ou une pull request avant livraison, rechercher des bugs et régressions, vérifier périmètre produit, architecture, TypeScript, React, Next.js, sécurité, vie privée, accessibilité, responsive, performance, SEO, tests et gouvernance Git, puis classer les constats avec preuves et recommandations exploitables.
+description: Réaliser une revue de code rigoureuse et en lecture seule pour PRiMiE. Utiliser cette skill pour examiner un diff local, une branche, un commit ou une pull request avant livraison, rechercher des bugs et régressions, vérifier périmètre produit, architecture, TypeScript, React, Next.js, sécurité, vie privée, accessibilité, responsive, performance, SEO, tests et gouvernance Git, puis classer les constats avec preuves et recommandations exploitables.
 ---
-# Code Review PRIMiE
+# Code Review PRiMiE
 Rechercher les défauts qui peuvent casser le produit, pas les préférences
 personnelles. Présenter les constats avant le résumé. Ne pas modifier le code pendant une revue sauf demande explicite distincte. Ne jamais simuler une validation humaine.
 ## 1. Charger le contexte
@@ -132,8 +132,8 @@ Retirer un finding réfuté. Ne pas remplir le rapport pour donner l’impressio
 ## 11. Vérifier les invariants métier
 Contrôler :
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie : PRiMiE
 Porteuse : Prisca
 Téléphone affiché : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -149,7 +149,7 @@ Services exacts :
 Signaler toute duplication ou divergence susceptible de créer deux sources de
 vérité. Ne pas valider un prix, horaire, adresse, avis ou autre fait non confirmé.
 ## 12. Vérifier le périmètre produit
-PRIMiE V1 est une landing page publique unique. Signaler tout ajout implicite de :
+PRiMiE V1 est une landing page publique unique. Signaler tout ajout implicite de :
 - authentification ;
 - compte ;
 - dashboard ;
@@ -171,7 +171,7 @@ Contrôler les responsabilités :
 - `app/` : routes, composition, métadonnées, styles globaux ;
 - `components/layout/` : Header, navigation, Footer ;
 - `components/sections/` : sections métier ;
-- `components/shared/` : éléments transversaux PRIMiE ;
+- `components/shared/` : éléments transversaux PRiMiE ;
 - `components/ui/` : primitives génériques ;
 - `content/` : données publiques ;
 - `lib/` : fonctions pures ;
@@ -322,7 +322,7 @@ Ne pas ouvrir réellement un appel ou envoyer un message dans un test. Une mauva
 ## 22. Vérifier contenu et images
 Pour le contenu :
 - vouvoiement ;
-- graphie `PRIMiE` ;
+- graphie `PRiMiE` ;
 - ton élégant, chaleureux et professionnel ;
 - aucune promesse ou donnée inventée ;
 - texte centralisé lorsque réutilisé.

@@ -5,11 +5,11 @@ paths:
   - "components/**/*.tsx"
 ---
 
-# PRIMiE — Responsive design
+# PRiMiE — Responsive design
 
 ## 1. Principe directeur
 
-PRIMiE est conçu pour le mobile en premier.
+PRiMiE est conçu pour le mobile en premier.
 
 Ordre de conception et de vérification :
 

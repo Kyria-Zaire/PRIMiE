@@ -1,13 +1,13 @@
 ---
 name: ui-component-development
-description: Concevoir, créer, modifier, refactoriser, auditer ou tester les composants UI de PRIMiE avec Next.js 15, React, TypeScript strict, Tailwind CSS, shadcn/ui et Radix. Utiliser cette skill pour primitives, composants shared, layout ou sections, contrats de props, variantes, composition, Server et Client Components, boutons, liens, WhatsAppLink, SectionContainer, SectionHeading, ResponsiveImage, Header, menu mobile, galerie, filtres, lightbox, FAQ, icônes, animations, accessibilité, responsive, tests ou réduction d’une abstraction excessive.
+description: Concevoir, créer, modifier, refactoriser, auditer ou tester les composants UI de PRiMiE avec Next.js 15, React, TypeScript strict, Tailwind CSS, shadcn/ui et Radix. Utiliser cette skill pour primitives, composants shared, layout ou sections, contrats de props, variantes, composition, Server et Client Components, boutons, liens, WhatsAppLink, SectionContainer, SectionHeading, ResponsiveImage, Header, menu mobile, galerie, filtres, lightbox, FAQ, icônes, animations, accessibilité, responsive, tests ou réduction d’une abstraction excessive.
 ---
 
-# UI Component Development PRIMiE
+# UI Component Development PRiMiE
 
 Créer des composants clairs, typés, accessibles et composables sans transformer
 une landing page simple en bibliothèque générique. Préserver les frontières
-serveur/client, les sources de contenu et la direction artistique PRIMiE.
+serveur/client, les sources de contenu et la direction artistique PRiMiE.
 
 ## 1. Charger le contexte
 
@@ -45,7 +45,7 @@ dépendance, un commit ou un déploiement.
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
+Marque : Chez PRiMiE Coiffure
 Porteuse : Prisca
 Téléphone : +33 7 49 61 65 82
 WhatsApp : https://wa.me/33749616582
@@ -66,7 +66,7 @@ components/ui
   → primitives génériques
 
 components/shared
-  → composants transversaux PRIMiE
+  → composants transversaux PRiMiE
 
 components/layout
   → Header, navigation et Footer
@@ -244,7 +244,7 @@ Utiliser selon besoin :
 - `Sheet` ;
 - `Tabs` si le pattern convient.
 
-Conserver les comportements Radix, appliquer les tokens PRIMiE et adapter sans
+Conserver les comportements Radix, appliquer les tokens PRiMiE et adapter sans
 casser l’accessibilité.
 
 Ne pas installer une primitive inutilisée, cumuler deux bibliothèques UI ou
@@ -461,7 +461,7 @@ Un composant est terminé lorsque :
 
 Ne jamais :
 
-- créer une primitive avec contenu PRIMiE ;
+- créer une primitive avec contenu PRiMiE ;
 - dupliquer un composant pour couleur ou texte ;
 - rendre un `<div>` cliquable ;
 - imbriquer lien et bouton ;

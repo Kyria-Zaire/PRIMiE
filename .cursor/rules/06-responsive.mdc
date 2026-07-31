@@ -1,14 +1,14 @@
 ---
-description: Règles mobile-first, breakpoints, grilles et validation responsive de PRIMiE
+description: Règles mobile-first, breakpoints, grilles et validation responsive de PRiMiE
 globs: app/**/*.css, app/**/*.tsx, components/**/*.tsx
 alwaysApply: false
 ---
 
-# PRIMiE — Responsive design
+# PRiMiE — Responsive design
 
 ## 1. Principe directeur
 
-PRIMiE est conçu pour le mobile en premier.
+PRiMiE est conçu pour le mobile en premier.
 
 L'ordre de conception et de vérification est :
 

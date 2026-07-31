@@ -10,7 +10,7 @@ paths:
 # Performance
 
 ## 1. Rôle de cette règle
-Cette règle définit les exigences de performance du site PRIMiE.
+Cette règle définit les exigences de performance du site PRiMiE.
 Elle s’applique à toute modification pouvant influencer :
 - le temps d’affichage initial ;
 - la réactivité des interactions ;
@@ -241,7 +241,7 @@ réécrire au hasard.
 
 ## 12. Polices
 Charger les polices avec `next/font`.
-Pour l’identité PRIMiE :
+Pour l’identité PRiMiE :
 - Cormorant Garamond peut servir aux titres ;
 - Manrope peut servir au texte courant ;
 - Allura doit rester limitée aux accents décoratifs.
@@ -375,7 +375,7 @@ Ne pas sacrifier le CTA principal ou le rendu initial à un service externe.
 ---
 
 ## 19. Rendu, cache et contenu statique
-La landing page PRIMiE contient principalement du contenu stable.
+La landing page PRiMiE contient principalement du contenu stable.
 Préférer :
 - le rendu serveur ou statique natif de Next.js ;
 - les métadonnées définies côté serveur ;

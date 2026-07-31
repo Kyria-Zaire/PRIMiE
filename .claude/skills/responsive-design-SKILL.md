@@ -1,9 +1,9 @@
 ---
 name: responsive-design
-description: Concevoir, auditer, corriger ou valider le responsive design mobile-first de PRIMiE. Utiliser cette skill pour travailler sur layouts, breakpoints Tailwind, grilles, conteneurs, typographie fluide, spacing, Header, menu mobile, Hero, CTA, services, galerie, FAQ, lightbox, images next/image, contenus longs, débordements, viewport units, safe areas, orientation, zoom 200 %, reflow à 320px, cibles tactiles, CSS media queries ou régressions entre mobile, tablette et desktop.
+description: Concevoir, auditer, corriger ou valider le responsive design mobile-first de PRiMiE. Utiliser cette skill pour travailler sur layouts, breakpoints Tailwind, grilles, conteneurs, typographie fluide, spacing, Header, menu mobile, Hero, CTA, services, galerie, FAQ, lightbox, images next/image, contenus longs, débordements, viewport units, safe areas, orientation, zoom 200 %, reflow à 320px, cibles tactiles, CSS media queries ou régressions entre mobile, tablette et desktop.
 ---
 
-# Responsive Design PRIMiE
+# Responsive Design PRiMiE
 
 Concevoir d’abord pour le petit écran, puis enrichir lorsque l’espace le permet. Préserver à chaque largeur la hiérarchie, le contenu, les actions, le cadrage, l’accessibilité et le parcours WhatsApp.
 
@@ -42,7 +42,7 @@ contenu, un commit ou un déploiement.
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
+Marque : Chez PRiMiE Coiffure
 Porteuse : Prisca
 WhatsApp : https://wa.me/33749616582
 Téléphone : +33 7 49 61 65 82

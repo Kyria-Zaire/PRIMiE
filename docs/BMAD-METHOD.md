@@ -1,20 +1,20 @@
-# Méthode BMAD — Adaptation PRIMiE
+# Méthode BMAD — Adaptation PRiMiE
 
 ## 1. Objet
 
-Cette méthode organise le développement assisté par IA de PRIMiE autour de
+Cette méthode organise le développement assisté par IA de PRiMiE autour de
 spécifications vérifiables, de rôles explicites, de gates humains et de preuves.
 
-BMAD signifie **Breakthrough Method for Agile AI-Driven Development**. PRIMiE
+BMAD signifie **Breakthrough Method for Agile AI-Driven Development**. PRiMiE
 adopte ses principes de planification agentique, de rôles spécialisés et
 d’exécution guidée par les spécifications, sans installer automatiquement le
 framework complet.
 
 Référence : [BMAD Method officiel](https://github.com/bmad-code-org/bmad-method).
 
-## 2. Adaptation PRIMiE
+## 2. Adaptation PRiMiE
 
-PRIMiE est une landing page. La méthode doit donc être :
+PRiMiE est une landing page. La méthode doit donc être :
 
 - rigoureuse sur la vérité produit ;
 - légère dans ses artefacts ;
@@ -80,7 +80,7 @@ Chaque artefact répond à une question :
 Une autorité peut être tenue par la même personne, mais la décision doit rester
 explicite.
 
-Pour PRIMiE, toute donnée métier concernant Prisca doit provenir de Prisca ou
+Pour PRiMiE, toute donnée métier concernant Prisca doit provenir de Prisca ou
 d’une source validée par l’autorité produit.
 
 ## 6. Rôles BMAD
@@ -150,7 +150,7 @@ Ne pas créer un ADR ou un PRD séparé pour chaque détail mineur.
 
 ## 9. Phases BMAD
 
-L’adaptation PRIMiE conserve quatre phases principales.
+L’adaptation PRiMiE conserve quatre phases principales.
 
 ### Phase 1 — Analysis
 
@@ -585,12 +585,12 @@ Après Production :
 
 Le knowledge doit réduire le travail futur, pas recopier le rapport.
 
-## 26. Cas particulier PRIMiE
+## 26. Cas particulier PRiMiE
 
 Conserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
+Marque : Chez PRiMiE Coiffure
 Porteuse : Prisca
 Téléphone : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -635,10 +635,10 @@ Ne jamais :
 - [x] `CLAUDE.md` ;
 - [x] modèle PRD ;
 - [x] méthode BMAD ;
-- [ ] PRD initial PRIMiE rempli et validé ;
+- [ ] PRD initial PRiMiE rempli et validé ;
 - [ ] premier dossier BMAD créé depuis le PRD ;
 - [ ] développement initialisé.
 
 La gouvernance documentaire est clôturée lorsque ce fichier et le modèle PRD
-sont validés. Le travail produit commence ensuite par le PRD initial de PRIMiE,
+sont validés. Le travail produit commence ensuite par le PRD initial de PRiMiE,
 pas par une nouvelle série de règles.

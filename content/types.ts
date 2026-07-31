@@ -1,5 +1,5 @@
 /**
- * Types de contenu PRIMiE — aucun couplage React/Next.
+ * Types de contenu PRiMiE — aucun couplage React/Next.
  * Champs optionnels réservés à un usage futur clairement identifié.
  */
 

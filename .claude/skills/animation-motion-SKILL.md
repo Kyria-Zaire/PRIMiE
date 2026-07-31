@@ -1,8 +1,8 @@
 ---
 name: animation-motion
-description: Concevoir, implémenter, auditer, corriger ou optimiser les animations et mouvements de PRIMiE avec CSS, Tailwind CSS et Framer Motion. Utiliser cette skill pour micro-interactions, transitions d’état, révélations au scroll, chorégraphies, menu mobile, FAQ, galerie, filtres, lightbox, hover, focus, reduced motion, performances, stabilité visuelle, Client Components, tests et régressions liées au mouvement.
+description: Concevoir, implémenter, auditer, corriger ou optimiser les animations et mouvements de PRiMiE avec CSS, Tailwind CSS et Framer Motion. Utiliser cette skill pour micro-interactions, transitions d’état, révélations au scroll, chorégraphies, menu mobile, FAQ, galerie, filtres, lightbox, hover, focus, reduced motion, performances, stabilité visuelle, Client Components, tests et régressions liées au mouvement.
 ---
-# Animation & Motion PRIMiE
+# Animation & Motion PRiMiE
 Créer un mouvement discret, premium, accessible et performant qui soutient la
 lecture sans retarder le parcours WhatsApp. La page doit rester complète,
 compréhensible et utilisable lorsque toute animation est supprimée.
@@ -37,8 +37,8 @@ de contenu, un déploiement ou la conversion de toute la page en Client Componen
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie courte : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie courte : PRiMiE
 Porteuse : Prisca
 Téléphone : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -74,7 +74,7 @@ Pour chaque effet, pouvoir répondre :
 Déclencheur → changement → durée → interruption → version réduite
 ```
 
-## 5. Appliquer la retenue PRIMiE
+## 5. Appliquer la retenue PRiMiE
 Le mouvement doit rester :
 - chaud et élégant ;
 - doux mais réactif ;

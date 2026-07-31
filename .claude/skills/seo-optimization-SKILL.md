@@ -1,11 +1,11 @@
 ---
 name: seo-optimization
-description: Auditer, concevoir, corriger ou valider le référencement naturel de PRIMiE avec Next.js App Router. Utiliser cette skill pour travailler sur intentions de recherche, contenu indexable, titles, meta descriptions, canonical, robots, sitemap, Open Graph, données structurées JSON-LD, SEO local, images, maillage par ancres, indexation Vercel, Search Console, Core Web Vitals ou régression SEO, sans inventer de ville, adresse, horaires, prix, avis, domaine ni promesse commerciale.
+description: Auditer, concevoir, corriger ou valider le référencement naturel de PRiMiE avec Next.js App Router. Utiliser cette skill pour travailler sur intentions de recherche, contenu indexable, titles, meta descriptions, canonical, robots, sitemap, Open Graph, données structurées JSON-LD, SEO local, images, maillage par ancres, indexation Vercel, Search Console, Core Web Vitals ou régression SEO, sans inventer de ville, adresse, horaires, prix, avis, domaine ni promesse commerciale.
 ---
 
-# SEO Optimization PRIMiE
+# SEO Optimization PRiMiE
 
-Améliorer la découverte de PRIMiE par des clientes pertinentes sans tromper les
+Améliorer la découverte de PRiMiE par des clientes pertinentes sans tromper les
 moteurs ni dégrader la page. Partir des faits validés, mesurer l’état réel et
 préserver contenu, accessibilité, performance et conversion WhatsApp.
 
@@ -76,8 +76,8 @@ Ne pas résumer le SEO à un score Lighthouse.
 Utiliser exactement :
 
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie : PRiMiE
 Porteuse : Prisca
 Activité : coiffure et beauté afro à domicile
 Téléphone affiché : +33 7 49 61 65 82
@@ -163,7 +163,7 @@ information utile par un slogan vague.
 
 Le title doit :
 
-- inclure `PRIMiE` ;
+- inclure `PRiMiE` ;
 - décrire l’activité ;
 - correspondre au contenu visible ;
 - rester naturel et distinct ;
@@ -172,7 +172,7 @@ Le title doit :
 Repère :
 
 ```text
-Chez PRIMiE Coiffure — Coiffure afro à domicile
+Chez PRiMiE Coiffure — Coiffure afro à domicile
 ```
 
 Valider le texte exact avant Production. Viser environ `50–60` caractères si
@@ -210,7 +210,7 @@ Structure conceptuelle :
 ```ts
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: "Chez PRIMiE Coiffure — Coiffure afro à domicile",
+  title: "Chez PRiMiE Coiffure — Coiffure afro à domicile",
   description: siteConfig.description,
   alternates: { canonical: "/" },
 };
@@ -281,7 +281,7 @@ Un sitemap aide la découverte. Il ne garantit pas l’indexation.
 
 ## 15. Préparer Open Graph
 
-Prévoir une image PRIMiE dédiée :
+Prévoir une image PRiMiE dédiée :
 
 - `1200 × 630px` ;
 - identité lisible ;
@@ -318,7 +318,7 @@ IA ou stock comme une réalisation de Prisca.
 
 Ajouter des données structurées seulement si :
 
-- le type décrit réellement PRIMiE ;
+- le type décrit réellement PRiMiE ;
 - chaque propriété est confirmée ;
 - le contenu correspondant est visible ou vérifiable ;
 - la source est centralisée ;
@@ -364,7 +364,7 @@ Ne pas ajouter en V1 :
 - faux carousel `ItemList` ;
 - `FAQPage` uniquement pour espérer un résultat enrichi.
 
-PRIMiE ne vend pas en ligne et ne confirme pas automatiquement une réservation.
+PRiMiE ne vend pas en ligne et ne confirme pas automatiquement une réservation.
 Le JSON-LD ne doit décrire aucune fonction absente.
 
 ## 20. Préparer le SEO local

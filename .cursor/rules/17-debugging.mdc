@@ -1,10 +1,10 @@
 ---
-description: Méthode de diagnostic, recherche de cause racine et correction des défauts PRIMiE
+description: Méthode de diagnostic, recherche de cause racine et correction des défauts PRiMiE
 globs: app/**/*, components/**/*, lib/**/*, content/**/*, public/**/*, tests/**/*, e2e/**/*, *.config.ts, package.json
 alwaysApply: false
 ---
 
-# PRIMiE — Debugging
+# PRiMiE — Debugging
 
 ## 1. Principe
 

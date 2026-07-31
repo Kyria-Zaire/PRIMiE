@@ -12,7 +12,7 @@ paths:
 
 ## 1. Objectif
 
-WhatsApp est le canal principal de prise de contact de la landing page PRIMiE.
+WhatsApp est le canal principal de prise de contact de la landing page PRiMiE.
 
 Le parcours doit :
 
@@ -33,7 +33,7 @@ Un CTA WhatsApp défaillant est une régression critique de conversion.
 La V1 utilise uniquement « Click to Chat » :
 
 ```text
-site PRIMiE → lien wa.me → WhatsApp
+site PRiMiE → lien wa.me → WhatsApp
 ```
 
 Elle n’utilise :
@@ -303,11 +303,11 @@ Ne pas implémenter un détecteur complexe d’application installée.
 
 ## 13. Vie privée
 
-Le clic quitte PRIMiE pour un service tiers.
+Le clic quitte PRiMiE pour un service tiers.
 
 Règles :
 
-- aucune donnée saisie sur PRIMiE ;
+- aucune donnée saisie sur PRiMiE ;
 - aucun contenu de message journalisé ;
 - aucun identifiant visiteur dans l’URL ;
 - aucun `utm_*` ajouté au message ;

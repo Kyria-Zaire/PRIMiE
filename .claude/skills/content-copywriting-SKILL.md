@@ -1,9 +1,9 @@
 ---
 name: content-copywriting
-description: Concevoir, rédiger, réécrire, auditer ou intégrer les contenus de PRIMiE en respectant sa voix de marque et ses faits validés. Utiliser cette skill pour les titres, Hero, prestations, galerie, bénéfices, avis, FAQ, réservation, contact, footer, CTA, messages WhatsApp, textes alternatifs, métadonnées SEO, microcopy ou sources TypeScript, ainsi que pour améliorer clarté, conversion, cohérence, français et accessibilité sans inventer prix, adresse, ville, horaires, disponibilité, expérience, avis, promesse ni information métier.
+description: Concevoir, rédiger, réécrire, auditer ou intégrer les contenus de PRiMiE en respectant sa voix de marque et ses faits validés. Utiliser cette skill pour les titres, Hero, prestations, galerie, bénéfices, avis, FAQ, réservation, contact, footer, CTA, messages WhatsApp, textes alternatifs, métadonnées SEO, microcopy ou sources TypeScript, ainsi que pour améliorer clarté, conversion, cohérence, français et accessibilité sans inventer prix, adresse, ville, horaires, disponibilité, expérience, avis, promesse ni information métier.
 ---
 
-# Content Copywriting PRIMiE
+# Content Copywriting PRiMiE
 
 Écrire une copy élégante, chaleureuse et crédible qui aide la cliente à
 comprendre l’offre puis à contacter Prisca sur WhatsApp. Préserver les faits,
@@ -45,9 +45,9 @@ n’autorise pas une intégration, un commit ou un déploiement.
 Utiliser exactement :
 
 ```text
-Projet : PRIMiE
-Marque : Chez PRIMiE Coiffure
-Graphie courte : PRIMiE
+Projet : PRiMiE
+Marque : Chez PRiMiE Coiffure
+Graphie courte : PRiMiE
 Porteuse : Prisca
 Activité : coiffure et beauté afro à domicile
 Téléphone affiché : +33 7 49 61 65 82
@@ -55,7 +55,7 @@ Téléphone E.164 : +33749616582
 WhatsApp : https://wa.me/33749616582
 ```
 
-Ne jamais modifier la casse de `PRIMiE`. Ne pas présenter l’activité comme un
+Ne jamais modifier la casse de `PRiMiE`. Ne pas présenter l’activité comme un
 salon physique sans adresse commerciale confirmée.
 
 ## 4. Classer les informations
@@ -94,7 +94,7 @@ limite.
 
 ## 6. Respecter la voix
 
-La voix PRIMiE est :
+La voix PRiMiE est :
 
 - élégante ;
 - chaleureuse ;
@@ -119,7 +119,7 @@ Formulations adaptées :
 
 - `Découvrez nos prestations`
 - `Choisissez le style qui vous ressemble`
-- `Contactez PRIMiE sur WhatsApp`
+- `Contactez PRiMiE sur WhatsApp`
 - `Préparez votre rendez-vous`
 
 Ne pas alterner entre `tu` et `vous`. L’intitulé `Pourquoi me choisir ?` reste
@@ -142,7 +142,7 @@ Appliquer :
 Éviter jargon non expliqué, anglicismes gratuits, majuscules intégrales, emojis
 en série, points d’exclamation multiples et phrases de template.
 
-Écrire `WhatsApp`, `PRIMiE`, `coiffure à domicile` et `rendez-vous`.
+Écrire `WhatsApp`, `PRiMiE`, `coiffure à domicile` et `rendez-vous`.
 
 ## 9. Respecter les prestations
 
@@ -306,11 +306,11 @@ téléphonique. Ne pas annoncer formulaire, calendrier ou réponse immédiate.
 Commencer par un verbe et décrire le résultat :
 
 - `Réserver sur WhatsApp`
-- `Contacter PRIMiE`
+- `Contacter PRiMiE`
 - `Voir les réalisations`
 - `Découvrir les prestations`
 - `Demander des informations`
-- `Appeler PRIMiE`
+- `Appeler PRiMiE`
 
 Éviter `Cliquez ici`, `Go`, `Envoyer`, `Soumettre` et `En savoir plus` sans
 contexte. Le CTA principal doit mentionner WhatsApp.
@@ -324,11 +324,11 @@ Utiliser seulement un message validé, court, poli et modifiable.
 Modèles autorisés :
 
 ```text
-Bonjour PRIMiE, je souhaite obtenir des informations concernant une prestation.
+Bonjour PRiMiE, je souhaite obtenir des informations concernant une prestation.
 ```
 
 ```text
-Bonjour PRIMiE, je souhaite obtenir des informations concernant : {service}.
+Bonjour PRiMiE, je souhaite obtenir des informations concernant : {service}.
 ```
 
 Ne pas préremplir nom, adresse, date, disponibilité, prix ou donnée sensible.
@@ -359,7 +359,7 @@ L’`alt` sert d’abord à l’accessibilité, pas au bourrage SEO.
 
 Le title et la description doivent :
 
-- identifier PRIMiE ;
+- identifier PRiMiE ;
 - décrire honnêtement l’activité ;
 - correspondre au contenu visible ;
 - utiliser une localisation uniquement validée ;
@@ -438,7 +438,7 @@ phrase plus persuasive.
 
 Vérifier :
 
-- graphie `PRIMiE` ;
+- graphie `PRiMiE` ;
 - `vous` cohérent ;
 - six prestations intactes ;
 - coordonnées canoniques ;
@@ -479,7 +479,7 @@ Ne jamais :
 - inventer expérience, certification ou disponibilité ;
 - publier une prestation non confirmée ;
 - promettre un résultat ;
-- présenter PRIMiE comme salon physique sans preuve ;
+- présenter PRiMiE comme salon physique sans preuve ;
 - tutoyer la cliente ;
 - bourrer le texte de mots-clés ;
 - publier un placeholder ;

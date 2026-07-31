@@ -6,14 +6,14 @@ paths:
   - "**/*.css"
 ---
 
-# PRIMiE — Standards de code
+# PRiMiE — Standards de code
 
 ## 1. Rôle de cette règle
 
 Applique cette règle lors de toute création, modification, revue ou
 refactorisation de code.
 
-Le code PRIMiE doit être :
+Le code PRiMiE doit être :
 
 - correct ;
 - strictement typé ;

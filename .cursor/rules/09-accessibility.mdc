@@ -1,14 +1,14 @@
 ---
-description: Exigences WCAG 2.2 AA, clavier, focus, sémantique et composants accessibles pour PRIMiE
+description: Exigences WCAG 2.2 AA, clavier, focus, sémantique et composants accessibles pour PRiMiE
 globs: app/**/*.tsx, app/**/*.css, components/**/*.tsx, content/**/*.ts
 alwaysApply: false
 ---
 
-# PRIMiE — Accessibilité
+# PRiMiE — Accessibilité
 
 ## 1. Objectif
 
-PRIMiE vise la conformité WCAG 2.2 niveau AA.
+PRiMiE vise la conformité WCAG 2.2 niveau AA.
 
 L'accessibilité est une exigence fonctionnelle, pas une finition ajoutée après le
 design.
@@ -196,7 +196,7 @@ Minimums WCAG AA :
 - grand texte : `3:1` ;
 - composants et états visuels nécessaires : `3:1` avec les couleurs adjacentes.
 
-Règles PRIMiE :
+Règles PRiMiE :
 
 - ne pas utiliser le doré pour un petit texte sur fond clair ;
 - vérifier le texte posé sur une photographie ;
@@ -256,7 +256,7 @@ Ne pas utiliser :
 
 WCAG 2.2 AA définit un minimum de `24 × 24px` avec exceptions.
 
-PRIMiE applique une cible de projet plus confortable :
+PRiMiE applique une cible de projet plus confortable :
 
 `44 × 44px` minimum pour les contrôles principaux.
 

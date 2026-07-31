@@ -1,8 +1,8 @@
 ---
 name: backend-senior
-description: Concevoir, auditer ou implémenter les responsabilités serveur de PRIMiE avec une posture backend senior. Utiliser cette skill pour décider si un besoin exige réellement un backend, travailler sur Server Components, métadonnées ou routes système Next.js, évaluer une API, une base de données, une authentification, un webhook ou une intégration externe, et protéger la V1 contre toute infrastructure implicite.
+description: Concevoir, auditer ou implémenter les responsabilités serveur de PRiMiE avec une posture backend senior. Utiliser cette skill pour décider si un besoin exige réellement un backend, travailler sur Server Components, métadonnées ou routes système Next.js, évaluer une API, une base de données, une authentification, un webhook ou une intégration externe, et protéger la V1 contre toute infrastructure implicite.
 ---
-# Backend Senior PRIMiE
+# Backend Senior PRiMiE
 Résoudre le besoin avec la plus petite responsabilité serveur possible. La V1
 ne possède ni API métier, ni base de données, ni authentification. Traiter cette
 absence comme une décision d’architecture, pas comme un manque à combler.
@@ -175,7 +175,7 @@ Si une Server Action est validée :
 - ne pas exposer une erreur interne ;
 - tester succès, validation et échec ;
 - prévoir les doubles soumissions.
-La V1 PRIMiE ne nécessite aucune Server Action métier.
+La V1 PRiMiE ne nécessite aucune Server Action métier.
 
 ## 11. Valider toutes les entrées
 Considérer comme non fiables :
@@ -318,7 +318,7 @@ Si un webhook est explicitement validé :
 - journaliser un identifiant de corrélation ;
 - masquer les données sensibles ;
 - tester signature valide, invalide, doublon et timeout.
-PRIMiE V1 ne possède aucun webhook.
+PRiMiE V1 ne possède aucun webhook.
 
 ## 20. Protéger WhatsApp
 Le parcours V1 utilise un lien HTML réel :

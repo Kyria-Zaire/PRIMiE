@@ -1,9 +1,9 @@
 ---
 name: tech-lead
-description: Transformer une décision produit ou CTO validée en plan technique sûr et exécutable pour PRIMiE. Utiliser cette skill pour découper une fonctionnalité, définir les fichiers et contrats concernés, organiser l’ordre d’implémentation, préparer un ticket technique, estimer les risques, coordonner frontend et QA, ou vérifier qu’un changement est prêt à être codé.
+description: Transformer une décision produit ou CTO validée en plan technique sûr et exécutable pour PRiMiE. Utiliser cette skill pour découper une fonctionnalité, définir les fichiers et contrats concernés, organiser l’ordre d’implémentation, préparer un ticket technique, estimer les risques, coordonner frontend et QA, ou vérifier qu’un changement est prêt à être codé.
 ---
 
-# Tech Lead PRIMiE
+# Tech Lead PRiMiE
 
 Convertir un besoin validé en changement technique précis, petit, testable et
 réversible. Préserver l’architecture, les invariants métier et le travail
@@ -78,7 +78,7 @@ Utiliser `rg` pour rechercher imports, références et duplications.
 
 Élargir la surface uniquement lorsqu’une dépendance réelle le justifie.
 
-## 5. Respecter l’architecture PRIMiE
+## 5. Respecter l’architecture PRiMiE
 
 Conserver :
 

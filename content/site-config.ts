@@ -5,8 +5,8 @@
 
 export const siteConfig = {
   brand: {
-    shortName: "PRIMiE",
-    commercialName: "Chez PRIMiE Coiffure",
+    shortName: "PRiMiE",
+    commercialName: "Chez PRiMiE Coiffure",
     owner: "Prisca",
     activity: "Coiffure et beauté afro à domicile",
   },

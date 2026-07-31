@@ -3,8 +3,8 @@ import { siteConfig } from "../content/site-config";
 
 describe("siteConfig", () => {
   it("expose la graphie et l’identité confirmées", () => {
-    expect(siteConfig.brand.shortName).toBe("PRIMiE");
-    expect(siteConfig.brand.commercialName).toBe("Chez PRIMiE Coiffure");
+    expect(siteConfig.brand.shortName).toBe("PRiMiE");
+    expect(siteConfig.brand.commercialName).toBe("Chez PRiMiE Coiffure");
     expect(siteConfig.brand.owner).toBe("Prisca");
     expect(siteConfig.brand.activity).toBe("Coiffure et beauté afro à domicile");
     expect(siteConfig.locale.language).toBe("fr");

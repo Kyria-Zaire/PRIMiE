@@ -10,11 +10,11 @@ paths:
   - "package.json"
 ---
 
-# PRIMiE — Architecture frontend
+# PRiMiE — Architecture frontend
 
 ## 1. Rôle de cette règle
 
-Cette règle définit l'architecture technique de la V1 de PRIMiE.
+Cette règle définit l'architecture technique de la V1 de PRiMiE.
 
 Elle s'applique lorsqu'une tâche :
 
@@ -33,7 +33,7 @@ Construire une landing page claire, simple à modifier, performante par défaut,
 strictement typée et compatible avec Next.js 15 App Router, sans architecture
 surdimensionnée.
 
-PRIMiE est le premier cas d'usage du futur `IMORIA Business Kit`, mais la V1
+PRiMiE est le premier cas d'usage du futur `IMORIA Business Kit`, mais la V1
 reste un produit simple. Ne construis pas un framework avant d'avoir plusieurs
 cas d'usage réels.
 
@@ -167,7 +167,7 @@ Une section :
 
 ### `components/shared/`
 
-Contient les composants propres à PRIMiE réutilisés dans plusieurs sections.
+Contient les composants propres à PRiMiE réutilisés dans plusieurs sections.
 
 Un composant y entre seulement :
 
@@ -182,7 +182,7 @@ shadcn/ui.
 Une primitive UI :
 
 - reste générique ;
-- ne contient aucun texte commercial PRIMiE ;
+- ne contient aucun texte commercial PRiMiE ;
 - ne dépend jamais d'une section métier ;
 - conserve son accessibilité lors d'une adaptation visuelle.
 
@@ -423,7 +423,7 @@ Préparer la réutilisation avec trois frontières :
 
 1. contenu métier centralisé ;
 2. tokens visuels remplaçables ;
-3. composants génériques sans texte PRIMiE en dur.
+3. composants génériques sans texte PRiMiE en dur.
 
 Ne pas créer dans la V1 :
 

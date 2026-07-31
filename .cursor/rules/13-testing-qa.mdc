@@ -1,14 +1,14 @@
 ---
-description: Stratégie de tests, contrôle qualité et critères de livraison pour PRIMiE
+description: Stratégie de tests, contrôle qualité et critères de livraison pour PRiMiE
 globs: app/**/*.ts, app/**/*.tsx, components/**/*.tsx, lib/**/*.ts, content/**/*.ts, tests/**/*, e2e/**/*, *.config.ts, package.json
 alwaysApply: false
 ---
 
-# PRIMiE — Tests et assurance qualité
+# PRiMiE — Tests et assurance qualité
 
 ## 1. Objectif
 
-Les tests doivent protéger ce qui compte pour PRIMiE :
+Les tests doivent protéger ce qui compte pour PRiMiE :
 
 - comprendre les prestations ;
 - voir les réalisations ;
@@ -25,7 +25,7 @@ utilisateur, métier ou technique identifiable.
 
 ## 2. Périmètre V1
 
-PRIMiE est une landing page sans :
+PRiMiE est une landing page sans :
 
 - authentification ;
 - compte ;
@@ -216,7 +216,7 @@ const expectedServices = [
 
 Vérifier également :
 
-- nom `Chez PRIMiE Coiffure` ;
+- nom `Chez PRiMiE Coiffure` ;
 - téléphone `+33 7 49 61 65 82` ;
 - absence de texte provisoire ;
 - absence d'adresse, tarif, horaire ou avis inventé ;

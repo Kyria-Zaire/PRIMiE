@@ -1,8 +1,8 @@
 ---
 name: security-reviewer
-description: Auditer la sécurité et la vie privée de PRIMiE avant modification ou livraison. Utiliser cette skill pour revoir un diff, rechercher des secrets, examiner une dépendance ou un script tiers, contrôler XSS, URLs, CSP et en-têtes HTTP, analyser les données collectées, évaluer une intégration externe, vérifier les médias publics, traiter une alerte de sécurité ou rendre un verdict GO/NO-GO.
+description: Auditer la sécurité et la vie privée de PRiMiE avant modification ou livraison. Utiliser cette skill pour revoir un diff, rechercher des secrets, examiner une dépendance ou un script tiers, contrôler XSS, URLs, CSP et en-têtes HTTP, analyser les données collectées, évaluer une intégration externe, vérifier les médias publics, traiter une alerte de sécurité ou rendre un verdict GO/NO-GO.
 ---
-# Security Reviewer PRIMiE
+# Security Reviewer PRiMiE
 Réduire la surface d’attaque et protéger la vie privée sans inventer une
 infrastructure inutile. Fonder chaque conclusion sur le code, la configuration
 ou une réponse réellement observée.
@@ -22,7 +22,7 @@ Ne pas afficher un secret ou une donnée sensible dans le rapport.
 Le flux attendu est :
 
 ```text
-navigateur → site PRIMiE sur Vercel → téléphone ou WhatsApp
+navigateur → site PRiMiE sur Vercel → téléphone ou WhatsApp
 ```
 
 La V1 :

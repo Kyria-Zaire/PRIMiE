@@ -13,7 +13,7 @@ paths:
 
 ## 1. Objectif
 
-La documentation PRIMiE doit aider une personne à :
+La documentation PRiMiE doit aider une personne à :
 
 - comprendre le produit ;
 - installer et exécuter le projet ;
@@ -30,7 +30,7 @@ Le code reste la source de vérité du comportement exécutable.
 
 ## 2. Principe de proportion
 
-PRIMiE est une landing page : ne pas créer une encyclopédie.
+PRiMiE est une landing page : ne pas créer une encyclopédie.
 
 Une documentation est justifiée si elle :
 
@@ -55,7 +55,7 @@ Préférer un petit document maintenu à un grand document ignoré.
 
 Séparer les besoins :
 
-| Type | Question | Exemple PRIMiE |
+| Type | Question | Exemple PRiMiE |
 | --- | --- | --- |
 | Tutoriel | Comment apprendre ? | Prise en main du projet |
 | Guide | Comment accomplir une tâche ? | Déployer une Preview |
@@ -225,7 +225,7 @@ Tester les exemples lorsque l’environnement le permet.
 
 Sinon, les marquer comme non vérifiés.
 
-Ne pas utiliser `npm` ou `yarn` dans un exemple PRIMiE.
+Ne pas utiliser `npm` ou `yarn` dans un exemple PRiMiE.
 
 ---
 
@@ -336,7 +336,7 @@ Ne jamais mettre une valeur secrète ou un identifiant personnel dans un runbook
 
 ## 15. CHANGELOG
 
-Créer `CHANGELOG.md` lorsque PRIMiE commence à publier des versions identifiées.
+Créer `CHANGELOG.md` lorsque PRiMiE commence à publier des versions identifiées.
 
 Le changelog est destiné aux humains.
 

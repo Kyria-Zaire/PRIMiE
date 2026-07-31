@@ -15,7 +15,7 @@ L’historique Git doit permettre de comprendre :
 - quel risque il introduit ;
 - comment le retirer si nécessaire.
 
-PRIMiE est une landing page : privilégier un workflow simple, des branches
+PRiMiE est une landing page : privilégier un workflow simple, des branches
 courtes et des commits atomiques.
 
 Ne pas introduire une organisation Git disproportionnée.
@@ -176,7 +176,7 @@ Types :
 | `chore` | Maintenance |
 | `revert` | Annulation d’un commit |
 
-Scopes PRIMiE recommandés :
+Scopes PRiMiE recommandés :
 
 ```text
 ui, content, gallery, navigation, booking, seo, a11y, perf,
@@ -380,7 +380,7 @@ humaine.
 
 ## 12. Fusion
 
-Pour les branches courtes de PRIMiE, privilégier le squash merge afin de garder
+Pour les branches courtes de PRiMiE, privilégier le squash merge afin de garder
 `main` lisible, sauf besoin explicite de préserver plusieurs commits autonomes.
 
 Avant fusion :

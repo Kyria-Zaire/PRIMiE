@@ -7,7 +7,7 @@ paths:
   - "components.json"
 ---
 
-# PRIMiE — Design system
+# PRiMiE — Design system
 
 ## 1. Rôle de cette règle
 
@@ -25,7 +25,7 @@ prioritaires.
 
 ## 2. Intention visuelle
 
-PRIMiE doit évoquer :
+PRiMiE doit évoquer :
 
 - l'élégance ;
 - le soin ;
@@ -34,7 +34,8 @@ PRIMiE doit évoquer :
 - le savoir-faire afro ;
 - un service premium mais accessible.
 
-La direction validée repose sur un contraste noir, doré, beige et crème.
+La direction validée repose sur un contraste noir profond, or chaud, champagne
+et ivoire (palette PRiMiE COIFFURE v1.0).
 
 Le résultat ne doit pas ressembler :
 
@@ -62,44 +63,51 @@ la typographie.
 
 ## 4. Palette officielle
 
+Source d’exécution : `app/theme.css` (PRiMiE COIFFURE v1.0).
+
 ### Couleurs de marque
 
 | Token | Valeur | Usage |
 | --- | --- | --- |
-| `ink` | `#0B0908` | Fond principal sombre, texte très foncé |
-| `charcoal` | `#191512` | Cartes sombres et surfaces secondaires |
-| `espresso` | `#2A211B` | Détails sombres, hover et séparateurs |
-| `gold` | `#C9A45C` | CTA, icônes clés, accents de marque |
-| `gold-light` | `#E5CC98` | Traits décoratifs sur fond sombre |
-| `cream` | `#F7F0E6` | Fond clair principal |
-| `beige` | `#E8D8C3` | Cartes et sections secondaires claires |
-| `sand` | `#D2B895` | Éléments décoratifs et surfaces chaudes |
-| `paper` | `#FFFDF8` | Surface la plus claire |
+| `black` | `#0E0D0C` | Fond principal sombre |
+| `rich-black` | `#1B1918` | Surfaces sombres secondaires |
+| `espresso` | `#533420` | Accents bruns, états désactivés sombres |
+| `bronze` | `#664A30` | Bordures sur fonds sombres |
+| `gold` | `#A98C69` | CTA, accents, mot-symbole |
+| `gold-light` | `#CF9A5F` | Hover / extrémité du gradient CTA |
+| `champagne` | `#DFCDB4` | Surfaces muted claires |
+| `soft-gold` | `#C5AE97` | Bordures claires, accent doux |
+| `ivory` | `#F3EBE4` | Fond page clair (≠ warm-cream) |
+| `warm-cream` | `#EFE4D7` | Surface claire secondaire |
+| `taupe` | `#AA9F90` | Texte secondaire sur sombre |
+| `warm-gray` | `#6A5E51` | Texte secondaire sur clair |
 
 ### Couleurs fonctionnelles
 
 | Token | Valeur | Usage |
 | --- | --- | --- |
-| `text-dark` | `#17120F` | Texte principal sur fond clair |
-| `text-light` | `#FFF9EF` | Texte principal sur fond sombre |
-| `text-muted-dark` | `#6E6258` | Texte secondaire sur fond clair |
-| `text-muted-light` | `#C9BDB0` | Texte secondaire sur fond sombre |
-| `border-light` | `#D9C6AD` | Bordures sur fonds clairs |
-| `border-dark` | `#493A2E` | Bordures sur fonds sombres |
 | `success` | `#356B4F` | Retour positif si nécessaire |
 | `danger` | `#A5413E` | Erreur si nécessaire |
+
+### Dégradés canoniques
+
+| Token | Définition |
+| --- | --- |
+| `--gradient-hero` | black → rich-black (180deg) |
+| `--gradient-cta` | gold → gold-light (90deg) |
+| `--gradient-surface` | ivory → warm-cream (180deg) |
 
 Ne pas ajouter une couleur avant de vérifier les tokens existants.
 Toute évolution de la palette exige une validation du CTO.
 
 ## 5. Contraste
 
-- Utiliser `text-light` sur `ink`, `charcoal` ou `espresso`.
-- Utiliser `text-dark` sur `cream`, `beige`, `sand` ou `paper`.
+- Utiliser `on-dark` / `ivory` sur `black`, `rich-black` ou `espresso`.
+- Utiliser `foreground` / `black` sur `ivory`, `warm-cream` ou `champagne`.
 - Le doré peut servir de texte sur fond très sombre si le contraste est suffisant.
 - Ne pas utiliser `gold` pour un petit texte sur fond clair.
-- Un CTA doré utilise par défaut un texte `ink`.
-- Un CTA sombre utilise par défaut un texte `text-light`.
+- Un CTA doré utilise par défaut un texte `primary-foreground` (`black`).
+- Un CTA sombre utilise par défaut un texte `on-dark`.
 - Ne jamais transmettre une information uniquement par la couleur.
 
 Tout nouveau couple texte/fond doit respecter WCAG AA.
@@ -109,29 +117,27 @@ Une maquette n'autorise jamais un contraste insuffisant.
 ## 6. Variables sémantiques
 
 Les composants consomment des rôles sémantiques, pas des couleurs brutes
-répétées.
+répétées. Source : `app/theme.css`.
 
 Exemple de base :
 
 ```css
-:root {
-  --color-background: #fffdf8;
-  --color-foreground: #17120f;
-  --color-surface: #f7f0e6;
-  --color-surface-muted: #e8d8c3;
-  --color-primary: #c9a45c;
-  --color-primary-foreground: #0b0908;
-  --color-border: #d9c6ad;
-  --color-muted-foreground: #6e6258;
-}
-
-.dark-section {
-  --color-background: #0b0908;
-  --color-foreground: #fff9ef;
-  --color-surface: #191512;
-  --color-surface-muted: #2a211b;
-  --color-border: #493a2e;
-  --color-muted-foreground: #c9bdb0;
+@theme inline {
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-black);
+  --color-surface: var(--color-warm-cream);
+  --color-surface-muted: var(--color-champagne);
+  --color-surface-dark: var(--color-rich-black);
+  --color-primary: var(--color-gold);
+  --color-primary-hover: var(--color-gold-light);
+  --color-primary-foreground: var(--color-black);
+  --color-accent: var(--color-soft-gold);
+  --color-border: var(--color-soft-gold);
+  --color-muted: var(--color-taupe);
+  --color-muted-foreground: var(--color-warm-gray);
+  --color-on-dark: var(--color-ivory);
+  --color-on-dark-muted: var(--color-taupe);
+  --color-focus: var(--color-gold);
 }
 ```
 
@@ -293,7 +299,7 @@ Règles :
 ### CTA principal
 
 - fond `gold` ;
-- texte `ink` ;
+- texte `black` / `foreground` ;
 - graisse `600` ;
 - hauteur tactile minimale de `44px` ;
 - rayon `radius-pill` ou `radius-md` selon la composition ;
@@ -301,7 +307,7 @@ Règles :
 
 ### CTA secondaire sombre
 
-- fond `ink` ou `charcoal` ;
+- fond `black` ou `rich-black` ;
 - texte `text-light` ;
 - bordure discrète.
 
@@ -324,7 +330,7 @@ Ne pas utiliser un bouton doré pour chaque action.
 
 ## 14. Cartes
 
-Une carte PRIMiE utilise au maximum :
+Une carte PRiMiE utilise au maximum :
 
 - une surface ;
 - une bordure discrète ;
@@ -350,7 +356,7 @@ Hiérarchie interne :
 
 ## 15. Photographies
 
-Les photographies sont prioritaires dans l'identité PRIMiE.
+Les photographies sont prioritaires dans l'identité PRiMiE.
 
 Direction :
 
@@ -439,7 +445,7 @@ Le focus ne doit pas être caché derrière un élément sticky.
 
 Avant validation, vérifier :
 
-- cohérence avec la maquette PRIMiE validée ;
+- cohérence avec la maquette PRiMiE validée ;
 - usage correct des tokens ;
 - contraste texte/fond ;
 - hiérarchie des titres ;

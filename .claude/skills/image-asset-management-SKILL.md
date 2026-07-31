@@ -1,9 +1,9 @@
 ---
 name: image-asset-management
-description: Auditer, sélectionner, classer, préparer, optimiser, intégrer ou remplacer les images et ressources visuelles de PRIMiE. Utiliser cette skill pour gérer réalisations de Prisca, illustrations, images IA ou stock, logos, icônes, SVG, droits, autorisations, registre de provenance, métadonnées EXIF, vie privée, formats WebP/AVIF, dimensions, poids, cadrage, point focal, next/image, responsive sizes, textes alternatifs, Open Graph, placeholders, doublons ou régressions visuelles et de performance.
+description: Auditer, sélectionner, classer, préparer, optimiser, intégrer ou remplacer les images et ressources visuelles de PRiMiE. Utiliser cette skill pour gérer réalisations de Prisca, illustrations, images IA ou stock, logos, icônes, SVG, droits, autorisations, registre de provenance, métadonnées EXIF, vie privée, formats WebP/AVIF, dimensions, poids, cadrage, point focal, next/image, responsive sizes, textes alternatifs, Open Graph, placeholders, doublons ou régressions visuelles et de performance.
 ---
 
-# Image & Asset Management PRIMiE
+# Image & Asset Management PRiMiE
 
 Garantir des visuels honnêtes, autorisés, élégants, rapides et accessibles.
 Aucune qualité esthétique ne justifie une origine inconnue, une attribution
@@ -45,8 +45,8 @@ n’autorise ni commit, ni push, ni déploiement.
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie : PRiMiE
 Porteuse : Prisca
 Activité : coiffure et beauté afro à domicile
 ```

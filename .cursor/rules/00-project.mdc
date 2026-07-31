@@ -1,13 +1,13 @@
 ---
-description: Constitution du projet PRIMiE, vision produit, périmètre V1 et règles fondamentales
+description: Constitution du projet PRiMiE, vision produit, périmètre V1 et règles fondamentales
 alwaysApply: true
 ---
 
-# PRIMiE — Constitution du projet
+# PRiMiE — Constitution du projet
 
 ## 1. Rôle de cette règle
 
-Ce fichier est la source de vérité principale du projet PRIMiE.
+Ce fichier est la source de vérité principale du projet PRiMiE.
 
 Toute IA intervenant sur le dépôt doit le lire avant de proposer, créer, modifier,
 supprimer ou refactoriser du code.
@@ -27,8 +27,8 @@ Une IA ne doit jamais remplacer une décision validée par une préférence pers
 
 ## 2. Identité du projet
 
-- Nom officiel : `PRIMiE`
-- Nom commercial affiché : `Chez PRIMiE Coiffure`
+- Nom officiel : `PRiMiE`
+- Nom commercial affiché : `Chez PRiMiE Coiffure`
 - Activité : coiffure et beauté afro à domicile
 - Porteuse du projet : Prisca
 - Langue principale : français
@@ -37,14 +37,14 @@ Une IA ne doit jamais remplacer une décision validée par une préférence pers
 - Numéro de contact validé : `+33 7 49 61 65 82`
 - Lien WhatsApp canonique : `https://wa.me/33749616582`
 
-Respecter exactement la graphie `PRIMiE` dans l'interface, les métadonnées et la
+Respecter exactement la graphie `PRiMiE` dans l'interface, les métadonnées et la
 documentation destinée au public, sauf contrainte technique justifiée.
 
 ---
 
 ## 3. Vision produit
 
-PRIMiE doit offrir une présence numérique élégante, rassurante et immédiatement
+PRiMiE doit offrir une présence numérique élégante, rassurante et immédiatement
 utile à une professionnelle indépendante de la coiffure afro.
 
 Le site ne doit pas seulement présenter des prestations. Il doit :
@@ -68,7 +68,7 @@ visiteuse de :
 1. comprendre immédiatement l'activité ;
 2. découvrir les principales prestations ;
 3. consulter des réalisations ;
-4. comprendre pourquoi choisir PRIMiE ;
+4. comprendre pourquoi choisir PRiMiE ;
 5. lire des éléments de réassurance ;
 6. obtenir les réponses aux questions fréquentes ;
 7. contacter Prisca ou demander une réservation sur WhatsApp.
@@ -133,7 +133,7 @@ provisoire ou centraliser la valeur dans la configuration prévue à cet effet.
 
 La direction visuelle repose sur :
 
-- une palette noire, dorée, beige et crème ;
+- une palette noire, dorée, ivoire et crème (PRiMiE COIFFURE v1.0) ;
 - une esthétique élégante et premium ;
 - des photographies mettant en valeur les coiffures afro et les textures ;
 - une typographie éditoriale raffinée pour les titres ;
@@ -248,7 +248,7 @@ Les contenus métier amenés à changer doivent être centralisés autant que po
 
 Éviter de disperser les mêmes valeurs dans plusieurs composants.
 
-PRIMiE est aussi le premier cas d'usage du futur `IMORIA Business Kit`.
+PRiMiE est aussi le premier cas d'usage du futur `IMORIA Business Kit`.
 La réutilisabilité doit être préparée par une séparation propre entre :
 
 - contenu métier ;
@@ -257,7 +257,7 @@ La réutilisabilité doit être préparée par une séparation propre entre :
 - logique générique.
 
 Cette ambition ne doit toutefois jamais transformer la V1 en framework complexe.
-On extrait uniquement ce qui est réellement réutilisable et déjà utile à PRIMiE.
+On extrait uniquement ce qui est réellement réutilisable et déjà utile à PRiMiE.
 
 ---
 
@@ -301,7 +301,7 @@ Il est interdit de :
 - affaiblir TypeScript, ESLint ou les contrôles qualité pour faire passer un build ;
 - désactiver une règle d'accessibilité sans justification ;
 - utiliser des images sans origine ou droit d'utilisation maîtrisé ;
-- ajouter des textes génériques incohérents avec PRIMiE ;
+- ajouter des textes génériques incohérents avec PRiMiE ;
 - dupliquer inutilement des composants ou des données ;
 - modifier le périmètre produit sans validation ;
 - supprimer un comportement existant sans mesurer son impact ;

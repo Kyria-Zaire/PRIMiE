@@ -1,14 +1,14 @@
 ---
-description: Budgets, Core Web Vitals et règles de performance frontend pour PRIMiE
+description: Budgets, Core Web Vitals et règles de performance frontend pour PRiMiE
 globs: app/**/*.ts, app/**/*.tsx, app/**/*.css, components/**/*.tsx, public/**/*, next.config.ts, package.json
 alwaysApply: false
 ---
 
-# PRIMiE — Performance
+# PRiMiE — Performance
 
 ## 1. Objectif
 
-PRIMiE doit rester rapide sur un téléphone courant et une connexion mobile réelle.
+PRiMiE doit rester rapide sur un téléphone courant et une connexion mobile réelle.
 
 La performance sert directement :
 
@@ -40,7 +40,7 @@ Un score Lighthouse local ne remplace pas la mesure réelle des utilisatrices.
 
 ---
 
-## 3. Budgets PRIMiE
+## 3. Budgets PRiMiE
 
 Budgets initiaux de la landing page :
 

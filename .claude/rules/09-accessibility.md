@@ -6,11 +6,11 @@ paths:
   - "content/**/*.ts"
 ---
 
-# PRIMiE — Accessibilité
+# PRiMiE — Accessibilité
 
 ## 1. Objectif
 
-PRIMiE vise WCAG 2.2 niveau AA.
+PRiMiE vise WCAG 2.2 niveau AA.
 
 L'accessibilité est une exigence fonctionnelle, jamais une finition ajoutée après
 le design.
@@ -187,7 +187,7 @@ Minimums WCAG AA :
 - grand texte : `3:1` ;
 - composants et états nécessaires : `3:1` avec les couleurs adjacentes.
 
-Règles PRIMiE :
+Règles PRiMiE :
 
 - aucun petit texte doré sur fond clair ;
 - texte sur photographie vérifié ;
@@ -241,7 +241,7 @@ Ne pas utiliser :
 
 WCAG 2.2 AA définit une cible minimale de `24 × 24 CSS px` avec exceptions.
 
-PRIMiE applique une cible de projet plus confortable :
+PRiMiE applique une cible de projet plus confortable :
 
 ```text
 44 × 44px minimum pour les contrôles principaux

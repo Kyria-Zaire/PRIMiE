@@ -1,17 +1,17 @@
 ---
-description: Standards TypeScript, React, Next.js et qualité du code pour PRIMiE
+description: Standards TypeScript, React, Next.js et qualité du code pour PRiMiE
 globs: **/*.ts, **/*.tsx, **/*.mjs, **/*.css
 alwaysApply: false
 ---
 
-# PRIMiE — Standards de code
+# PRiMiE — Standards de code
 
 ## 1. Objectif
 
 Appliquer cette règle lors de toute création, modification, revue ou refactorisation
 de code.
 
-Le code PRIMiE doit être :
+Le code PRiMiE doit être :
 
 - correct ;
 - strictement typé ;

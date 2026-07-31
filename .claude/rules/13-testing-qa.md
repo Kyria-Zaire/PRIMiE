@@ -13,7 +13,7 @@ paths:
 # Tests et assurance qualité
 
 ## 1. Objectif
-Les tests doivent protéger ce qui compte pour PRIMiE :
+Les tests doivent protéger ce qui compte pour PRiMiE :
 
 - comprendre les prestations ;
 - voir les réalisations ;
@@ -30,7 +30,7 @@ Chaque test doit couvrir un risque utilisateur, métier ou technique identifiabl
 ---
 
 ## 2. Périmètre V1
-PRIMiE est une landing page sans :
+PRiMiE est une landing page sans :
 
 - authentification ;
 - compte ;
@@ -216,7 +216,7 @@ const expectedServices = [
 
 Vérifier également :
 
-- nom `Chez PRIMiE Coiffure` ;
+- nom `Chez PRiMiE Coiffure` ;
 - téléphone `+33 7 49 61 65 82` ;
 - absence de texte provisoire ;
 - absence d’adresse, tarif, horaire ou avis inventé ;

@@ -1,9 +1,9 @@
 ---
 name: qa
-description: Concevoir, exécuter ou revoir l’assurance qualité de PRIMiE. Utiliser cette skill pour préparer un plan de test, écrire des tests Vitest, React Testing Library ou Playwright, vérifier une fonctionnalité, contrôler responsive et accessibilité, tester les parcours WhatsApp et téléphone, analyser une régression, produire un rapport QA ou décider si une modification est prête à être livrée.
+description: Concevoir, exécuter ou revoir l’assurance qualité de PRiMiE. Utiliser cette skill pour préparer un plan de test, écrire des tests Vitest, React Testing Library ou Playwright, vérifier une fonctionnalité, contrôler responsive et accessibilité, tester les parcours WhatsApp et téléphone, analyser une régression, produire un rapport QA ou décider si une modification est prête à être livrée.
 ---
 
-# QA PRIMiE
+# QA PRiMiE
 
 Fournir des preuves que le besoin fonctionne sans régression connue. Tester les
 comportements observables par la cliente et signaler honnêtement toute limite.
@@ -138,7 +138,7 @@ générés.
 ## 9. Tester le contrat de contenu
 
 Protéger depuis une source unique :
-- `Chez PRIMiE Coiffure` ;
+- `Chez PRiMiE Coiffure` ;
 - Prisca ;
 - `+33 7 49 61 65 82` ;
 - `+33749616582` ;

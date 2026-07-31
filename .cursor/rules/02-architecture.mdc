@@ -1,10 +1,10 @@
 ---
-description: Architecture Next.js, organisation des dossiers et séparation des responsabilités pour PRIMiE
+description: Architecture Next.js, organisation des dossiers et séparation des responsabilités pour PRiMiE
 globs: app/**/*.ts, app/**/*.tsx, components/**/*.ts, components/**/*.tsx, content/**/*.ts, lib/**/*.ts, types/**/*.ts
 alwaysApply: false
 ---
 
-# PRIMiE — Architecture frontend
+# PRiMiE — Architecture frontend
 
 ## 1. Objectif
 
@@ -148,7 +148,7 @@ Une section :
 
 ### `components/shared/`
 
-Contient les composants propres à PRIMiE utilisés dans plusieurs sections.
+Contient les composants propres à PRiMiE utilisés dans plusieurs sections.
 
 Un composant n'y entre que lorsqu'une deuxième utilisation réelle existe ou
 lorsqu'il porte une responsabilité transversale claire.
@@ -158,7 +158,7 @@ lorsqu'il porte une responsabilité transversale claire.
 Contient les primitives d'interface, notamment celles générées ou adaptées depuis
 shadcn/ui.
 
-Ne pas y placer de contenu métier PRIMiE.
+Ne pas y placer de contenu métier PRiMiE.
 
 ### `content/`
 
@@ -387,7 +387,7 @@ Préparer la réutilisation à travers trois frontières :
 
 1. contenu métier centralisé ;
 2. tokens de design remplaçables ;
-3. composants génériques sans texte PRIMiE en dur.
+3. composants génériques sans texte PRiMiE en dur.
 
 Ne pas créer dans la V1 :
 

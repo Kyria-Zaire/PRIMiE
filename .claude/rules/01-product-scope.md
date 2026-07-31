@@ -7,7 +7,7 @@ paths:
   - "types/**/*.ts"
 ---
 
-# PRIMiE — Périmètre produit V1
+# PRiMiE — Périmètre produit V1
 
 ## 1. Rôle de cette règle
 
@@ -23,14 +23,14 @@ Le fichier racine `CLAUDE.md` reste prioritaire.
 
 ## 2. Résultat produit attendu
 
-PRIMiE est une landing page publique, premium et mobile-first dédiée à
-`Chez PRIMiE Coiffure`.
+PRiMiE est une landing page publique, premium et mobile-first dédiée à
+`Chez PRiMiE Coiffure`.
 
 Son objectif principal est de transformer une visite en conversation WhatsApp.
 
 Une nouvelle visiteuse doit pouvoir, sans créer de compte :
 
-1. identifier PRIMiE et son activité ;
+1. identifier PRiMiE et son activité ;
 2. comprendre les prestations proposées ;
 3. observer des réalisations ;
 4. découvrir des éléments de réassurance ;
@@ -92,7 +92,7 @@ Exigences :
 
 Le Header contient :
 
-- l'identité `PRIMiE` ;
+- l'identité `PRiMiE` ;
 - la navigation principale sur desktop ;
 - un accès clair à la réservation ;
 - un menu adapté aux petits écrans.
@@ -112,7 +112,7 @@ Le Header doit rester utile sans occuper une part excessive de l'écran mobile.
 
 Le Hero affiche :
 
-- `Chez PRIMiE Coiffure` ;
+- `Chez PRiMiE Coiffure` ;
 - une proposition de valeur courte et crédible ;
 - un visuel principal de qualité ;
 - un CTA WhatsApp prioritaire ;
@@ -181,7 +181,7 @@ Exigences :
 - la lightbox maîtrise le focus clavier ;
 - le retour du focus est prévisible à la fermeture ;
 - les médias sont optimisés ;
-- aucune réalisation tierce n'est présentée comme celle de PRIMiE.
+- aucune réalisation tierce n'est présentée comme celle de PRiMiE.
 
 Une photo ne doit être publiée que si son origine et son autorisation d'usage sont
 maîtrisées.
@@ -254,7 +254,7 @@ Si une réponse manque, la demander au CTO ou à Prisca.
 
 Le parcours officiel est :
 
-1. la cliente contacte PRIMiE sur WhatsApp ;
+1. la cliente contacte PRiMiE sur WhatsApp ;
 2. elle précise la prestation souhaitée ;
 3. Prisca confirme les détails et sa disponibilité.
 
@@ -291,7 +291,7 @@ Critères d'acceptation :
 
 Le Footer contient au minimum :
 
-- l'identité PRIMiE ;
+- l'identité PRiMiE ;
 - les raccourcis réellement utiles ;
 - les coordonnées validées ;
 - les mentions nécessaires lorsqu'elles sont disponibles ;
@@ -341,7 +341,7 @@ Les faits métier modifiables doivent être centralisés, notamment :
 - navigation ;
 - services ;
 - réalisations ;
-- raisons de choisir PRIMiE ;
+- raisons de choisir PRiMiE ;
 - témoignages validés ;
 - FAQ ;
 - textes de CTA ;

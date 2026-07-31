@@ -1,8 +1,8 @@
 ---
 name: devops
-description: Préparer, auditer ou exécuter les opérations de build, Preview, Production, domaine, rollback et monitoring de PRIMiE sur Vercel. Utiliser cette skill pour vérifier la configuration de déploiement, diagnostiquer un build, préparer une checklist, contrôler une Preview, planifier une mise en Production, analyser un incident, organiser un rollback ou définir une observabilité minimale. Toute action distante exige une autorisation explicite.
+description: Préparer, auditer ou exécuter les opérations de build, Preview, Production, domaine, rollback et monitoring de PRiMiE sur Vercel. Utiliser cette skill pour vérifier la configuration de déploiement, diagnostiquer un build, préparer une checklist, contrôler une Preview, planifier une mise en Production, analyser un incident, organiser un rollback ou définir une observabilité minimale. Toute action distante exige une autorisation explicite.
 ---
-# DevOps PRIMiE
+# DevOps PRiMiE
 Rendre chaque livraison volontaire, reproductible, vérifiée, sécurisée et
 réversible. Ne jamais transformer une demande de code en autorisation de
 déploiement.
@@ -53,7 +53,7 @@ Avant une écriture distante, préciser :
 Obtenir une confirmation explicite pour cette action précise.
 Une permission ne se propage jamais à l’étape suivante.
 ## 4. Respecter la V1
-PRIMiE V1 est une application Next.js unique sur Vercel sans :
+PRiMiE V1 est une application Next.js unique sur Vercel sans :
 - API métier ;
 - base de données ;
 - authentification ;

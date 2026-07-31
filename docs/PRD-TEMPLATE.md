@@ -1,6 +1,6 @@
 # PRD — [Nom du produit ou de la fonctionnalité]
 
-> Modèle officiel de Product Requirements Document pour PRIMiE.
+> Modèle officiel de Product Requirements Document pour PRiMiE.
 > Remplacer les champs entre crochets. Supprimer les sections inutiles plutôt
 > que de les remplir artificiellement.
 
@@ -434,13 +434,13 @@ Une question bloquante empêche le passage au gate suivant.
 
 ---
 
-## Annexe A — Socle canonique PRIMiE
+## Annexe A — Socle canonique PRiMiE
 
-À conserver tant que le PRD concerne PRIMiE :
+À conserver tant que le PRD concerne PRiMiE :
 
 ```text
-Projet : PRIMiE
-Marque affichée : Chez PRIMiE Coiffure
+Projet : PRiMiE
+Marque affichée : Chez PRiMiE Coiffure
 Porteuse : Prisca
 Activité : coiffure et beauté afro à domicile
 Téléphone affiché : +33 7 49 61 65 82

@@ -1,9 +1,9 @@
 ---
 name: maintenance-monitoring
-description: Auditer, surveiller, maintenir, diagnostiquer ou restaurer PRIMiE après mise en ligne. Utiliser cette skill pour disponibilité, smoke tests, erreurs, logs, déploiements Vercel, Core Web Vitals, alertes, incidents, rollback, dépendances, vulnérabilités, domaine, DNS, HTTPS, certificat, contenu, liens, médias, reprise, rapports périodiques, confidentialité des données d’observabilité et détection de traceurs inattendus.
+description: Auditer, surveiller, maintenir, diagnostiquer ou restaurer PRiMiE après mise en ligne. Utiliser cette skill pour disponibilité, smoke tests, erreurs, logs, déploiements Vercel, Core Web Vitals, alertes, incidents, rollback, dépendances, vulnérabilités, domaine, DNS, HTTPS, certificat, contenu, liens, médias, reprise, rapports périodiques, confidentialité des données d’observabilité et détection de traceurs inattendus.
 ---
-# Maintenance & Monitoring PRIMiE
-Maintenir PRIMiE disponible, rapide, sécurisé, fidèle aux informations validées
+# Maintenance & Monitoring PRiMiE
+Maintenir PRiMiE disponible, rapide, sécurisé, fidèle aux informations validées
 et récupérable après incident. Collecter uniquement un signal exploitable, sans
 transformer l’observabilité en suivi des visiteuses.
 
@@ -38,8 +38,8 @@ Une demande de rapport n’autorise ni activation de service, ni déploiement.
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie courte : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie courte : PRiMiE
 Porteuse : Prisca
 Téléphone : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -217,7 +217,7 @@ Corriger une alerte bruyante. Ne pas simplement l’ignorer.
 
 ## 16. Classer les incidents
 
-| Niveau | Exemple PRIMiE | Réponse |
+| Niveau | Exemple PRiMiE | Réponse |
 | --- | --- | --- |
 | `SEV-1` | site indisponible, secret publié | confinement immédiat |
 | `SEV-2` | mauvais contact, CTA bloqué | correction ou rollback prioritaire |
@@ -314,7 +314,7 @@ preuve liée au code réellement utilisé.
 
 ## 23. Vérifier le contenu
 Contrôler :
-- `Chez PRIMiE Coiffure` ;
+- `Chez PRiMiE Coiffure` ;
 - six services validés ;
 - téléphone ;
 - WhatsApp ;

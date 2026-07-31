@@ -1,8 +1,8 @@
 ---
 name: documentation-maintenance
-description: Créer, mettre à jour, auditer, corriger, consolider, déprécier ou supprimer la documentation de PRIMiE. Utiliser cette skill pour README, guides, références, ADR, runbooks, CHANGELOG, commentaires, TSDoc, documentation produit ou technique, règles Cursor, CLAUDE.md, skills Claude, commandes, liens, sources de vérité, statut du projet, documentation obsolète, synchronisation code-docs et contrôle des contenus générés par IA.
+description: Créer, mettre à jour, auditer, corriger, consolider, déprécier ou supprimer la documentation de PRiMiE. Utiliser cette skill pour README, guides, références, ADR, runbooks, CHANGELOG, commentaires, TSDoc, documentation produit ou technique, règles Cursor, CLAUDE.md, skills Claude, commandes, liens, sources de vérité, statut du projet, documentation obsolète, synchronisation code-docs et contrôle des contenus générés par IA.
 ---
-# Documentation Maintenance PRIMiE
+# Documentation Maintenance PRiMiE
 Maintenir une documentation courte, exacte et utile qui reflète la réalité du
 produit. Documenter ce qui est durable et difficile à déduire, sans construire
 une encyclopédie autour d’une landing page.
@@ -37,8 +37,8 @@ dépendance, un commit, un déploiement ou l’invention d’une décision.
 Préserver exactement :
 
 ```text
-Projet : PRIMiE
-Marque : Chez PRIMiE Coiffure
+Projet : PRiMiE
+Marque : Chez PRiMiE Coiffure
 Porteuse : Prisca
 Activité : coiffure et beauté afro à domicile
 Langue : français

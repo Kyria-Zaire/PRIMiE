@@ -1,10 +1,10 @@
 ---
-description: Exigences fonctionnelles et critères d'acceptation de la landing page PRIMiE
+description: Exigences fonctionnelles et critères d'acceptation de la landing page PRiMiE
 globs: app/**/*.ts, app/**/*.tsx, components/**/*.ts, components/**/*.tsx, content/**/*.ts, data/**/*.ts
 alwaysApply: false
 ---
 
-# PRIMiE — Périmètre produit V1
+# PRiMiE — Périmètre produit V1
 
 ## 1. Utilisation de cette règle
 
@@ -27,7 +27,7 @@ WhatsApp.
 
 Une nouvelle visiteuse doit pouvoir, sans créer de compte :
 
-1. identifier PRIMiE et son activité ;
+1. identifier PRiMiE et son activité ;
 2. comprendre les prestations proposées ;
 3. observer des réalisations ;
 4. trouver des éléments de réassurance ;
@@ -66,7 +66,7 @@ Exigences :
 
 Le header doit contenir :
 
-- l'identité PRIMiE ;
+- l'identité PRiMiE ;
 - la navigation principale sur desktop ;
 - un accès clair à la réservation ;
 - un menu adapté aux petits écrans.
@@ -85,7 +85,7 @@ Critères d'acceptation :
 
 Le hero doit afficher :
 
-- le nom ou logo `Chez PRIMiE Coiffure` ;
+- le nom ou logo `Chez PRiMiE Coiffure` ;
 - une proposition de valeur courte ;
 - un visuel principal de qualité ;
 - un CTA WhatsApp prioritaire ;
@@ -156,7 +156,7 @@ Critères d'acceptation :
 - les filtres ne créent pas de page vide incompréhensible ;
 - la lightbox conserve un focus clavier maîtrisé ;
 - les médias sont optimisés sans perte visuelle excessive ;
-- aucune réalisation tierce ne doit être présentée comme celle de PRIMiE.
+- aucune réalisation tierce ne doit être présentée comme celle de PRiMiE.
 
 ---
 
@@ -224,7 +224,7 @@ Critères d'acceptation :
 
 La section Réserver doit expliquer simplement le parcours :
 
-1. la cliente contacte PRIMiE sur WhatsApp ;
+1. la cliente contacte PRiMiE sur WhatsApp ;
 2. elle précise la prestation souhaitée ;
 3. Prisca confirme les détails et la disponibilité.
 
@@ -261,7 +261,7 @@ Critères d'acceptation :
 
 Le footer doit contenir au minimum :
 
-- l'identité PRIMiE ;
+- l'identité PRiMiE ;
 - les raccourcis réellement utiles ;
 - les coordonnées validées ;
 - les mentions légales nécessaires ;

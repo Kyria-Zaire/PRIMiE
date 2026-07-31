@@ -20,7 +20,7 @@ body {
 
 ::selection {
   background-color: color-mix(in srgb, var(--color-gold) 40%, transparent);
-  color: var(--color-ink);
+  color: var(--color-black);
 }
 
 @media (prefers-reduced-motion: reduce) {

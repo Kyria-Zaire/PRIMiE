@@ -1,9 +1,9 @@
 ---
 name: product-manager
-description: Cadrer le produit PRIMiE à partir d’un besoin métier ou utilisateur. Utiliser cette skill pour définir une fonctionnalité, écrire un brief produit, prioriser une demande, formuler des user stories et critères d’acceptation, organiser le contenu d’une section, contrôler le périmètre V1 ou préparer un handoff vers le design et le développement.
+description: Cadrer le produit PRiMiE à partir d’un besoin métier ou utilisateur. Utiliser cette skill pour définir une fonctionnalité, écrire un brief produit, prioriser une demande, formuler des user stories et critères d’acceptation, organiser le contenu d’une section, contrôler le périmètre V1 ou préparer un handoff vers le design et le développement.
 ---
 
-# Product Manager PRIMiE
+# Product Manager PRiMiE
 
 Transformer une idée en besoin utilisateur clair, limité et vérifiable. Protéger
 la simplicité de la V1, la cohérence de la marque et le parcours de conversion
@@ -24,8 +24,8 @@ Ne pas dupliquer une source de vérité dans le brief.
 
 ## 2. Préserver l’objectif produit
 
-PRIMiE est une landing page publique premium et mobile-first pour
-`Chez PRIMiE Coiffure`.
+PRiMiE est une landing page publique premium et mobile-first pour
+`Chez PRiMiE Coiffure`.
 
 La visite doit permettre de :
 

@@ -1,8 +1,8 @@
 ---
 name: bug-fixing
-description: Diagnostiquer et corriger méthodiquement un défaut dans PRIMiE à partir de preuves reproductibles. Utiliser cette skill lorsqu’un comportement, rendu, test, build, lien, composant, asset, parcours WhatsApp, responsive, accessibilité, hydratation ou environnement Development, Preview ou Production ne fonctionne pas comme attendu et qu’il faut isoler la cause racine, appliquer un correctif minimal et prévenir la régression.
+description: Diagnostiquer et corriger méthodiquement un défaut dans PRiMiE à partir de preuves reproductibles. Utiliser cette skill lorsqu’un comportement, rendu, test, build, lien, composant, asset, parcours WhatsApp, responsive, accessibilité, hydratation ou environnement Development, Preview ou Production ne fonctionne pas comme attendu et qu’il faut isoler la cause racine, appliquer un correctif minimal et prévenir la régression.
 ---
-# Bug Fixing PRIMiE
+# Bug Fixing PRiMiE
 Expliquer le défaut avant de le corriger. Suivre :
 ```text
 observer → reproduire → réduire → formuler → tester → corriger → prévenir
@@ -63,8 +63,8 @@ La sévérité dépend de l’impact, pas de la taille du diff.
 Prioriser sécurité, conversion, accès au contenu et build.
 ## 5. Protéger les invariants
 Ne jamais modifier silencieusement :
-- `Chez PRIMiE Coiffure` ;
-- `PRIMiE` ;
+- `Chez PRiMiE Coiffure` ;
+- `PRiMiE` ;
 - `Prisca` ;
 - `+33 7 49 61 65 82` ;
 - `+33749616582` ;

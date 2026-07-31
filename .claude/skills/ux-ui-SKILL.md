@@ -1,11 +1,11 @@
 ---
 name: ux-ui
-description: Concevoir, cadrer, critiquer ou spécifier l’expérience utilisateur et l’interface de PRIMiE avant intégration. Utiliser cette skill pour définir l’intention UX, l’architecture d’une section, une direction artistique, un wireframe, une maquette, un parcours WhatsApp, des états d’interface, des règles responsive ou d’accessibilité, ainsi que pour auditer une proposition visuelle et préparer un handoff exploitable par le frontend.
+description: Concevoir, cadrer, critiquer ou spécifier l’expérience utilisateur et l’interface de PRiMiE avant intégration. Utiliser cette skill pour définir l’intention UX, l’architecture d’une section, une direction artistique, un wireframe, une maquette, un parcours WhatsApp, des états d’interface, des règles responsive ou d’accessibilité, ainsi que pour auditer une proposition visuelle et préparer un handoff exploitable par le frontend.
 ---
-# UX/UI Designer PRIMiE
+# UX/UI Designer PRiMiE
 Concevoir une expérience premium, chaleureuse, mobile-first et immédiatement
 compréhensible qui transforme une visite en prise de contact WhatsApp.
-Préserver l’identité de PRIMiE sans inventer de contenu métier ni élargir la V1.
+Préserver l’identité de PRiMiE sans inventer de contenu métier ni élargir la V1.
 ## 1. Charger le contexte
 Avant toute proposition :
 1. lire `CLAUDE.md` ;
@@ -155,18 +155,17 @@ Créer la qualité par :
 - détails maîtrisés.
 Ne pas utiliser le mot « premium » comme substitut à une décision de design.
 ## 9. Utiliser les couleurs officielles
-Palette principale :
+Palette principale (PRiMiE COIFFURE v1.0 — source `app/theme.css`) :
 | Rôle | Token | Valeur |
 | --- | --- | --- |
-| Noir principal | `ink` | `#0B0908` |
-| Surface sombre | `charcoal` | `#191512` |
-| Brun sombre | `espresso` | `#2A211B` |
-| Accent | `gold` | `#C9A45C` |
-| Accent clair | `gold-light` | `#E5CC98` |
-| Fond crème | `cream` | `#F7F0E6` |
-| Fond beige | `beige` | `#E8D8C3` |
-| Sable | `sand` | `#D2B895` |
-| Papier | `paper` | `#FFFDF8` |
+| Noir principal | `black` | `#0E0D0C` |
+| Surface sombre | `rich-black` | `#1B1918` |
+| Brun | `espresso` | `#533420` |
+| Bordure sombre | `bronze` | `#664A30` |
+| Accent | `gold` | `#A98C69` |
+| Accent clair | `gold-light` | `#CF9A5F` |
+| Fond ivoire | `ivory` | `#F3EBE4` |
+| Crème chaude | `warm-cream` | `#EFE4D7` |
 Utiliser le doré comme accent, jamais comme remplissage automatique.
 Vérifier WCAG AA sur chaque couple texte et fond.
 Ne jamais transmettre une information uniquement par la couleur.
@@ -287,8 +286,8 @@ Pour chaque emplacement, préciser :
 - statut de publication.
 ## 16. Rédiger sans inventer
 Respecter :
-- `Chez PRIMiE Coiffure` ;
-- la graphie `PRIMiE` ;
+- `Chez PRiMiE Coiffure` ;
+- la graphie `PRiMiE` ;
 - le nom `Prisca` ;
 - le vouvoiement ;
 - un ton élégant, chaleureux, professionnel et humain ;
@@ -445,7 +444,7 @@ Avant de présenter le résultat, vérifier :
 - anti-patterns respectés ;
 - ordre officiel préservé ;
 - identité noire, dorée, beige et crème ;
-- graphie `PRIMiE` exacte ;
+- graphie `PRiMiE` exacte ;
 - contenu non inventé ;
 - CTA WhatsApp canonique ;
 - mobile `320px` viable ;

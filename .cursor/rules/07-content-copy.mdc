@@ -1,14 +1,14 @@
 ---
-description: Voix de marque, rédaction, contenus métier et règles anti-invention pour PRIMiE
+description: Voix de marque, rédaction, contenus métier et règles anti-invention pour PRiMiE
 globs: content/**/*.ts, app/**/*.tsx, components/**/*.tsx, app/**/*.ts
 alwaysApply: false
 ---
 
-# PRIMiE — Contenu et copywriting
+# PRiMiE — Contenu et copywriting
 
 ## 1. Objectif
 
-Cette règle encadre tout texte affiché, structuré ou référencé par le site PRIMiE.
+Cette règle encadre tout texte affiché, structuré ou référencé par le site PRiMiE.
 
 Elle s'applique notamment :
 
@@ -26,7 +26,7 @@ Elle s'applique notamment :
 
 La priorité est double :
 
-1. donner envie de contacter PRIMiE ;
+1. donner envie de contacter PRiMiE ;
 2. ne jamais tromper la cliente.
 
 ---
@@ -35,11 +35,11 @@ La priorité est double :
 
 Nom affiché :
 
-`Chez PRIMiE Coiffure`
+`Chez PRiMiE Coiffure`
 
 Graphie courte autorisée :
 
-`PRIMiE`
+`PRiMiE`
 
 Personne mise en avant :
 
@@ -57,16 +57,18 @@ Lien WhatsApp canonique :
 
 `https://wa.me/33749616582`
 
-Ne jamais modifier la casse particulière de `PRIMiE`.
+Ne jamais modifier la casse officielle `PRiMiE` (P, R, i, M, i, E).
+Toute autre casse destinée à représenter la marque est interdite dans
+l’interface, les metadata et les contenus publics.
 
-Ne pas présenter PRIMiE comme un salon physique tant qu'une adresse commerciale
+Ne pas présenter PRiMiE comme un salon physique tant qu'une adresse commerciale
 n'est pas confirmée.
 
 ---
 
 ## 3. Voix de marque
 
-La voix PRIMiE est :
+La voix PRiMiE est :
 
 - élégante ;
 - chaleureuse ;
@@ -97,7 +99,7 @@ Exemples :
 
 - `Découvrez nos prestations`
 - `Choisissez le style qui vous ressemble`
-- `Contactez PRIMiE sur WhatsApp`
+- `Contactez PRiMiE sur WhatsApp`
 - `Préparez votre rendez-vous`
 
 Ne pas alterner entre `tu` et `vous`.
@@ -136,7 +138,7 @@ Règles :
 
 ## 6. Prestations autorisées
 
-La liste de référence fournie pour PRIMiE est :
+La liste de référence fournie pour PRiMiE est :
 
 - Tresses & coiffure femme et homme ;
 - Traitement de perruque ;
@@ -248,11 +250,11 @@ Un CTA commence idéalement par un verbe et décrit le résultat de l'action.
 Libellés recommandés :
 
 - `Réserver sur WhatsApp`
-- `Contacter PRIMiE`
+- `Contacter PRiMiE`
 - `Voir les réalisations`
 - `Découvrir les prestations`
 - `Demander des informations`
-- `Appeler PRIMiE`
+- `Appeler PRiMiE`
 - `Voir toutes les coiffures`
 
 Éviter :
@@ -275,13 +277,13 @@ Le message prérempli doit rester poli, court et modifiable par la cliente.
 Modèle générique autorisé :
 
 ```text
-Bonjour PRIMiE, je souhaite obtenir des informations concernant une prestation.
+Bonjour PRiMiE, je souhaite obtenir des informations concernant une prestation.
 ```
 
 Modèle contextualisé autorisé :
 
 ```text
-Bonjour PRIMiE, je souhaite obtenir des informations concernant : {service}.
+Bonjour PRiMiE, je souhaite obtenir des informations concernant : {service}.
 ```
 
 Règles :
@@ -341,7 +343,7 @@ Règles :
 - décrire la coiffure lorsque c'est le sujet ;
 - rester concis ;
 - utiliser `alt=""` pour une image purement décorative ;
-- ne pas prétendre qu'une image d'illustration est une réalisation PRIMiE.
+- ne pas prétendre qu'une image d'illustration est une réalisation PRiMiE.
 
 ---
 
@@ -392,7 +394,7 @@ Les données doivent rester typées, stables et faciles à réviser.
 
 Les métadonnées doivent :
 
-- identifier PRIMiE ;
+- identifier PRiMiE ;
 - décrire honnêtement l'activité ;
 - utiliser une localisation uniquement si elle est validée ;
 - éviter le bourrage de mots-clés ;
@@ -421,7 +423,7 @@ Respecter :
 Écrire :
 
 - `WhatsApp`
-- `PRIMiE`
+- `PRiMiE`
 - `coiffure à domicile`
 - `rendez-vous`
 
@@ -478,7 +480,7 @@ Il est interdit de :
 
 Un contenu est prêt lorsqu'il :
 
-- respecte la voix PRIMiE ;
+- respecte la voix PRiMiE ;
 - s'adresse à la cliente avec `vous` ;
 - est compréhensible dès la première lecture ;
 - ne contient aucun fait inventé ;

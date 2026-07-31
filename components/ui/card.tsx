@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 
 const variantClass = {
-  default: "border-border bg-paper shadow-soft",
+  default: "border-border bg-background shadow-soft",
   muted: "border-border bg-surface-muted shadow-soft",
 } as const;
 

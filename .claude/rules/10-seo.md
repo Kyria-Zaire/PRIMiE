@@ -6,15 +6,15 @@ paths:
   - "next.config.ts"
 ---
 
-# PRIMiE — SEO
+# PRiMiE — SEO
 
 ## 1. Objectif
 
-Le SEO de PRIMiE doit aider une cliente pertinente à :
+Le SEO de PRiMiE doit aider une cliente pertinente à :
 
 1. découvrir l'activité ;
 2. comprendre les prestations ;
-3. vérifier la crédibilité de PRIMiE ;
+3. vérifier la crédibilité de PRiMiE ;
 4. contacter Prisca sur WhatsApp.
 
 Le référencement doit rester :
@@ -88,8 +88,8 @@ Exemple structurel :
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Chez PRIMiE Coiffure",
-    template: "%s | PRIMiE",
+    default: "Chez PRiMiE Coiffure",
+    template: "%s | PRiMiE",
   },
   description: siteConfig.description,
   alternates: {
@@ -104,7 +104,7 @@ Ne pas copier cet exemple tant que `siteConfig.url` n'est pas validée.
 
 Le titre doit :
 
-- inclure `PRIMiE` ;
+- inclure `PRiMiE` ;
 - décrire l'activité ;
 - rester naturel ;
 - distinguer la page ;
@@ -114,7 +114,7 @@ Le titre doit :
 Forme conceptuelle à valider :
 
 ```text
-Chez PRIMiE Coiffure — Coiffure afro à domicile
+Chez PRiMiE Coiffure — Coiffure afro à domicile
 ```
 
 Repère éditorial :
@@ -132,7 +132,7 @@ La description doit :
 
 - résumer l'activité ;
 - présenter un bénéfice ;
-- inviter à contacter PRIMiE ;
+- inviter à contacter PRiMiE ;
 - rester cohérente avec la page ;
 - utiliser une localisation seulement si elle est confirmée.
 
@@ -218,7 +218,7 @@ La soumission d'un sitemap reste un signal, pas une garantie d'indexation.
 
 ## 11. Open Graph et aperçus sociaux
 
-Fournir une image sociale PRIMiE dédiée.
+Fournir une image sociale PRiMiE dédiée.
 
 Repères :
 
@@ -295,7 +295,7 @@ Il est interdit de cibler Reims ou une autre ville par supposition.
 
 Utiliser JSON-LD seulement lorsque :
 
-- le type décrit réellement PRIMiE ;
+- le type décrit réellement PRiMiE ;
 - les propriétés sont confirmées ;
 - le contenu correspondant est visible ;
 - le balisage peut être maintenu ;
@@ -355,7 +355,7 @@ Ne pas ajouter en V1 :
 - `FAQPage` uniquement pour espérer un résultat enrichi ;
 - carousel `ItemList` non éligible.
 
-PRIMiE ne vend aucun produit en ligne et n'automatise aucune réservation en V1.
+PRiMiE ne vend aucun produit en ligne et n'automatise aucune réservation en V1.
 
 ## 19. Honnêteté du markup
 

@@ -1,8 +1,8 @@
 ---
 name: performance-optimization
-description: Auditer, diagnostiquer et optimiser les performances de PRIMiE avec des mesures avant et après. Utiliser cette skill pour améliorer Core Web Vitals, LCP, INP, CLS, poids JavaScript ou CSS, images, polices, Server et Client Components, animations, galerie, lightbox, imports, dépendances, cache ou chargement initial, ainsi que pour enquêter sur une régression Lighthouse, mobile, Preview ou Production sans sacrifier design, accessibilité, SEO ni conversion WhatsApp.
+description: Auditer, diagnostiquer et optimiser les performances de PRiMiE avec des mesures avant et après. Utiliser cette skill pour améliorer Core Web Vitals, LCP, INP, CLS, poids JavaScript ou CSS, images, polices, Server et Client Components, animations, galerie, lightbox, imports, dépendances, cache ou chargement initial, ainsi que pour enquêter sur une régression Lighthouse, mobile, Preview ou Production sans sacrifier design, accessibilité, SEO ni conversion WhatsApp.
 ---
-# Performance Optimization PRIMiE
+# Performance Optimization PRiMiE
 Mesurer avant de modifier. Optimiser la cause dominante, comparer dans des conditions identiques et
 préserver l’expérience. Ne jamais déclarer un gain sur une intuition ou une seule exécution.
 ## 1. Charger le contexte
@@ -65,8 +65,8 @@ Une animation décorative ne prime jamais sur le contenu ou la conversion. Une o
 ## 5. Protéger les invariants
 Préserver :
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie : PRiMiE
 Porteuse : Prisca
 Téléphone affiché : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -76,7 +76,7 @@ Ne pas modifier contenu, ordre de page ou comportement pour améliorer un score
 sans validation produit. Ne pas retirer une image de réalisation, un titre ou un CTA uniquement pour
 gagner des points.
 ## 6. Respecter le périmètre V1
-PRIMiE est une landing page publique unique. Ne pas ajouter :
+PRiMiE est une landing page publique unique. Ne pas ajouter :
 - backend ;
 - API métier ;
 - base de données ;
@@ -362,7 +362,7 @@ Aucun script tiers par défaut :
 - alternative légère ;
 - stratégie de chargement. Ne pas sacrifier le rendu initial ou le CTA à un service externe.
 ## 26. Préserver le rendu statique
-Le contenu PRIMiE est principalement stable. Préférer :
+Le contenu PRiMiE est principalement stable. Préférer :
 - Server Components ;
 - génération statique native ;
 - métadonnées serveur ;

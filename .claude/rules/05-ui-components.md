@@ -4,11 +4,11 @@ paths:
   - "app/**/*.tsx"
 ---
 
-# PRIMiE — Composants UI
+# PRiMiE — Composants UI
 
 ## 1. Rôle de cette règle
 
-Cette règle garantit que les composants PRIMiE restent :
+Cette règle garantit que les composants PRiMiE restent :
 
 - cohérents avec le design system ;
 - correctement typés ;
@@ -33,7 +33,7 @@ components/ui
   → primitives génériques
 
 components/shared
-  → composants transversaux propres à PRIMiE
+  → composants transversaux propres à PRiMiE
 
 components/layout
   → Header, navigation et Footer
@@ -167,7 +167,7 @@ Règles :
 
 - les composants générés appartiennent au dépôt et peuvent être adaptés ;
 - conserver les comportements accessibles fournis par Radix ;
-- appliquer les tokens PRIMiE ;
+- appliquer les tokens PRiMiE ;
 - ne pas installer une primitive inutilisée ;
 - ne pas ajouter une deuxième bibliothèque de composants ;
 - ne pas réécrire un focus trap, un dialog ou un accordéon robuste ;
@@ -467,7 +467,7 @@ Ne pas modifier le HTML uniquement pour satisfaire un test fragile.
 
 ## 24. Interdictions
 
-- Primitive générique contenant du contenu PRIMiE.
+- Primitive générique contenant du contenu PRiMiE.
 - Composant dupliqué pour modifier une couleur ou un texte.
 - Élément cliquable sans sémantique interactive.
 - Icône seule sans nom accessible.

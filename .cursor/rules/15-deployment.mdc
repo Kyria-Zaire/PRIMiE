@@ -1,14 +1,14 @@
 ---
-description: Déploiements Vercel, environnements, validations, promotion et rollback pour PRIMiE
+description: Déploiements Vercel, environnements, validations, promotion et rollback pour PRiMiE
 globs: app/**/*, components/**/*, public/**/*, next.config.ts, package.json, pnpm-lock.yaml, vercel.json, .vercelignore, .github/workflows/**/*
 alwaysApply: false
 ---
 
-# PRIMiE — Déploiement
+# PRiMiE — Déploiement
 
 ## 1. Objectif
 
-Chaque déploiement PRIMiE doit être :
+Chaque déploiement PRiMiE doit être :
 
 - volontaire ;
 - reproductible depuis un commit identifié ;
@@ -107,7 +107,7 @@ Vercel doit détecter Next.js sans configuration inutile.
 Vérifier :
 
 - Framework Preset : Next.js ;
-- Root Directory : racine réelle de PRIMiE ;
+- Root Directory : racine réelle de PRiMiE ;
 - install command compatible avec `pnpm` ;
 - build command : `pnpm build` sauf besoin démontré ;
 - Output Directory géré par Next.js/Vercel ;

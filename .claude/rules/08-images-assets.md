@@ -7,11 +7,11 @@ paths:
   - "next.config.ts"
 ---
 
-# PRIMiE — Images et ressources
+# PRiMiE — Images et ressources
 
 ## 1. Rôle de cette règle
 
-Les images sont centrales dans l'expérience PRIMiE.
+Les images sont centrales dans l'expérience PRiMiE.
 
 Cette règle garantit :
 
@@ -56,7 +56,7 @@ Conditions :
 
 ### `brand`
 
-Logo, monogramme, favicon, motif ou ressource officielle PRIMiE.
+Logo, monogramme, favicon, motif ou ressource officielle PRiMiE.
 
 ### `decorative`
 
@@ -481,6 +481,6 @@ Une ressource est prête lorsque :
 - son cadrage fonctionne sur mobile et desktop ;
 - son texte alternatif est utile ou vide si décorative ;
 - sa stratégie `next/image` est correcte ;
-- elle n'est pas confondue avec une réalisation PRIMiE ;
+- elle n'est pas confondue avec une réalisation PRiMiE ;
 - aucun placeholder ou doublon inutile ne reste ;
 - sa vérification est consignée.

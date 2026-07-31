@@ -1,8 +1,8 @@
 ---
 name: frontend-senior
-description: Concevoir, implémenter, corriger ou revoir l’interface frontend de PRIMiE avec Next.js 15, TypeScript strict, Tailwind CSS, shadcn/ui et Framer Motion. Utiliser cette skill pour créer une section ou un composant, intégrer un design, gérer responsive et interactions, optimiser images et performances, renforcer l’accessibilité, corriger un bug visuel ou préparer une modification frontend prête à livrer.
+description: Concevoir, implémenter, corriger ou revoir l’interface frontend de PRiMiE avec Next.js 15, TypeScript strict, Tailwind CSS, shadcn/ui et Framer Motion. Utiliser cette skill pour créer une section ou un composant, intégrer un design, gérer responsive et interactions, optimiser images et performances, renforcer l’accessibilité, corriger un bug visuel ou préparer une modification frontend prête à livrer.
 ---
-# Frontend Senior PRIMiE
+# Frontend Senior PRiMiE
 Construire une landing page premium, mobile-first, accessible, rapide et fiable.
 Transformer le design validé en interface fidèle sans étendre le périmètre V1.
 
@@ -284,7 +284,7 @@ Pour chaque image :
 - maîtriser le cadrage ;
 - éviter le CLS ;
 - charger en priorité uniquement l’image critique.
-Ne pas utiliser une image tierce comme réalisation de PRIMiE sans validation.
+Ne pas utiliser une image tierce comme réalisation de PRiMiE sans validation.
 Ne pas charger toute la galerie au format original.
 
 ## 19. Gérer les icônes

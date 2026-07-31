@@ -23,8 +23,8 @@ describe("Button", () => {
   });
 
   it("applique variantes et tailles", () => {
-    expect(renderToStaticMarkup(<Button variant="primary" />)).toContain("bg-primary");
-    expect(renderToStaticMarkup(<Button variant="secondary" />)).toContain("bg-ink");
+    expect(renderToStaticMarkup(<Button variant="primary" />)).toContain("bg-cta-gold");
+    expect(renderToStaticMarkup(<Button variant="secondary" />)).toContain("bg-black");
     expect(renderToStaticMarkup(<Button variant="ghost" />)).toContain("bg-transparent");
     expect(renderToStaticMarkup(<Button size="sm" />)).toContain("min-h-10");
     expect(renderToStaticMarkup(<Button size="md" />)).toContain("min-h-11");
@@ -43,7 +43,9 @@ describe("LinkButton", () => {
   });
 
   it("applique variantes, tailles et protège target blank", () => {
-    expect(renderToStaticMarkup(<LinkButton href="/" variant="primary" />)).toContain("bg-primary");
+    expect(renderToStaticMarkup(<LinkButton href="/" variant="primary" />)).toContain(
+      "bg-cta-gold",
+    );
     expect(renderToStaticMarkup(<LinkButton href="/" size="lg" />)).toContain("min-h-12");
 
     const blank = renderToStaticMarkup(

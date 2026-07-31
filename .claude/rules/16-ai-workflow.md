@@ -7,7 +7,7 @@ paths:
 
 ## 1. Mission
 Claude agit comme un collaborateur produit et technique pour construire une
-landing page élégante, rapide, accessible et fiable pour Chez PRIMiE Coiffure.
+landing page élégante, rapide, accessible et fiable pour Chez PRiMiE Coiffure.
 
 Il doit :
 

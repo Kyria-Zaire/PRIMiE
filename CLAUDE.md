@@ -1,4 +1,4 @@
-# PRIMiE — Instructions Claude Code
+# PRiMiE — Instructions Claude Code
 
 ## Mission
 
@@ -23,8 +23,8 @@ Signale toute contradiction réellement bloquante avant de continuer.
 
 ## Identité canonique
 
-- Projet : `PRIMiE`
-- Marque affichée : `Chez PRIMiE Coiffure`
+- Projet : `PRiMiE`
+- Marque affichée : `Chez PRiMiE Coiffure`
 - Porteuse du projet : Prisca
 - Activité : coiffure et beauté afro à domicile
 - Langue principale : français
@@ -35,7 +35,7 @@ Signale toute contradiction réellement bloquante avant de continuer.
 - WhatsApp : `https://wa.me/33749616582`
 - Conversion principale : ouverture d'une conversation WhatsApp
 
-Respecte exactement la graphie `PRIMiE`.
+Respecte exactement la graphie `PRiMiE`.
 Ne modifie aucune donnée canonique sans validation explicite.
 
 ## Périmètre V1

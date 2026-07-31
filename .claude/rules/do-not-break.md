@@ -14,12 +14,17 @@ Cette règle est globale et s’applique à tous les fichiers.
 ## 2. Invariants métier
 Ne jamais modifier sans validation explicite :
 ```text
-Marque : Chez PRIMiE Coiffure
+Marque : Chez PRiMiE Coiffure
+Graphie courte : PRiMiE
 Prénom : Prisca
 Téléphone affiché : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
 WhatsApp : https://wa.me/33749616582
 ```
+
+La graphie officielle de la marque est `PRiMiE`. Toute autre casse est interdite
+dans l’interface, les metadata et les contenus publics.
+
 Services exacts :
 - Tresses & coiffure femme et homme ;
 - Traitement de perruque ;
@@ -31,7 +36,7 @@ Ne pas corriger, reformuler, compléter ou déduire ces informations
 silencieusement.
 
 ## 3. Périmètre V1 protégé
-PRIMiE est une landing page.
+PRiMiE est une landing page.
 Ne pas ajouter implicitement :
 - compte, authentification ou dashboard ;
 - formulaire ou calendrier ;

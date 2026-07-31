@@ -1,8 +1,8 @@
 ---
 name: design-system-management
-description: Concevoir, maintenir, auditer ou faire évoluer le design system PRIMiE. Utiliser cette skill pour les tokens de couleur, typographie, espacement, grille, rayon, bordure, ombre, surface et mouvement, les variables CSS, le thème Tailwind, les variantes shadcn/ui ou Radix, la cohérence des composants, les contrastes, la gouvernance visuelle, les migrations de tokens et la détection des dérives d’interface.
+description: Concevoir, maintenir, auditer ou faire évoluer le design system PRiMiE. Utiliser cette skill pour les tokens de couleur, typographie, espacement, grille, rayon, bordure, ombre, surface et mouvement, les variables CSS, le thème Tailwind, les variantes shadcn/ui ou Radix, la cohérence des composants, les contrastes, la gouvernance visuelle, les migrations de tokens et la détection des dérives d’interface.
 ---
-# Design System Management PRIMiE
+# Design System Management PRiMiE
 Maintenir une identité premium, chaleureuse, accessible et reproductible.
 Transformer toute décision visuelle récurrente en règle ou token, sans créer une
 bibliothèque générique disproportionnée pour une landing page.
@@ -36,8 +36,8 @@ n’autorise ni écriture, ni dépendance, ni déploiement.
 Préserver :
 
 ```text
-Marque : Chez PRIMiE Coiffure
-Graphie courte : PRIMiE
+Marque : Chez PRiMiE Coiffure
+Graphie courte : PRiMiE
 Porteuse : Prisca
 Téléphone : +33 7 49 61 65 82
 Téléphone E.164 : +33749616582
@@ -58,7 +58,7 @@ Conserver l’ordre officiel :
 10. Footer.
 
 ## 4. Défendre la direction artistique
-PRIMiE doit évoquer :
+PRiMiE doit évoquer :
 - élégance ;
 - soin ;
 - féminité ;
@@ -118,25 +118,22 @@ Règles :
 
 | Token | Valeur | Usage principal |
 | --- | --- | --- |
-| `ink` | `#0B0908` | Fond sombre principal |
-| `charcoal` | `#191512` | Surface sombre secondaire |
-| `espresso` | `#2A211B` | Hover et détails sombres |
-| `gold` | `#C9A45C` | CTA et accents |
-| `gold-light` | `#E5CC98` | Accent sur fond sombre |
-| `cream` | `#F7F0E6` | Fond clair principal |
-| `beige` | `#E8D8C3` | Surface claire secondaire |
-| `sand` | `#D2B895` | Décor et surface chaude |
-| `paper` | `#FFFDF8` | Surface la plus claire |
+| `black` | `#0E0D0C` | Fond sombre principal |
+| `rich-black` | `#1B1918` | Surface sombre secondaire |
+| `espresso` | `#533420` | Accents bruns |
+| `bronze` | `#664A30` | Bordures sombres |
+| `gold` | `#A98C69` | CTA et accents |
+| `gold-light` | `#CF9A5F` | Hover / gradient CTA |
+| `champagne` | `#DFCDB4` | Surface muted claire |
+| `soft-gold` | `#C5AE97` | Bordure claire |
+| `ivory` | `#F3EBE4` | Fond page clair |
+| `warm-cream` | `#EFE4D7` | Surface claire secondaire |
+| `taupe` | `#AA9F90` | Secondaire sur sombre |
+| `warm-gray` | `#6A5E51` | Secondaire sur clair |
 ### Couleurs fonctionnelles
 
 | Token | Valeur | Usage principal |
 | --- | --- | --- |
-| `text-dark` | `#17120F` | Texte sur fond clair |
-| `text-light` | `#FFF9EF` | Texte sur fond sombre |
-| `text-muted-dark` | `#6E6258` | Secondaire sur clair |
-| `text-muted-light` | `#C9BDB0` | Secondaire sur sombre |
-| `border-light` | `#D9C6AD` | Bordure sur clair |
-| `border-dark` | `#493A2E` | Bordure sur sombre |
 | `success` | `#356B4F` | Retour positif |
 | `danger` | `#A5413E` | Erreur |
 Avant d’ajouter une couleur :
@@ -148,26 +145,22 @@ Avant d’ajouter une couleur :
 6. documenter la décision.
 
 ## 8. Utiliser des rôles sémantiques
-Base recommandée :
+Base recommandée (source : `app/theme.css`) :
 
 ```css
-:root {
-  --color-background: #fffdf8;
-  --color-foreground: #17120f;
-  --color-surface: #f7f0e6;
-  --color-surface-muted: #e8d8c3;
-  --color-primary: #c9a45c;
-  --color-primary-foreground: #0b0908;
-  --color-border: #d9c6ad;
-  --color-muted-foreground: #6e6258;
-}
-.dark-section {
-  --color-background: #0b0908;
-  --color-foreground: #fff9ef;
-  --color-surface: #191512;
-  --color-surface-muted: #2a211b;
-  --color-border: #493a2e;
-  --color-muted-foreground: #c9bdb0;
+@theme inline {
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-black);
+  --color-surface: var(--color-warm-cream);
+  --color-surface-muted: var(--color-champagne);
+  --color-surface-dark: var(--color-rich-black);
+  --color-primary: var(--color-gold);
+  --color-primary-hover: var(--color-gold-light);
+  --color-primary-foreground: var(--color-black);
+  --color-border: var(--color-soft-gold);
+  --color-muted-foreground: var(--color-warm-gray);
+  --color-on-dark: var(--color-ivory);
+  --color-focus: var(--color-gold);
 }
 ```
 Adapter les noms au thème installé. Ne pas dupliquer ces variables si un contrat

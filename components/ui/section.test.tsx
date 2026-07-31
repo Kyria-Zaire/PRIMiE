@@ -19,9 +19,9 @@ describe("Section", () => {
   });
 
   it("applique tons et espacements", () => {
-    expect(renderToStaticMarkup(<Section tone="paper" />)).toContain("bg-paper");
-    expect(renderToStaticMarkup(<Section tone="cream" />)).toContain("bg-cream");
-    expect(renderToStaticMarkup(<Section tone="ink" />)).toContain("bg-ink");
+    expect(renderToStaticMarkup(<Section tone="paper" />)).toContain("bg-background");
+    expect(renderToStaticMarkup(<Section tone="cream" />)).toContain("bg-surface");
+    expect(renderToStaticMarkup(<Section tone="ink" />)).toContain("bg-surface-dark");
     expect(renderToStaticMarkup(<Section spacing="default" />)).toContain("py-16");
     expect(renderToStaticMarkup(<Section spacing="compact" />)).toContain("py-10");
     expect(renderToStaticMarkup(<Section spacing="none" />)).toContain("py-0");

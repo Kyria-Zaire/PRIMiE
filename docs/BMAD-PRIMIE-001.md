@@ -1,11 +1,11 @@
-# BMAD-PRIMIE-001 — Landing page PRIMiE V1
+# BMAD-PRIMIE-001 — Landing page PRiMiE V1
 
 ## 0. Métadonnées
 
 | Champ | Valeur |
 | --- | --- |
 | Identifiant | `BMAD-PRIMIE-001` |
-| Produit | `PRIMiE` |
+| Produit | `PRiMiE` |
 | Titre | Solutioning et plan d’exécution de la landing page V1 |
 | Version | `1.0` |
 | Statut | `READY — G2 passé` |
@@ -17,9 +17,9 @@
 | Date de création | `2026-07-30` |
 | Dernière mise à jour | `2026-07-30` |
 | Validation CTO | `Kyria — 2026-07-30` |
-| PRD source | `docs/PRD-PRIMIE-V1.md — version 1.0 — Validé` |
+| PRD source | `docs/PRD-PRIMIE-V1.md — version 1.1 — Validé` |
 | ADR | `Aucun requis à ce stade` |
-| Tickets planifiés | `22` |
+| Tickets planifiés | `26` |
 | Environnement cible | Local → Preview Vercel → Production autorisée |
 
 ### Décision validée
@@ -61,7 +61,7 @@ réversibles et contrôlées par des gates humains.
 
 ## 2. Objectif
 
-Préparer la réalisation de la landing page `Chez PRIMiE Coiffure` en donnant à
+Préparer la réalisation de la landing page `Chez PRiMiE Coiffure` en donnant à
 Cursor, Claude ou tout autre agent d’exécution :
 
 - une architecture cible explicite ;
@@ -123,7 +123,7 @@ décision produit séparée.
 | `FACT-001` | Le PRD V1 est en version `1.0 — Validé`. | `docs/PRD-PRIMIE-V1.md` |
 | `FACT-002` | Les gates `G0` et `G1` sont passés. | PRD, section 36 |
 | `FACT-003` | La gouvernance Cursor et Claude existe. | `.cursor/`, `.claude/`, `CLAUDE.md` |
-| `FACT-004` | La méthode BMAD PRIMiE existe. | `docs/governance/BMAD-METHOD.md` |
+| `FACT-004` | La méthode BMAD PRiMiE existe. | `docs/governance/BMAD-METHOD.md` |
 | `FACT-005` | Aucun `package.json` n’existe actuellement. | inspection locale du `2026-07-30` |
 | `FACT-006` | Aucune application Next.js n’est initialisée. | inspection locale du `2026-07-30` |
 | `FACT-007` | Le dossier de travail inspecté n’est pas un dépôt Git actif. | `git status` impossible le `2026-07-30` |
@@ -167,7 +167,7 @@ Aucune hypothèse ne peut être rendue comme un fait métier dans l’interface.
 ### Produit
 
 - respecter exactement les dix sections et leur ordre ;
-- afficher exactement la graphie `PRIMiE` ;
+- afficher exactement la graphie `PRiMiE` ;
 - ne publier aucun prix, délai, disponibilité, adresse ou promesse inconnue ;
 - ne jamais présenter un clic WhatsApp comme une réservation confirmée ;
 - conserver le téléphone comme fallback ;
@@ -423,17 +423,24 @@ Validation BMAD (G2 passé)
                         ├── FOUNDATION-SYSTEM-01C (DONE — Validé CTO 2026-07-30)
                         ├── FOUNDATION-SYSTEM-01D (DONE — Validé CTO 2026-07-30)
                         └── FOUNDATION-SYSTEM-01E (DONE — Validé CTO 2026-07-30)
-                            └── LANDING-SHELL-01
-                                ├── LANDING-HERO-SERVICES-01
-                                ├── WHATSAPP-CONTACT-01
-                                ├── GALLERY-EXPERIENCE-01
-                                └── TRUST-CONTENT-01
-                                    └── SEO-FOUNDATION-01
-                                        ├── QA-A11Y-RESPONSIVE-01
-                                        └── QA-PERF-SECURITY-01
-                                            └── DEPLOY-PREVIEW-01
-                                                └── RELEASE-PRODUCTION-01
-                                                    └── DOC-CLOSURE-01
+                            └── LANDING-SHELL-01 (IN_PROGRESS — en attente de clôture CTO)
+                                ├── LANDING-SHELL-01A (DONE — Validé CTO 2026-07-31)
+                                ├── LANDING-SHELL-01B (DONE — Validé CTO 2026-07-31)
+                                ├── LANDING-SHELL-01C (DONE — Validé CTO 2026-07-31)
+                                ├── LANDING-SHELL-01D (DONE — Validé CTO 2026-07-31)
+                                └── LANDING-SHELL-01E (IN_PROGRESS — en attente CTO)
+                                    ├── LANDING-SHELL-01E-R1 (DONE — Design Sync v1.0)
+                                    └── LANDING-SHELL-01E-R2 (IN_PROGRESS — Canonical Brand Migration)
+                                    ├── LANDING-HERO-SERVICES-01
+                                    ├── WHATSAPP-CONTACT-01
+                                    ├── GALLERY-EXPERIENCE-01
+                                    └── TRUST-CONTENT-01
+                                        └── SEO-FOUNDATION-01
+                                            ├── QA-A11Y-RESPONSIVE-01
+                                            └── QA-PERF-SECURITY-01
+                                                └── DEPLOY-PREVIEW-01
+                                                    └── RELEASE-PRODUCTION-01
+                                                        └── DOC-CLOSURE-01
 ```
 
 Les quatre tickets de sections ne doivent pas tous être démarrés simultanément
@@ -455,17 +462,21 @@ traçabilité.
 | `09` | `FOUNDATION-SYSTEM-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01B` |
 | `10` | `FOUNDATION-SYSTEM-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01B`, `FOUNDATION-SYSTEM-01C` |
 | `11` | `FOUNDATION-SYSTEM-01E` | `VERIFY` | `DONE — Validé CTO 2026-07-30` | `P0` | `FOUNDATION-SYSTEM-01C`, `FOUNDATION-SYSTEM-01D` |
-| `12` | `LANDING-SHELL-01` | `IMPLEMENT` | `BLOCKED` | `P0` | `FOUNDATION-SYSTEM-01E`, maquette structurelle |
-| `13` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 12 |
-| `14` | `WHATSAPP-CONTACT-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 12 |
-| `15` | `GALLERY-EXPERIENCE-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 12, assets |
-| `16` | `TRUST-CONTENT-01` | `IMPLEMENT` | `BLOCKED` | `P1` | tickets 01, 12 |
-| `17` | `SEO-FOUNDATION-01` | `IMPLEMENT` | `BLOCKED` | `P1` | sections stables, domaine partiel |
-| `18` | `QA-A11Y-RESPONSIVE-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 12 à 17 |
-| `19` | `QA-PERF-SECURITY-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 12 à 17 |
-| `20` | `DEPLOY-PREVIEW-01` | `DEPLOY` | `BLOCKED` | `P0` | tickets 18 et 19, autorisation |
-| `21` | `RELEASE-PRODUCTION-01` | `DEPLOY` | `BLOCKED` | `P0` | Preview, domaine, mentions, autorisation |
-| `22` | `DOC-CLOSURE-01` | `VERIFY` | `BLOCKED` | `P1` | ticket 21 |
+| `12` | `LANDING-SHELL-01A` | `DISCOVER` | `DONE — Validé CTO 2026-07-31` | `P0` | `FOUNDATION-SYSTEM-01` |
+| `13` | `LANDING-SHELL-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01A` |
+| `14` | `LANDING-SHELL-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01B` |
+| `15` | `LANDING-SHELL-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01B`, `LANDING-SHELL-01C` |
+| `16` | `LANDING-SHELL-01E` | `VERIFY` | `IN_PROGRESS — en attente CTO` | `P0` | `LANDING-SHELL-01D` |
+| `17` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 16 |
+| `18` | `WHATSAPP-CONTACT-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 16 |
+| `19` | `GALLERY-EXPERIENCE-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 16, assets |
+| `20` | `TRUST-CONTENT-01` | `IMPLEMENT` | `BLOCKED` | `P1` | tickets 01, 16 |
+| `21` | `SEO-FOUNDATION-01` | `IMPLEMENT` | `BLOCKED` | `P1` | sections stables, domaine partiel |
+| `22` | `QA-A11Y-RESPONSIVE-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 16 à 21 |
+| `23` | `QA-PERF-SECURITY-01` | `VERIFY` | `BLOCKED` | `P0` | tickets 16 à 21 |
+| `24` | `DEPLOY-PREVIEW-01` | `DEPLOY` | `BLOCKED` | `P0` | tickets 22 et 23, autorisation |
+| `25` | `RELEASE-PRODUCTION-01` | `DEPLOY` | `BLOCKED` | `P0` | Preview, domaine, mentions, autorisation |
+| `26` | `DOC-CLOSURE-01` | `VERIFY` | `BLOCKED` | `P1` | ticket 25 |
 
 `G3` est `Passé` (validation CTO `Kyria — 2026-07-30`). `INIT-SCAFFOLD-01C`
 est `DONE` (`01C-R4 — ACCEPTED`). `INIT-SCAFFOLD-01D` est `DONE`.
@@ -473,7 +484,7 @@ est `DONE` (`01C-R4 — ACCEPTED`). `INIT-SCAFFOLD-01D` est `DONE`.
 `G5` et `G6` sont `Passé` (clôture `2026-07-30`). `FEATURE-FOUNDATION-V1`
 est `DONE` (preuve : commit publié sur `origin/main`). `FOUNDATION-SYSTEM-01`
 est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
-`feat: add PRIMiE foundation system` publié sur `origin/main`). Handoff suivant :
+`feat: add PRiMiE foundation system` publié sur `origin/main`). Handoff suivant :
 `LANDING-SHELL-01`.
 
 ### Traçabilité PRD → tickets
@@ -685,7 +696,7 @@ et handoff vers `FOUNDATION-SYSTEM-01`, sans élargir le périmètre.
 - Ouverture : `2026-07-30`
 - Clôture : `2026-07-30`
 - Preuve : commit d’implémentation publié sur `origin/main`
-  (`feat: add PRIMiE foundation system`)
+  (`feat: add PRiMiE foundation system`)
 - Handoff : `LANDING-SHELL-01`
 
 **Objectif feature**
@@ -705,7 +716,7 @@ de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 - Statut : `DONE — Validé CTO 2026-07-30`
 - Dépendances : `FOUNDATION-SYSTEM-01A`
 - Inclus : `app/theme.css`, polices `next/font`, focus, reduced motion, graphie
-  `PRIMiE`, métadonnées commerciales
+  `PRiMiE`, métadonnées commerciales
 - Exclus : sections landing, primitives UI, contenu structuré, Allura, npm
 
 #### FOUNDATION-SYSTEM-01C — Contenu structuré
@@ -742,46 +753,70 @@ de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 - [ ] focus et reduced motion possèdent une base globale ;
 - [ ] lint, typecheck, tests ciblés et build passent.
 
-### LANDING-SHELL-01 — Construire la structure et la navigation
+### LANDING-SHELL-01 — Structure, Header, menu mobile et Footer
 
-**Métadonnées**
+**Métadonnées feature**
 
-- Feature : `FEATURE-LANDING-V1`
+- Feature : `LANDING-SHELL-01`
 - Mode : `IMPLEMENT`
-- Statut : `BLOCKED par FOUNDATION-SYSTEM-01` (feature `DONE` — ouverture sur décision CTO)
+- Statut : `IN_PROGRESS — en attente de clôture CTO`
 - Priorité : `P0`
 - Autorité : Kyria — CTO / Design
+- Ouverture : `2026-07-31`
 
-**Objectif**
+**Objectif feature**
 
-Rendre les dix sections dans l’ordre officiel avec Header, Footer, ancres et
-menu mobile accessibles.
+Poser le shell accessible (skip link, Header, menu mobile, Footer) avec ancres
+réelles uniquement et navigation filtrée sans lien mort.
 
-**Inclus**
+#### LANDING-SHELL-01A — Audit du shell et des ancres
 
-- Header et Footer ;
-- lien d’évitement ;
-- conteneurs des dix sections ;
-- navigation desktop et mobile ;
-- fermeture du menu après navigation ;
-- gestion du focus, du scroll et de `aria-expanded` ;
-- ancres réelles uniquement.
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `FOUNDATION-SYSTEM-01`
 
-**Exclus**
+#### LANDING-SHELL-01B — Header desktop et skip link
 
-- contenu final des sections ;
-- sticky header complexe non validé ;
-- navigation vers des pages inexistantes ;
-- animation décorative généralisée.
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-SHELL-01A`
+- Inclus : SkipLink, Header Server, helper `getVisibleNavigation`, CTA WhatsApp
+- Exclus : intégration page, menu mobile, Footer, sticky, Client Component
 
-**Critères d’acceptation**
+#### LANDING-SHELL-01C — Menu mobile accessible
 
-- [ ] les dix sections sont présentes dans l’ordre ;
-- [ ] toutes les ancres existent ;
-- [ ] aucun lien vide ou `#` générique n’existe ;
-- [ ] le menu fonctionne au clavier et au tactile ;
-- [ ] le focus et le scroll sont restaurés à la fermeture ;
-- [ ] aucun chevauchement n’existe à `320px`.
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-SHELL-01B`
+- Inclus : MobileNavigation (Client), tokens z-index, intégration Accueil
+- Exclus : Footer, sticky, focus trap, backdrop, sections métier hors Accueil
+
+#### LANDING-SHELL-01D — Footer et intégration du shell
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-SHELL-01B`, `LANDING-SHELL-01C`
+- Inclus : Footer Server, composition SkipLink/Header/main/Footer, nav filtrée partagée
+- Exclus : sections métier, mentions légales, réseaux sociaux, sticky
+
+#### LANDING-SHELL-01E — QA, documentation et clôture
+
+- Mode : `VERIFY`
+- Statut : `IN_PROGRESS — en attente CTO`
+- Dépendances : `LANDING-SHELL-01D`
+- Inclus : audit shell, a11y, responsive, README, supply chain, rapport de clôture
+- Exclus : commit/push, sections métier, sticky, mentions légales
+- Itération : `LANDING-SHELL-01E-R1` (Design Sync palette v1.0 — terminée) ;
+  `LANDING-SHELL-01E-R2` (`IN_PROGRESS` — migration graphie `PRiMiE`)
+- Décision marque : graphie officielle `PRiMiE` / `Chez PRiMiE Coiffure` (PRD 1.1)
+
+**Critères d’acceptation feature (clôture 01E)**
+
+- [ ] skip link et Header accessibles ;
+- [ ] menu mobile clavier / Escape / focus ;
+- [ ] Footer sans invention ;
+- [ ] aucun lien mort ;
+- [ ] lint, typecheck, tests et build passent.
 
 ### LANDING-HERO-SERVICES-01 — Implémenter Hero et Services
 
@@ -815,7 +850,7 @@ six prestations validées.
 
 **Critères d’acceptation**
 
-- [ ] `Chez PRIMiE Coiffure` et l’activité sont compréhensibles immédiatement ;
+- [ ] `Chez PRiMiE Coiffure` et l’activité sont compréhensibles immédiatement ;
 - [ ] le CTA principal mentionne WhatsApp ;
 - [ ] le CTA secondaire mène à la galerie ;
 - [ ] les six prestations validées sont présentes ;
@@ -1316,13 +1351,14 @@ Arrêter l’exécution et demander une décision si :
 (clôture `2026-07-30`, preuve : premier commit publié sur `origin/main`).
 `FOUNDATION-SYSTEM-01` est `DONE` (clôture `2026-07-30`, preuve : commit
 d’implémentation publié sur `origin/main` ; `01A`–`01E` DONE — Validé CTO
-2026-07-30). Handoff suivant : `LANDING-SHELL-01`.
+2026-07-30). Handoff suivant : `LANDING-SHELL-01` (`01A`–`01D` DONE, `01E`
+IN_PROGRESS — en attente CTO ; feature `IN_PROGRESS — en attente de clôture CTO`).
 `CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
 
 ### Après clôture FEATURE-FOUNDATION-V1
 
-1. ouvrir `LANDING-SHELL-01` sur décision CTO ;
-2. exécuter un seul ticket technique à la fois ;
+1. valider `LANDING-SHELL-01E` et clôturer `LANDING-SHELL-01` auprès du CTO ;
+2. préparer le handoff `LANDING-CORE-01` (Hero, Services, WhatsApp, Contact) ;
 3. PRD services alignés sur CLAUDE.md / do-not-break / `content/services.ts` ;
 4. maintenir la collecte de contenus en parallèle (`CONTENT-VALIDATION-01`) ;
 5. ne créer aucun code hors ticket autorisé ;
@@ -1331,5 +1367,5 @@ d’implémentation publié sur `origin/main` ; `01A`–`01E` DONE — Validé C
 ### Décision enregistrée
 
 `BMAD-PRIMIE-001` est validé par le CTO (`Kyria — 2026-07-30`) comme plan
-directeur d’exécution de la landing page PRIMiE V1, sans autoriser encore une
+directeur d’exécution de la landing page PRiMiE V1, sans autoriser encore une
 action distante, un scaffold Next.js implicite ou une mise en Production.

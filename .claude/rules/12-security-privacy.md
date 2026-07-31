@@ -14,7 +14,7 @@ paths:
 
 ## 1. Objectif
 
-PRIMiE est une landing page publique qui présente les prestations de Chez PRIMiE
+PRiMiE est une landing page publique qui présente les prestations de Chez PRiMiE
 Coiffure et oriente vers un appel ou WhatsApp.
 
 La V1 ne comporte :
@@ -39,7 +39,7 @@ analyse de risques et une validation explicite.
 Le parcours attendu est :
 
 ```text
-navigateur → site statique PRIMiE sur Vercel → appel téléphonique ou WhatsApp
+navigateur → site statique PRiMiE sur Vercel → appel téléphonique ou WhatsApp
 ```
 
 Le site :

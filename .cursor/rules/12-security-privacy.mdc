@@ -1,14 +1,14 @@
 ---
-description: Sécurité frontend, dépendances, secrets et protection de la vie privée pour PRIMiE
+description: Sécurité frontend, dépendances, secrets et protection de la vie privée pour PRiMiE
 globs: app/**/*.ts, app/**/*.tsx, app/**/*.css, components/**/*.tsx, lib/**/*.ts, public/**/*, next.config.ts, package.json, pnpm-lock.yaml, .env*
 alwaysApply: false
 ---
 
-# PRIMiE — Sécurité et vie privée
+# PRiMiE — Sécurité et vie privée
 
 ## 1. Objectif
 
-PRIMiE est une landing page publique qui présente les prestations de Chez PRIMiE
+PRiMiE est une landing page publique qui présente les prestations de Chez PRiMiE
 Coiffure et oriente vers un appel ou WhatsApp.
 
 La V1 ne comporte :
@@ -33,7 +33,7 @@ risques et une validation explicite.
 Le parcours attendu est :
 
 ```text
-navigateur → site statique PRIMiE sur Vercel → appel téléphonique ou WhatsApp
+navigateur → site statique PRiMiE sur Vercel → appel téléphonique ou WhatsApp
 ```
 
 Le site :

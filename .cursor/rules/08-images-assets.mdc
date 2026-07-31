@@ -1,14 +1,14 @@
 ---
-description: Gestion, droits, optimisation et usage des images et ressources de PRIMiE
+description: Gestion, droits, optimisation et usage des images et ressources de PRiMiE
 globs: public/**/*, content/gallery.ts, content/services.ts, components/**/*.tsx, next.config.ts
 alwaysApply: false
 ---
 
-# PRIMiE — Images et ressources
+# PRiMiE — Images et ressources
 
 ## 1. Objectif
 
-Les images sont une partie centrale de l'expérience PRIMiE.
+Les images sont une partie centrale de l'expérience PRiMiE.
 
 Cette règle garantit :
 
@@ -54,7 +54,7 @@ Conditions :
 
 ### `brand`
 
-Logo, monogramme, favicon, motif ou ressource officielle PRIMiE.
+Logo, monogramme, favicon, motif ou ressource officielle PRiMiE.
 
 ### `decorative`
 
@@ -398,7 +398,7 @@ des réalisations.
 
 ## 17. Logo et identité
 
-Le logo PRIMiE doit disposer au minimum des variantes réellement utiles :
+Le logo PRiMiE doit disposer au minimum des variantes réellement utiles :
 
 - doré sur fond sombre ;
 - sombre sur fond clair ;

@@ -17,7 +17,7 @@ describe("Card", () => {
   });
 
   it("applique variantes, paddings et className", () => {
-    expect(renderToStaticMarkup(<Card variant="default" />)).toContain("bg-paper");
+    expect(renderToStaticMarkup(<Card variant="default" />)).toContain("bg-background");
     expect(renderToStaticMarkup(<Card variant="muted" />)).toContain("bg-surface-muted");
     expect(renderToStaticMarkup(<Card padding="sm" />)).toContain("p-4");
     expect(renderToStaticMarkup(<Card padding="md" />)).toContain("p-5");
