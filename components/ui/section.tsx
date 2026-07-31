@@ -7,6 +7,8 @@ const toneClass = {
   cream: "bg-surface text-foreground",
   /** Surface sombre (rich-black) — alias historique `ink`. */
   ink: "bg-surface-dark text-on-dark",
+  /** Surface Hero — dégradé canonique `bg-hero`. */
+  hero: "bg-hero text-on-dark",
 } as const;
 
 const spacingClass = {

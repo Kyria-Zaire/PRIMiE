@@ -17,7 +17,7 @@
 | Date de création | `2026-07-30` |
 | Dernière mise à jour | `2026-07-31` |
 | Validation CTO | `Kyria — 2026-07-30` |
-| PRD source | `docs/PRD-PRIMIE-V1.md — version 1.1 — Validé` |
+| PRD source | `docs/PRD-PRIMIE-V1.md — version 1.2 — Validé` |
 | ADR | `Aucun requis à ce stade` |
 | Tickets planifiés | `26` |
 | Environnement cible | Local → Preview Vercel → Production autorisée |
@@ -431,8 +431,13 @@ Validation BMAD (G2 passé)
                                 └── LANDING-SHELL-01E (DONE — Validé CTO 2026-07-31)
                                     ├── LANDING-SHELL-01E-R1 (DONE — Design Sync v1.0)
                                     └── LANDING-SHELL-01E-R2 (DONE — Validé CTO 2026-07-31)
-                                        └── LANDING-CORE-01 (handoff — non ouvert)
-                                            ├── LANDING-HERO-SERVICES-01
+                                        └── LANDING-CORE-01 (IN_PROGRESS)
+                                            ├── LANDING-CORE-01A (DONE — Validé CTO 2026-07-31)
+                                            ├── LANDING-CORE-01B (DONE — Validé CTO 2026-07-31)
+                                            ├── LANDING-CORE-01C (DONE — Validé CTO 2026-07-31)
+                                            ├── LANDING-CORE-01D (DONE — Validé CTO 2026-07-31)
+                                            └── LANDING-CORE-01E (IN_PROGRESS — en attente CTO)
+                                            ├── LANDING-HERO-SERVICES-01 (SUPERSEDED par LANDING-CORE-01)
                                             ├── WHATSAPP-CONTACT-01
                                             ├── GALLERY-EXPERIENCE-01
                                             └── TRUST-CONTENT-01
@@ -468,7 +473,12 @@ traçabilité.
 | `14` | `LANDING-SHELL-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01B` |
 | `15` | `LANDING-SHELL-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01B`, `LANDING-SHELL-01C` |
 | `16` | `LANDING-SHELL-01E` | `VERIFY` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01D` |
-| `17` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 16 |
+| `16b` | `LANDING-CORE-01A` | `DISCOVER` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-SHELL-01` |
+| `16c` | `LANDING-CORE-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01A` |
+| `16d` | `LANDING-CORE-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01B` |
+| `16e` | `LANDING-CORE-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `LANDING-CORE-01C` |
+| `16f` | `LANDING-CORE-01E` | `VERIFY` | `IN_PROGRESS — en attente CTO` | `P0` | `LANDING-CORE-01D` |
+| `17` | `LANDING-HERO-SERVICES-01` | `IMPLEMENT` | `SUPERSEDED par LANDING-CORE-01` | `P0` | — |
 | `18` | `WHATSAPP-CONTACT-01` | `IMPLEMENT` | `BLOCKED` | `P0` | ticket 16 |
 | `19` | `GALLERY-EXPERIENCE-01` | `IMPLEMENT` | `BLOCKED` | `P0` | tickets 01, 16, assets |
 | `20` | `TRUST-CONTENT-01` | `IMPLEMENT` | `BLOCKED` | `P1` | tickets 01, 16 |
@@ -489,7 +499,11 @@ est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
 `LANDING-SHELL-01` est `DONE` (clôturé le `2026-07-31`, preuve : commit
 `feat: add PRiMiE landing shell` —
 `334372718906f4e5ffdf8e977bcc8f5c6da64ddb` sur `origin/main`).
-Handoff suivant : `LANDING-CORE-01` (non ouvert dans cette exécution).
+`LANDING-CORE-01` est `IN_PROGRESS` (`01A`–`01D` DONE — Validé CTO 2026-07-31 ;
+`01E` IN_PROGRESS — en attente CTO).
+`LANDING-HERO-SERVICES-01` est `SUPERSEDED par LANDING-CORE-01`.
+PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.2`.
+`CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
 
 ### Traçabilité PRD → tickets
 
@@ -770,7 +784,7 @@ de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 - Clôture : `2026-07-31`
 - Preuve d’implémentation : commit `feat: add PRiMiE landing shell` —
   `334372718906f4e5ffdf8e977bcc8f5c6da64ddb` sur `origin/main`
-- Handoff : `LANDING-CORE-01` (non ouvert)
+- Handoff : `LANDING-CORE-01` (`IN_PROGRESS`)
 
 **Objectif feature**
 
@@ -827,15 +841,67 @@ réelles uniquement et navigation filtrée sans lien mort.
 - [x] aucun lien mort ;
 - [x] lint, typecheck, tests et build passent.
 
+### LANDING-CORE-01 — Hero, Services, Réservation et Contact
+
+**Métadonnées feature**
+
+- Feature : `LANDING-CORE-01`
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS`
+- Priorité : `P0`
+- Autorité : Kyria — CTO
+- Ouverture : `2026-07-31`
+- PRD : `docs/PRD-PRIMIE-V1.md` version `1.2`
+- Remplace : `LANDING-HERO-SERVICES-01` (SUPERSEDED)
+
+#### LANDING-CORE-01A — Audit Hero / Services / Réservation / Contact
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-SHELL-01`
+
+#### LANDING-CORE-01B — Hero CSS premium
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-CORE-01A`
+- Inclus : Hero Server, `bg-hero`, contenu canonique, CTA WhatsApp sans message, décorations CSS
+- Exclus : photo, logo, slogan, sections métier suivantes
+
+#### LANDING-CORE-01C — Services
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-CORE-01B`
+- Inclus : section `#services`, six titres canoniques, CTA secondaire Hero, nav Accueil+Services
+- Exclus : descriptions, prix, images, CTA par carte, Réserver/Contact
+
+#### LANDING-CORE-01D — Réservation WhatsApp + Contact + navigation
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `LANDING-CORE-01C`
+- Inclus : `#reserver`, `#contact`, nav Accueil/Services/Réserver/Contact
+- Exclus : message prérempli, horaires, adresse, réseaux, formulaire, galerie/avis/FAQ
+
+#### LANDING-CORE-01E — QA, documentation et readiness de clôture
+
+- Mode : `VERIFY`
+- Statut : `IN_PROGRESS — en attente CTO`
+- Dépendances : `LANDING-CORE-01D`
+- Inclus : QA structure/contenu/a11y/responsive, README CORE, supply chain, rapport
+- Exclus : commit/push, clôture feature, nouvelles sections métier, assets
+
 ### LANDING-HERO-SERVICES-01 — Implémenter Hero et Services
 
 **Métadonnées**
 
 - Feature : `FEATURE-LANDING-V1`
 - Mode : `IMPLEMENT`
-- Statut : `BLOCKED par contenu et LANDING-SHELL-01`
+- Statut : `SUPERSEDED par LANDING-CORE-01`
 - Priorité : `P0`
 - Autorité : Prisca — copy ; Kyria — UX/UI
+- Remplacé par : `LANDING-CORE-01` (`01A`–`01E`) — décision CTO `2026-07-31`
 
 **Objectif**
 
@@ -856,6 +922,9 @@ six prestations validées.
 - image non tracée ;
 - duplication de contenu ;
 - carrousel de services inutile.
+
+> Historique conservé. Ne plus exécuter ce ticket : le périmètre est repris par
+> `LANDING-CORE-01B` (Hero), `LANDING-CORE-01C` (Services) et la suite CORE.
 
 **Critères d’acceptation**
 
@@ -1364,17 +1433,16 @@ d’implémentation publié sur `origin/main` ; `01A`–`01E` DONE — Validé C
 `01A`–`01E`, `01E-R1`, `01E-R2` DONE — Validé CTO 2026-07-31 ; preuve :
 commit `feat: add PRiMiE landing shell` —
 `334372718906f4e5ffdf8e977bcc8f5c6da64ddb` sur `origin/main`).
-Handoff suivant : `LANDING-CORE-01` (non ouvert).
+Handoff suivant : `LANDING-CORE-01` (`IN_PROGRESS` — `01E` en attente CTO).
 `CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`.
 
-### Après clôture LANDING-SHELL-01
+### Après ouverture LANDING-CORE-01
 
-1. ouvrir `LANDING-CORE-01` uniquement sur décision CTO explicite ;
-2. préparer Hero, Services, WhatsApp et Contact sans inventer de contenu ;
-3. PRD services alignés sur CLAUDE.md / do-not-break / `content/services.ts` ;
-4. maintenir la collecte de contenus en parallèle (`CONTENT-VALIDATION-01`) ;
-5. ne créer aucun code hors ticket autorisé ;
-6. ne déployer en Production qu’avec autorisation CTO explicite.
+1. valider `LANDING-CORE-01E` (QA finale) auprès du CTO ;
+2. clôturer `LANDING-CORE-01` uniquement après validation CTO explicite ;
+3. maintenir la collecte de contenus en parallèle (`CONTENT-VALIDATION-01`) ;
+4. ne créer aucun code hors ticket autorisé ;
+5. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 

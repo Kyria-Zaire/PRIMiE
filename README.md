@@ -46,7 +46,30 @@ Règles :
 - aucun lien vers une section absente de la page ;
 - la même liste filtrée alimente Header, menu mobile et Footer ;
 - Header statique en V1 (pas de sticky) ;
-- les sections métier (Hero, Services, galerie, etc.) sont hors de cette feature.
+- Unique Client Component du parcours : `MobileNavigation`.
+
+## Landing Core (LANDING-CORE-01)
+
+Sections métier dans `components/sections/`, composées dans `app/page.tsx` :
+
+`Hero` → `Services` → `Booking` → `Contact`.
+
+| Section     | Ancre       | Contenu                                                                 |
+| ----------- | ----------- | ----------------------------------------------------------------------- |
+| Hero        | `#accueil`  | CSS premium sans photo ; CTA WhatsApp + « Découvrir nos services »      |
+| Services    | `#services` | Six titres canoniques (`content/services.ts`), sans description ni prix |
+| Réservation | `#reserver` | CTA WhatsApp sans message prérempli                                     |
+| Contact     | `#contact`  | Nom, activité, `tel:` et WhatsApp via `siteConfig`                      |
+
+Navigation visible : Accueil, Services, Réserver, Contact.
+
+Volontairement absents tant que `CONTENT-VALIDATION-01` est bloqué :
+
+- galerie / photos ;
+- avis ;
+- FAQ ;
+- « Pourquoi me choisir ? » ;
+- descriptions inventées ou images générées.
 
 ## Commandes
 

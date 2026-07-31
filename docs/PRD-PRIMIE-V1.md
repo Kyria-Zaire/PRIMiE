@@ -7,7 +7,7 @@
 | Identifiant | `PRD-PRIMIE-001` |
 | Produit | `PRiMiE` |
 | Titre | Landing page Chez PRiMiE Coiffure — V1 |
-| Version | `1.1` |
+| Version | `1.2` |
 | Statut | `Validé` |
 | Autorité produit | Prisca — métier et contenus |
 | Autorité technique | Kyria — CTO |
@@ -30,6 +30,16 @@
 | Signature visuelle | `PRiMiE COIFFURE` |
 | Périmètre | UI, UX, metadata, contenus et communication de marque |
 | Conservé | identifiants techniques historiques (`PRD-PRIMIE-*`, `BMAD-PRIMIE-*`, URL GitHub, slugs) |
+| Autorité | CTO Kyria — `2026-07-31` |
+
+## 0.2 Décision Hero — CTA et médias (2026-07-31)
+
+| Champ | Valeur |
+| --- | --- |
+| CTA principal Hero | `Réserver sur WhatsApp` → `buildWhatsAppUrl()` sans message prérempli |
+| CTA secondaire | `Découvrir nos services` → `#services`, uniquement lorsque la section Services est rendue |
+| CTA Galerie | masqué tant que `gallery` est vide / `CONTENT-VALIDATION-01` bloqué |
+| Visuel Hero | CSS premium autorisé sans photographie tant qu’aucun asset validé n’est fourni |
 | Autorité | CTO Kyria — `2026-07-31` |
 
 ## 1. Résumé exécutif
@@ -333,24 +343,27 @@ le lien `tel:+33749616582`.
 ## 14. Hero
 
 ### Exigences
-- afficher `Chez PRiMiE Coiffure` ;
+- afficher l’identité `PRiMiE` (eyebrow `Chez` autorisé) ;
 - communiquer la coiffure et beauté afro à domicile ;
-- utiliser un visuel principal de qualité ;
-- afficher un CTA principal WhatsApp ;
-- afficher un CTA secondaire vers `#galerie` ;
+- privilégier un Hero CSS premium tant qu’aucune photographie validée n’est fournie ;
+- afficher un CTA principal `Réserver sur WhatsApp` ;
+- afficher un CTA secondaire `Découvrir nos services` → `#services` uniquement lorsque la section Services est rendue ;
+- ne pas afficher de CTA vers `#galerie` tant que la galerie est vide ;
 - garder le contenu essentiel visible rapidement.
-Le wording définitif de la proposition de valeur doit être validé par Prisca.
+Le wording définitif d’un slogan ou d’une proposition de valeur enrichie doit être
+validé par Prisca. Aucun slogan non validé n’est affiché.
 
 ### Critères
 
 | ID | Critère d’acceptation |
 | --- | --- |
 | `AC-HERO-001` | Une visiteuse comprend l’activité sans parcourir toute la page. |
-| `AC-HERO-002` | Le CTA principal mentionne WhatsApp. |
-| `AC-HERO-003` | Le CTA secondaire mène à `#galerie`. |
-| `AC-HERO-004` | Le texte reste lisible sur l’image aux viewports de référence. |
-| `AC-HERO-005` | Le visuel conserve un cadrage pertinent sans déformation. |
+| `AC-HERO-002` | Le CTA principal mentionne WhatsApp et utilise l’URL canonique. |
+| `AC-HERO-003` | Le CTA secondaire mène à `#services` uniquement si la section Services est rendue ; sinon il est absent. |
+| `AC-HERO-004` | Le texte reste lisible sur le fond Hero (image ou CSS) aux viewports de référence. |
+| `AC-HERO-005` | Si un visuel photographique est présent, il conserve un cadrage pertinent sans déformation ; un Hero CSS sans photo est conforme. |
 | `AC-HERO-006` | Aucune statistique ou promesse non confirmée n’est affichée. |
+| `AC-HERO-007` | Aucun lien `#galerie` n’est exposé tant que la galerie est vide. |
 
 ## 15. Services
 
