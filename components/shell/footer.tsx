@@ -1,3 +1,4 @@
+import { BrandLogo } from "@/components/shell/brand-logo";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/content/site-config";
 import type { NavigationItem } from "@/content/types";
@@ -22,9 +23,9 @@ export function Footer({ navigationItems, year }: FooterProps) {
           <div className="flex flex-col gap-3">
             <a
               href="#accueil"
-              className="inline-flex min-h-11 w-fit items-center font-display text-xl font-semibold tracking-tight text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+              className="inline-flex min-h-11 w-fit items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
             >
-              {siteConfig.brand.shortName}
+              <BrandLogo />
             </a>
             <p className="font-sans text-base font-medium text-on-dark">
               {siteConfig.brand.commercialName}

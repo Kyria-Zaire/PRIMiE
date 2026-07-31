@@ -56,7 +56,7 @@ const WHATSAPP_PREFILL =
 
 describe("seed contents PO_APPROVED_SEED", () => {
   it("expose le slogan exact avec la graphie PRiMiE", () => {
-    expect(siteConfig.brand.slogan).toBe("Révélez votre beauté, une coiffure à la fois.");
+    expect(siteConfig.brand.slogan).toBe("La beauté commence par une belle coiffure.");
     expect(siteConfig.brand.shortName).toBe("PRiMiE");
     expect(siteConfig.brand.slogan).not.toMatch(/PRIMiE|PRIMIE|Primie/);
   });
@@ -111,7 +111,7 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(runtimeBlob).not.toContain("Plamédie");
   });
 
-  it("n’introduit pas benefits.ts ni assets image dans public/", () => {
+  it("n’introduit pas benefits.ts ni PNG source dans public/", () => {
     expect(existsSync(join(process.cwd(), "content/benefits.ts"))).toBe(false);
 
     const publicDir = join(process.cwd(), "public");
@@ -122,6 +122,25 @@ describe("seed contents PO_APPROVED_SEED", () => {
       (entry) => entry.isFile() && /\.(png|jpe?g|webp|gif|svg|ico)$/i.test(entry.name),
     );
     expect(imageFiles).toEqual([]);
+
+    const heroWebp = join(process.cwd(), "public/images/hero/primie-hero-v1.webp");
+    const heroMobileWebp = join(process.cwd(), "public/images/hero/primie-hero-mobile-v1.webp");
+    const logoWebp = join(process.cwd(), "public/brand/logo/primie-logo-v1.webp");
+    const sourcePngInPublic = join(process.cwd(), "public/images/hero/primie-hero.png");
+    const mobilePngInPublic = join(
+      process.cwd(),
+      "public/images/hero/primie section hero mobile.png",
+    );
+    const logoSourceInPublic = join(process.cwd(), "public/brand/logo/logo.png");
+    expect(existsSync(heroWebp)).toBe(true);
+    expect(existsSync(heroMobileWebp)).toBe(true);
+    expect(existsSync(logoWebp)).toBe(true);
+    expect(existsSync(sourcePngInPublic)).toBe(false);
+    expect(existsSync(mobilePngInPublic)).toBe(false);
+    expect(existsSync(logoSourceInPublic)).toBe(false);
+    expect(existsSync(join(process.cwd(), "images/primie-hero.png"))).toBe(true);
+    expect(existsSync(join(process.cwd(), "images/primie section hero mobile.png"))).toBe(true);
+    expect(existsSync(join(process.cwd(), "images/logo.png"))).toBe(true);
 
     const root = siteConfig as Record<string, unknown>;
     const contact = siteConfig.contact as Record<string, unknown>;

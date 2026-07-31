@@ -20,19 +20,20 @@ describe("Invariant de marque PRiMiE", () => {
     expect(siteConfig.brand.commercialName).toBe("Chez PRiMiE Coiffure");
   });
 
-  it("rend exactement PRiMiE dans le Header sans uppercase CSS", () => {
+  it("rend le logo Header avec alt PRiMiE sans uppercase CSS", () => {
     const html = renderToStaticMarkup(
       <Header items={[{ id: "accueil", label: "Accueil", href: "#accueil" }]} />,
     );
     const source = readFileSync(join(process.cwd(), "components/shell/header.tsx"), "utf8");
 
-    expect(html).toContain(">PRiMiE<");
+    expect(html).toContain('alt="PRiMiE"');
+    expect(html).toContain("primie-logo-v1.webp");
     expect(html).not.toContain("PRIMiE");
     expect(html).not.toContain("uppercase");
     expect(source).not.toMatch(/\buppercase\b/);
   });
 
-  it("rend exactement Chez PRiMiE Coiffure dans le Footer", () => {
+  it("rend le logo Footer et Chez PRiMiE Coiffure en texte", () => {
     const html = renderToStaticMarkup(
       <Footer
         navigationItems={[{ id: "accueil", label: "Accueil", href: "#accueil" }]}
@@ -40,7 +41,8 @@ describe("Invariant de marque PRiMiE", () => {
       />,
     );
 
-    expect(html).toContain(">PRiMiE<");
+    expect(html).toContain('alt="PRiMiE"');
+    expect(html).toContain("primie-logo-v1.webp");
     expect(html).toContain("Chez PRiMiE Coiffure");
     expect(html).toContain("© 2026 Chez PRiMiE Coiffure.");
     expect(html).not.toContain("PRIMiE");

@@ -12,14 +12,15 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Nom commercial | Chez PRiMiE Coiffure | VALIDATED | CTO | 2026-07-31 | `site-config.ts` | — | — |
 | Activité | Coiffure et beauté afro à domicile | VALIDATED | CTO / métier | 2026-07-31 | `site-config.ts` | — | — |
 | Téléphone / WhatsApp | Canoniques | VALIDATED | CTO | 2026-07-31 | `site-config.ts` | — | — |
-| Slogan | Révélez votre beauté, une coiffure à la fois. | ACTIVATED | PO / CTO | 2026-07-31 | Hero via `siteConfig.brand.slogan` | — | — |
+| Slogan | La beauté commence par une belle coiffure. | ACTIVATED | PO / CTO | 2026-07-31 | Hero via `siteConfig.brand.slogan` | — | — |
 | 6 titres services | Liste do-not-break | VALIDATED | CTO / métier | 2026-07-31 | `services.ts` | — | — |
 | 6 descriptions services | Seed PO exactes | ACTIVATED | PO / CTO | 2026-07-31 | cartes Services | — | — |
 | Prix / durées | Non publiés | PENDING_PRISCA | Prisca | 2026-07-31 | — | Décision métier | Rester hors runtime public |
 | Message WhatsApp prérempli | Bonjour Prisca… devis | ACTIVATED_BOOKING_ONLY | PO / CTO | 2026-07-31 | Header / Hero / Booking (+ menu mobile) | Contact/Footer sans `?text=` | — |
 | FAQ (5 Q/R) | Seed prudente | ACTIVATED | PO / CTO | 2026-07-31 | `#faq` + nav | — | — |
-| Logo visuel | Retenu en principe V1 | BLOCKED_ASSET | PO / CTO | 2026-07-31 | `public/brand/` (futur) | Fichier prêt + variantes | 01D / asset gate |
-| Photo Hero | Absente | BLOCKED_ASSET | Prisca | 2026-07-31 | Hero | Photo + autorisation | Conserver Hero CSS |
+| Logo visuel | `public/brand/logo/primie-logo-v1.webp` (source `images/logo.png` hors commit) | ACTIVATED — Header/Footer | Prisca / CTO | 2026-07-31 | `BrandLogo` via `next/image` | — | Ne pas committer le PNG source sans décision CTO |
+| Photo Hero desktop | `public/images/hero/primie-hero-v1.webp` (source `images/primie-hero.png`) | ACTIVATED — 01D-HERO | Prisca / CTO | 2026-07-31 | Hero ≥1024px | — | Ne pas committer PNG sans décision CTO |
+| Photo Hero mobile | `public/images/hero/primie-hero-mobile-v1.webp` (source `images/primie section hero mobile.png`) | ACTIVATED — 01D-HERO-R1 | Prisca / CTO | 2026-07-31 | Hero sous 1024px via `picture` | — | Ne pas committer PNG sans décision CTO |
 | Galerie | `[]` | BLOCKED_ASSET | Prisca | 2026-07-31 | `gallery.ts` | ≥4 réalisations + droits | Collecte 01D |
 | Témoignages | `[]` | PENDING_PRISCA | Prisca | 2026-07-31 | `testimonials.ts` | Texte + consentement | Collecte 01D |
 | Pistes avis (prénoms seuls) | Olive, Octavie, Annaelle, Plamédie — pistes uniquement | PENDING_PRISCA | PO | 2026-07-31 | registre seulement | Pas de texte/consentement | Demander textes exacts |

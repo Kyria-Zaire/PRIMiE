@@ -20,9 +20,10 @@ describe("Header", () => {
     const html = renderToStaticMarkup(<Header items={sampleItems} />);
     const expectedWhatsApp = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
 
-    expect(html.startsWith("<header")).toBe(true);
+    expect(html).toContain("<header");
     expect(html).toContain('href="#accueil"');
-    expect(html).toContain(">PRiMiE<");
+    expect(html).toContain('alt="PRiMiE"');
+    expect(html).toContain("primie-logo-v1.webp");
     expect(html).toContain("bg-hero");
     expect(html).toContain("text-gold");
     expect(html).toContain("border-bronze");
@@ -48,7 +49,8 @@ describe("Header", () => {
     expect(html).not.toContain("<nav");
     expect(html).toContain("Réserver sur WhatsApp");
     expect(html).toContain(`href="${expectedWhatsApp}"`);
-    expect(html).toContain(">PRiMiE<");
+    expect(html).toContain('alt="PRiMiE"');
+    expect(html).toContain("primie-logo-v1.webp");
   });
 
   it("n’affiche que les items fournis", () => {
@@ -77,5 +79,6 @@ describe("Header", () => {
     const source = readFileSync(join(process.cwd(), "components/shell/header.tsx"), "utf8");
     expect(source).not.toMatch(/["']use client["']/);
     expect(source).toContain("whatsappPrefillMessage");
+    expect(source).toContain("BrandLogo");
   });
 });

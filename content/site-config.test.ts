@@ -7,7 +7,7 @@ describe("siteConfig", () => {
     expect(siteConfig.brand.commercialName).toBe("Chez PRiMiE Coiffure");
     expect(siteConfig.brand.owner).toBe("Prisca");
     expect(siteConfig.brand.activity).toBe("Coiffure et beauté afro à domicile");
-    expect(siteConfig.brand.slogan).toBe("Révélez votre beauté, une coiffure à la fois.");
+    expect(siteConfig.brand.slogan).toBe("La beauté commence par une belle coiffure.");
     expect(siteConfig.locale.language).toBe("fr");
     expect(siteConfig.locale.locale).toBe("fr_FR");
   });

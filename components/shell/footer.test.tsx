@@ -14,7 +14,8 @@ describe("Footer", () => {
     const html = renderToStaticMarkup(<Footer navigationItems={accueilOnly} year={2026} />);
 
     expect(html.startsWith("<footer")).toBe(true);
-    expect(html).toContain(">PRiMiE<");
+    expect(html).toContain('alt="PRiMiE"');
+    expect(html).toContain("primie-logo-v1.webp");
     expect(html).toContain("Chez PRiMiE Coiffure");
     expect(html).toContain("Coiffure et beauté afro à domicile");
     expect(html).toContain('href="#accueil"');
@@ -29,9 +30,7 @@ describe("Footer", () => {
     expect(html).toContain("<address");
     expect(html).toContain("not-italic");
     expect(html).toContain("bg-black");
-    expect(html).toContain("text-gold");
     expect(html).toContain("border-bronze");
-    expect(html).toContain("font-display");
   });
 
   it("n’affiche que les items de navigation reçus", () => {
@@ -54,7 +53,8 @@ describe("Footer", () => {
     const html = renderToStaticMarkup(<Footer navigationItems={[]} year={2026} />);
 
     expect(html).not.toContain("<nav");
-    expect(html).toContain("PRiMiE");
+    expect(html).toContain('alt="PRiMiE"');
+    expect(html).toContain("primie-logo-v1.webp");
     expect(html).toContain('href="tel:+33749616582"');
     expect(html).toContain("WhatsApp");
   });
@@ -83,5 +83,6 @@ describe("Footer", () => {
   it("reste un Server Component sans directive client", () => {
     const source = readFileSync(join(process.cwd(), "components/shell/footer.tsx"), "utf8");
     expect(source).not.toMatch(/["']use client["']/);
+    expect(source).toContain("BrandLogo");
   });
 });

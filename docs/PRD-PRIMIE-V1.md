@@ -48,7 +48,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Statut des seed | `PO_APPROVED_SEED` — modifiables jusqu’à validation Prisca / publication UI |
-| Slogan | `Révélez votre beauté, une coiffure à la fois.` — centralisé, **non affiché** tant que non activé |
+| Slogan | `La beauté commence par une belle coiffure.` — centralisé, affiché dans le Hero |
 | Descriptions services | six textes PO — centralisés ; **non affichés** dans Services tant que non activés |
 | Prix / durées | **masqués** ; hors runtime public |
 | Message WhatsApp prérempli | texte PO centralisé ; CTA publics **sans** `?text=` jusqu’à activation 01C |

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Cormorant_Garamond, Great_Vibes, Manrope } from "next/font/google";
 import { siteConfig } from "@/content/site-config";
 import "./globals.css";
 
@@ -16,6 +16,13 @@ const cormorantGaramond = Cormorant_Garamond({
   display: "swap",
 });
 
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-great-vibes",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: siteConfig.brand.commercialName,
   description: siteConfig.brand.activity,
@@ -29,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang={siteConfig.locale.language}
-      className={`${manrope.variable} ${cormorantGaramond.variable}`}
+      className={`${manrope.variable} ${cormorantGaramond.variable} ${greatVibes.variable}`}
     >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         {children}

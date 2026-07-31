@@ -79,4 +79,5 @@
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-cormorant), ui-serif, Georgia, "Times New Roman", serif;
+  --font-script: var(--font-great-vibes), "Segoe Script", "Apple Chancery", cursive;
 }

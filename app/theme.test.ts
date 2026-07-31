@@ -93,11 +93,13 @@ describe("Design tokens PRiMiE v1.0", () => {
     expect(themeCss).toContain("--color-danger:");
   });
 
-  it("expose les familles typographiques sans et display", () => {
+  it("expose les familles typographiques sans, display et script", () => {
     expect(themeCss).toContain("--font-sans:");
     expect(themeCss).toContain("--font-display:");
+    expect(themeCss).toContain("--font-script:");
     expect(themeCss).toContain("var(--font-manrope)");
     expect(themeCss).toContain("var(--font-cormorant)");
+    expect(themeCss).toContain("var(--font-great-vibes)");
     expect(themeCss).not.toMatch(/allura/i);
   });
 

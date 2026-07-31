@@ -68,7 +68,11 @@ describe("Home page", () => {
     expect(html).toContain('href="tel:+33749616582"');
     expect(html).toContain("+33 7 49 61 65 82");
     expect(html).toContain("Réserver sur WhatsApp");
-    expect(html).not.toContain("<img");
+    expect(html).toContain("primie-hero-v1.webp");
+    expect(html).toContain("primie-hero-mobile-v1.webp");
+    expect(html).toContain("<img");
+    expect(html).toMatch(/alt=""/);
+    expect(html).not.toContain("primie section hero");
     expect(html).not.toContain("Site en préparation.");
     expect(html).not.toContain("Instagram");
     expect(html).not.toContain("Extensions cils");

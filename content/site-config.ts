@@ -10,7 +10,7 @@ export const siteConfig = {
     owner: "Prisca",
     activity: "Coiffure et beauté afro à domicile",
     /** PO_APPROVED_SEED — non affiché dans le Hero tant que 01C ne l’active pas. */
-    slogan: "Révélez votre beauté, une coiffure à la fois.",
+    slogan: "La beauté commence par une belle coiffure.",
   },
   locale: {
     language: "fr",

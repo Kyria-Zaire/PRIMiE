@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BrandLogo } from "@/components/shell/brand-logo";
 import { Container } from "@/components/ui/container";
 import { LinkButton } from "@/components/ui/button";
 import { siteConfig } from "@/content/site-config";
@@ -21,9 +22,9 @@ export function Header({ items, mobileNavigation }: HeaderProps) {
       <Container className="flex min-h-14 items-center justify-between gap-4 py-3">
         <a
           href="#accueil"
-          className="inline-flex min-h-11 items-center font-display text-xl font-semibold tracking-tight text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+          className="inline-flex min-h-11 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
         >
-          {siteConfig.brand.shortName}
+          <BrandLogo priority />
         </a>
 
         {items.length > 0 ? (

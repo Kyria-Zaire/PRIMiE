@@ -416,8 +416,11 @@ Validation BMAD (G2 passé)
 │   ├── CONTENT-VALIDATION-01B (DONE — Validé CTO 2026-07-31)
 │   ├── CONTENT-VALIDATION-01C (DONE — Validé CTO 2026-07-31)
 │   │   └── CONTENT-VALIDATION-01C-R1 (DONE — Validé CTO 2026-07-31)
-│   ├── CONTENT-VALIDATION-01D (BLOCKED_ASSET)
-│   └── CONTENT-VALIDATION-01E (BLOCKED par 01D)
+│   ├── CONTENT-VALIDATION-01D (BLOCKED_ASSET — galerie et témoignages)
+│   │   ├── CONTENT-VALIDATION-01D-HERO (DONE — Hero desktop/mobile validé CTO 2026-07-31)
+│   │   ├── CONTENT-VALIDATION-01D-HERO-R1 (DONE)
+│   │   └── CONTENT-VALIDATION-01D-HERO-R2 (DONE — Validé CTO 2026-07-31)
+│   └── CONTENT-VALIDATION-01E (BLOCKED par CONTENT-VALIDATION-01D)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -517,9 +520,10 @@ est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
 `LANDING-HERO-SERVICES-01` est `SUPERSEDED par LANDING-CORE-01`.
 PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.3`.
 `CONTENT-VALIDATION-01` est `IN_PROGRESS` (`01A`–`01C` et `01C-R1` DONE — Validé CTO
-2026-07-31 ; `01D` BLOCKED_ASSET ; `01E` BLOCKED par 01D).
-Checkpoint autorisé avant réception des assets. La feature reste ouverte.
-Textes seed activés en UI ; médias et témoignages non validés.
+2026-07-31 ; `01D-HERO` / `01D-HERO-R1` / `01D-HERO-R2` DONE — Validé CTO 2026-07-31 ;
+`01D` BLOCKED_ASSET galerie/témoignages ; `01E` BLOCKED par `01D`).
+Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
+La feature reste ouverte. Textes seed et Hero/logo activés ; galerie et avis non validés.
 
 ### Traçabilité PRD → tickets
 
@@ -541,11 +545,11 @@ Textes seed activés en UI ; médias et témoignages non validés.
 
 - Feature : `FEATURE-CONTENT-V1`
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS` — checkpoint avant assets ; feature ouverte
+- Statut : `IN_PROGRESS` — feature ouverte ; Hero/logo checkpointés ; galerie/avis bloqués
 - Priorité : `P0`
 - Autorité : Prisca — contenu métier ; Kyria — CTO / Product Owner seed
 - Ouverture seed PO : `2026-07-31`
-- Checkpoint : `2026-07-31` — 01B / 01C / 01C-R1 validés ; 01D BLOCKED_ASSET
+- Checkpoint : `2026-07-31` — 01B / 01C / 01C-R1 validés ; 01D-HERO validé CTO ; 01D BLOCKED_ASSET (galerie/témoignages)
 - PRD : `docs/PRD-PRIMIE-V1.md` version `1.3`
 - Registre : `docs/content/content-register.md`
 
@@ -585,6 +589,13 @@ peuvent être centralisés avant affichage UI.
 - Statut : `BLOCKED_ASSET`
 - Dépendances : photos + droits + textes d’avis
 - Note : non promu ; bloque la clôture de la feature
+- Sous-ticket : `CONTENT-VALIDATION-01D-HERO` (`DONE` — Hero desktop/mobile validé CTO 2026-07-31)
+- Corrective : `CONTENT-VALIDATION-01D-HERO-R1` (`DONE`)
+- Corrective : `CONTENT-VALIDATION-01D-HERO-R2` (`DONE` — Validé CTO 2026-07-31)
+- Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
+- `CONTENT-VALIDATION-01D` reste `BLOCKED_ASSET` (galerie et témoignages).
+- `CONTENT-VALIDATION-01E` reste `BLOCKED` par `CONTENT-VALIDATION-01D`.
+- `CONTENT-VALIDATION-01` reste `IN_PROGRESS`.
 
 #### CONTENT-VALIDATION-01E — Package validé et readiness de clôture
 
@@ -1520,9 +1531,10 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff actif : `CONTENT-VALIDATION-01` (`IN_PROGRESS` — checkpoint 01B/01C/01C-R1 ;
-`01D` BLOCKED_ASSET). Checkpoint autorisé avant réception des assets. La feature
-reste ouverte.
+Handoff actif : `CONTENT-VALIDATION-01` (`IN_PROGRESS` — checkpoint 01B/01C/01C-R1
+et Hero/logo/art direction ; `01D` BLOCKED_ASSET galerie/témoignages).
+Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
+La feature reste ouverte.
 PRD actif : version `1.3`.
 
 ### Après checkpoint CONTENT-VALIDATION-01C
