@@ -419,7 +419,9 @@ Validation BMAD (G2 passé)
 │   ├── CONTENT-VALIDATION-01D (BLOCKED_ASSET — galerie et témoignages)
 │   │   ├── CONTENT-VALIDATION-01D-HERO (DONE — Hero desktop/mobile validé CTO 2026-07-31)
 │   │   ├── CONTENT-VALIDATION-01D-HERO-R1 (DONE)
-│   │   └── CONTENT-VALIDATION-01D-HERO-R2 (DONE — Validé CTO 2026-07-31)
+│   │   ├── CONTENT-VALIDATION-01D-HERO-R2 (DONE — Validé CTO 2026-07-31)
+│   │   ├── CONTENT-VALIDATION-01D-SERVICES-ASSETS (SUPERSEDED — ticket initial arrêté sur chemin singulier erroné)
+│   │   └── CONTENT-VALIDATION-01D-SERVICES-ASSETS-R1 (DONE — rendu visuel validé CTO 2026-07-31 ; QA finale validée CTO 2026-08-01)
 │   └── CONTENT-VALIDATION-01E (BLOCKED par CONTENT-VALIDATION-01D)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
@@ -593,6 +595,18 @@ peuvent être centralisés avant affichage UI.
 - Corrective : `CONTENT-VALIDATION-01D-HERO-R1` (`DONE`)
 - Corrective : `CONTENT-VALIDATION-01D-HERO-R2` (`DONE` — Validé CTO 2026-07-31)
 - Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
+- Sous-ticket : `CONTENT-VALIDATION-01D-SERVICES-ASSETS` (`SUPERSEDED` — ticket initial arrêté sur chemin singulier erroné)
+- Corrective : `CONTENT-VALIDATION-01D-SERVICES-ASSETS-R1` (`DONE` — rendu visuel validé CTO 2026-07-31 ; QA finale validée CTO 2026-08-01)
+- Décisions produit Services (CTO 2026-07-31 / 2026-08-01) :
+  - rendu desktop **3×2** validé ;
+  - mobile **une colonne** validé ;
+  - tablette **deux colonnes** ;
+  - desktop **trois colonnes** ;
+  - scroll-snap mobile **abandonné** ;
+  - aucune section « Nos réalisations » ;
+  - illustrations classées `SERVICE_ILLUSTRATION` ;
+  - illustrations **non** présentées comme réalisations réelles.
+- Checkpoint Services autorisé par le CTO le 2026-08-01.
 - `CONTENT-VALIDATION-01D` reste `BLOCKED_ASSET` (galerie et témoignages).
 - `CONTENT-VALIDATION-01E` reste `BLOCKED` par `CONTENT-VALIDATION-01D`.
 - `CONTENT-VALIDATION-01` reste `IN_PROGRESS`.

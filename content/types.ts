@@ -9,10 +9,21 @@ export type NavigationItem = {
   readonly href: `#${string}`;
 };
 
+export type ServiceIllustration = {
+  readonly src: string;
+  readonly alt: "";
+  readonly status: "SERVICE_ILLUSTRATION";
+  readonly width: number;
+  readonly height: number;
+  /** Cadrage carte photo — `contain` pour les portraits afin d’éviter de couper têtes/gestes. */
+  readonly objectFit: "cover" | "contain";
+};
+
 export type Service = {
   readonly id: string;
   readonly title: string;
   readonly description: string;
+  readonly illustration: ServiceIllustration;
 };
 
 export type GalleryItem = {

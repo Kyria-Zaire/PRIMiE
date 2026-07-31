@@ -21,6 +21,12 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Logo visuel | `public/brand/logo/primie-logo-v1.webp` (source `images/logo.png` hors commit) | ACTIVATED — Header/Footer | Prisca / CTO | 2026-07-31 | `BrandLogo` via `next/image` | — | Ne pas committer le PNG source sans décision CTO |
 | Photo Hero desktop | `public/images/hero/primie-hero-v1.webp` (source `images/primie-hero.png`) | ACTIVATED — 01D-HERO | Prisca / CTO | 2026-07-31 | Hero ≥1024px | — | Ne pas committer PNG sans décision CTO |
 | Photo Hero mobile | `public/images/hero/primie-hero-mobile-v1.webp` (source `images/primie section hero mobile.png`) | ACTIVATED — 01D-HERO-R1 | Prisca / CTO | 2026-07-31 | Hero sous 1024px via `picture` | — | Ne pas committer PNG sans décision CTO |
+| Illus. service tresses-coiffure | WebP `public/images/services/tresses-coiffure.webp` (source `images/services/tresses-coiffure.png`) | SERVICE_ILLUSTRATION — PO | PO / CTO | 2026-07-31 | Carte Service uniquement | — | Pas une réalisation réelle ; interdit en « Nos réalisations » sans décision CTO |
+| Illus. service traitement-perruque | WebP `public/images/services/traitement-perruque.webp` (source `images/services/traitement-perruque.png`) | SERVICE_ILLUSTRATION — PO | PO / CTO | 2026-07-31 | Carte Service uniquement | — | Pas une réalisation réelle ; interdit en « Nos réalisations » sans décision CTO |
+| Illus. service pose-perruque | WebP `public/images/services/pose-perruque.webp` (source `images/services/pose-perruque.png`) | SERVICE_ILLUSTRATION — PO | PO / CTO | 2026-07-31 | Carte Service uniquement | — | Pas une réalisation réelle ; interdit en « Nos réalisations » sans décision CTO |
+| Illus. service look-twist | WebP `public/images/services/look-twist.webp` (source `images/services/look-twist.png`) | SERVICE_ILLUSTRATION — PO | PO / CTO | 2026-07-31 | Carte Service uniquement | — | Pas une réalisation réelle ; interdit en « Nos réalisations » sans décision CTO |
+| Illus. service vente-pose-perruques | WebP `public/images/services/vente-pose-perruques.webp` (source `images/services/vente-pose-perruques.png`) | SERVICE_ILLUSTRATION — PO | PO / CTO | 2026-07-31 | Carte Service uniquement | — | Pas une réalisation réelle ; interdit en « Nos réalisations » sans décision CTO |
+| Illus. service tissage | WebP `public/images/services/tissage.webp` (source `images/services/tissage.png`) | SERVICE_ILLUSTRATION — PO | PO / CTO | 2026-07-31 | Carte Service uniquement | — | Pas une réalisation réelle ; interdit en « Nos réalisations » sans décision CTO |
 | Galerie | `[]` | BLOCKED_ASSET | Prisca | 2026-07-31 | `gallery.ts` | ≥4 réalisations + droits | Collecte 01D |
 | Témoignages | `[]` | PENDING_PRISCA | Prisca | 2026-07-31 | `testimonials.ts` | Texte + consentement | Collecte 01D |
 | Pistes avis (prénoms seuls) | Olive, Octavie, Annaelle, Plamédie — pistes uniquement | PENDING_PRISCA | PO | 2026-07-31 | registre seulement | Pas de texte/consentement | Demander textes exacts |
@@ -34,7 +40,9 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 
 ## Politiques
 
+- Illustrations Services (`SERVICE_ILLUSTRATION`) : usage carte Service uniquement ; ne pas présenter comme réalisation réelle de Prisca ; interdites dans « Nos réalisations » sans décision CTO.
 - Galerie « Nos réalisations » : uniquement vraies réalisations ; pas d’illustration / stock / IA présentée comme réalisation.
 - Témoignages : aucun prénom runtime sans texte exact et consentement.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA Contact et Footer : WhatsApp sans message prérempli.
+- Sources locales : dossier canonique `images/services/` (pluriel) pour les illustrations Services.

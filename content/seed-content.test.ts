@@ -61,17 +61,20 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(siteConfig.brand.slogan).not.toMatch(/PRIMiE|PRIMIE|Primie/);
   });
 
-  it("expose six services avec descriptions exactes sans prix durée image", () => {
+  it("expose six services avec descriptions exactes et illustrations WebP", () => {
     expect(services).toHaveLength(6);
     expect(services.map((service) => service.title)).toEqual([...EXPECTED_TITLES]);
     expect(services.map((service) => service.description)).toEqual([...EXPECTED_DESCRIPTIONS]);
 
     for (const service of services) {
       const keys = Object.keys(service).sort();
-      expect(keys).toEqual(["description", "id", "title"]);
+      expect(keys).toEqual(["description", "id", "illustration", "title"]);
       expect(service).not.toHaveProperty("price");
       expect(service).not.toHaveProperty("duration");
       expect(service).not.toHaveProperty("image");
+      expect(service.illustration.status).toBe("SERVICE_ILLUSTRATION");
+      expect(service.illustration.alt).toBe("");
+      expect(service.illustration.src).toMatch(/^\/images\/services\/[\w-]+\.webp$/);
       expect(service.description).not.toMatch(/PRIMiE|PRIMIE|Primie/);
       expect(service.title).not.toMatch(/PRIMiE|PRIMIE|Primie/);
     }
@@ -141,6 +144,15 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(existsSync(join(process.cwd(), "images/primie-hero.png"))).toBe(true);
     expect(existsSync(join(process.cwd(), "images/primie section hero mobile.png"))).toBe(true);
     expect(existsSync(join(process.cwd(), "images/logo.png"))).toBe(true);
+
+    for (const service of services) {
+      const webp = join(process.cwd(), "public", service.illustration.src.replace(/^\//, ""));
+      const pngPublic = join(process.cwd(), "public/images/services", `${service.id}.png`);
+      const pngSource = join(process.cwd(), "images/services", `${service.id}.png`);
+      expect(existsSync(webp)).toBe(true);
+      expect(existsSync(pngPublic)).toBe(false);
+      expect(existsSync(pngSource)).toBe(true);
+    }
 
     const root = siteConfig as Record<string, unknown>;
     const contact = siteConfig.contact as Record<string, unknown>;

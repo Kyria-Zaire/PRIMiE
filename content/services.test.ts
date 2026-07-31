@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { existsSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { services } from "../content/services";
 
 const EXPECTED_TITLES = [
@@ -24,12 +26,26 @@ describe("services", () => {
     expect(new Set(titles).size).toBe(titles.length);
   });
 
-  it("n’ajoute ni prix, ni durée, ni image (description seed autorisée)", () => {
+  it("associe une illustration SERVICE_ILLUSTRATION WebP sans prix ni durée", () => {
     for (const service of services) {
       const keys = Object.keys(service).sort();
-      expect(keys).toEqual(["description", "id", "title"]);
+      expect(keys).toEqual(["description", "id", "illustration", "title"]);
       expect(typeof service.description).toBe("string");
       expect(service.description.length).toBeGreaterThan(0);
+      expect(service).not.toHaveProperty("price");
+      expect(service).not.toHaveProperty("duration");
+      expect(service).not.toHaveProperty("image");
+      expect(service.illustration.status).toBe("SERVICE_ILLUSTRATION");
+      expect(service.illustration.alt).toBe("");
+      expect(service.illustration.src).toBe(`/images/services/${service.id}.webp`);
+      expect(service.illustration.width).toBeGreaterThan(0);
+      expect(service.illustration.height).toBeGreaterThan(0);
+      expect(["cover", "contain"]).toContain(service.illustration.objectFit);
+
+      const webpPath = join(process.cwd(), "public", service.illustration.src.replace(/^\//, ""));
+      expect(existsSync(webpPath)).toBe(true);
+      expect(statSync(webpPath).size).toBeLessThanOrEqual(180 * 1024);
+      expect(existsSync(join(process.cwd(), "images/services", `${service.id}.png`))).toBe(true);
     }
   });
 });
