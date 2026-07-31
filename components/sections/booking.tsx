@@ -1,14 +1,15 @@
 import { Container } from "@/components/ui/container";
 import { LinkButton } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
+import { siteConfig } from "@/content/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 /**
  * Section Réservation WhatsApp — Server Component.
- * Contenu factuel uniquement ; aucune promesse de délai ni message prérempli.
+ * CTA de réservation avec message prérempli PO ; aucune promesse de délai.
  */
 export function Booking() {
-  const whatsappUrl = buildWhatsAppUrl();
+  const whatsappUrl = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
 
   return (
     <Section

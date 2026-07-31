@@ -5,7 +5,7 @@ import { services } from "@/content/services";
 
 /**
  * Section Services — Server Component.
- * Titres canoniques uniquement, source : content/services.ts.
+ * Titres et descriptions depuis content/services.ts.
  */
 export function Services() {
   return (
@@ -27,7 +27,7 @@ export function Services() {
                 <Card
                   variant="default"
                   padding="lg"
-                  className="flex h-full flex-col gap-4 border-bronze/25 bg-background"
+                  className="flex h-full flex-col gap-3 border-bronze/25 bg-background sm:gap-4"
                 >
                   <span
                     aria-hidden="true"
@@ -35,9 +35,12 @@ export function Services() {
                   >
                     {orderLabel}
                   </span>
-                  <h3 className="font-display text-xl font-semibold tracking-tight text-foreground text-balance">
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-balance text-foreground">
                     {service.title}
                   </h3>
+                  <p className="font-sans text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {service.description}
+                  </p>
                 </Card>
               </li>
             );

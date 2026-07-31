@@ -17,7 +17,7 @@
 | Date de création | `2026-07-30` |
 | Dernière mise à jour | `2026-07-31` |
 | Validation CTO | `Kyria — 2026-07-30` |
-| PRD source | `docs/PRD-PRIMIE-V1.md — version 1.2 — Validé` |
+| PRD source | `docs/PRD-PRIMIE-V1.md — version 1.3 — Validé` |
 | ADR | `Aucun requis à ce stade` |
 | Tickets planifiés | `26` |
 | Environnement cible | Local → Preview Vercel → Production autorisée |
@@ -411,7 +411,13 @@ multi-application.
 
 ```text
 Validation BMAD (G2 passé)
-├── CONTENT-VALIDATION-01
+├── CONTENT-VALIDATION-01 (IN_PROGRESS — checkpoint avant assets)
+│   ├── CONTENT-VALIDATION-01A (DONE — Validé CTO 2026-07-31)
+│   ├── CONTENT-VALIDATION-01B (DONE — Validé CTO 2026-07-31)
+│   ├── CONTENT-VALIDATION-01C (DONE — Validé CTO 2026-07-31)
+│   │   └── CONTENT-VALIDATION-01C-R1 (DONE — Validé CTO 2026-07-31)
+│   ├── CONTENT-VALIDATION-01D (BLOCKED_ASSET)
+│   └── CONTENT-VALIDATION-01E (BLOCKED par 01D)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -457,7 +463,12 @@ traçabilité.
 
 | Ordre | Ticket | Mode | Statut initial | Priorité | Dépendances principales |
 | --- | --- | --- | --- | --- | --- |
-| `01` | `CONTENT-VALIDATION-01` | `DISCOVER` | `BLOCKED — promotion READY réservée au CTO` | `P0` | G2 passé, disponibilité Prisca |
+| `01` | `CONTENT-VALIDATION-01` | `IMPLEMENT` | `IN_PROGRESS` | `P0` | LANDING-CORE-01 DONE |
+| `01a` | `CONTENT-VALIDATION-01A` | `DISCOVER` | `DONE — Validé CTO 2026-07-31` | `P0` | LANDING-CORE-01 |
+| `01b` | `CONTENT-VALIDATION-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `CONTENT-VALIDATION-01A` |
+| `01c` | `CONTENT-VALIDATION-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `CONTENT-VALIDATION-01B` |
+| `01d` | `CONTENT-VALIDATION-01D` | `IMPLEMENT` | `BLOCKED_ASSET` | `P0` | assets + consentements |
+| `01e` | `CONTENT-VALIDATION-01E` | `VERIFY` | `BLOCKED par 01D` | `P0` | `CONTENT-VALIDATION-01C`, `01D` |
 | `02` | `INIT-SCAFFOLD-01A` | `DISCOVER` | `DONE` | `P0` | G2 |
 | `03` | `INIT-SCAFFOLD-01B` | `IMPLEMENT` | `DONE` | `P0` | `INIT-SCAFFOLD-01A` |
 | `04` | `INIT-SCAFFOLD-01C` | `IMPLEMENT` | `DONE — 01C-R4 ACCEPTED` | `P0` | `INIT-SCAFFOLD-01B` + validation CTO |
@@ -504,9 +515,11 @@ est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main` ;
 `01A`–`01E` DONE — Validé CTO 2026-07-31).
 `LANDING-HERO-SERVICES-01` est `SUPERSEDED par LANDING-CORE-01`.
-PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.2`.
-`CONTENT-VALIDATION-01` reste `BLOCKED — promotion READY réservée au CTO`
-(non ouvert ; handoff recommandé uniquement).
+PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.3`.
+`CONTENT-VALIDATION-01` est `IN_PROGRESS` (`01A`–`01C` et `01C-R1` DONE — Validé CTO
+2026-07-31 ; `01D` BLOCKED_ASSET ; `01E` BLOCKED par 01D).
+Checkpoint autorisé avant réception des assets. La feature reste ouverte.
+Textes seed activés en UI ; médias et témoignages non validés.
 
 ### Traçabilité PRD → tickets
 
@@ -527,15 +540,57 @@ PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.2`.
 **Métadonnées**
 
 - Feature : `FEATURE-CONTENT-V1`
-- Mode : `DISCOVER`
-- Statut : `BLOCKED — promotion READY réservée au CTO`
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS` — checkpoint avant assets ; feature ouverte
 - Priorité : `P0`
-- Autorité : Prisca — contenu ; Kyria — acceptation technique
+- Autorité : Prisca — contenu métier ; Kyria — CTO / Product Owner seed
+- Ouverture seed PO : `2026-07-31`
+- Checkpoint : `2026-07-31` — 01B / 01C / 01C-R1 validés ; 01D BLOCKED_ASSET
+- PRD : `docs/PRD-PRIMIE-V1.md` version `1.3`
+- Registre : `docs/content/content-register.md`
 
 **Objectif**
 
 Transformer `DEP-001` à `DEP-011` en sources utilisables, refusées ou
-explicitement différées sans produire de contenu inventé.
+explicitement différées sans produire de contenu inventé. Les seed contents PO
+peuvent être centralisés avant affichage UI.
+
+#### CONTENT-VALIDATION-01A — Audit et contrat d’acquisition
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Inclus : inventaire, questionnaire, découpage 01A–01E
+- Exclus : contenu inventé, assets, commit
+
+#### CONTENT-VALIDATION-01B — PO seed content contract
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `CONTENT-VALIDATION-01A`
+- Inclus : slogan, descriptions services, FAQ prudente, message WA, registre
+- Exclus : modification UI, logo/photo, galerie, avis, benefits.ts
+
+#### CONTENT-VALIDATION-01C — Activation UI des seed texts
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-07-31`
+- Dépendances : `CONTENT-VALIDATION-01B`
+- Inclus : slogan Hero, descriptions Services, FAQ `#faq`, WA prérempli booking, nav 5 items
+- Exclus : médias, logo, avis, galerie, benefits, horaires
+- Itération : `CONTENT-VALIDATION-01C-R1` (`DONE — Validé CTO 2026-07-31` — QA responsive + cible tactile)
+
+#### CONTENT-VALIDATION-01D — Galerie, témoignages et consentements
+
+- Mode : `IMPLEMENT`
+- Statut : `BLOCKED_ASSET`
+- Dépendances : photos + droits + textes d’avis
+- Note : non promu ; bloque la clôture de la feature
+
+#### CONTENT-VALIDATION-01E — Package validé et readiness de clôture
+
+- Mode : `VERIFY`
+- Statut : `BLOCKED par 01D`
+- Dépendances : `CONTENT-VALIDATION-01C`, `CONTENT-VALIDATION-01D`
 
 **Inclus**
 
@@ -543,14 +598,15 @@ explicitement différées sans produire de contenu inventé.
   domaine, réseaux et maquette ;
 - origine, propriétaire, autorisation et statut de chaque asset ;
 - décision honnête pour chaque contenu absent ;
+- seed contents PO centralisés et testés ;
 - mise à jour des dépendances du BMAD.
 
 **Exclus**
 
 - retouche destructive ;
-- publication ;
-- rédaction présentée comme validée sans retour de Prisca ;
-- intégration React.
+- publication UI des sections bloquées sans ticket d’activation ;
+- rédaction présentée comme validée Prisca sans retour lorsque requis ;
+- faux avis ou fausses réalisations.
 
 **Critères d’acceptation**
 
@@ -558,7 +614,7 @@ explicitement différées sans produire de contenu inventé.
 - [ ] chaque photo destinée à la galerie est une réalisation authentique ;
 - [ ] chaque média publiable possède une autorisation ;
 - [ ] chaque avis possède une preuve et un niveau d’anonymisation ;
-- [ ] les formulations finales sont distinguées des propositions ;
+- [ ] les formulations finales sont distinguées des propositions / seed PO ;
 - [ ] les contenus absents possèdent une stratégie approuvée.
 
 **Preuves attendues**
@@ -855,13 +911,13 @@ réelles uniquement et navigation filtrée sans lien mort.
 - Autorité : Kyria — CTO
 - Ouverture : `2026-07-31`
 - Clôture : `2026-07-31`
-- PRD : `docs/PRD-PRIMIE-V1.md` version `1.2`
+- PRD : `docs/PRD-PRIMIE-V1.md` version `1.3`
 - Remplace : `LANDING-HERO-SERVICES-01` (SUPERSEDED)
 - Preuve d’implémentation : commit `feat: add PRiMiE landing core` —
   `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`
 - Preuve de publication : push `main → origin/main` le `2026-07-31`
   (`1940519..ed4dacf`)
-- Handoff recommandé : `CONTENT-VALIDATION-01` (reste `BLOCKED` — **non ouvert**)
+- Handoff recommandé : `CONTENT-VALIDATION-01` (`IN_PROGRESS`)
 
 **Dettes transférées**
 
@@ -1464,15 +1520,16 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff recommandé : `CONTENT-VALIDATION-01` (reste
-`BLOCKED — promotion READY réservée au CTO` — **non encore ouvert**).
+Handoff actif : `CONTENT-VALIDATION-01` (`IN_PROGRESS` — checkpoint 01B/01C/01C-R1 ;
+`01D` BLOCKED_ASSET). Checkpoint autorisé avant réception des assets. La feature
+reste ouverte.
+PRD actif : version `1.3`.
 
-### Après clôture LANDING-CORE-01
+### Après checkpoint CONTENT-VALIDATION-01C
 
-1. ouvrir `CONTENT-VALIDATION-01` uniquement sur décision CTO explicite ;
-2. ne pas inventer médias, avis, FAQ ou descriptions en attendant Prisca ;
-3. ne créer aucun code hors ticket autorisé ;
-4. ne déployer en Production qu’avec autorisation CTO explicite.
+1. collecter médias et consentements pour `01D` (`BLOCKED_ASSET`) ;
+2. clôturer via `01E` uniquement après 01D ;
+3. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 

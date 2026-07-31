@@ -9,7 +9,7 @@ import { buildWhatsAppUrl } from "@/lib/whatsapp";
  * Contenu strictement canonique ; décorations CSS non informatives (aria-hidden).
  */
 export function Hero() {
-  const whatsappUrl = buildWhatsAppUrl();
+  const whatsappUrl = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
 
   return (
     <Section
@@ -29,7 +29,7 @@ export function Hero() {
       />
 
       <Container className="relative z-10 grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-12 lg:gap-10 lg:py-28 xl:py-32">
-        <div className="flex max-w-xl flex-col items-start gap-6 lg:col-span-7 lg:gap-8">
+        <div className="flex max-w-xl flex-col items-start gap-5 sm:gap-6 lg:col-span-7 lg:gap-7">
           <p className="font-display text-lg font-medium tracking-[0.08em] text-soft-gold sm:text-xl">
             Chez
           </p>
@@ -41,6 +41,9 @@ export function Hero() {
           </h1>
           <p className="max-w-prose font-sans text-base text-on-dark-muted sm:text-lg">
             {siteConfig.brand.activity}
+          </p>
+          <p className="max-w-prose font-display text-lg font-medium tracking-tight text-soft-gold sm:text-xl">
+            {siteConfig.brand.slogan}
           </p>
           <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
             <LinkButton href={whatsappUrl} size="lg">

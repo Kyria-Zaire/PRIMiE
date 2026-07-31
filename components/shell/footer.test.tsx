@@ -24,6 +24,7 @@ describe("Footer", () => {
     expect(html).toContain('href="tel:+33749616582"');
     expect(html).toContain(">WhatsApp<");
     expect(html).toContain('href="https://wa.me/33749616582"');
+    expect(html).not.toContain("?text=");
     expect(html).toContain("© 2026 Chez PRiMiE Coiffure.");
     expect(html).toContain("<address");
     expect(html).toContain("not-italic");

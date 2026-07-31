@@ -7,14 +7,15 @@
 | Identifiant | `PRD-PRIMIE-001` |
 | Produit | `PRiMiE` |
 | Titre | Landing page Chez PRiMiE Coiffure — V1 |
-| Version | `1.2` |
+| Version | `1.3` |
 | Statut | `Validé` |
-| Autorité produit | Prisca — métier et contenus |
+| Autorité produit | Prisca — métier et contenus ; Kyria — Product Owner seed contents |
 | Autorité technique | Kyria — CTO |
 | Date de création | `2026-07-30` |
 | Dernière mise à jour | `2026-07-31` |
 | Validation CTO | Kyria — `2026-07-31` |
-| Validation métier | contenus ouverts à confirmer par Prisca |
+| Validation CTO/PO | Kyria — `2026-07-31` (seed contents) |
+| Validation métier | contenus seed PO ; confirmation Prisca pour médias, avis et arguments |
 | BMAD lié | `BMAD-PRIMIE-001 — version 1.0 — Validé` |
 | ADR liés | `Aucun requis à ce stade` |
 | Tickets liés | `BMAD-PRIMIE-001` — tickets `INIT-SCAFFOLD-01A` à `01E` et suite |
@@ -41,6 +42,23 @@
 | CTA Galerie | masqué tant que `gallery` est vide / `CONTENT-VALIDATION-01` bloqué |
 | Visuel Hero | CSS premium autorisé sans photographie tant qu’aucun asset validé n’est fourni |
 | Autorité | CTO Kyria — `2026-07-31` |
+
+## 0.3 Décision Product Owner — seed contents (2026-07-31)
+
+| Champ | Valeur |
+| --- | --- |
+| Statut des seed | `PO_APPROVED_SEED` — modifiables jusqu’à validation Prisca / publication UI |
+| Slogan | `Révélez votre beauté, une coiffure à la fois.` — centralisé, **non affiché** tant que non activé |
+| Descriptions services | six textes PO — centralisés ; **non affichés** dans Services tant que non activés |
+| Prix / durées | **masqués** ; hors runtime public |
+| Message WhatsApp prérempli | texte PO centralisé ; CTA publics **sans** `?text=` jusqu’à activation 01C |
+| FAQ | cinq Q/R prudentes PO ; section **non rendue** tant que non activée |
+| Horaires / dimanche | **non publiés** |
+| Galerie | uniquement vraies réalisations ; illustrations interdites dans « Nos réalisations » |
+| Témoignages | bloqués sans texte exact et consentement |
+| Hero | CSS conservé tant qu’aucune photo réelle + autorisation |
+| Registre | `docs/content/content-register.md` |
+| Autorité | CTO / Product Owner Kyria — `2026-07-31` |
 
 ## 1. Résumé exécutif
 PRiMiE doit fournir à Prisca une présence numérique premium, mobile-first et

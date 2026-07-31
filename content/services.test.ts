@@ -24,10 +24,12 @@ describe("services", () => {
     expect(new Set(titles).size).toBe(titles.length);
   });
 
-  it("n’ajoute ni description, ni prix, ni image", () => {
+  it("n’ajoute ni prix, ni durée, ni image (description seed autorisée)", () => {
     for (const service of services) {
       const keys = Object.keys(service).sort();
-      expect(keys).toEqual(["id", "title"]);
+      expect(keys).toEqual(["description", "id", "title"]);
+      expect(typeof service.description).toBe("string");
+      expect(service.description.length).toBeGreaterThan(0);
     }
   });
 });

@@ -14,6 +14,12 @@ export type NavigationSectionId = (typeof navigation)[number]["id"];
  */
 const ABOUT_CONTENT_READY = false;
 
+/**
+ * FAQ : seed PO dans `content/faq.ts` + section `#faq` rendue (01C).
+ * Les deux conditions (flag + longueur) sont nécessaires.
+ */
+const FAQ_SECTION_READY = true;
+
 function isContentReady(id: NavigationSectionId): boolean {
   switch (id) {
     case "accueil":
@@ -27,7 +33,7 @@ function isContentReady(id: NavigationSectionId): boolean {
     case "avis":
       return testimonials.length > 0;
     case "faq":
-      return faq.length > 0;
+      return FAQ_SECTION_READY && faq.length > 0;
     case "reserver":
       return siteConfig.contact.whatsappUrl.length > 0;
     case "contact":

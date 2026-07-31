@@ -7,6 +7,7 @@ describe("siteConfig", () => {
     expect(siteConfig.brand.commercialName).toBe("Chez PRiMiE Coiffure");
     expect(siteConfig.brand.owner).toBe("Prisca");
     expect(siteConfig.brand.activity).toBe("Coiffure et beauté afro à domicile");
+    expect(siteConfig.brand.slogan).toBe("Révélez votre beauté, une coiffure à la fois.");
     expect(siteConfig.locale.language).toBe("fr");
     expect(siteConfig.locale.locale).toBe("fr_FR");
   });
@@ -18,7 +19,7 @@ describe("siteConfig", () => {
     expect(siteConfig.contact.whatsappUrl).toBe("https://wa.me/33749616582");
   });
 
-  it("n’expose aucun champ non confirmé", () => {
+  it("n’expose aucun champ non confirmé hors seed WhatsApp centralisé", () => {
     const root = siteConfig as Record<string, unknown>;
     const brand = siteConfig.brand as Record<string, unknown>;
     const contact = siteConfig.contact as Record<string, unknown>;
@@ -32,8 +33,7 @@ describe("siteConfig", () => {
     expect(contact).not.toHaveProperty("email");
     expect(contact).not.toHaveProperty("address");
     expect(contact).not.toHaveProperty("hours");
-    expect(contact).not.toHaveProperty("whatsappMessage");
-    expect(contact).not.toHaveProperty("prefilledMessage");
     expect(contact).not.toHaveProperty("serviceArea");
+    expect(contact).toHaveProperty("whatsappPrefillMessage");
   });
 });

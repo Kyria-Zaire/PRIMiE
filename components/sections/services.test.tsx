@@ -15,7 +15,7 @@ const EXPECTED_TITLES = [
 ] as const;
 
 describe("Services section", () => {
-  it("rend #services avec les six titres canoniques dans l’ordre", () => {
+  it("rend #services avec les six titres et descriptions dans l’ordre", () => {
     const html = renderToStaticMarkup(<Services />);
 
     expect(html).toContain('id="services"');
@@ -29,17 +29,17 @@ describe("Services section", () => {
       expect(html).toContain(title.replaceAll("&", "&amp;"));
     }
 
-    const titleOrder = EXPECTED_TITLES.map((title) => html.indexOf(title.replaceAll("&", "&amp;")));
-    expect([...titleOrder].sort((a, b) => a - b)).toEqual(titleOrder);
-
     for (const service of services) {
       expect(html).toContain(service.id);
+      expect(html).toContain(service.description);
     }
 
+    const titleOrder = EXPECTED_TITLES.map((title) => html.indexOf(title.replaceAll("&", "&amp;")));
+    expect([...titleOrder].sort((a, b) => a - b)).toEqual(titleOrder);
     expect(new Set(services.map((service) => service.id)).size).toBe(6);
   });
 
-  it("n’expose ni description, prix, image ni CTA individuel", () => {
+  it("n’expose ni prix, image ni CTA individuel", () => {
     const html = renderToStaticMarkup(<Services />);
     const source = readFileSync(join(process.cwd(), "components/sections/services.tsx"), "utf8");
 
@@ -52,6 +52,7 @@ describe("Services section", () => {
     expect(html).not.toContain("Autres prestations");
     expect(html).toContain('aria-hidden="true"');
     expect(source).not.toMatch(/["']use client["']/);
+    expect(source).toContain("service.description");
     expect(source).toContain('from "@/content/services"');
     expect(source).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
   });

@@ -12,6 +12,7 @@ export type NavigationItem = {
 export type Service = {
   readonly id: string;
   readonly title: string;
+  readonly description: string;
 };
 
 export type GalleryItem = {

@@ -1,13 +1,21 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { navigation } from "@/content/navigation";
 import { getVisibleNavigation, type NavigationSectionId } from "./navigation";
 
 const ALL_IDS = navigation.map((item) => item.id) as NavigationSectionId[];
 
 describe("getVisibleNavigation", () => {
-  it("avec toutes les sections rendues, ne conserve que Accueil, Services, Réserver et Contact", () => {
+  it("avec toutes les sections rendues, expose Accueil, Services, FAQ, Réserver et Contact", () => {
     const visible = getVisibleNavigation(ALL_IDS);
-    expect(visible.map((item) => item.id)).toEqual(["accueil", "services", "reserver", "contact"]);
+    expect(visible.map((item) => item.id)).toEqual([
+      "accueil",
+      "services",
+      "faq",
+      "reserver",
+      "contact",
+    ]);
   });
 
   it("avec seulement Accueil rendu, ne retourne qu’Accueil", () => {
@@ -18,8 +26,12 @@ describe("getVisibleNavigation", () => {
     expect(getVisibleNavigation(["services"]).map((item) => item.id)).toEqual(["services"]);
   });
 
-  it("masque Galerie, Avis, FAQ et À propos malgré un rendu déclaré", () => {
-    const visible = getVisibleNavigation(["galerie", "avis", "faq", "a-propos"]);
+  it("expose FAQ lorsque le contenu et le rendu sont prêts", () => {
+    expect(getVisibleNavigation(["faq"]).map((item) => item.id)).toEqual(["faq"]);
+  });
+
+  it("masque Galerie, Avis et À propos malgré un rendu déclaré", () => {
+    const visible = getVisibleNavigation(["galerie", "avis", "a-propos"]);
     expect(visible).toEqual([]);
   });
 
@@ -30,9 +42,15 @@ describe("getVisibleNavigation", () => {
     ]);
   });
 
-  it("préserve l’ordre canonique", () => {
-    const visible = getVisibleNavigation(["contact", "accueil", "services", "reserver"]);
-    expect(visible.map((item) => item.id)).toEqual(["accueil", "services", "reserver", "contact"]);
+  it("préserve l’ordre canonique avec FAQ", () => {
+    const visible = getVisibleNavigation(["contact", "accueil", "faq", "services", "reserver"]);
+    expect(visible.map((item) => item.id)).toEqual([
+      "accueil",
+      "services",
+      "faq",
+      "reserver",
+      "contact",
+    ]);
   });
 
   it("ne mute pas la navigation source ni l’entrée", () => {
@@ -50,5 +68,12 @@ describe("getVisibleNavigation", () => {
     const hrefs = visible.map((item) => item.href);
     expect(new Set(ids).size).toBe(ids.length);
     expect(new Set(hrefs).size).toBe(hrefs.length);
+  });
+
+  it("exige FAQ_SECTION_READY et un tableau non vide pour exposer la FAQ", () => {
+    const source = readFileSync(join(process.cwd(), "lib/navigation.ts"), "utf8");
+    expect(source).toMatch(/FAQ_SECTION_READY\s*=\s*true/);
+    expect(source).toContain("FAQ_SECTION_READY && faq.length > 0");
+    expect(source).toMatch(/ABOUT_CONTENT_READY\s*=\s*false/);
   });
 });

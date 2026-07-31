@@ -27,12 +27,15 @@ export function Header({ items, mobileNavigation }: HeaderProps) {
         </a>
 
         {items.length > 0 ? (
-          <nav aria-label="Navigation principale" className="hidden items-center gap-1 lg:flex">
+          <nav
+            aria-label="Navigation principale"
+            className="hidden items-center gap-0.5 lg:flex xl:gap-1"
+          >
             {items.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
-                className="inline-flex min-h-11 items-center px-3 font-sans text-sm font-medium text-on-dark hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-sans text-sm font-medium text-on-dark hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus xl:px-3"
               >
                 {item.label}
               </a>
@@ -42,7 +45,10 @@ export function Header({ items, mobileNavigation }: HeaderProps) {
 
         <div className="flex items-center gap-3">
           <div className="hidden lg:block">
-            <LinkButton href={buildWhatsAppUrl()} size="md">
+            <LinkButton
+              href={buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage)}
+              size="md"
+            >
               Réserver sur WhatsApp
             </LinkButton>
           </div>
