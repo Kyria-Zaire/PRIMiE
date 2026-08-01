@@ -90,6 +90,13 @@ describe("Home page", () => {
     expect(html).not.toContain("#a-propos");
     expect(html).not.toContain("#avis");
     expect(html).not.toContain(">Galerie");
+    expect(html).not.toMatch(/Nos réalisations|témoignage|avis clientes/i);
+    expect(html).not.toContain("PRIMiE");
+
+    for (const service of services) {
+      expect(html).toContain(`${service.id}.webp`);
+    }
+    expect(services).toHaveLength(6);
 
     for (const href of ["#accueil", "#services", "#faq", "#reserver", "#contact"] as const) {
       expect(html).toContain(`href="${href}"`);

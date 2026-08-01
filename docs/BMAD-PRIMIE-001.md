@@ -411,18 +411,18 @@ multi-application.
 
 ```text
 Validation BMAD (G2 passé)
-├── CONTENT-VALIDATION-01 (IN_PROGRESS — checkpoint avant assets)
-│   ├── CONTENT-VALIDATION-01A (DONE — Validé CTO 2026-07-31)
-│   ├── CONTENT-VALIDATION-01B (DONE — Validé CTO 2026-07-31)
-│   ├── CONTENT-VALIDATION-01C (DONE — Validé CTO 2026-07-31)
-│   │   └── CONTENT-VALIDATION-01C-R1 (DONE — Validé CTO 2026-07-31)
-│   ├── CONTENT-VALIDATION-01D (BLOCKED_ASSET — galerie et témoignages)
-│   │   ├── CONTENT-VALIDATION-01D-HERO (DONE — Hero desktop/mobile validé CTO 2026-07-31)
+├── CONTENT-VALIDATION-01 (DONE — clôturé le 2026-08-01)
+│   ├── CONTENT-VALIDATION-01A (DONE)
+│   ├── CONTENT-VALIDATION-01B (DONE)
+│   ├── CONTENT-VALIDATION-01C (DONE)
+│   │   └── CONTENT-VALIDATION-01C-R1 (DONE)
+│   ├── CONTENT-VALIDATION-01D (DONE_WITH_DEFERRED_SCOPE — Hero et Services publiés ; galerie et témoignages transférés)
+│   │   ├── CONTENT-VALIDATION-01D-HERO (DONE)
 │   │   ├── CONTENT-VALIDATION-01D-HERO-R1 (DONE)
-│   │   ├── CONTENT-VALIDATION-01D-HERO-R2 (DONE — Validé CTO 2026-07-31)
+│   │   ├── CONTENT-VALIDATION-01D-HERO-R2 (DONE)
 │   │   ├── CONTENT-VALIDATION-01D-SERVICES-ASSETS (SUPERSEDED — ticket initial arrêté sur chemin singulier erroné)
 │   │   └── CONTENT-VALIDATION-01D-SERVICES-ASSETS-R1 (DONE — rendu visuel validé CTO 2026-07-31 ; QA finale validée CTO 2026-08-01)
-│   └── CONTENT-VALIDATION-01E (BLOCKED par CONTENT-VALIDATION-01D)
+│   └── CONTENT-VALIDATION-01E (DONE — Validé CTO 2026-08-01)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -468,12 +468,14 @@ traçabilité.
 
 | Ordre | Ticket | Mode | Statut initial | Priorité | Dépendances principales |
 | --- | --- | --- | --- | --- | --- |
-| `01` | `CONTENT-VALIDATION-01` | `IMPLEMENT` | `IN_PROGRESS` | `P0` | LANDING-CORE-01 DONE |
+| `01` | `CONTENT-VALIDATION-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | LANDING-CORE-01 DONE |
 | `01a` | `CONTENT-VALIDATION-01A` | `DISCOVER` | `DONE — Validé CTO 2026-07-31` | `P0` | LANDING-CORE-01 |
 | `01b` | `CONTENT-VALIDATION-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `CONTENT-VALIDATION-01A` |
 | `01c` | `CONTENT-VALIDATION-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `CONTENT-VALIDATION-01B` |
-| `01d` | `CONTENT-VALIDATION-01D` | `IMPLEMENT` | `BLOCKED_ASSET` | `P0` | assets + consentements |
-| `01e` | `CONTENT-VALIDATION-01E` | `VERIFY` | `BLOCKED par 01D` | `P0` | `CONTENT-VALIDATION-01C`, `01D` |
+| `01d` | `CONTENT-VALIDATION-01D` | `IMPLEMENT` | `DONE_WITH_DEFERRED_SCOPE` | `P0` | Hero/logo/Services ; galerie/témoignages différés |
+| `01e` | `CONTENT-VALIDATION-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `CONTENT-VALIDATION-01C`, `01D` |
+| `01g` | `GALLERY-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | droits + réalisations authentiques |
+| `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | textes + consentements |
 | `02` | `INIT-SCAFFOLD-01A` | `DISCOVER` | `DONE` | `P0` | G2 |
 | `03` | `INIT-SCAFFOLD-01B` | `IMPLEMENT` | `DONE` | `P0` | `INIT-SCAFFOLD-01A` |
 | `04` | `INIT-SCAFFOLD-01C` | `IMPLEMENT` | `DONE — 01C-R4 ACCEPTED` | `P0` | `INIT-SCAFFOLD-01B` + validation CTO |
@@ -521,11 +523,13 @@ est `DONE` (clôture `2026-07-30`, preuve : commit d’implémentation
 `01A`–`01E` DONE — Validé CTO 2026-07-31).
 `LANDING-HERO-SERVICES-01` est `SUPERSEDED par LANDING-CORE-01`.
 PRD actif : `docs/PRD-PRIMIE-V1.md` version `1.3`.
-`CONTENT-VALIDATION-01` est `IN_PROGRESS` (`01A`–`01C` et `01C-R1` DONE — Validé CTO
-2026-07-31 ; `01D-HERO` / `01D-HERO-R1` / `01D-HERO-R2` DONE — Validé CTO 2026-07-31 ;
-`01D` BLOCKED_ASSET galerie/témoignages ; `01E` BLOCKED par `01D`).
-Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
-La feature reste ouverte. Textes seed et Hero/logo activés ; galerie et avis non validés.
+`CONTENT-VALIDATION-01` est `DONE` — clôturé le `2026-08-01`
+(`01A`–`01C` / `01C-R1` DONE ; `01D` `DONE_WITH_DEFERRED_SCOPE` ; `01E`
+`DONE — Validé CTO 2026-08-01`).
+Décision CTO `2026-08-01` : galerie et témoignages retirés des blockers de
+`CONTENT-VALIDATION-01` et reportés vers `GALLERY-CONTENT-01` et
+`TESTIMONIALS-CONTENT-01` (`BACKLOG — NOT OPEN`).
+Textes seed, Hero/logo, Services illustrés et FAQ sont livrés.
 
 ### Traçabilité PRD → tickets
 
@@ -547,11 +551,11 @@ La feature reste ouverte. Textes seed et Hero/logo activés ; galerie et avis no
 
 - Feature : `FEATURE-CONTENT-V1`
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS` — feature ouverte ; Hero/logo checkpointés ; galerie/avis bloqués
+- Statut : `DONE` — clôturé le `2026-08-01`
 - Priorité : `P0`
 - Autorité : Prisca — contenu métier ; Kyria — CTO / Product Owner seed
 - Ouverture seed PO : `2026-07-31`
-- Checkpoint : `2026-07-31` — 01B / 01C / 01C-R1 validés ; 01D-HERO validé CTO ; 01D BLOCKED_ASSET (galerie/témoignages)
+- Clôture : `2026-08-01` — `01E` validé CTO ; galerie/témoignages différés vers features futures
 - PRD : `docs/PRD-PRIMIE-V1.md` version `1.3`
 - Registre : `docs/content/content-register.md`
 
@@ -585,15 +589,17 @@ peuvent être centralisés avant affichage UI.
 - Exclus : médias, logo, avis, galerie, benefits, horaires
 - Itération : `CONTENT-VALIDATION-01C-R1` (`DONE — Validé CTO 2026-07-31` — QA responsive + cible tactile)
 
-#### CONTENT-VALIDATION-01D — Galerie, témoignages et consentements
+#### CONTENT-VALIDATION-01D — Assets publiables du lot contenu (scope différé)
 
 - Mode : `IMPLEMENT`
-- Statut : `BLOCKED_ASSET`
-- Dépendances : photos + droits + textes d’avis
-- Note : non promu ; bloque la clôture de la feature
-- Sous-ticket : `CONTENT-VALIDATION-01D-HERO` (`DONE` — Hero desktop/mobile validé CTO 2026-07-31)
+- Statut : `DONE_WITH_DEFERRED_SCOPE` — Hero et Services publiés ; galerie et témoignages transférés
+- Motif (CTO `2026-08-01`) : Hero, logo et Services livrés. Galerie et
+  témoignages transférés vers des features futures indépendantes
+  (`GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01` — `BACKLOG — NOT OPEN`).
+- Dépendances livrées : textes seed, Hero/logo, six illustrations Services
+- Sous-ticket : `CONTENT-VALIDATION-01D-HERO` (`DONE`)
 - Corrective : `CONTENT-VALIDATION-01D-HERO-R1` (`DONE`)
-- Corrective : `CONTENT-VALIDATION-01D-HERO-R2` (`DONE` — Validé CTO 2026-07-31)
+- Corrective : `CONTENT-VALIDATION-01D-HERO-R2` (`DONE`)
 - Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
 - Sous-ticket : `CONTENT-VALIDATION-01D-SERVICES-ASSETS` (`SUPERSEDED` — ticket initial arrêté sur chemin singulier erroné)
 - Corrective : `CONTENT-VALIDATION-01D-SERVICES-ASSETS-R1` (`DONE` — rendu visuel validé CTO 2026-07-31 ; QA finale validée CTO 2026-08-01)
@@ -607,44 +613,71 @@ peuvent être centralisés avant affichage UI.
   - illustrations classées `SERVICE_ILLUSTRATION` ;
   - illustrations **non** présentées comme réalisations réelles.
 - Checkpoint Services autorisé par le CTO le 2026-08-01.
-- `CONTENT-VALIDATION-01D` reste `BLOCKED_ASSET` (galerie et témoignages).
-- `CONTENT-VALIDATION-01E` reste `BLOCKED` par `CONTENT-VALIDATION-01D`.
-- `CONTENT-VALIDATION-01` reste `IN_PROGRESS`.
+- `CONTENT-VALIDATION-01E` : `DONE — Validé CTO 2026-08-01`.
+- `CONTENT-VALIDATION-01` : `DONE` — clôturé le `2026-08-01`.
+
+#### GALLERY-CONTENT-01 — Galerie / inspirations / réalisations (futur)
+
+- Mode : `IMPLEMENT`
+- Statut : `BACKLOG — NOT OPEN`
+- Inclus futur : galerie, classification d’assets, droits de publication
+- Exclus immédiat : aucun rendu, placeholder ou ticket d’ouverture dans `01E`
+
+#### TESTIMONIALS-CONTENT-01 — Témoignages (futur)
+
+- Mode : `IMPLEMENT`
+- Statut : `BACKLOG — NOT OPEN`
+- Inclus futur : citations réelles, consentements, pseudonymes
+- Exclus immédiat : aucun avis inventé ni section placeholder dans `01E`
 
 #### CONTENT-VALIDATION-01E — Package validé et readiness de clôture
 
 - Mode : `VERIFY`
-- Statut : `BLOCKED par 01D`
-- Dépendances : `CONTENT-VALIDATION-01C`, `CONTENT-VALIDATION-01D`
+- Statut : `DONE — Validé CTO 2026-08-01`
+- Dépendances : `CONTENT-VALIDATION-01C`, `CONTENT-VALIDATION-01D` (`DONE_WITH_DEFERRED_SCOPE`)
+
+**Décision de clôture (CTO `2026-08-01`)**
+
+- contenus textuels validés et publiés ;
+- Hero desktop/mobile publié ;
+- logo publié ;
+- pictogrammes publiés ;
+- six illustrations Services publiées ;
+- galerie absente et masquée ;
+- témoignages absents et masqués ;
+- aucun placeholder ;
+- features futures non ouvertes (`GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01`) ;
+- validation CTO du `2026-08-01`.
 
 **Inclus**
 
-- inventaire des photos, droits, textes, avis, FAQ, message WhatsApp, mentions,
-  domaine, réseaux et maquette ;
-- origine, propriétaire, autorisation et statut de chaque asset ;
-- décision honnête pour chaque contenu absent ;
+- inventaire des assets et textes livrés (Hero, logo, Services, FAQ, WA) ;
+- statut et autorité de chaque contenu publié ou différé ;
+- stratégie de report galerie/témoignages vers features futures ;
 - seed contents PO centralisés et testés ;
+- QA finale et readiness de clôture feature ;
 - mise à jour des dépendances du BMAD.
 
 **Exclus**
 
 - retouche destructive ;
-- publication UI des sections bloquées sans ticket d’activation ;
-- rédaction présentée comme validée Prisca sans retour lorsque requis ;
+- ajout de galerie, témoignages ou placeholders ;
+- ouverture de `GALLERY-CONTENT-01` / `TESTIMONIALS-CONTENT-01` ;
 - faux avis ou fausses réalisations.
 
 **Critères d’acceptation**
 
-- [ ] chaque dépendance possède un statut et une autorité ;
-- [ ] chaque photo destinée à la galerie est une réalisation authentique ;
-- [ ] chaque média publiable possède une autorisation ;
-- [ ] chaque avis possède une preuve et un niveau d’anonymisation ;
-- [ ] les formulations finales sont distinguées des propositions / seed PO ;
-- [ ] les contenus absents possèdent une stratégie approuvée.
+- [x] chaque dépendance livrée possède un statut et une autorité ;
+- [x] chaque média publié possède une classification honnête ;
+- [x] galerie et témoignages sont absents de la page et reportés en backlog ;
+- [x] les formulations seed PO sont distinguées des contenus différés ;
+- [x] les contenus absents possèdent une stratégie approuvée (DEFERRED) ;
+- [x] rapport `01E` validé par le CTO avant clôture feature / commit.
 
 **Preuves attendues**
 
-Registre de contenus, sources validées et décisions de report.
+Registre de contenus, QA production, rapport `CONTENT-VALIDATION-01E`,
+commit de clôture `chore: close PRiMiE content validation`.
 
 ### INIT-SCAFFOLD-01A — Audit initial du socle
 
@@ -942,13 +975,15 @@ réelles uniquement et navigation filtrée sans lien mort.
   `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`
 - Preuve de publication : push `main → origin/main` le `2026-07-31`
   (`1940519..ed4dacf`)
-- Handoff recommandé : `CONTENT-VALIDATION-01` (`IN_PROGRESS`)
+- Handoff recommandé à la clôture Core : `CONTENT-VALIDATION-01` (désormais
+  `DONE` — clôturé le `2026-08-01`) ; suite backlog :
+  `GALLERY-CONTENT-01` / `TESTIMONIALS-CONTENT-01` (`BACKLOG — NOT OPEN`)
 
 **Dettes transférées**
 
-- galerie, photos, avis, FAQ, « Pourquoi me choisir ? » → `CONTENT-VALIDATION-01`
-  puis tickets sections concernés ;
-- message WhatsApp prérempli → validation Prisca avant éventuel ticket contact ;
+- galerie, photos, avis → `GALLERY-CONTENT-01` / `TESTIMONIALS-CONTENT-01`
+  (`BACKLOG — NOT OPEN`) ; FAQ et seed textes livrés via `CONTENT-VALIDATION-01` ;
+- message WhatsApp prérempli → publié (Header / Hero / Booking) ;
 - majeures npm disponibles (Next 16, etc.) → hors périmètre V1 ;
 - QA Safari / VoiceOver réels → tickets QA transverses.
 
@@ -1426,13 +1461,13 @@ Le dossier a passé `READY` (G2) lorsque :
 - [ ] les commandes prévues n’affectent aucun service distant ;
 - [ ] l’autorité de validation est disponible.
 
-`CONTENT-VALIDATION-01` peut passer `READY` lorsque :
+`CONTENT-VALIDATION-01` est `DONE` — clôturé le `2026-08-01` :
 
-- [ ] le présent BMAD est validé ;
-- [ ] Prisca est identifiée comme source métier ;
-- [ ] un format de registre de contenus est choisi ;
-- [ ] aucune publication n’est incluse ;
-- [ ] les décisions manquantes sont listées.
+- [x] le présent BMAD est validé ;
+- [x] Prisca est identifiée comme source métier ;
+- [x] un format de registre de contenus est choisi ;
+- [x] les contenus livrés sont publiés sans inventer galerie ni avis ;
+- [x] les décisions manquantes (galerie, témoignages) sont différées en backlog.
 
 ## 17. Definition of Done commune
 
@@ -1545,17 +1580,19 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff actif : `CONTENT-VALIDATION-01` (`IN_PROGRESS` — checkpoint 01B/01C/01C-R1
-et Hero/logo/art direction ; `01D` BLOCKED_ASSET galerie/témoignages).
-Checkpoint Hero/logo/art direction autorisé par le CTO le 2026-07-31.
-La feature reste ouverte.
+Handoff actif : `CONTENT-VALIDATION-01` est `DONE` — clôturé le `2026-08-01`
+(`01E` `DONE — Validé CTO 2026-08-01`).
+`01D` est `DONE_WITH_DEFERRED_SCOPE` — Hero et Services publiés ; galerie et
+témoignages transférés.
+Features futures non ouvertes : `GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01`
+(`BACKLOG — NOT OPEN`).
 PRD actif : version `1.3`.
 
-### Après checkpoint CONTENT-VALIDATION-01C
+### Après clôture CONTENT-VALIDATION-01
 
-1. collecter médias et consentements pour `01D` (`BLOCKED_ASSET`) ;
-2. clôturer via `01E` uniquement après 01D ;
-3. ne déployer en Production qu’avec autorisation CTO explicite.
+1. conserver `GALLERY-CONTENT-01` / `TESTIMONIALS-CONTENT-01` en backlog tant
+   que non autorisés ;
+2. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 

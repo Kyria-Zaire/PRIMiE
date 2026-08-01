@@ -26,7 +26,9 @@ pnpm install
 Règles :
 
 - aucune donnée métier inventée ;
-- galerie, témoignages et FAQ restent masqués tant que non validés (`content/` tableaux vides).
+- galerie et témoignages restent masqués (`content/gallery.ts` et
+  `content/testimonials.ts` vides) et sont reportés vers des features futures
+  (`GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01` — BACKLOG).
 
 ## Shell public (LANDING-SHELL-01)
 
@@ -48,28 +50,28 @@ Règles :
 - Header statique en V1 (pas de sticky) ;
 - Unique Client Component du parcours : `MobileNavigation`.
 
-## Landing Core (LANDING-CORE-01)
+## Landing Core + contenu publié
 
 Sections métier dans `components/sections/`, composées dans `app/page.tsx` :
 
-`Hero` → `Services` → `Booking` → `Contact`.
+`Hero` → `Services` → `FAQ` → `Booking` → `Contact`.
 
 | Section     | Ancre       | Contenu                                                                 |
 | ----------- | ----------- | ----------------------------------------------------------------------- |
-| Hero        | `#accueil`  | CSS premium sans photo ; CTA WhatsApp + « Découvrir nos services »      |
-| Services    | `#services` | Six titres canoniques (`content/services.ts`), sans description ni prix |
-| Réservation | `#reserver` | CTA WhatsApp sans message prérempli                                     |
-| Contact     | `#contact`  | Nom, activité, `tel:` et WhatsApp via `siteConfig`                      |
+| Hero        | `#accueil`  | Art direction WebP desktop/mobile ; slogan ; CTA WhatsApp + `#services` |
+| Services    | `#services` | Six prestations illustrées (`content/services.ts`), grille 1/2/3        |
+| FAQ         | `#faq`      | Cinq Q/R natives (`details`/`summary`) depuis `content/faq.ts`          |
+| Réservation | `#reserver` | CTA WhatsApp avec message prérempli                                     |
+| Contact     | `#contact`  | Nom, activité, `tel:` et WhatsApp sans préremplissage                   |
 
-Navigation visible : Accueil, Services, Réserver, Contact.
+Navigation visible : Accueil, Services, FAQ, Réserver, Contact.
 
-Volontairement absents tant que `CONTENT-VALIDATION-01` est bloqué :
+Volontairement absents (scope différé CTO 2026-08-01) :
 
-- galerie / photos ;
-- avis ;
-- FAQ ;
+- galerie / « Nos réalisations » ;
+- avis / témoignages ;
 - « Pourquoi me choisir ? » ;
-- descriptions inventées ou images générées.
+- prix, durées, adresse, email ou réseaux inventés.
 
 ## Commandes
 
