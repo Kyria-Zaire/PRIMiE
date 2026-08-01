@@ -54,15 +54,14 @@ Règles :
 
 Sections métier dans `components/sections/`, composées dans `app/page.tsx` :
 
-`Hero` → `Services` → `FAQ` → `Booking` → `Contact`.
+`Hero` → `Services` → `FAQ` → `ContactBooking` (`#reserver` + `#contact`).
 
-| Section     | Ancre       | Contenu                                                                 |
-| ----------- | ----------- | ----------------------------------------------------------------------- |
-| Hero        | `#accueil`  | Art direction WebP desktop/mobile ; slogan ; CTA WhatsApp + `#services` |
-| Services    | `#services` | Six prestations illustrées (`content/services.ts`), grille 1/2/3        |
-| FAQ         | `#faq`      | Cinq Q/R natives (`details`/`summary`) depuis `content/faq.ts`          |
-| Réservation | `#reserver` | CTA WhatsApp avec message prérempli                                     |
-| Contact     | `#contact`  | Nom, activité, `tel:` et WhatsApp sans préremplissage                   |
+| Section        | Ancre(s)               | Contenu                                                                 |
+| -------------- | ---------------------- | ----------------------------------------------------------------------- |
+| Hero           | `#accueil`             | Art direction WebP desktop/mobile ; slogan ; CTA WhatsApp + `#services` |
+| Services       | `#services`            | Six prestations illustrées (`content/services.ts`), grille 1/2/3        |
+| FAQ            | `#faq`                 | Cinq Q/R natives (`details`/`summary`) depuis `content/faq.ts`          |
+| ContactBooking | `#reserver` `#contact` | Section fusionnée sombre ; CTA WhatsApp prérempli ; tel + WA plain      |
 
 Navigation visible : Accueil, Services, FAQ, Réserver, Contact.
 
@@ -71,7 +70,8 @@ Volontairement absents (scope différé CTO 2026-08-01) :
 - galerie / « Nos réalisations » ;
 - avis / témoignages ;
 - « Pourquoi me choisir ? » ;
-- prix, durées, adresse, email ou réseaux inventés.
+- prix, durées, adresse, email ou réseaux inventés ;
+- calendrier / formulaire de réservation (`BOOKING-ENGINE-V2` backlog).
 
 ## Commandes
 

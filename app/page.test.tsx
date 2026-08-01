@@ -32,17 +32,22 @@ describe("Home page", () => {
     expect(html).toContain(siteConfig.brand.slogan);
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Questions fréquentes<");
-    expect(html).toContain(">Réservez votre prestation<");
+    expect(html).toContain(">Contactez PRiMiE Coiffure<");
     expect(html).toContain(
-      "Contactez Prisca directement sur WhatsApp pour échanger sur votre demande.",
+      "Échangez directement avec Prisca sur WhatsApp pour préciser votre prestation et votre demande.",
     );
+    expect(html).toContain("Prestations à domicile");
+    expect(html).toContain('href="#services"');
+    expect(html).toContain(">Découvrir nos services<");
+    expect(html.match(/id="reserver"/g)).toHaveLength(1);
+    expect(html.match(/id="contact"/g)).toHaveLength(1);
 
     for (const service of services) {
       expect(html).toContain(service.title.replaceAll("&", "&amp;"));
       expect(html).toContain(service.description);
     }
 
-    expect(html.match(/<details\b/g)).toHaveLength(5);
+    expect(html.match(/<details\b/g)).toHaveLength(7);
     for (const item of faq) {
       expect(html).toContain(item.question);
       expect(html).toContain(item.answer);
@@ -79,7 +84,7 @@ describe("Home page", () => {
 
     expect(html.match(/<h1\b/g)).toHaveLength(1);
     const h2Count = html.match(/<h2\b/g)?.length ?? 0;
-    expect(h2Count).toBe(4);
+    expect(h2Count).toBe(3);
 
     expect(html).toContain(">Accueil<");
     expect(html).toContain(">Services<");
@@ -111,6 +116,11 @@ describe("Home page", () => {
     expect(pageSource).toMatch(
       /RENDERED_SECTION_IDS\s*=\s*\[[\s\S]*"accueil"[\s\S]*"services"[\s\S]*"faq"[\s\S]*"reserver"[\s\S]*"contact"/,
     );
+    expect(pageSource).toContain('from "@/components/sections/contact-booking"');
+    expect(pageSource).not.toContain('from "@/components/sections/booking"');
+    expect(pageSource).not.toContain('from "@/components/sections/contact"');
+    expect(pageSource).not.toMatch(/from ["']@\/components\/sections\/booking["']/);
+    expect(pageSource).not.toMatch(/from ["']@\/components\/sections\/contact["']/);
 
     const shellDir = join(process.cwd(), "components/shell");
     const shellFiles = readdirSync(shellDir).filter(
@@ -126,10 +136,41 @@ describe("Home page", () => {
     const sectionFiles = readdirSync(sectionsDir).filter(
       (name) => name.endsWith(".tsx") && !name.includes(".test."),
     );
+    expect(sectionFiles).toEqual(
+      expect.arrayContaining(["contact-booking.tsx", "faq.tsx", "hero.tsx", "services.tsx"]),
+    );
+    expect(sectionFiles).not.toContain("booking.tsx");
+    expect(sectionFiles).not.toContain("contact.tsx");
     const sectionClients = sectionFiles.filter((name) => {
       const source = readFileSync(join(sectionsDir, name), "utf8");
       return /["']use client["']/.test(source);
     });
     expect(sectionClients).toEqual([]);
+  });
+
+  it("préserve landmarks, ancres uniques et anti-invention ContactBooking", () => {
+    const html = renderToStaticMarkup(Home());
+
+    expect(html.match(/<header\b/g)).toHaveLength(1);
+    expect(html.match(/<main\b/g)).toHaveLength(1);
+    expect(html.match(/<footer\b/g)).toHaveLength(1);
+    expect(html).not.toContain('href="#"');
+    expect(html).not.toContain("href=''");
+    expect(html).not.toContain('href=""');
+
+    for (const id of ["accueil", "services", "faq", "reserver", "contact", "contenu-principal"]) {
+      expect(html.match(new RegExp(`id="${id}"`, "g"))).toHaveLength(1);
+    }
+
+    expect(html).toContain(">Nos services<");
+    expect(html).toContain(">Questions fréquentes<");
+    expect(html).toContain(">Contactez PRiMiE Coiffure<");
+    expect(html).toContain(">Comment réserver ?<");
+    expect(html).toContain(">Coordonnées<");
+    expect(html).toContain("aria-hidden");
+    expect(html).not.toMatch(/<details[^>]*aria-expanded=/);
+    expect(html).not.toMatch(/<summary[^>]*role=["']button["']/);
+    expect(html).not.toMatch(/BOOKING-ENGINE|calendrier|<form\b|type=["']date["']/i);
+    expect(html).not.toMatch(/sélecteur de service|champ nom|déplacement inclus/i);
   });
 });

@@ -17,7 +17,7 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | 6 titres services | Liste do-not-break | VALIDATED | CTO / métier | 2026-07-31 | `services.ts` | — | — |
 | 6 descriptions services | Seed PO exactes | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | cartes Services | — | — |
 | Prix / durées | Non publiés | PENDING_PRISCA | Prisca | 2026-07-31 | — | Décision métier | Rester hors runtime public |
-| Message WhatsApp prérempli | Bonjour Prisca… devis | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | Header / Hero / Booking (+ menu mobile) | Contact/Footer sans `?text=` | — |
+| Message WhatsApp prérempli | Bonjour Prisca… devis | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | Header / Hero / ContactBooking `#reserver` (+ menu mobile) | ContactBooking `#contact` / Footer sans `?text=` | — |
 | FAQ (5 Q/R) | Seed prudente | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | `#faq` + nav | — | — |
 | Logo visuel | `public/brand/logo/primie-logo-v1.webp` (source `images/logo.png` hors commit) | PUBLISHED_BRAND_ASSET | Prisca / CTO | 2026-08-01 | `BrandLogo` via `next/image` | — | Ne pas committer le PNG source sans décision CTO |
 | Photo Hero desktop | `public/images/hero/primie-hero-v1.webp` (source `images/primie-hero.png`) | PUBLISHED_SERVICE_ILLUSTRATION | Prisca / CTO | 2026-08-01 | Hero ≥1024px | — | Ne pas committer PNG sans décision CTO |
@@ -47,5 +47,5 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Galerie « Nos réalisations » : différée (`GALLERY-CONTENT-01`, BACKLOG — NOT OPEN) ; uniquement vraies réalisations le jour J.
 - Témoignages : différés (`TESTIMONIALS-CONTENT-01`, BACKLOG — NOT OPEN) ; aucun prénom runtime sans texte exact et consentement.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
-- CTA Contact et Footer : WhatsApp sans message prérempli.
+- CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.
 - Sources locales : dossier canonique `images/services/` (pluriel) pour les illustrations Services.

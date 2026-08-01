@@ -1,5 +1,4 @@
-import { Booking } from "@/components/sections/booking";
-import { Contact } from "@/components/sections/contact";
+import { ContactBooking } from "@/components/sections/contact-booking";
 import { Faq } from "@/components/sections/faq";
 import { Hero } from "@/components/sections/hero";
 import { Services } from "@/components/sections/services";
@@ -40,8 +39,7 @@ export default function Home() {
         <Hero />
         <Services />
         <Faq />
-        <Booking />
-        <Contact />
+        <ContactBooking />
       </main>
       <Footer navigationItems={visibleNavigation} />
     </>
