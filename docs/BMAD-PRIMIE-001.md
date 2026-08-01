@@ -423,12 +423,12 @@ Validation BMAD (G2 passé)
 │   │   ├── CONTENT-VALIDATION-01D-SERVICES-ASSETS (SUPERSEDED — ticket initial arrêté sur chemin singulier erroné)
 │   │   └── CONTENT-VALIDATION-01D-SERVICES-ASSETS-R1 (DONE — rendu visuel validé CTO 2026-07-31 ; QA finale validée CTO 2026-08-01)
 │   └── CONTENT-VALIDATION-01E (DONE — Validé CTO 2026-08-01)
-├── CONTACT-BOOKING-01 (IN_PROGRESS)
+├── CONTACT-BOOKING-01 (DONE — clôturé le 2026-08-01)
 │   ├── CONTACT-BOOKING-01A (DONE — Validé CTO 2026-08-01)
 │   ├── CONTACT-BOOKING-01B (DONE — Validé CTO 2026-08-01)
 │   ├── CONTACT-BOOKING-01C (DONE — Validé CTO 2026-08-01)
 │   ├── CONTACT-BOOKING-01D (DONE — Validé CTO 2026-08-01)
-│   └── CONTACT-BOOKING-01E (IN_PROGRESS — en attente CTO)
+│   └── CONTACT-BOOKING-01E (DONE — Validé CTO 2026-08-01)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -482,12 +482,12 @@ traçabilité.
 | `01e` | `CONTENT-VALIDATION-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `CONTENT-VALIDATION-01C`, `01D` |
 | `01g` | `GALLERY-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | droits + réalisations authentiques |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | textes + consentements |
-| `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `IN_PROGRESS` | `P0` | CONTENT-VALIDATION-01 DONE |
+| `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
 | `01cbb` | `CONTACT-BOOKING-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-01` | `P0` | `01A` |
 | `01cbc` | `CONTACT-BOOKING-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-01` | `P0` | `01B` |
 | `01cbd` | `CONTACT-BOOKING-01D` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `01C` |
-| `01cbe` | `CONTACT-BOOKING-01E` | `VERIFY` | `IN_PROGRESS — en attente CTO` | `P0` | `01D` |
+| `01cbe` | `CONTACT-BOOKING-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `01D` |
 | `01be` | `BOOKING-ENGINE-V2` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P2` | hors V1 WhatsApp |
 | `02` | `INIT-SCAFFOLD-01A` | `DISCOVER` | `DONE` | `P0` | G2 |
 | `03` | `INIT-SCAFFOLD-01B` | `IMPLEMENT` | `DONE` | `P0` | `INIT-SCAFFOLD-01A` |
@@ -698,10 +698,11 @@ commit de clôture `chore: close PRiMiE content validation`.
 
 - Feature : `FEATURE-CONTACT-BOOKING-V1`
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS`
+- Statut : `DONE — clôturé le 2026-08-01`
 - Priorité : `P0`
 - Autorité : Kyria — CTO
 - Ouverture : `2026-08-01`
+- Clôture : `2026-08-01`
 - PRD : `docs/PRD-PRIMIE-V1.md` version `1.3`
 
 **Objectif**
@@ -745,7 +746,7 @@ WhatsApp V1, sans calendrier ni formulaire.
 #### CONTACT-BOOKING-01E — Clôture et checkpoint
 
 - Mode : `VERIFY`
-- Statut : `IN_PROGRESS — en attente CTO`
+- Statut : `DONE — Validé CTO 2026-08-01`
 - Dépendances : `CONTACT-BOOKING-01D`
 - Inclus : audit final lot 01B–01D, cohérence docs, manifeste checkpoint préparé,
   QA production de clôture
@@ -757,6 +758,17 @@ WhatsApp V1, sans calendrier ni formulaire.
 sont satisfaites par la section visuelle unique `ContactBooking`, tout en
 conservant les ancres `#reserver` et `#contact`. Le PRD n’est pas modifié en 01E ;
 aucune incrémentation de version.
+
+**Trace de clôture (`2026-08-01`)** :
+
+- Réservation et Contact fusionnés dans `ContactBooking` ;
+- WhatsApp reste le moteur V1 (prérempli `#reserver`, plain `#contact`) ;
+- deux ancres conservées (`#reserver`, `#contact`) ;
+- disclosures mobiles natifs (`details`/`summary`) ;
+- aucun calendrier ni formulaire ;
+- aucun déploiement ;
+- prochaine feature non ouverte (`GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01`,
+  `BOOKING-ENGINE-V2` restent `BACKLOG — NOT OPEN`).
 
 #### BOOKING-ENGINE-V2 — Moteur de réservation (futur)
 
@@ -1667,21 +1679,20 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff actif : `CONTACT-BOOKING-01` (`IN_PROGRESS` — `01A`–`01D` DONE Validé CTO
-2026-08-01 ; `01E` IN_PROGRESS — en attente CTO).
+Handoff actif : `CONTACT-BOOKING-01` est `DONE — clôturé le 2026-08-01`
+(`01A`–`01E` DONE — Validé CTO 2026-08-01 ; preuve checkpoint :
+`feat: fuse PRiMiE booking and contact section`).
 `BOOKING-ENGINE-V2` : `BACKLOG — NOT OPEN`.
 Features futures non ouvertes : `GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01`,
 `BOOKING-ENGINE-V2` (`BACKLOG — NOT OPEN`).
 PRD actif : version `1.3`.
 
-### Après CONTACT-BOOKING-01E
+### Après clôture CONTACT-BOOKING-01
 
-1. valider le rapport `01E` (CTO) ;
-2. sur autorisation CTO explicite uniquement : exécuter le checkpoint Git préparé
-   (message et manifeste figés dans le rapport `01E`) ;
-3. clôturer alors `CONTACT-BOOKING-01` ;
-4. ne pas ouvrir `BOOKING-ENGINE-V2` ;
-5. ne déployer en Production qu’avec autorisation CTO explicite.
+1. ne pas ouvrir `BOOKING-ENGINE-V2`, `GALLERY-CONTENT-01` ni `TESTIMONIALS-CONTENT-01`
+   sans décision CTO explicite ;
+2. ne déployer en Production qu’avec autorisation CTO explicite ;
+3. aucune feature suivante n’est ouverte par cette clôture.
 
 ### Décision enregistrée
 
