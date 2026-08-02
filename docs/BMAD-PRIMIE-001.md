@@ -436,14 +436,14 @@ Validation BMAD (G2 passé)
 │   │   └── BOOKING-WHATSAPP-FLOW-01C-R1 (DONE — Validé CTO 2026-08-02)
 │   ├── BOOKING-WHATSAPP-FLOW-01D (DONE — Validé CTO 2026-08-02)
 │   └── BOOKING-WHATSAPP-FLOW-01E (DONE — Validé CTO 2026-08-02)
-├── GALLERY-CONTENT-01 (IN_PROGRESS)
+├── GALLERY-CONTENT-01 (DONE — clôturé le 2026-08-02)
 │   ├── GALLERY-CONTENT-01A (SUPERSEDED par 01A-R1)
 │   ├── GALLERY-CONTENT-01A-R1 (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01B (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01C (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01C-R1 (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01D (DONE — Validé CTO 2026-08-02)
-│   └── GALLERY-CONTENT-01E (IN_PROGRESS — en attente CTO)
+│   └── GALLERY-CONTENT-01E (DONE — Validé CTO 2026-08-02)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -495,14 +495,14 @@ traçabilité.
 | `01c` | `CONTENT-VALIDATION-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `CONTENT-VALIDATION-01B` |
 | `01d` | `CONTENT-VALIDATION-01D` | `IMPLEMENT` | `DONE_WITH_DEFERRED_SCOPE` | `P0` | Hero/logo/Services ; galerie/témoignages différés |
 | `01e` | `CONTENT-VALIDATION-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `CONTENT-VALIDATION-01C`, `01D` |
-| `01g` | `GALLERY-CONTENT-01` | `IMPLEMENT` | `IN_PROGRESS` | `P1` | 01A-R1 DONE |
+| `01g` | `GALLERY-CONTENT-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-02` | `P1` | 01A-R1–01E |
 | `01ga` | `GALLERY-CONTENT-01A` | `DISCOVER` | `SUPERSEDED` par `01A-R1` | `P1` | — |
 | `01gar1` | `GALLERY-CONTENT-01A-R1` | `DISCOVER` | `DONE — Validé CTO 2026-08-02` | `P1` | assets + wording inspirations |
 | `01gb` | `GALLERY-CONTENT-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01A-R1` |
 | `01gc` | `GALLERY-CONTENT-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01B` |
 | `01gcr1` | `GALLERY-CONTENT-01C-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C` |
 | `01gd` | `GALLERY-CONTENT-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C-R1` |
-| `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `IN_PROGRESS — en attente CTO` | `P1` | `01D` |
+| `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-02` | `P1` | `01D` |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | textes + consentements |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -661,17 +661,22 @@ peuvent être centralisés avant affichage UI.
 #### GALLERY-CONTENT-01 — Galerie d’inspirations
 
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS`
+- Statut : `DONE — clôturé le 2026-08-02`
 - Priorité : `P1`
 - Ouverture : `2026-08-02` (stratégie illustrations temporaires validée CTO)
+- Clôture : `2026-08-02` — preuve commit `feat: add PRiMiE inspiration gallery` puis
+  `docs: close gallery content feature` sur `origin/main`
 - Distinct de : `TESTIMONIALS-CONTENT-01` (`BACKLOG — NOT OPEN`)
 
 **Décision produit (CTO `2026-08-02`)**
 
 - 14 illustrations `ILLUSTRATION_APPROVED_BY_CTO` (pas des réalisations de Prisca) ;
 - wording honnête : « Galerie d’inspirations » (interdit « Nos réalisations ») ;
-- route cible `/galerie` ; aperçu landing `#galerie` ;
+- route `/galerie` ; aperçu landing `#galerie` ;
 - sources PNG locales hors suivi (`.git/info/exclude` chemins exacts) ;
+- **galerie V1 = illustrations approuvées** ; réalisations réelles évolutives avec droits clientes ;
+- **aucune lightbox ouverte** (hors scope) ;
+- `TESTIMONIALS-CONTENT-01` reste `BACKLOG — NOT OPEN`.
 - runtime WebP sous `public/images/gallery/` ;
 - transition future vers de vraies réalisations sans changer la structure data.
 
@@ -721,9 +726,9 @@ peuvent être centralisés avant affichage UI.
 ##### GALLERY-CONTENT-01E — QA et clôture
 
 - Mode : `VERIFY`
-- Statut : `IN_PROGRESS — en attente CTO`
+- Statut : `DONE — Validé CTO 2026-08-02`
 - Dépendances : `GALLERY-CONTENT-01D`
-- Inclus : QA finale, audits, documentation, préparation checkpoint (sans commit)
+- Inclus : QA finale, audits, documentation, checkpoint contrôlé (2 commits + push)
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages (futur)
 
@@ -1839,21 +1844,22 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff actif : `GALLERY-CONTENT-01` est `IN_PROGRESS`
-(`01A` SUPERSEDED ; `01A-R1`–`01D` DONE — Validé CTO 2026-08-02 ;
-`01E` IN_PROGRESS — en attente CTO).
-Base Git : `30551d6449a2e9e7d1e94e85434bc15d9797acf1`.
+Handoff actif : `GALLERY-CONTENT-01` est `DONE` (clôturé le `2026-08-02`).
+Base Git attendue après clôture : commits Gallery sur `origin/main`.
 `BOOKING-WHATSAPP-FLOW-01` et `CONTACT-BOOKING-01` restent `DONE`.
 `BOOKING-ENGINE-V2` : `BACKLOG — NOT OPEN`.
 `TESTIMONIALS-CONTENT-01` : `BACKLOG — NOT OPEN`.
+**Handoff** : en attente d’une décision CTO (Testimonials, réalisations clientes,
+lightbox, ou autre priorité). Aucune lightbox ouverte. Galerie V1 = illustrations
+approuvées ; réalisations réelles évolutives avec droits.
 PRD actif : version `1.3`.
 
-### Après GALLERY-CONTENT-01E (clôture)
+### Après GALLERY-CONTENT-01 (clôturé)
 
-1. commits proposés uniquement après validation CTO explicite ;
-2. ne pas attribuer les illustrations à Prisca ni utiliser « Nos réalisations » ;
-3. ne pas ouvrir lightbox / `TESTIMONIALS-CONTENT-01` / `BOOKING-ENGINE-V2` sans décision CTO ;
-4. ne déployer en Production qu’avec autorisation CTO explicite.
+1. ne pas attribuer les illustrations à Prisca ni utiliser « Nos réalisations » ;
+2. ne pas ouvrir lightbox / `TESTIMONIALS-CONTENT-01` / `BOOKING-ENGINE-V2` sans décision CTO ;
+3. ne déployer en Production qu’avec autorisation CTO explicite ;
+4. toute évolution « réalisations » exige consentements clientes + arbitrage CTO.
 
 ### Décision enregistrée
 
