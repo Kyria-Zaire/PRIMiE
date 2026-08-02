@@ -9,7 +9,6 @@ export const navigation = [
   { id: "services", label: "Services", href: "#services" },
   { id: "galerie", label: "Galerie", href: "#galerie" },
   { id: "a-propos", label: "Pourquoi me choisir ?", href: "#a-propos" },
-  { id: "avis", label: "Avis clientes", href: "#avis" },
   { id: "faq", label: "FAQ", href: "#faq" },
   { id: "reserver", label: "Réserver", href: "#reserver" },
   { id: "contact", label: "Contact", href: "#contact" },

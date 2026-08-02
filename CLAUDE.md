@@ -49,11 +49,14 @@ Ordre officiel :
 3. Services
 4. Galerie — Nos réalisations
 5. Pourquoi me choisir ?
-6. Avis clientes
-7. FAQ
-8. Réserver
-9. Contact
-10. Footer
+6. FAQ
+7. Réserver
+8. Contact
+9. Footer
+
+La section « Avis clientes » est **retirée de la V1** (`TESTIMONIALS-CONTENT-01`
+= `CANCELLED` — CTO 2026-08-02). Ne la réintroduis pas sans avis authentiques,
+consentements et validation CTO.
 
 Ne change pas cet ordre sans validation du CTO.
 

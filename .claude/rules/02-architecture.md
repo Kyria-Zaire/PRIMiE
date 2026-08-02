@@ -76,7 +76,6 @@ PRIMIE/
 │   │   ├── services-section.tsx
 │   │   ├── gallery-section.tsx
 │   │   ├── why-choose-section.tsx
-│   │   ├── testimonials-section.tsx
 │   │   ├── faq-section.tsx
 │   │   ├── booking-section.tsx
 │   │   └── contact-section.tsx
@@ -91,7 +90,6 @@ PRIMIE/
 │   ├── services.ts
 │   ├── gallery.ts
 │   ├── benefits.ts
-│   ├── testimonials.ts
 │   └── faq.ts
 ├── lib/
 │   ├── utils.ts
@@ -253,7 +251,6 @@ export default function HomePage() {
         <ServicesSection />
         <GallerySection />
         <WhyChooseSection />
-        <TestimonialsSection />
         <FaqSection />
         <BookingSection />
         <ContactSection />

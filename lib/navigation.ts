@@ -3,7 +3,6 @@ import { gallery } from "@/content/gallery";
 import { navigation } from "@/content/navigation";
 import { services } from "@/content/services";
 import { siteConfig } from "@/content/site-config";
-import { testimonials } from "@/content/testimonials";
 import type { NavigationItem, ResolvedNavigationItem } from "@/content/types";
 
 export type NavigationSectionId = (typeof navigation)[number]["id"];
@@ -33,8 +32,6 @@ function isContentReady(id: NavigationSectionId): boolean {
       return gallery.length > 0;
     case "a-propos":
       return ABOUT_CONTENT_READY;
-    case "avis":
-      return testimonials.length > 0;
     case "faq":
       return FAQ_SECTION_READY && faq.length > 0;
     case "reserver":

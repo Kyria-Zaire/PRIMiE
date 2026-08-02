@@ -46,10 +46,11 @@ Utiliser des ancres stables et explicites :
 - `#services`
 - `#galerie`
 - `#a-propos`
-- `#avis`
 - `#faq`
 - `#reserver`
 - `#contact`
+
+(`#avis` retiré — `TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02.)
 
 Exigences :
 
@@ -181,22 +182,18 @@ non confirmés.
 
 ## 9. Avis clientes
 
-N'afficher en production que des témoignages :
+Statut V1 : **retirée** (`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02).
 
-- réellement reçus ;
-- validés pour publication ;
-- reproduits fidèlement ;
-- accompagnés uniquement des informations autorisées.
+Si réouverture future : n'afficher en production que des témoignages réellement
+reçus, validés, fidèles, avec informations autorisées uniquement.
 
-En développement, les avis provisoires doivent être clairement identifiés dans les
-données et ne jamais être présentés comme authentiques sur le site public.
-
-Critères d'acceptation :
+Critères d'acceptation (réouverture) :
 
 - lecture confortable sur mobile ;
 - pas de faux score global ;
 - pas de nom complet ou photo sans autorisation ;
-- pas de dépendance à un slider pour lire tous les avis.
+- pas de dépendance à un slider pour lire tous les avis ;
+- aucun avis inventé.
 
 ---
 

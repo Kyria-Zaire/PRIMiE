@@ -5,7 +5,6 @@ import { faq } from "../content/faq";
 import { gallery } from "../content/gallery";
 import { services } from "../content/services";
 import { siteConfig } from "../content/site-config";
-import { testimonials } from "../content/testimonials";
 
 const EXPECTED_TITLES = [
   "Tresses & coiffure femme et homme",
@@ -97,13 +96,11 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(siteConfig.contact.whatsappUrl).toBe("https://wa.me/33749616582");
   });
 
-  it("maintient les témoignages vides et la galerie hors pistes nominatives", () => {
+  it("maintient la galerie hors pistes nominatives et hors fausses identités avis", () => {
     expect(gallery).toHaveLength(14);
-    expect(testimonials).toEqual([]);
 
     const runtimeBlob = JSON.stringify({
       gallery,
-      testimonials,
       faq,
       services,
       siteConfig,
@@ -113,6 +110,8 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(runtimeBlob).not.toContain("Annaelle");
     expect(runtimeBlob).not.toContain("Plamédie");
     expect(runtimeBlob).not.toMatch(/Nos réalisations/i);
+    expect(runtimeBlob).not.toMatch(/Sarah M\.|Aïcha K\.|Nadia L\.|Inès B\./i);
+    expect(runtimeBlob).not.toMatch(/Elles me font confiance/i);
   });
 
   it("n’introduit pas benefits.ts ni PNG source dans public/", () => {

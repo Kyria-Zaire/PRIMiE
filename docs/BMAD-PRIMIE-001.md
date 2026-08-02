@@ -180,11 +180,12 @@ Ordre officiel :
 3. Services ;
 4. Galerie — Nos réalisations ;
 5. Pourquoi me choisir ? ;
-6. Avis clientes ;
-7. FAQ ;
-8. Réserver ;
-9. Contact ;
-10. Footer.
+6. FAQ ;
+7. Réserver ;
+8. Contact ;
+9. Footer.
+
+(Section « Avis clientes » / Testimonials : `CANCELLED` V1 — CTO 2026-08-02.)
 
 Prestations canoniques :
 
@@ -272,7 +273,6 @@ PRIMIE/
 │   ├── navigation.ts
 │   ├── services.ts
 │   ├── site-config.ts
-│   └── testimonials.ts
 ├── lib/
 ├── public/
 │   └── images/
@@ -505,7 +505,7 @@ traçabilité.
 | `01gd` | `GALLERY-CONTENT-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C-R1` |
 | `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-02` | `P1` | `01D` |
 | `01gphr1` | `GALLERY-PAGE-HERO-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | post-clôture `GALLERY-CONTENT-01` |
-| `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | textes + consentements |
+| `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
 | `01cbb` | `CONTACT-BOOKING-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-01` | `P0` | `01A` |
@@ -739,14 +739,45 @@ peuvent être centralisés avant affichage UI.
 - Dépendances : `GALLERY-CONTENT-01` DONE (ne rouvre pas 01A–01E)
 - Inclus : Hero bandeau compact, portrait WebP alpha `gallery-hero-model-v1.webp`, filtres dans le Hero, composition mobile asymétrique
 - Clôture : `2026-08-02` — VISUAL APPROVED CTO, checkpoint publish (commit + push, aucun déploiement)
-- Note : `GALLERY-CONTENT-01` reste `DONE` ; `TESTIMONIALS-CONTENT-01` reste `BACKLOG — NOT OPEN` ; `WHY-PRIMIE-01` non ouvert
+- Note : `GALLERY-CONTENT-01` reste `DONE` ; `TESTIMONIALS-CONTENT-01` = `CANCELLED` (CTO 2026-08-02) ; `WHY-PRIMIE-01` non ouvert
 
-#### TESTIMONIALS-CONTENT-01 — Témoignages (futur)
+#### TESTIMONIALS-CONTENT-01 — Témoignages
 
 - Mode : `IMPLEMENT`
-- Statut : `BACKLOG — NOT OPEN`
-- Inclus futur : citations réelles, consentements, pseudonymes
-- Exclus immédiat : aucun avis inventé ni section placeholder dans `01E`
+- Statut : `CANCELLED` — décision CTO `2026-08-02`
+- Motif : absence d’avis clients authentiques publiables ; aucune donnée inventée ;
+  section « Elles me font confiance » retirée de la V1
+- Distinct de : `WHY-PRIMIE-01` (`NOT OPEN`)
+
+##### TESTIMONIALS-CONTENT-01A — Audit readiness
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-02` (audit NOT READY)
+- Inclus : maquettes desktop/mobile, inventaire Olive/Octavie/Annaelle/Plamédie (pistes seules),
+  asset gate, modèle proposé, découpage 01A–01E
+- Exclus : UI, données inventées, commit
+
+##### TESTIMONIALS-CONTENT-01B — Données + assets
+
+- Mode : `IMPLEMENT`
+- Statut : `CANCELLED` — précédé de `BLOCKED_CONTENT` (0/3 quotes exacts), puis abandon CTO
+- Inclus tenté : gate contenu/assets sans invention
+- Exclus : UI, fabrication d’avis, commit
+
+##### TESTIMONIALS-CONTENT-01C–01E
+
+- Statut : `CANCELLED` (bloqués par abandon feature) — ne pas ouvrir
+
+##### TESTIMONIALS-CONTENT-01-CANCEL-CHECKPOINT
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Inclus : cleanup runtime/nav/types/tests, docs/rules/skills, commit + push,
+  aucun déploiement
+- Note skills : ordres de page et sources `testimonials.ts` corrigés — aucune
+  instruction active ne demande de créer Testimonials sur PRiMiE V1
+
+**Retour futur** : uniquement après décision CTO + avis réels + consentements.
 
 #### CONTENT-VALIDATION-01E — Package validé et readiness de clôture
 
@@ -1859,16 +1890,16 @@ Handoff actif : `GALLERY-CONTENT-01` est `DONE` (clôturé le `2026-08-02`).
 Base Git attendue après clôture : commits Gallery sur `origin/main`.
 `BOOKING-WHATSAPP-FLOW-01` et `CONTACT-BOOKING-01` restent `DONE`.
 `BOOKING-ENGINE-V2` : `BACKLOG — NOT OPEN`.
-`TESTIMONIALS-CONTENT-01` : `BACKLOG — NOT OPEN`.
-**Handoff** : en attente d’une décision CTO (Testimonials, réalisations clientes,
-lightbox, ou autre priorité). Aucune lightbox ouverte. Galerie V1 = illustrations
+`TESTIMONIALS-CONTENT-01` : `CANCELLED` — décision CTO 2026-08-02.
+**Handoff** : en attente d’une décision CTO (réalisations clientes,
+lightbox, Pourquoi me choisir, ou autre priorité). Aucune lightbox ouverte. Galerie V1 = illustrations
 approuvées ; réalisations réelles évolutives avec droits.
 PRD actif : version `1.3`.
 
 ### Après GALLERY-CONTENT-01 (clôturé)
 
 1. ne pas attribuer les illustrations à Prisca ni utiliser « Nos réalisations » ;
-2. ne pas ouvrir lightbox / `TESTIMONIALS-CONTENT-01` / `BOOKING-ENGINE-V2` sans décision CTO ;
+2. ne pas rouvrir `TESTIMONIALS-CONTENT-01` / lightbox / `BOOKING-ENGINE-V2` sans décision CTO ;
 3. ne déployer en Production qu’avec autorisation CTO explicite ;
 4. toute évolution « réalisations » exige consentements clientes + arbitrage CTO.
 

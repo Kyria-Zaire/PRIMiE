@@ -49,11 +49,13 @@ L'ordre de la page est verrouillé :
 3. Services
 4. Galerie — Nos réalisations
 5. Pourquoi me choisir ?
-6. Avis clientes
-7. FAQ
-8. Réserver
-9. Contact
-10. Footer
+6. FAQ
+7. Réserver
+8. Contact
+9. Footer
+
+La section « Avis clientes » / Testimonials est **retirée de la V1**
+(`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02).
 
 Ne pas :
 
@@ -73,7 +75,6 @@ Utiliser les ancres canoniques suivantes :
 - `#services`
 - `#galerie`
 - `#a-propos`
-- `#avis`
 - `#faq`
 - `#reserver`
 - `#contact`
@@ -209,7 +210,10 @@ Ne transforme jamais ces thèmes en :
 
 ## 10. Avis clientes
 
-En Production, n'afficher que des témoignages :
+Statut V1 : **retirée** (`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02).
+Aucun scaffolding runtime Testimonials / `#avis`.
+
+Si une réouverture future est décidée, n'afficher que des témoignages :
 
 - réellement reçus ;
 - validés pour publication ;
@@ -219,13 +223,14 @@ En Production, n'afficher que des témoignages :
 Un avis provisoire doit être clairement marqué dans les données et ne doit jamais
 être présenté comme authentique sur le site public.
 
-Interdictions :
+Interdictions (restent applicables) :
 
 - faux score global ;
 - faux volume d'avis ;
 - nom complet ou photo sans autorisation ;
 - réécriture qui change le sens ;
-- slider obligatoire pour accéder à tous les avis.
+- slider obligatoire pour accéder à tous les avis ;
+- inventer un témoignage pour remplir la maquette.
 
 ## 11. FAQ
 

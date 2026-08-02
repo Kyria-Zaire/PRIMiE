@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { navigation } from "@/content/navigation";
 import {
@@ -43,8 +43,8 @@ describe("getVisibleNavigation", () => {
     expect(getVisibleNavigation(["faq"]).map((item) => item.id)).toEqual(["faq"]);
   });
 
-  it("expose Galerie lorsque le contenu est prêt et le rendu déclaré, masque Avis et À propos", () => {
-    const visible = getVisibleNavigation(["galerie", "avis", "a-propos"]);
+  it("expose Galerie lorsque le contenu est prêt et le rendu déclaré, masque À propos", () => {
+    const visible = getVisibleNavigation(["galerie", "a-propos"]);
     expect(visible.map((item) => item.id)).toEqual(["galerie"]);
     expect(visible[0]?.label).toBe("Galerie");
     expect(visible[0]?.label).not.toMatch(/Nos réalisations|Galerie d’inspirations/i);
@@ -90,6 +90,13 @@ describe("getVisibleNavigation", () => {
     expect(source).toMatch(/FAQ_SECTION_READY\s*=\s*true/);
     expect(source).toContain("FAQ_SECTION_READY && faq.length > 0");
     expect(source).toMatch(/ABOUT_CONTENT_READY\s*=\s*false/);
+  });
+
+  it("n’expose ni Testimonials ni ancre #avis", () => {
+    const source = readFileSync(join(process.cwd(), "lib/navigation.ts"), "utf8");
+    expect(source).not.toContain("testimonials");
+    expect(source).not.toMatch(/case\s+"avis"/);
+    expect(existsSync(join(process.cwd(), "content/testimonials.ts"))).toBe(false);
   });
 });
 

@@ -31,8 +31,8 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Illus. service tissage | WebP `public/images/services/tissage.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
 | Galerie | 14 illustrations WebP + page `/galerie` + aperçu landing | PUBLISHED_GALLERY_ILLUSTRATION (01B–01D) | CTO | 2026-08-02 | `gallery.ts` + `public/images/gallery/*.webp` + `app/galerie` | Sources PNG locales hors suivi | `GALLERY-CONTENT-01E` QA / clôture |
 | Portrait Hero `/galerie` | `public/images/gallery/gallery-hero-model-v1.webp` (source `images/gallery/tresses-longues.png`) | PUBLISHED_GALLERY_HERO_ASSET | CTO | 2026-08-02 | `GalleryPageHero` uniquement | Alpha préservé ; hors grille Gallery | `GALLERY-PAGE-HERO-R1` |
-| Témoignages | `[]` | DEFERRED — tableau vide, section masquée | CTO | 2026-08-01 | `testimonials.ts` | Feature future `TESTIMONIALS-CONTENT-01` | BACKLOG — NOT OPEN |
-| Pistes avis (prénoms seuls) | Olive, Octavie, Annaelle, Plamédie — pistes uniquement | PENDING_PRISCA | PO | 2026-07-31 | registre seulement | Pas de texte/consentement | Transférer vers `TESTIMONIALS-CONTENT-01` |
+| Témoignages / Avis | Section retirée de la V1 | `CANCELLED` — CTO 2026-08-02 | CTO | 2026-08-02 | scaffolding `testimonials.ts` / nav `#avis` supprimés | Aucun avis authentique publiable | Réouverture uniquement sur décision CTO + avis réels + consentements |
+| Pistes avis (historiques) | Olive, Octavie, Annaelle, Plamédie — pistes seules, jamais publiées | `REJECTED_FOR_PUBLICATION` (V1) | PO / CTO | 2026-08-02 | hors runtime | Quotes/consentements absents | Ne pas réintroduire sans preuves |
 | Pourquoi choisir PRiMiE | 5 brouillons PO | PENDING_PRISCA | Prisca | 2026-07-31 | futur `benefits.ts` | Non créé | Validation Prisca |
 | Horaires seed demande RDV | Lundi – Samedi · 09h00 – 19h00 · Uniquement sur rendez-vous | PO_APPROVED_SEED (CTO 2026-08-01) | CTO | 2026-08-01 | `content/booking.ts` (`openingHours`) | Non exposés UI publique en 01B | Destination `BOOKING-WHATSAPP-FLOW` — demande, pas disponibilité |
 | Créneaux de demande | 09:00, 10:30, 12:00, 14:30, 16:00, 17:30 | PO_APPROVED_SEED (CTO 2026-08-01) | CTO | 2026-08-01 | `content/booking.ts` (`timeSlots`) | Non exposés UI publique en 01B | Horizon 90 j · lun–sam · dimanche désactivé |
@@ -55,7 +55,8 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
   UI : aperçu landing `#galerie` + page `/galerie` + filtres (01C–01D).
   Transition future vers `kind=realisation` : consentements clientes requis
   avant remplacement. Wording interdit : « Nos réalisations », « Mes réalisations ».
-- Témoignages : différés (`TESTIMONIALS-CONTENT-01`, BACKLOG — NOT OPEN) ; aucun prénom runtime sans texte exact et consentement.
+- Témoignages : `TESTIMONIALS-CONTENT-01` = `CANCELLED` (CTO 2026-08-02) —
+  aucun avis inventé ; section hors V1 ; pas de `content/testimonials.ts`.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.
 - CTA ContactBooking demande RDV : message dynamique généré au submit (pas de stockage).

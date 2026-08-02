@@ -98,11 +98,12 @@ Conserver :
 3. Services
 4. Galerie — Nos réalisations
 5. Pourquoi me choisir ?
-6. Avis clientes
-7. FAQ
-8. Réserver
-9. Contact
-10. Footer
+6. FAQ
+7. Réserver
+8. Contact
+9. Footer
+« Avis clientes » : hors V1 (`TESTIMONIALS-CONTENT-01` = `CANCELLED`). Ne pas
+créer de scaffolding Testimonials.
 Une fonctionnalité locale ne doit pas réordonner ou fusionner les sections.
 Toute modification de cette architecture exige une décision produit explicite.
 

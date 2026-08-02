@@ -261,13 +261,13 @@ Si aucun message n'est validé, utiliser le lien WhatsApp sans paramètre `text`
 
 ## 12. Témoignages
 
-Un témoignage publié doit être :
+Statut V1 : **retirée** (`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02).
 
-- réel ;
-- validé ;
-- reproduit sans déformer le sens ;
-- anonymisé si nécessaire ;
-- accompagné uniquement des informations autorisées.
+Ne pas créer de section, navigation `#avis`, fichier `content/testimonials.ts`
+ni scaffolding Testimonials sans décision CTO, avis authentiques et consentements.
+
+Si une réouverture future est décidée, un témoignage publié devra être réel,
+validé, fidèle, anonymisé si nécessaire, avec informations autorisées uniquement.
 
 Ne jamais :
 
@@ -277,9 +277,6 @@ Ne jamais :
 - corriger un avis au point de changer sa voix ;
 - publier une conversation privée sans autorisation ;
 - utiliser une photo de cliente sans consentement.
-
-Si aucun témoignage n'est validé, ne pas fabriquer de contenu pour remplir la
-section.
 
 ## 13. FAQ
 
@@ -365,7 +362,6 @@ Centraliser :
 - prestations dans `content/services.ts` ;
 - galerie dans `content/gallery.ts` ;
 - bénéfices dans `content/benefits.ts` ;
-- témoignages dans `content/testimonials.ts` ;
 - FAQ dans `content/faq.ts`.
 
 Le JSX ne doit pas contenir une copie divergente.

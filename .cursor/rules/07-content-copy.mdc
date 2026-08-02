@@ -298,13 +298,13 @@ Règles :
 
 ## 12. Avis clientes
 
-Un avis publié doit être :
+Statut V1 : **retirée** (`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02).
 
-- réel ;
-- validé ;
-- reproduit sans déformer le sens ;
-- anonymisé si nécessaire ;
-- accompagné uniquement des informations autorisées.
+Ne pas créer de section, navigation `#avis`, fichier `content/testimonials.ts`
+ni scaffolding Testimonials sans décision CTO, avis authentiques et consentements.
+
+Si une réouverture future est décidée, un avis publié devra être réel, validé,
+fidèle, anonymisé si nécessaire, avec informations autorisées uniquement.
 
 Ne jamais :
 
@@ -314,9 +314,6 @@ Ne jamais :
 - attribuer un avis à Google, Instagram ou WhatsApp sans preuve ;
 - corriger un avis au point de changer la voix de la cliente ;
 - publier une conversation privée sans autorisation.
-
-Si aucun avis n'est validé, masquer la section en production ou afficher un contenu
-alternatif honnête validé par le CTO.
 
 ---
 
@@ -381,7 +378,6 @@ Centraliser :
 - prestations dans `content/services.ts` ;
 - galerie dans `content/gallery.ts` ;
 - bénéfices dans `content/benefits.ts` ;
-- avis dans `content/testimonials.ts` ;
 - FAQ dans `content/faq.ts`.
 
 Le JSX ne doit pas contenir une copie divergente de ces données.

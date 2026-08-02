@@ -26,8 +26,8 @@ pnpm install
 Règles :
 
 - aucune donnée métier inventée ;
-- témoignages restent masqués (`content/testimonials.ts` vide) —
-  feature future `TESTIMONIALS-CONTENT-01` (BACKLOG — NOT OPEN) ;
+- témoignages / section « Elles me font confiance » : **retirés de la V1**
+  (`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02) ;
 - galerie V1 = **inspirations illustrées** (pas des réalisations de Prisca).
 
 ## Galerie d’inspirations (GALLERY-CONTENT-01)
@@ -88,9 +88,9 @@ Sections métier dans `components/sections/`, composées dans `app/page.tsx` :
 
 Navigation visible : Accueil, Services, Galerie, FAQ, Réserver, Contact.
 
-Volontairement absents (scope différé) :
+Volontairement absents (scope V1) :
 
-- avis / témoignages (`TESTIMONIALS-CONTENT-01`) ;
+- avis / témoignages (`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02) ;
 - « Pourquoi me choisir ? » ;
 - prix, durées, adresse, email ou réseaux inventés ;
 - lightbox / page détail galerie ;

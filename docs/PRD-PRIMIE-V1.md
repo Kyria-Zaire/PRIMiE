@@ -55,7 +55,7 @@
 | FAQ | cinq Q/R prudentes PO ; section **non rendue** tant que non activée |
 | Horaires / dimanche | **non publiés** |
 | Galerie V1 | « Galerie d’inspirations » — illustrations `project_approved` ; **interdit** de les présenter comme réalisations de Prisca. Réalisations réelles = évolution future avec consentements. |
-| Témoignages | bloqués sans texte exact et consentement |
+| Témoignages | `CANCELLED` V1 (CTO 2026-08-02) — aucun avis inventé ; réouverture seulement avec preuves |
 | Hero | CSS conservé tant qu’aucune photo réelle + autorisation |
 | Registre | `docs/content/content-register.md` |
 | Autorité | CTO / Product Owner Kyria — `2026-07-31` |
@@ -261,11 +261,15 @@ L’ordre de la page est obligatoire :
 3. Services ;
 4. Galerie — inspirations (libellé V1 ; ordre de page inchangé) ;
 5. Pourquoi me choisir ? ;
-6. Avis clientes ;
-7. FAQ ;
-8. Réserver ;
-9. Contact ;
-10. Footer.
+6. FAQ ;
+7. Réserver ;
+8. Contact ;
+9. Footer.
+
+La section « Avis clientes » / « Elles me font confiance » est **retirée de la V1**
+(`TESTIMONIALS-CONTENT-01` = `CANCELLED` — CTO 2026-08-02). Réouverture uniquement
+avec avis authentiques et consentements.
+
 Ancres :
 
 | Section | Ancre |
@@ -274,7 +278,6 @@ Ancres :
 | Services | `#services` |
 | Galerie | `#galerie` |
 | Pourquoi me choisir ? | `#a-propos` |
-| Avis | `#avis` |
 | FAQ | `#faq` |
 | Réserver | `#reserver` |
 | Contact | `#contact` |
@@ -467,19 +470,22 @@ identiques à `CLAUDE.md`, `do-not-break` et `content/services.ts`.
 
 ## 18. Avis clientes
 
-### Exigences
+### Statut V1
+
+`CANCELLED` — décision CTO `2026-08-02`.
+
+Motif : absence d’avis clients authentiques publiables ; refus d’inventer des
+témoignages. La section « Elles me font confiance » n’est pas dans le runtime V1
+(pas de `#avis`, pas de `content/testimonials.ts`, pas de nav « Avis clientes »).
+
+### Exigences si réouverture future (hors V1 actuelle)
 - publier uniquement un témoignage réellement reçu ;
 - obtenir l’autorisation de publication ;
 - reproduire fidèlement le sens ;
 - anonymiser si nécessaire ;
 - ne pas inventer note, prénom, source ou photo.
 
-### Comportement sans avis validé
-Le slot `Avis clientes` reste prévu dans l’architecture officielle, mais aucun
-faux avis n’est rendu en Production. La section peut être masquée ou remplacée
-par un contenu honnête explicitement validé par le CTO.
-
-### Critères
+### Critères (réouverture)
 
 | ID | Critère d’acceptation |
 | --- | --- |
@@ -696,7 +702,7 @@ Contraintes :
 ## 30. Contenu centralisé
 `content/site-config.ts` centralise identité, activité, téléphone, WhatsApp,
 message validé et liens sociaux confirmés. `navigation.ts`, `services.ts`,
-`gallery.ts`, `testimonials.ts` et `faq.ts` portent leurs contenus respectifs.
+`gallery.ts` et `faq.ts` portent leurs contenus respectifs.
 Aucun numéro ou service ne doit être répété dans plusieurs composants.
 
 ## 31. Observabilité
@@ -713,7 +719,7 @@ nouvelle décision produit, sécurité et confidentialité.
 | `DEP-002` | Autorisations de publication des photos | Prisca | bloque les médias concernés | `À confirmer` |
 | `DEP-003` | Descriptions finales des services | Prisca | bloque la copy finale | `À valider` |
 | `DEP-004` | Raisons de choisir Prisca | Prisca | bloque la section réassurance finale | `À valider` |
-| `DEP-005` | Avis clientes et autorisations | Prisca | conditionne la section Avis | `À fournir` |
+| `DEP-005` | Avis clientes et autorisations | Prisca | section Avis **CANCELLED** V1 (CTO 2026-08-02) | `Annulé V1` |
 | `DEP-006` | Questions et réponses FAQ | Prisca | bloque les réponses non confirmées | `Partiel` |
 | `DEP-007` | Message WhatsApp prérempli | Prisca | détermine la query `text` | `Proposé` |
 | `DEP-008` | Identité légale et mentions | Prisca / CTO | bloque Production | `À confirmer` |

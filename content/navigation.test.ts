@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { navigation } from "../content/navigation";
 
 const EXPECTED_ORDER = [
@@ -6,15 +8,18 @@ const EXPECTED_ORDER = [
   { id: "services", href: "#services" },
   { id: "galerie", href: "#galerie" },
   { id: "a-propos", href: "#a-propos" },
-  { id: "avis", href: "#avis" },
   { id: "faq", href: "#faq" },
   { id: "reserver", href: "#reserver" },
   { id: "contact", href: "#contact" },
 ] as const;
 
 describe("navigation", () => {
-  it("respecte l’ordre et les ancres canoniques du PRD", () => {
+  it("respecte l’ordre et les ancres canoniques du PRD (sans #avis)", () => {
     expect(navigation.map(({ id, href }) => ({ id, href }))).toEqual([...EXPECTED_ORDER]);
+    const source = readFileSync(join(process.cwd(), "content/navigation.ts"), "utf8");
+    expect(source).not.toContain('"avis"');
+    expect(source).not.toContain("#avis");
+    expect(source).not.toContain("Avis clientes");
   });
 
   it("utilise des ancres locales uniques", () => {

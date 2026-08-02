@@ -211,7 +211,6 @@ content/navigation.ts
 content/services.ts
 content/gallery.ts
 content/benefits.ts
-content/testimonials.ts
 content/faq.ts
 ```
 

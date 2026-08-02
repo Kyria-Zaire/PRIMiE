@@ -128,11 +128,12 @@ Conserver :
 3. Services
 4. Galerie — Nos réalisations
 5. Pourquoi me choisir ?
-6. Avis clientes
-7. FAQ
-8. Réserver
-9. Contact
-10. Footer
+6. FAQ
+7. Réserver
+8. Contact
+9. Footer
+« Avis clientes » : hors V1 (`TESTIMONIALS-CONTENT-01` = `CANCELLED`). Ne pas
+créer de scaffolding Testimonials.
 Un déplacement technique ne doit pas changer l’ordre DOM, la navigation, les ancres ou la hiérarchie de titres sans décision produit.
 ## 9. Établir une baseline
 Avant refactor, relever selon la surface :

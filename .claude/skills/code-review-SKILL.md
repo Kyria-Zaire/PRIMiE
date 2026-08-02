@@ -164,8 +164,10 @@ PRiMiE V1 est une landing page publique unique. Signaler tout ajout implicite de
 - tracking ou pixel ;
 - WhatsApp Cloud API.
 Vérifier l’ordre :
-Header, Hero, Services, Galerie, Pourquoi me choisir, Avis clientes, FAQ,
-Réserver, Contact, Footer. Une anticipation « pour plus tard » sans décision reste hors périmètre.
+Header, Hero, Services, Galerie, Pourquoi me choisir, FAQ, Réserver, Contact,
+Footer. « Avis clientes » : hors V1 (`TESTIMONIALS-CONTENT-01` = `CANCELLED`) —
+ne pas demander de scaffolding Testimonials. Une anticipation « pour plus tard »
+sans décision reste hors périmètre.
 ## 13. Vérifier l’architecture
 Contrôler les responsabilités :
 - `app/` : routes, composition, métadonnées, styles globaux ;

@@ -449,18 +449,21 @@ WhatsApp : https://wa.me/33749616582
 Conversion principale : conversation WhatsApp
 ```
 
-Ordre V1 :
+Ordre V1 (PRiMiE) :
 
 1. Header ;
 2. Hero ;
 3. Services ;
 4. Galerie — Nos réalisations ;
 5. Pourquoi me choisir ? ;
-6. Avis clientes ;
-7. FAQ ;
-8. Réserver ;
-9. Contact ;
-10. Footer.
+6. FAQ ;
+7. Réserver ;
+8. Contact ;
+9. Footer.
+
+Slot « Avis clientes » : conditionnel / hors V1 PRiMiE
+(`TESTIMONIALS-CONTENT-01` = `CANCELLED`). Ne pas l’activer sans avis
+authentiques, consentements et décision CTO.
 
 Hors périmètre V1 :
 

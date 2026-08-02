@@ -170,11 +170,13 @@ Respecter l’ordre officiel :
 3. Services
 4. Galerie — Nos réalisations
 5. Pourquoi me choisir ?
-6. Avis clientes
-7. FAQ
-8. Réserver
-9. Contact
-10. Footer
+6. FAQ
+7. Réserver
+8. Contact
+9. Footer
+
+« Avis clientes » : hors V1 (`TESTIMONIALS-CONTENT-01` = `CANCELLED`). Ne pas
+créer de scaffolding Testimonials.
 
 Chaque section doit répondre à une question différente. Éviter de répéter la
 même promesse dans le Hero, les bénéfices et la réservation.
@@ -394,7 +396,6 @@ content/navigation.ts
 content/services.ts
 content/gallery.ts
 content/benefits.ts
-content/testimonials.ts
 content/faq.ts
 ```
 

@@ -61,12 +61,6 @@ export type GalleryItem = {
   readonly objectPosition?: string;
 };
 
-export type Testimonial = {
-  readonly id: string;
-  readonly quote: string;
-  readonly author: string;
-};
-
 export type FaqItem = {
   readonly id: string;
   readonly question: string;
