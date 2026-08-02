@@ -1,18 +1,19 @@
 import { BrandLogo } from "@/components/shell/brand-logo";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/content/site-config";
-import type { NavigationItem } from "@/content/types";
+import type { ResolvedNavigationItem } from "@/content/types";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export type FooterProps = {
-  readonly navigationItems: readonly NavigationItem[];
+  readonly navigationItems: readonly ResolvedNavigationItem[];
+  readonly homeHref?: string;
   readonly year?: number;
 };
 
 const linkClassName =
   "inline-flex min-h-11 items-center font-sans text-sm font-medium text-on-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus";
 
-export function Footer({ navigationItems, year }: FooterProps) {
+export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterProps) {
   const copyrightYear = year ?? new Date().getFullYear();
   const whatsappUrl = buildWhatsAppUrl();
 
@@ -22,7 +23,7 @@ export function Footer({ navigationItems, year }: FooterProps) {
         <div className="grid gap-10 md:grid-cols-3 md:gap-8">
           <div className="flex flex-col gap-3">
             <a
-              href="#accueil"
+              href={homeHref}
               className="inline-flex min-h-11 w-fit items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
             >
               <BrandLogo />
@@ -36,7 +37,12 @@ export function Footer({ navigationItems, year }: FooterProps) {
           {navigationItems.length > 0 ? (
             <nav aria-label="Navigation du pied de page" className="flex flex-col gap-1">
               {navigationItems.map((item) => (
-                <a key={item.id} href={item.href} className={linkClassName}>
+                <a
+                  key={item.id}
+                  href={item.href}
+                  aria-current={item.current ? "page" : undefined}
+                  className={linkClassName}
+                >
                   {item.label}
                 </a>
               ))}

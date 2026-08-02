@@ -4,9 +4,12 @@ import { navigation } from "@/content/navigation";
 import { services } from "@/content/services";
 import { siteConfig } from "@/content/site-config";
 import { testimonials } from "@/content/testimonials";
-import type { NavigationItem } from "@/content/types";
+import type { NavigationItem, ResolvedNavigationItem } from "@/content/types";
 
 export type NavigationSectionId = (typeof navigation)[number]["id"];
+
+/** Routes publiques V1 pour la résolution des liens de navigation. */
+export type PublicRoute = "/" | "/galerie";
 
 /**
  * Contenu « Pourquoi me choisir ? » non validé — section hors navigation.
@@ -56,4 +59,39 @@ export function getVisibleNavigation(
   const rendered = new Set<NavigationSectionId>(renderedSectionIds);
 
   return navigation.filter((item) => rendered.has(item.id) && isContentReady(item.id));
+}
+
+/**
+ * Résout les href pour la route courante sans muter la source.
+ * Sur `/galerie`, les ancres landing deviennent `/#…` ; Galerie pointe vers `/galerie`.
+ */
+export function resolveNavigationForRoute(
+  items: readonly NavigationItem[],
+  route: PublicRoute,
+): readonly ResolvedNavigationItem[] {
+  return items.map((item) => {
+    if (route === "/") {
+      return {
+        id: item.id,
+        label: item.label,
+        href: item.href,
+      };
+    }
+
+    if (item.id === "galerie") {
+      return {
+        id: item.id,
+        label: item.label,
+        href: "/galerie",
+        current: true,
+      };
+    }
+
+    const anchor = item.href.startsWith("#") ? item.href : `#${item.id}`;
+    return {
+      id: item.id,
+      label: item.label,
+      href: `/${anchor}`,
+    };
+  });
 }

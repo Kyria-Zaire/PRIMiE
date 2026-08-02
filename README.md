@@ -26,9 +26,30 @@ pnpm install
 Règles :
 
 - aucune donnée métier inventée ;
-- galerie et témoignages restent masqués (`content/gallery.ts` et
-  `content/testimonials.ts` vides) et sont reportés vers des features futures
-  (`GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01` — BACKLOG).
+- témoignages restent masqués (`content/testimonials.ts` vide) —
+  feature future `TESTIMONIALS-CONTENT-01` (BACKLOG — NOT OPEN) ;
+- galerie V1 = **inspirations illustrées** (pas des réalisations de Prisca).
+
+## Galerie d’inspirations (GALLERY-CONTENT-01)
+
+| Élément          | Emplacement                                                                      |
+| ---------------- | -------------------------------------------------------------------------------- |
+| Données / copy   | `content/gallery.ts` (14 items, 6 filtres, copy landing + page)                  |
+| Helper filtre    | `lib/gallery.ts` → `getGalleryItemsByCategory`                                   |
+| Aperçu landing   | `components/sections/gallery-preview.tsx` (`#galerie`, 8 featured)               |
+| Page dédiée      | `app/galerie/page.tsx`                                                           |
+| Cartes / filtres | `components/gallery/` (`GalleryCard` Server, `GalleryFilters` Client)            |
+| WebP runtime     | `public/images/gallery/*.webp` (14)                                              |
+| Sources PNG      | `images/gallery/*.png` — hors dépôt (14 chemins exacts dans `.git/info/exclude`) |
+
+Comportements :
+
+- landing : rail horizontal + CTA « Découvrir la galerie » → `/galerie` ;
+- `/galerie` : grille filtrable (Toutes / Tresses / Perruques / Tissage / Twists & locs / Coiffures afro) ;
+- CTA final page → `/#reserver` ;
+- navigation multi-route via `resolveNavigationForRoute` (`lib/navigation.ts`) ;
+- wording interdit : « Nos réalisations », attribution mensongère à Prisca ;
+- futures réalisations réelles : `kind=realisation` + consentements clientes uniquement.
 
 ## Shell public (LANDING-SHELL-01)
 
@@ -36,42 +57,44 @@ Le shell est composé dans `app/page.tsx` (pas dans le Root Layout) :
 
 `SkipLink` → `Header` → `main` → `Footer`.
 
-| Élément             | Emplacement                                        |
-| ------------------- | -------------------------------------------------- |
-| Composants shell    | `components/shell/`                                |
-| Unique Client Comp. | `mobile-navigation.tsx` (disclosure Menu / Fermer) |
-| Navigation filtrée  | `lib/navigation.ts` → `getVisibleNavigation(...)`  |
-| Identité / contact  | `content/site-config.ts` (+ `buildWhatsAppUrl()`)  |
+| Élément             | Emplacement                                                                  |
+| ------------------- | ---------------------------------------------------------------------------- |
+| Composants shell    | `components/shell/`                                                          |
+| Unique Client Comp. | `mobile-navigation.tsx`, `booking-request-widget.tsx`, `gallery-filters.tsx` |
+| Navigation filtrée  | `lib/navigation.ts` → `getVisibleNavigation` + `resolveNavigationForRoute`   |
+| Identité / contact  | `content/site-config.ts` (+ `buildWhatsAppUrl()`)                            |
 
 Règles :
 
 - aucun lien vers une section absente de la page ;
 - la même liste filtrée alimente Header, menu mobile et Footer ;
 - Header statique en V1 (pas de sticky) ;
-- Unique Client Component du parcours : `MobileNavigation`.
+- Unique Client Components publics : `MobileNavigation`, `BookingRequestWidget`,
+  `GalleryFilters`.
 
 ## Landing Core + contenu publié
 
 Sections métier dans `components/sections/`, composées dans `app/page.tsx` :
 
-`Hero` → `Services` → `FAQ` → `ContactBooking` (`#reserver` module demande + `#contact`).
+`Hero` → `Services` → `GalleryPreview` → `FAQ` → `ContactBooking` (`#reserver` module demande + `#contact`).
 
 | Section        | Ancre(s)               | Contenu                                                                                                |
 | -------------- | ---------------------- | ------------------------------------------------------------------------------------------------------ |
 | Hero           | `#accueil`             | Art direction WebP desktop/mobile ; slogan ; CTA WhatsApp + `#services`                                |
 | Services       | `#services`            | Six prestations illustrées (`content/services.ts`), grille 1/2/3                                       |
+| Galerie        | `#galerie`             | Aperçu 8 featured + CTA `/galerie` ; page complète `/galerie` (14 illustrations + filtres)             |
 | FAQ            | `#faq`                 | Cinq Q/R natives (`details`/`summary`) depuis `content/faq.ts`                                         |
 | ContactBooking | `#reserver` `#contact` | Module demande RDV (calendrier, créneaux, formulaire, CTA WhatsApp dynamique) ; bandeau tel + WA plain |
 
-Navigation visible : Accueil, Services, FAQ, Réserver, Contact.
+Navigation visible : Accueil, Services, Galerie, FAQ, Réserver, Contact.
 
-Volontairement absents (scope différé CTO 2026-08-01) :
+Volontairement absents (scope différé) :
 
-- galerie / « Nos réalisations » ;
-- avis / témoignages ;
+- avis / témoignages (`TESTIMONIALS-CONTENT-01`) ;
 - « Pourquoi me choisir ? » ;
 - prix, durées, adresse, email ou réseaux inventés ;
-- calendrier / formulaire de réservation (`BOOKING-ENGINE-V2` backlog).
+- lightbox / page détail galerie ;
+- calendrier / formulaire de réservation moteur (`BOOKING-ENGINE-V2` backlog).
 
 ## Commandes
 

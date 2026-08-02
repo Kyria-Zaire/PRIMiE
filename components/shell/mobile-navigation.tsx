@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import type { NavigationItem } from "@/content/types";
+import type { ResolvedNavigationItem } from "@/content/types";
 import { Button, LinkButton } from "@/components/ui/button";
 
 export type MobileNavigationProps = {
-  readonly items: readonly NavigationItem[];
+  readonly items: readonly ResolvedNavigationItem[];
   readonly whatsappUrl: string;
   readonly whatsappLabel: string;
 };
@@ -103,6 +103,7 @@ export function MobileNavigation({ items, whatsappUrl, whatsappLabel }: MobileNa
             <a
               key={item.id}
               href={item.href}
+              aria-current={item.current ? "page" : undefined}
               className="inline-flex min-h-11 items-center font-sans text-base font-medium text-on-dark hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
               onClick={() => {
                 closeMenu();

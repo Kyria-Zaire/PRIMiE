@@ -1,5 +1,6 @@
 import { ContactBooking } from "@/components/sections/contact-booking";
 import { Faq } from "@/components/sections/faq";
+import { GalleryPreview } from "@/components/sections/gallery-preview";
 import { Hero } from "@/components/sections/hero";
 import { Services } from "@/components/sections/services";
 import { Footer } from "@/components/shell/footer";
@@ -7,12 +8,17 @@ import { Header } from "@/components/shell/header";
 import { MobileNavigation } from "@/components/shell/mobile-navigation";
 import { SkipLink } from "@/components/shell/skip-link";
 import { siteConfig } from "@/content/site-config";
-import { getVisibleNavigation, type NavigationSectionId } from "@/lib/navigation";
+import {
+  getVisibleNavigation,
+  resolveNavigationForRoute,
+  type NavigationSectionId,
+} from "@/lib/navigation";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const RENDERED_SECTION_IDS = [
   "accueil",
   "services",
+  "galerie",
   "faq",
   "reserver",
   "contact",
@@ -20,16 +26,18 @@ const RENDERED_SECTION_IDS = [
 
 export default function Home() {
   const visibleNavigation = getVisibleNavigation(RENDERED_SECTION_IDS);
+  const routeNavigation = resolveNavigationForRoute(visibleNavigation, "/");
   const bookingWhatsAppUrl = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
 
   return (
     <>
       <SkipLink />
       <Header
-        items={visibleNavigation}
+        items={routeNavigation}
+        homeHref="#accueil"
         mobileNavigation={
           <MobileNavigation
-            items={visibleNavigation}
+            items={routeNavigation}
             whatsappUrl={bookingWhatsAppUrl}
             whatsappLabel="Réserver sur WhatsApp"
           />
@@ -38,10 +46,11 @@ export default function Home() {
       <main id="contenu-principal" tabIndex={-1}>
         <Hero />
         <Services />
+        <GalleryPreview />
         <Faq />
         <ContactBooking />
       </main>
-      <Footer navigationItems={visibleNavigation} />
+      <Footer navigationItems={routeNavigation} homeHref="#accueil" />
     </>
   );
 }

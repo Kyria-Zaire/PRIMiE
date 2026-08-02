@@ -29,7 +29,7 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Illus. service look-twist | WebP `public/images/services/look-twist.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
 | Illus. service vente-pose-perruques | WebP `public/images/services/vente-pose-perruques.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
 | Illus. service tissage | WebP `public/images/services/tissage.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
-| Galerie | `[]` | DEFERRED — tableau vide, section masquée | CTO | 2026-08-01 | `gallery.ts` | Feature future `GALLERY-CONTENT-01` | BACKLOG — NOT OPEN |
+| Galerie | 14 illustrations WebP + page `/galerie` + aperçu landing | PUBLISHED_GALLERY_ILLUSTRATION (01B–01D) | CTO | 2026-08-02 | `gallery.ts` + `public/images/gallery/*.webp` + `app/galerie` | Sources PNG locales hors suivi | `GALLERY-CONTENT-01E` QA / clôture |
 | Témoignages | `[]` | DEFERRED — tableau vide, section masquée | CTO | 2026-08-01 | `testimonials.ts` | Feature future `TESTIMONIALS-CONTENT-01` | BACKLOG — NOT OPEN |
 | Pistes avis (prénoms seuls) | Olive, Octavie, Annaelle, Plamédie — pistes uniquement | PENDING_PRISCA | PO | 2026-07-31 | registre seulement | Pas de texte/consentement | Transférer vers `TESTIMONIALS-CONTENT-01` |
 | Pourquoi choisir PRiMiE | 5 brouillons PO | PENDING_PRISCA | Prisca | 2026-07-31 | futur `benefits.ts` | Non créé | Validation Prisca |
@@ -46,7 +46,14 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Illustrations Services (`PUBLISHED_SERVICE_ILLUSTRATION` / `SERVICE_ILLUSTRATION`) : usage carte Service uniquement ; **aucune n’est une réalisation réelle** ; **aucune image Service ne doit être réutilisée silencieusement dans « Nos réalisations »**.
 - Hero desktop/mobile : illustrations publiées (`PUBLISHED_SERVICE_ILLUSTRATION`) ; pas des réalisations catalogue.
 - Autres illustrations locales hors `public/` : hors périmètre et **non publiées**.
-- Galerie « Nos réalisations » : différée (`GALLERY-CONTENT-01`, BACKLOG — NOT OPEN) ; uniquement vraies réalisations le jour J.
+- Galerie « Galerie d’inspirations » : 14 illustrations `kind=illustration` /
+  `rightsStatus=project_approved` (CTO 2026-08-02). **Ne pas présenter comme
+  réalisations de Prisca.** Disclosure obligatoire sur landing et page.
+  Sources PNG `images/gallery/*.png` hors suivi (14 chemins exacts dans
+  `.git/info/exclude`). Runtime WebP uniquement (`public/images/gallery/`).
+  UI : aperçu landing `#galerie` + page `/galerie` + filtres (01C–01D).
+  Transition future vers `kind=realisation` : consentements clientes requis
+  avant remplacement. Wording interdit : « Nos réalisations », « Mes réalisations ».
 - Témoignages : différés (`TESTIMONIALS-CONTENT-01`, BACKLOG — NOT OPEN) ; aucun prénom runtime sans texte exact et consentement.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.

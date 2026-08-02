@@ -97,8 +97,8 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(siteConfig.contact.whatsappUrl).toBe("https://wa.me/33749616582");
   });
 
-  it("maintient galerie et témoignages vides et absents des pistes nominatives", () => {
-    expect(gallery).toEqual([]);
+  it("maintient les témoignages vides et la galerie hors pistes nominatives", () => {
+    expect(gallery).toHaveLength(14);
     expect(testimonials).toEqual([]);
 
     const runtimeBlob = JSON.stringify({
@@ -112,6 +112,7 @@ describe("seed contents PO_APPROVED_SEED", () => {
     expect(runtimeBlob).not.toContain("Octavie");
     expect(runtimeBlob).not.toContain("Annaelle");
     expect(runtimeBlob).not.toContain("Plamédie");
+    expect(runtimeBlob).not.toMatch(/Nos réalisations/i);
   });
 
   it("n’introduit pas benefits.ts ni PNG source dans public/", () => {

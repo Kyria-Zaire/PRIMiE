@@ -3,9 +3,9 @@ import { gallery } from "../content/gallery";
 import { testimonials } from "../content/testimonials";
 
 describe("contenus non validés", () => {
-  it("garde la galerie vide", () => {
-    expect(gallery).toEqual([]);
-    expect(gallery).toHaveLength(0);
+  it("expose la galerie d’inspirations (données 01B, UI encore absente)", () => {
+    expect(gallery).toHaveLength(14);
+    expect(gallery.every((item) => item.kind === "illustration")).toBe(true);
   });
 
   it("garde les témoignages vides", () => {

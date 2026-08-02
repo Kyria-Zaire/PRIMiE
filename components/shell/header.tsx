@@ -3,26 +3,28 @@ import { BrandLogo } from "@/components/shell/brand-logo";
 import { Container } from "@/components/ui/container";
 import { LinkButton } from "@/components/ui/button";
 import { siteConfig } from "@/content/site-config";
-import type { NavigationItem } from "@/content/types";
+import type { ResolvedNavigationItem } from "@/content/types";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export type HeaderProps = {
-  /** Entrées déjà filtrées (contenu prêt ∩ sections rendues). */
-  items: readonly NavigationItem[];
+  /** Entrées déjà filtrées et résolues pour la route courante. */
+  items: readonly ResolvedNavigationItem[];
+  /** Cible du logo — `/` hors landing, `#accueil` sur `/`. */
+  homeHref?: string;
   /** Emplacement réservé au menu mobile (Client Component). */
   mobileNavigation?: ReactNode;
 };
 
-export function Header({ items, mobileNavigation }: HeaderProps) {
+export function Header({ items, homeHref = "#accueil", mobileNavigation }: HeaderProps) {
   return (
     <header
       className="relative border-b border-bronze bg-hero text-on-dark"
       style={{ zIndex: "var(--z-header)" }}
     >
-      <Container className="flex min-h-14 items-center justify-between gap-4 py-3">
+      <Container className="flex min-h-14 items-center justify-between gap-3 py-3 lg:gap-4">
         <a
-          href="#accueil"
-          className="inline-flex min-h-11 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+          href={homeHref}
+          className="inline-flex min-h-11 shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
         >
           <BrandLogo priority />
         </a>
@@ -30,13 +32,14 @@ export function Header({ items, mobileNavigation }: HeaderProps) {
         {items.length > 0 ? (
           <nav
             aria-label="Navigation principale"
-            className="hidden items-center gap-0.5 lg:flex xl:gap-1"
+            className="hidden min-w-0 items-center gap-0 lg:flex"
           >
             {items.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
-                className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-sans text-sm font-medium text-on-dark hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus xl:px-3"
+                aria-current={item.current ? "page" : undefined}
+                className="inline-flex min-h-11 min-w-11 items-center justify-center px-1.5 font-sans text-xs font-medium text-on-dark hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus xl:px-2.5 xl:text-sm"
               >
                 {item.label}
               </a>
@@ -44,7 +47,7 @@ export function Header({ items, mobileNavigation }: HeaderProps) {
           </nav>
         ) : null}
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <div className="hidden lg:block">
             <LinkButton
               href={buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage)}

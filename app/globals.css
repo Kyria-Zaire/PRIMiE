@@ -37,3 +37,81 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Rails galerie — scrollbar quiet luxury (preview + filtres mobile) */
+.gallery-preview-rail,
+.gallery-filters-rail {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-bronze) 65%, transparent) var(--color-warm-cream);
+  padding-bottom: 0.125rem;
+  background-color: transparent;
+}
+
+.gallery-preview-rail::-webkit-scrollbar,
+.gallery-filters-rail::-webkit-scrollbar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 6px;
+  height: 6px;
+  background: transparent;
+}
+
+.gallery-preview-rail::-webkit-scrollbar-button,
+.gallery-preview-rail::-webkit-scrollbar-button:single-button,
+.gallery-preview-rail::-webkit-scrollbar-button:horizontal:start:decrement,
+.gallery-preview-rail::-webkit-scrollbar-button:horizontal:end:increment,
+.gallery-filters-rail::-webkit-scrollbar-button,
+.gallery-filters-rail::-webkit-scrollbar-button:single-button,
+.gallery-filters-rail::-webkit-scrollbar-button:horizontal:start:decrement,
+.gallery-filters-rail::-webkit-scrollbar-button:horizontal:end:increment {
+  display: none;
+  width: 0;
+  height: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+}
+
+.gallery-preview-rail::-webkit-scrollbar-corner,
+.gallery-filters-rail::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.gallery-preview-rail::-webkit-scrollbar-track,
+.gallery-filters-rail::-webkit-scrollbar-track {
+  background: var(--color-warm-cream);
+  border-radius: 9999px;
+  margin-block: 0;
+}
+
+.gallery-preview-rail::-webkit-scrollbar-thumb,
+.gallery-filters-rail::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--color-bronze) 65%, transparent);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+.gallery-preview-rail:hover::-webkit-scrollbar-thumb,
+.gallery-preview-rail:focus-visible::-webkit-scrollbar-thumb,
+.gallery-filters-rail:hover::-webkit-scrollbar-thumb,
+.gallery-filters-rail:focus-visible::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--color-gold) 80%, transparent);
+}
+
+.gallery-preview-rail:hover,
+.gallery-preview-rail:focus-visible,
+.gallery-filters-rail:hover,
+.gallery-filters-rail:focus-visible {
+  scrollbar-color: color-mix(in srgb, var(--color-gold) 80%, transparent) var(--color-warm-cream);
+}
+
+@media (min-width: 768px) {
+  .gallery-filters-rail {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+}

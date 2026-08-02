@@ -436,6 +436,14 @@ Validation BMAD (G2 passé)
 │   │   └── BOOKING-WHATSAPP-FLOW-01C-R1 (DONE — Validé CTO 2026-08-02)
 │   ├── BOOKING-WHATSAPP-FLOW-01D (DONE — Validé CTO 2026-08-02)
 │   └── BOOKING-WHATSAPP-FLOW-01E (DONE — Validé CTO 2026-08-02)
+├── GALLERY-CONTENT-01 (IN_PROGRESS)
+│   ├── GALLERY-CONTENT-01A (SUPERSEDED par 01A-R1)
+│   ├── GALLERY-CONTENT-01A-R1 (DONE — Validé CTO 2026-08-02)
+│   ├── GALLERY-CONTENT-01B (DONE — Validé CTO 2026-08-02)
+│   ├── GALLERY-CONTENT-01C (DONE — Validé CTO 2026-08-02)
+│   ├── GALLERY-CONTENT-01C-R1 (DONE — Validé CTO 2026-08-02)
+│   ├── GALLERY-CONTENT-01D (DONE — Validé CTO 2026-08-02)
+│   └── GALLERY-CONTENT-01E (IN_PROGRESS — en attente CTO)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -487,7 +495,14 @@ traçabilité.
 | `01c` | `CONTENT-VALIDATION-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-07-31` | `P0` | `CONTENT-VALIDATION-01B` |
 | `01d` | `CONTENT-VALIDATION-01D` | `IMPLEMENT` | `DONE_WITH_DEFERRED_SCOPE` | `P0` | Hero/logo/Services ; galerie/témoignages différés |
 | `01e` | `CONTENT-VALIDATION-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `CONTENT-VALIDATION-01C`, `01D` |
-| `01g` | `GALLERY-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | droits + réalisations authentiques |
+| `01g` | `GALLERY-CONTENT-01` | `IMPLEMENT` | `IN_PROGRESS` | `P1` | 01A-R1 DONE |
+| `01ga` | `GALLERY-CONTENT-01A` | `DISCOVER` | `SUPERSEDED` par `01A-R1` | `P1` | — |
+| `01gar1` | `GALLERY-CONTENT-01A-R1` | `DISCOVER` | `DONE — Validé CTO 2026-08-02` | `P1` | assets + wording inspirations |
+| `01gb` | `GALLERY-CONTENT-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01A-R1` |
+| `01gc` | `GALLERY-CONTENT-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01B` |
+| `01gcr1` | `GALLERY-CONTENT-01C-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C` |
+| `01gd` | `GALLERY-CONTENT-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C-R1` |
+| `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `IN_PROGRESS — en attente CTO` | `P1` | `01D` |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | textes + consentements |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -643,12 +658,72 @@ peuvent être centralisés avant affichage UI.
 - `CONTENT-VALIDATION-01E` : `DONE — Validé CTO 2026-08-01`.
 - `CONTENT-VALIDATION-01` : `DONE` — clôturé le `2026-08-01`.
 
-#### GALLERY-CONTENT-01 — Galerie / inspirations / réalisations (futur)
+#### GALLERY-CONTENT-01 — Galerie d’inspirations
 
 - Mode : `IMPLEMENT`
-- Statut : `BACKLOG — NOT OPEN`
-- Inclus futur : galerie, classification d’assets, droits de publication
-- Exclus immédiat : aucun rendu, placeholder ou ticket d’ouverture dans `01E`
+- Statut : `IN_PROGRESS`
+- Priorité : `P1`
+- Ouverture : `2026-08-02` (stratégie illustrations temporaires validée CTO)
+- Distinct de : `TESTIMONIALS-CONTENT-01` (`BACKLOG — NOT OPEN`)
+
+**Décision produit (CTO `2026-08-02`)**
+
+- 14 illustrations `ILLUSTRATION_APPROVED_BY_CTO` (pas des réalisations de Prisca) ;
+- wording honnête : « Galerie d’inspirations » (interdit « Nos réalisations ») ;
+- route cible `/galerie` ; aperçu landing `#galerie` ;
+- sources PNG locales hors suivi (`.git/info/exclude` chemins exacts) ;
+- runtime WebP sous `public/images/gallery/` ;
+- transition future vers de vraies réalisations sans changer la structure data.
+
+##### GALLERY-CONTENT-01A — Discover initial
+
+- Mode : `DISCOVER`
+- Statut : `SUPERSEDED` par `GALLERY-CONTENT-01A-R1`
+- Motif : `BLOCKED_ASSET` puis livraison assets + arbitrage wording
+
+##### GALLERY-CONTENT-01A-R1 — Audit assets et arbitrage illustrations
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Inclus : inventaire 14 PNG, classification, taxonomie, featured, alts, architecture
+
+##### GALLERY-CONTENT-01B — Données et assets WebP
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `GALLERY-CONTENT-01A-R1`
+- Inclus : types, `content/gallery.ts`, 14 WebP, tests data, registre, BMAD
+- Exclus : UI, route `/galerie`, commit
+
+##### GALLERY-CONTENT-01C — Aperçu landing
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `GALLERY-CONTENT-01B`
+- Inclus : `GalleryPreview` `#galerie`, rail featured ×8, nav « Galerie », disclosure
+- Exclus à la clôture 01C : CTA `/galerie` (ouvert en 01D), page dédiée, filtres, lightbox, commit
+
+##### GALLERY-CONTENT-01C-R1 — Corrective visuelle rail
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `GALLERY-CONTENT-01C`
+- Inclus : scrollbar quiet luxury (`.gallery-preview-rail`), alignement initial, titres
+
+##### GALLERY-CONTENT-01D — Page `/galerie`
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `GALLERY-CONTENT-01C-R1`
+- Inclus : `app/galerie/page.tsx`, filtres ×6, grille ×14, CTA landing `/galerie`, nav multi-route, CTA `/#reserver`
+- Exclus : lightbox, carrousel, dépendance npm, commit
+
+##### GALLERY-CONTENT-01E — QA et clôture
+
+- Mode : `VERIFY`
+- Statut : `IN_PROGRESS — en attente CTO`
+- Dépendances : `GALLERY-CONTENT-01D`
+- Inclus : QA finale, audits, documentation, préparation checkpoint (sans commit)
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages (futur)
 
@@ -1764,23 +1839,21 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff actif : `BOOKING-WHATSAPP-FLOW-01` est `DONE — clôturé le 2026-08-02`
-(`01A`–`01E` / `01C-R1` DONE — Validé CTO ; `01E` Validé CTO 2026-08-02).
-Preuve implémentation : commit `feat: add PRiMiE WhatsApp booking flow` —
-`9ced8e52dc33264cc9e8c5a36772a345964935a2` sur `origin/main`.
-`CONTACT-BOOKING-01` reste `DONE` historiquement.
+Handoff actif : `GALLERY-CONTENT-01` est `IN_PROGRESS`
+(`01A` SUPERSEDED ; `01A-R1`–`01D` DONE — Validé CTO 2026-08-02 ;
+`01E` IN_PROGRESS — en attente CTO).
+Base Git : `30551d6449a2e9e7d1e94e85434bc15d9797acf1`.
+`BOOKING-WHATSAPP-FLOW-01` et `CONTACT-BOOKING-01` restent `DONE`.
 `BOOKING-ENGINE-V2` : `BACKLOG — NOT OPEN`.
-Features futures non ouvertes : `GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01`,
-`BOOKING-ENGINE-V2` (`BACKLOG — NOT OPEN`).
+`TESTIMONIALS-CONTENT-01` : `BACKLOG — NOT OPEN`.
 PRD actif : version `1.3`.
 
-### Après clôture BOOKING-WHATSAPP-FLOW-01
+### Après GALLERY-CONTENT-01E (clôture)
 
-1. `CONTACT-BOOKING-01` et `BOOKING-WHATSAPP-FLOW-01` restent DONE ; ne pas les
-   rouvrir hors décision CTO ;
-2. ne pas ouvrir `BOOKING-ENGINE-V2`, `GALLERY-CONTENT-01` ni `TESTIMONIALS-CONTENT-01`
-   sans décision CTO explicite ;
-3. ne déployer en Production qu’avec autorisation CTO explicite.
+1. commits proposés uniquement après validation CTO explicite ;
+2. ne pas attribuer les illustrations à Prisca ni utiliser « Nos réalisations » ;
+3. ne pas ouvrir lightbox / `TESTIMONIALS-CONTENT-01` / `BOOKING-ENGINE-V2` sans décision CTO ;
+4. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 

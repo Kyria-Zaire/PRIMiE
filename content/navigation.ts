@@ -7,7 +7,7 @@ import type { NavigationItem } from "./types";
 export const navigation = [
   { id: "accueil", label: "Accueil", href: "#accueil" },
   { id: "services", label: "Services", href: "#services" },
-  { id: "galerie", label: "Galerie — Nos réalisations", href: "#galerie" },
+  { id: "galerie", label: "Galerie", href: "#galerie" },
   { id: "a-propos", label: "Pourquoi me choisir ?", href: "#a-propos" },
   { id: "avis", label: "Avis clientes", href: "#avis" },
   { id: "faq", label: "FAQ", href: "#faq" },

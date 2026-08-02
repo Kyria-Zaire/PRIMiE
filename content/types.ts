@@ -3,10 +3,21 @@
  * Champs optionnels réservés à un usage futur clairement identifié.
  */
 
+import type { ServiceId } from "./services";
+
+/** Entrée source (ancres landing). */
 export type NavigationItem = {
   readonly id: string;
   readonly label: string;
   readonly href: `#${string}`;
+};
+
+/** Entrée résolue pour la route courante (ancres, chemins ou ancres croisées). */
+export type ResolvedNavigationItem = {
+  readonly id: string;
+  readonly label: string;
+  readonly href: string;
+  readonly current?: boolean;
 };
 
 export type ServiceIllustration = {
@@ -26,10 +37,28 @@ export type Service = {
   readonly illustration: ServiceIllustration;
 };
 
+export type GalleryAssetKind = "illustration" | "realisation";
+
+export type GalleryRightsStatus =
+  "project_approved" | "client_consent_confirmed" | "pending" | "blocked";
+
+export type GalleryCategoryId =
+  "tresses" | "perruques" | "tissage" | "twists-locs" | "coiffures-afro";
+
 export type GalleryItem = {
   readonly id: string;
+  readonly title: string;
+  readonly categoryId: GalleryCategoryId;
+  readonly serviceIds: readonly ServiceId[];
   readonly src: string;
   readonly alt: string;
+  readonly width: number;
+  readonly height: number;
+  readonly featured: boolean;
+  readonly kind: GalleryAssetKind;
+  readonly rightsStatus: GalleryRightsStatus;
+  /** Cadrage optionnel — exceptions documentées uniquement. */
+  readonly objectPosition?: string;
 };
 
 export type Testimonial = {

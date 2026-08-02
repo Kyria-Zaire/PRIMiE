@@ -39,7 +39,7 @@
 | --- | --- |
 | CTA principal Hero | `Réserver sur WhatsApp` → `buildWhatsAppUrl()` sans message prérempli |
 | CTA secondaire | `Découvrir nos services` → `#services`, uniquement lorsque la section Services est rendue |
-| CTA Galerie | masqué tant que `gallery` est vide / `CONTENT-VALIDATION-01` bloqué |
+| CTA Galerie | actif : aperçu `#galerie` + CTA « Découvrir la galerie » → `/galerie` (illustrations validées CTO 2026-08-02) |
 | Visuel Hero | CSS premium autorisé sans photographie tant qu’aucun asset validé n’est fourni |
 | Autorité | CTO Kyria — `2026-07-31` |
 
@@ -54,7 +54,7 @@
 | Message WhatsApp prérempli | texte PO centralisé ; CTA publics **sans** `?text=` jusqu’à activation 01C |
 | FAQ | cinq Q/R prudentes PO ; section **non rendue** tant que non activée |
 | Horaires / dimanche | **non publiés** |
-| Galerie | uniquement vraies réalisations ; illustrations interdites dans « Nos réalisations » |
+| Galerie V1 | « Galerie d’inspirations » — illustrations `project_approved` ; **interdit** de les présenter comme réalisations de Prisca. Réalisations réelles = évolution future avec consentements. |
 | Témoignages | bloqués sans texte exact et consentement |
 | Hero | CSS conservé tant qu’aucune photo réelle + autorisation |
 | Registre | `docs/content/content-register.md` |
@@ -259,7 +259,7 @@ L’ordre de la page est obligatoire :
 1. Header ;
 2. Hero ;
 3. Services ;
-4. Galerie — Nos réalisations ;
+4. Galerie — inspirations (libellé V1 ; ordre de page inchangé) ;
 5. Pourquoi me choisir ? ;
 6. Avis clientes ;
 7. FAQ ;
@@ -413,32 +413,38 @@ identiques à `CLAUDE.md`, `do-not-break` et `content/services.ts`.
 | `AC-SERVICE-004` | Une image correspond au service annoncé. |
 | `AC-SERVICE-005` | Le CTA contextualisé n’affirme aucune réservation. |
 
-## 16. Galerie — Nos réalisations
+## 16. Galerie — inspirations (V1) / réalisations (évolution)
 
-### Exigences
-- afficher une grille responsive ;
-- utiliser uniquement des réalisations authentiques et autorisées ;
-- fournir un texte alternatif utile ;
-- activer des filtres seulement si le volume le justifie ;
-- proposer une lightbox accessible ;
-- préserver la galerie de base sans JavaScript.
+### Statut V1 (validé CTO 2026-08-02)
+- intitulé public : **Galerie d’inspirations** (pas « Nos réalisations ») ;
+- 14 illustrations `kind=illustration` / `rightsStatus=project_approved` ;
+- aperçu landing `#galerie` (8 featured) + page `/galerie` + filtres catégories ;
+- disclosure obligatoire : visuels d’illustration ; réalisations de Prisca à venir ;
+- aucune attribution mensongère des images à Prisca ;
+- aucune lightbox en V1.
 
-### Critères
+### Évolution (réalisations authentiques)
+- remplacer progressivement par `kind=realisation` + consentements clientes ;
+- lightbox accessible et filtres enrichis uniquement après décision CTO ;
+- gate Production historiques sur « réalisations » s’appliquent à cette phase.
+
+### Critères V1
 
 | ID | Critère d’acceptation |
 | --- | --- |
 | `AC-GALLERY-001` | Aucun média d’illustration n’est présenté comme une réalisation. |
 | `AC-GALLERY-002` | Les dimensions ou ratios réservent l’espace et évitent le CLS. |
 | `AC-GALLERY-003` | Un filtre actif est visible et compréhensible. |
+| `AC-GALLERY-008` | Les images sont optimisées (WebP) sans perte excessive des détails. |
+
+### Critères différés (lightbox / réalisations)
+
+| ID | Critère d’acceptation |
+| --- | --- |
 | `AC-GALLERY-004` | Un filtre sans résultat produit un message honnête. |
 | `AC-GALLERY-005` | La lightbox se ferme par bouton et `Escape`. |
 | `AC-GALLERY-006` | Le focus reste contenu puis revient au déclencheur. |
 | `AC-GALLERY-007` | Le scroll de fond est restauré à la fermeture. |
-| `AC-GALLERY-008` | Les images sont optimisées sans perte excessive des détails. |
-
-### Gate contenu
-La mise en Production est bloquée tant qu’un ensemble suffisant de réalisations
-authentiques, autorisées et correctement décrites n’est pas fourni.
 
 ## 17. Pourquoi me choisir ?
 
