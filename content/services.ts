@@ -92,3 +92,8 @@ export const services = [
 ] as const satisfies readonly Service[];
 
 export type Services = typeof services;
+
+/** Identifiants canoniques des six prestations. */
+export type ServiceId = (typeof services)[number]["id"];
+
+export type { Service } from "./types";

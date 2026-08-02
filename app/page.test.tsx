@@ -34,11 +34,11 @@ describe("Home page", () => {
     expect(html).toContain(">Questions fréquentes<");
     expect(html).toContain(">Contactez PRiMiE Coiffure<");
     expect(html).toContain(
-      "Échangez directement avec Prisca sur WhatsApp pour préciser votre prestation et votre demande.",
+      "Préparez votre demande de rendez-vous, puis envoyez-la directement à Prisca sur WhatsApp.",
     );
     expect(html).toContain("Prestations à domicile");
-    expect(html).toContain('href="#services"');
-    expect(html).toContain(">Découvrir nos services<");
+    expect(html).toContain("Choisissez votre date");
+    expect(html).toContain("Envoyer ma demande sur WhatsApp");
     expect(html.match(/id="reserver"/g)).toHaveLength(1);
     expect(html.match(/id="contact"/g)).toHaveLength(1);
 
@@ -47,21 +47,12 @@ describe("Home page", () => {
       expect(html).toContain(service.description);
     }
 
-    expect(html.match(/<details\b/g)).toHaveLength(7);
+    expect(html.match(/<details\b/g)).toHaveLength(5);
     for (const item of faq) {
       expect(html).toContain(item.question);
       expect(html).toContain(item.answer);
     }
-    expect(html).not.toMatch(/dimanche/i);
-
-    expect(html).toContain(`href="${bookingWhatsApp}"`);
-    expect(html).toContain(`href="${plainWhatsApp}"`);
-    expect(html).toContain("?text=");
-    expect(decodeURIComponent(bookingWhatsApp.split("?text=")[1] ?? "")).toBe(
-      siteConfig.contact.whatsappPrefillMessage,
-    );
-    expect(bookingWhatsApp.match(/\?text=/g)).toHaveLength(1);
-    expect(bookingWhatsApp).not.toContain("%25");
+    expect(html).not.toMatch(/\bdimanche\b/i);
 
     const contactBlock = html.slice(html.indexOf('id="contact"'));
     const footerBlock = html.slice(html.indexOf("<footer"));
@@ -70,9 +61,13 @@ describe("Home page", () => {
     expect(footerBlock).toContain(`href="${plainWhatsApp}"`);
     expect(footerBlock.match(/wa\.me\/33749616582(?!\?)/)).not.toBeNull();
 
+    // Header / Hero conservent le prérempli devis ; la section réservation utilise le message dynamique au submit.
+    expect(html).toContain(`href="${bookingWhatsApp}"`);
+    expect(html).toContain("?text=");
     expect(html).toContain('href="tel:+33749616582"');
     expect(html).toContain("+33 7 49 61 65 82");
     expect(html).toContain("Réserver sur WhatsApp");
+    expect(html).toContain("Envoyer ma demande sur WhatsApp");
     expect(html).toContain("primie-hero-v1.webp");
     expect(html).toContain("primie-hero-mobile-v1.webp");
     expect(html).toContain("<img");
@@ -110,7 +105,7 @@ describe("Home page", () => {
     }
   });
 
-  it("ne contient qu’une directive client dans le shell et aucune dans sections", () => {
+  it("ne contient qu’une directive client dans le shell et le widget booking hors sections", () => {
     const pageSource = readFileSync(join(process.cwd(), "app/page.tsx"), "utf8");
     expect(pageSource).not.toMatch(/["']use client["']/);
     expect(pageSource).toMatch(
@@ -146,6 +141,12 @@ describe("Home page", () => {
       return /["']use client["']/.test(source);
     });
     expect(sectionClients).toEqual([]);
+
+    const bookingWidget = readFileSync(
+      join(process.cwd(), "components/booking/booking-request-widget.tsx"),
+      "utf8",
+    );
+    expect(bookingWidget).toMatch(/["']use client["']/);
   });
 
   it("préserve landmarks, ancres uniques et anti-invention ContactBooking", () => {
@@ -165,12 +166,13 @@ describe("Home page", () => {
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Questions fréquentes<");
     expect(html).toContain(">Contactez PRiMiE Coiffure<");
-    expect(html).toContain(">Comment réserver ?<");
-    expect(html).toContain(">Coordonnées<");
+    expect(html).toContain("Choisissez votre date");
+    expect(html).toContain("Choisissez votre créneau");
+    expect(html).toContain("Détails de la demande");
     expect(html).toContain("aria-hidden");
-    expect(html).not.toMatch(/<details[^>]*aria-expanded=/);
-    expect(html).not.toMatch(/<summary[^>]*role=["']button["']/);
-    expect(html).not.toMatch(/BOOKING-ENGINE|calendrier|<form\b|type=["']date["']/i);
-    expect(html).not.toMatch(/sélecteur de service|champ nom|déplacement inclus/i);
+    expect(html).not.toContain("Comment réserver");
+    expect(html).not.toMatch(/Déplacement inclus|06 00 00 00 00|Octobre 2024/i);
+    expect(html).not.toMatch(/BOOKING-ENGINE-V2/i);
+    expect(html).toContain("<form");
   });
 });

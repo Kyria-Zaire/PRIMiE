@@ -54,14 +54,14 @@ Règles :
 
 Sections métier dans `components/sections/`, composées dans `app/page.tsx` :
 
-`Hero` → `Services` → `FAQ` → `ContactBooking` (`#reserver` + `#contact`).
+`Hero` → `Services` → `FAQ` → `ContactBooking` (`#reserver` module demande + `#contact`).
 
-| Section        | Ancre(s)               | Contenu                                                                 |
-| -------------- | ---------------------- | ----------------------------------------------------------------------- |
-| Hero           | `#accueil`             | Art direction WebP desktop/mobile ; slogan ; CTA WhatsApp + `#services` |
-| Services       | `#services`            | Six prestations illustrées (`content/services.ts`), grille 1/2/3        |
-| FAQ            | `#faq`                 | Cinq Q/R natives (`details`/`summary`) depuis `content/faq.ts`          |
-| ContactBooking | `#reserver` `#contact` | Section fusionnée sombre ; CTA WhatsApp prérempli ; tel + WA plain      |
+| Section        | Ancre(s)               | Contenu                                                                                                |
+| -------------- | ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| Hero           | `#accueil`             | Art direction WebP desktop/mobile ; slogan ; CTA WhatsApp + `#services`                                |
+| Services       | `#services`            | Six prestations illustrées (`content/services.ts`), grille 1/2/3                                       |
+| FAQ            | `#faq`                 | Cinq Q/R natives (`details`/`summary`) depuis `content/faq.ts`                                         |
+| ContactBooking | `#reserver` `#contact` | Module demande RDV (calendrier, créneaux, formulaire, CTA WhatsApp dynamique) ; bandeau tel + WA plain |
 
 Navigation visible : Accueil, Services, FAQ, Réserver, Contact.
 

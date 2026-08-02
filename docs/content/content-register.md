@@ -17,7 +17,8 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | 6 titres services | Liste do-not-break | VALIDATED | CTO / métier | 2026-07-31 | `services.ts` | — | — |
 | 6 descriptions services | Seed PO exactes | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | cartes Services | — | — |
 | Prix / durées | Non publiés | PENDING_PRISCA | Prisca | 2026-07-31 | — | Décision métier | Rester hors runtime public |
-| Message WhatsApp prérempli | Bonjour Prisca… devis | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | Header / Hero / ContactBooking `#reserver` (+ menu mobile) | ContactBooking `#contact` / Footer sans `?text=` | — |
+| Message WhatsApp prérempli | Bonjour Prisca… devis | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | Header / Hero (+ menu mobile) | ContactBooking `#contact` / Footer sans `?text=` ; `#reserver` dynamique via widget | — |
+| Message WhatsApp demande RDV | Template dynamique nom/tél/prestation/date/créneau | PO_APPROVED_SEED (CTO FLOW-01) | CTO | 2026-08-01 | `lib/booking/message.ts` + `BookingRequestWidget` | Généré au submit uniquement | Destination `BOOKING-WHATSAPP-FLOW` |
 | FAQ (5 Q/R) | Seed prudente | PUBLISHED_PO_APPROVED_SEED | PO / CTO | 2026-08-01 | `#faq` + nav | — | — |
 | Logo visuel | `public/brand/logo/primie-logo-v1.webp` (source `images/logo.png` hors commit) | PUBLISHED_BRAND_ASSET | Prisca / CTO | 2026-08-01 | `BrandLogo` via `next/image` | — | Ne pas committer le PNG source sans décision CTO |
 | Photo Hero desktop | `public/images/hero/primie-hero-v1.webp` (source `images/primie-hero.png`) | PUBLISHED_SERVICE_ILLUSTRATION | Prisca / CTO | 2026-08-01 | Hero ≥1024px | — | Ne pas committer PNG sans décision CTO |
@@ -32,8 +33,9 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Témoignages | `[]` | DEFERRED — tableau vide, section masquée | CTO | 2026-08-01 | `testimonials.ts` | Feature future `TESTIMONIALS-CONTENT-01` | BACKLOG — NOT OPEN |
 | Pistes avis (prénoms seuls) | Olive, Octavie, Annaelle, Plamédie — pistes uniquement | PENDING_PRISCA | PO | 2026-07-31 | registre seulement | Pas de texte/consentement | Transférer vers `TESTIMONIALS-CONTENT-01` |
 | Pourquoi choisir PRiMiE | 5 brouillons PO | PENDING_PRISCA | Prisca | 2026-07-31 | futur `benefits.ts` | Non créé | Validation Prisca |
-| Horaires proposés | Lun–sam 09h–19h sur RDV | PENDING_PRISCA | Prisca | 2026-07-31 | — | Non publiés | Confirmer avant runtime |
-| Dimanche | Non confirmé | PENDING_PRISCA | Prisca | 2026-07-31 | — | — | Confirmer ou rester masqué |
+| Horaires seed demande RDV | Lundi – Samedi · 09h00 – 19h00 · Uniquement sur rendez-vous | PO_APPROVED_SEED (CTO 2026-08-01) | CTO | 2026-08-01 | `content/booking.ts` (`openingHours`) | Non exposés UI publique en 01B | Destination `BOOKING-WHATSAPP-FLOW` — demande, pas disponibilité |
+| Créneaux de demande | 09:00, 10:30, 12:00, 14:30, 16:00, 17:30 | PO_APPROVED_SEED (CTO 2026-08-01) | CTO | 2026-08-01 | `content/booking.ts` (`timeSlots`) | Non exposés UI publique en 01B | Horizon 90 j · lun–sam · dimanche désactivé |
+| Dimanche | Désactivé pour sélection (CTO FLOW-01) | VALIDATED (sélection) | CTO | 2026-08-01 | `bookingConfig.selectableWeekdays` | — | Hors créneaux sélectionnables |
 | Zone | Domicile OK, zone précise non | PENDING_PRISCA | Prisca | 2026-07-31 | — | — | Confirmer formulation |
 | Réseaux sociaux | En création, aucun lien | PENDING_PRISCA | Prisca | 2026-07-31 | — | — | Attendre URL publiques |
 | Mentions légales | Absentes | PENDING_PRISCA | Prisca / CTO | 2026-07-31 | — | Production | Gate Release |
@@ -48,4 +50,5 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Témoignages : différés (`TESTIMONIALS-CONTENT-01`, BACKLOG — NOT OPEN) ; aucun prénom runtime sans texte exact et consentement.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.
+- CTA ContactBooking demande RDV : message dynamique généré au submit (pas de stockage).
 - Sources locales : dossier canonique `images/services/` (pluriel) pour les illustrations Services.
