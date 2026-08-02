@@ -30,6 +30,7 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Illus. service vente-pose-perruques | WebP `public/images/services/vente-pose-perruques.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
 | Illus. service tissage | WebP `public/images/services/tissage.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
 | Galerie | 14 illustrations WebP + page `/galerie` + aperçu landing | PUBLISHED_GALLERY_ILLUSTRATION (01B–01D) | CTO | 2026-08-02 | `gallery.ts` + `public/images/gallery/*.webp` + `app/galerie` | Sources PNG locales hors suivi | `GALLERY-CONTENT-01E` QA / clôture |
+| Portrait Hero `/galerie` | `public/images/gallery/gallery-hero-model-v1.webp` (source `images/gallery/tresses-longues.png`) | PUBLISHED_GALLERY_HERO_ASSET | CTO | 2026-08-02 | `GalleryPageHero` uniquement | Alpha préservé ; hors grille Gallery | `GALLERY-PAGE-HERO-R1` |
 | Témoignages | `[]` | DEFERRED — tableau vide, section masquée | CTO | 2026-08-01 | `testimonials.ts` | Feature future `TESTIMONIALS-CONTENT-01` | BACKLOG — NOT OPEN |
 | Pistes avis (prénoms seuls) | Olive, Octavie, Annaelle, Plamédie — pistes uniquement | PENDING_PRISCA | PO | 2026-07-31 | registre seulement | Pas de texte/consentement | Transférer vers `TESTIMONIALS-CONTENT-01` |
 | Pourquoi choisir PRiMiE | 5 brouillons PO | PENDING_PRISCA | Prisca | 2026-07-31 | futur `benefits.ts` | Non créé | Validation Prisca |

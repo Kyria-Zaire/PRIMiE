@@ -443,7 +443,8 @@ Validation BMAD (G2 passé)
 │   ├── GALLERY-CONTENT-01C (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01C-R1 (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01D (DONE — Validé CTO 2026-08-02)
-│   └── GALLERY-CONTENT-01E (DONE — Validé CTO 2026-08-02)
+│   ├── GALLERY-CONTENT-01E (DONE — Validé CTO 2026-08-02)
+│   └── GALLERY-PAGE-HERO-R1 (DONE — Validé CTO 2026-08-02)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -503,6 +504,7 @@ traçabilité.
 | `01gcr1` | `GALLERY-CONTENT-01C-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C` |
 | `01gd` | `GALLERY-CONTENT-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C-R1` |
 | `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-02` | `P1` | `01D` |
+| `01gphr1` | `GALLERY-PAGE-HERO-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | post-clôture `GALLERY-CONTENT-01` |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P1` | textes + consentements |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -729,6 +731,15 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO 2026-08-02`
 - Dépendances : `GALLERY-CONTENT-01D`
 - Inclus : QA finale, audits, documentation, checkpoint contrôlé (2 commits + push)
+
+##### GALLERY-PAGE-HERO-R1 — Correctif Hero `/galerie` (post-clôture)
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `GALLERY-CONTENT-01` DONE (ne rouvre pas 01A–01E)
+- Inclus : Hero bandeau compact, portrait WebP alpha `gallery-hero-model-v1.webp`, filtres dans le Hero, composition mobile asymétrique
+- Clôture : `2026-08-02` — VISUAL APPROVED CTO, checkpoint publish (commit + push, aucun déploiement)
+- Note : `GALLERY-CONTENT-01` reste `DONE` ; `TESTIMONIALS-CONTENT-01` reste `BACKLOG — NOT OPEN` ; `WHY-PRIMIE-01` non ouvert
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages (futur)
 
