@@ -29,8 +29,6 @@ export const galleryCopy = {
     accent: "Chaque coiffure, une inspiration unique",
     description:
       "Découvrez une sélection de styles qui reflètent l’univers et les prestations proposées par PRiMiE Coiffure.",
-    disclosure:
-      "Visuels d’illustration. Les réalisations de Prisca enrichiront progressivement cette galerie.",
     ctaLabel: "Découvrir la galerie",
     ctaHref: "/galerie",
   },
@@ -42,8 +40,6 @@ export const galleryCopy = {
     accent: "Chaque coiffure, une inspiration unique",
     description:
       "Découvrez une sélection de styles qui reflètent l’univers et les prestations proposées par PRiMiE Coiffure.",
-    disclosure:
-      "Visuels d’illustration. Les réalisations de Prisca enrichiront progressivement cette galerie.",
     bookingCtaLabel: "Faire une demande de rendez-vous",
     bookingCtaHref: "/#reserver",
     bookingSecondary: "Préparez votre demande et échangez directement avec Prisca sur WhatsApp.",

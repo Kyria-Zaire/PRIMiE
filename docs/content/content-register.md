@@ -49,7 +49,8 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Autres illustrations locales hors `public/` : hors périmètre et **non publiées**.
 - Galerie « Galerie d’inspirations » : 14 illustrations `kind=illustration` /
   `rightsStatus=project_approved` (CTO 2026-08-02). **Ne pas présenter comme
-  réalisations de Prisca.** Disclosure obligatoire sur landing et page.
+  réalisations de Prisca.** Transparence via titre / accent / description ;
+  paragraphe disclosure retiré (`GALLERY-DISCLOSURE-R1`, CTO 2026-08-02).
   Sources PNG `images/gallery/*.png` hors suivi (14 chemins exacts dans
   `.git/info/exclude`). Runtime WebP uniquement (`public/images/gallery/`).
   UI : aperçu landing `#galerie` + page `/galerie` + filtres (01C–01D).

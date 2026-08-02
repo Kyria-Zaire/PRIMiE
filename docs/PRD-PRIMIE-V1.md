@@ -422,8 +422,10 @@ identiques à `CLAUDE.md`, `do-not-break` et `content/services.ts`.
 - intitulé public : **Galerie d’inspirations** (pas « Nos réalisations ») ;
 - 14 illustrations `kind=illustration` / `rightsStatus=project_approved` ;
 - aperçu landing `#galerie` (8 featured) + page `/galerie` + filtres catégories ;
-- disclosure obligatoire : visuels d’illustration ; réalisations de Prisca à venir ;
-- aucune attribution mensongère des images à Prisca ;
+- transparence éditoriale via le titre, l’accent « Chaque coiffure, une inspiration
+  unique » et la description (sélection de styles) — **pas** de paragraphe
+  disclosure dédié (`GALLERY-DISCLOSURE-R1`, CTO 2026-08-02) ;
+- aucune attribution des illustrations comme réalisations de Prisca ;
 - aucune lightbox en V1.
 
 ### Évolution (réalisations authentiques)

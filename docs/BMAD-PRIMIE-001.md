@@ -444,7 +444,8 @@ Validation BMAD (G2 passé)
 │   ├── GALLERY-CONTENT-01C-R1 (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01D (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-CONTENT-01E (DONE — Validé CTO 2026-08-02)
-│   └── GALLERY-PAGE-HERO-R1 (DONE — Validé CTO 2026-08-02)
+│   ├── GALLERY-PAGE-HERO-R1 (DONE — Validé CTO 2026-08-02)
+│   └── GALLERY-DISCLOSURE-R1 (DONE — Validé CTO 2026-08-02)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -505,6 +506,7 @@ traçabilité.
 | `01gd` | `GALLERY-CONTENT-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | `01C-R1` |
 | `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-02` | `P1` | `01D` |
 | `01gphr1` | `GALLERY-PAGE-HERO-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | post-clôture `GALLERY-CONTENT-01` |
+| `01gdr1` | `GALLERY-DISCLOSURE-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | retrait disclosure public |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -708,6 +710,7 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO 2026-08-02`
 - Dépendances : `GALLERY-CONTENT-01B`
 - Inclus : `GalleryPreview` `#galerie`, rail featured ×8, nav « Galerie », disclosure
+  (disclosure retiré ensuite via `GALLERY-DISCLOSURE-R1`)
 - Exclus à la clôture 01C : CTA `/galerie` (ouvert en 01D), page dédiée, filtres, lightbox, commit
 
 ##### GALLERY-CONTENT-01C-R1 — Corrective visuelle rail
@@ -740,6 +743,21 @@ peuvent être centralisés avant affichage UI.
 - Inclus : Hero bandeau compact, portrait WebP alpha `gallery-hero-model-v1.webp`, filtres dans le Hero, composition mobile asymétrique
 - Clôture : `2026-08-02` — VISUAL APPROVED CTO, checkpoint publish (commit + push, aucun déploiement)
 - Note : `GALLERY-CONTENT-01` reste `DONE` ; `TESTIMONIALS-CONTENT-01` = `CANCELLED` (CTO 2026-08-02) ; `WHY-PRIMIE-01` non ouvert
+
+##### GALLERY-DISCLOSURE-R1 — Retrait disclosure illustration
+
+- Mode : `IMPLEMENT` + `VERIFY` + `PUBLISH`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `GALLERY-CONTENT-01` DONE (ne rouvre pas 01A–01E)
+- Décision CTO : supprimer le paragraphe
+  « Visuels d’illustration. Les réalisations de Prisca enrichiront progressivement
+  cette galerie. » sur `/` et `/galerie`
+- Transparence conservée via titre « Galerie d’inspirations », accent
+  « Chaque coiffure, une inspiration unique », description (sélection de styles) ;
+  aucune attribution des images comme réalisations de Prisca
+- Inclus : runtime copy/UI/tests, alignement PRD/registre/BMAD, checkpoint publish
+- Exclus : changement d’assets, Hero R1, filtres, CTA, Testimonials, déploiement
+- Note : `GALLERY-CONTENT-01` reste `DONE` ; `WHY-PRIMIE-01` non ouvert
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 

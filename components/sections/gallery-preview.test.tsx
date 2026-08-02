@@ -49,7 +49,7 @@ describe("GalleryPreview", () => {
     expect(globalsCss).not.toMatch(/-ms-overflow-style:\s*none/);
   });
 
-  it("rend #galerie, CTA /galerie, 8 cartes featured et disclosure", () => {
+  it("rend #galerie, CTA /galerie et 8 cartes featured sans disclosure", () => {
     const html = renderToStaticMarkup(<GalleryPreview />);
     const copy = galleryCopy.landing;
 
@@ -58,7 +58,7 @@ describe("GalleryPreview", () => {
     expect(html).toContain(`>${copy.title}<`);
     expect(html).toContain(copy.accent);
     expect(html).toContain(copy.description);
-    expect(html).toContain(copy.disclosure);
+    expect(html).not.toMatch(/Visuels d’illustration/i);
     expect(html).toContain(`>${copy.ctaLabel}<`);
     expect(html).toContain(`href="${copy.ctaHref}"`);
     expect(html).toContain('href="/galerie"');

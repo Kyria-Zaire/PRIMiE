@@ -54,25 +54,19 @@ export default function GaleriePage() {
         <GalleryFilters
           items={gallery}
           footer={
-            <>
-              <p className="mx-auto max-w-2xl text-center font-sans text-xs leading-relaxed text-muted-foreground sm:text-sm">
-                {copy.disclosure}
+            <div className="mx-auto flex max-w-xl flex-col items-center gap-4 rounded-2xl bg-black px-6 py-8 text-center sm:px-10 sm:py-10">
+              <p className="max-w-prose font-sans text-sm leading-relaxed text-on-dark-muted sm:text-base">
+                {copy.bookingSecondary}
               </p>
-
-              <div className="mx-auto flex max-w-xl flex-col items-center gap-4 rounded-2xl bg-black px-6 py-8 text-center sm:px-10 sm:py-10">
-                <p className="max-w-prose font-sans text-sm leading-relaxed text-on-dark-muted sm:text-base">
-                  {copy.bookingSecondary}
-                </p>
-                <LinkButton
-                  href={copy.bookingCtaHref}
-                  variant="primary"
-                  size="lg"
-                  className="w-full justify-center sm:w-auto"
-                >
-                  {copy.bookingCtaLabel}
-                </LinkButton>
-              </div>
-            </>
+              <LinkButton
+                href={copy.bookingCtaHref}
+                variant="primary"
+                size="lg"
+                className="w-full justify-center sm:w-auto"
+              >
+                {copy.bookingCtaLabel}
+              </LinkButton>
+            </div>
           }
         >
           <GalleryPageHero />

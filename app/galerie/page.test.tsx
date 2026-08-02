@@ -34,7 +34,8 @@ describe("app/galerie/page — GALLERY-PAGE-HERO-R1", () => {
     expect(copy.description).toBe(
       "Découvrez une sélection de styles qui reflètent l’univers et les prestations proposées par PRiMiE Coiffure.",
     );
-    expect(copy.disclosure).toContain("Visuels d’illustration");
+    expect(source).not.toContain("copy.disclosure");
+    expect(source).not.toMatch(/Visuels d’illustration/i);
     expect(copy.bookingCtaLabel).toBe("Faire une demande de rendez-vous");
     expect(copy.bookingCtaHref).toBe("/#reserver");
     expect(source).toContain("items={gallery}");

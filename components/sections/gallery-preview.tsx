@@ -9,7 +9,7 @@ import { featuredGallery, galleryCopy } from "@/content/gallery";
  * Rail horizontal CSS ; CTA `/galerie` activé (route 01D).
  */
 export function GalleryPreview() {
-  const { title, accent, description, disclosure, ctaLabel, ctaHref } = galleryCopy.landing;
+  const { title, accent, description, ctaLabel, ctaHref } = galleryCopy.landing;
 
   return (
     <Section id="galerie" tone="cream" aria-labelledby="galerie-heading">
@@ -53,9 +53,6 @@ export function GalleryPreview() {
           <LinkButton href={ctaHref} size="md" className="w-full justify-center sm:w-auto">
             {ctaLabel}
           </LinkButton>
-          <p className="text-center font-sans text-xs leading-relaxed text-muted-foreground sm:text-sm">
-            {disclosure}
-          </p>
         </div>
       </Container>
     </Section>

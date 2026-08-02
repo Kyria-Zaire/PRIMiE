@@ -128,7 +128,8 @@ describe("gallery content — GALLERY-CONTENT-01B", () => {
     expect(galleryCopy.landing.ctaHref).toBe("/galerie");
     expect(galleryCopy.page.title).toBe("Galerie d’inspirations");
     expect(galleryCopy.page.accent).toBe("Chaque coiffure, une inspiration unique");
-    expect(galleryCopy.page.disclosure).toContain("Visuels d’illustration");
+    expect(galleryCopy.landing).not.toHaveProperty("disclosure");
+    expect(galleryCopy.page).not.toHaveProperty("disclosure");
     expect(galleryCopy.page.metaTitle).toBe("Galerie d’inspirations | Chez PRiMiE Coiffure");
     expect(galleryCopy.page.bookingCtaLabel).toBe("Faire une demande de rendez-vous");
     expect(galleryCopy.page.bookingCtaHref).toBe("/#reserver");
@@ -137,6 +138,6 @@ describe("gallery content — GALLERY-CONTENT-01B", () => {
     const blob = JSON.stringify({ gallery, galleryCopy, galleryCategories });
     expect(blob).not.toMatch(/Nos réalisations|Mes réalisations/i);
     expect(blob).toContain("Galerie d’inspirations");
-    expect(blob).toContain("Visuels d’illustration");
+    expect(blob).not.toMatch(/Visuels d’illustration/i);
   });
 });
