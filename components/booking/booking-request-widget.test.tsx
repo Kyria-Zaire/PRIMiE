@@ -23,7 +23,7 @@ describe("ContactBooking section — FLOW-01C", () => {
     expect(source).not.toMatch(/["']use client["']/);
     expect(source).not.toMatch(/\b(useState|useEffect|useRef)\b/);
     expect(source).toContain("BookingRequestWidget");
-    expect(source).toContain("BrandLogo");
+    expect(source).not.toContain("BrandLogo");
     expect(source).toContain('id="reserver"');
     expect(source).not.toContain("<details");
     expect(source).not.toContain("Comment réserver");

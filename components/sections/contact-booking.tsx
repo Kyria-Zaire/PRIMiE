@@ -1,4 +1,3 @@
-import { BrandLogo } from "@/components/shell/brand-logo";
 import { BookingRequestWidget } from "@/components/booking/booking-request-widget";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -64,22 +63,16 @@ export function ContactBooking() {
         <div className="relative overflow-hidden rounded-[1.75rem] border border-gold/75 bg-black shadow-[0_0_0_1px_color-mix(in_srgb,var(--color-gold)_28%,transparent),0_20px_52px_-26px_color-mix(in_srgb,var(--color-bronze)_60%,transparent)] ring-1 ring-gold/40 sm:rounded-[2rem]">
           <div className="relative border-b border-bronze/30 px-5 py-3.5 sm:px-8 sm:py-4 lg:px-10 lg:py-5">
             <GoldCurves />
-            <div className="relative z-10 grid grid-cols-1 items-center gap-3 lg:grid-cols-[auto_minmax(0,1fr)_5rem] lg:gap-4">
-              <div className="flex justify-center lg:justify-start">
-                <BrandLogo className="h-12 w-auto sm:h-14 lg:h-[4.5rem]" />
-              </div>
-              <div className="flex max-w-2xl flex-col items-center gap-2 text-center lg:mx-auto">
-                <h2
-                  id="contact-booking-heading"
-                  className="font-display text-2xl font-semibold tracking-tight text-balance text-gold sm:text-3xl md:text-4xl"
-                >
-                  Contactez PRiMiE Coiffure
-                </h2>
-                <p className="max-w-prose font-sans text-sm text-on-dark-muted sm:text-base">
-                  {bookingConfig.copy.subtitle}
-                </p>
-              </div>
-              <div className="hidden lg:block" aria-hidden="true" />
+            <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-2 text-center">
+              <h2
+                id="contact-booking-heading"
+                className="font-display text-2xl font-semibold tracking-tight text-balance text-gold sm:text-3xl md:text-4xl"
+              >
+                Contactez PRiMiE Coiffure
+              </h2>
+              <p className="max-w-prose font-sans text-sm text-on-dark-muted sm:text-base">
+                {bookingConfig.copy.subtitle}
+              </p>
             </div>
           </div>
 

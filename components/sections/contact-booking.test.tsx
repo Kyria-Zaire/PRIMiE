@@ -52,6 +52,7 @@ describe("ContactBooking section", () => {
     expect(source).not.toMatch(/\b(window|document|localStorage)\b/);
     expect(source).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
     expect(source).toContain("BookingRequestWidget");
+    expect(source).not.toContain("BrandLogo");
     expect(source).toContain('id="reserver"');
     expect(source).toContain('aria-hidden="true"');
     expect(source).not.toContain("<details");
