@@ -429,6 +429,13 @@ Validation BMAD (G2 passé)
 │   ├── CONTACT-BOOKING-01C (DONE — Validé CTO 2026-08-01)
 │   ├── CONTACT-BOOKING-01D (DONE — Validé CTO 2026-08-01)
 │   └── CONTACT-BOOKING-01E (DONE — Validé CTO 2026-08-01)
+├── BOOKING-WHATSAPP-FLOW-01 (DONE — clôturé le 2026-08-02)
+│   ├── BOOKING-WHATSAPP-FLOW-01A (DONE — Validé CTO 2026-08-01)
+│   ├── BOOKING-WHATSAPP-FLOW-01B (DONE — Validé CTO 2026-08-01)
+│   ├── BOOKING-WHATSAPP-FLOW-01C (DONE — Validé CTO 2026-08-02)
+│   │   └── BOOKING-WHATSAPP-FLOW-01C-R1 (DONE — Validé CTO 2026-08-02)
+│   ├── BOOKING-WHATSAPP-FLOW-01D (DONE — Validé CTO 2026-08-02)
+│   └── BOOKING-WHATSAPP-FLOW-01E (DONE — Validé CTO 2026-08-02)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -488,6 +495,13 @@ traçabilité.
 | `01cbc` | `CONTACT-BOOKING-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-01` | `P0` | `01B` |
 | `01cbd` | `CONTACT-BOOKING-01D` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `01C` |
 | `01cbe` | `CONTACT-BOOKING-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-01` | `P0` | `01D` |
+| `01bw` | `BOOKING-WHATSAPP-FLOW-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-02` | `P0` | CONTACT-BOOKING-01 DONE |
+| `01bwa` | `BOOKING-WHATSAPP-FLOW-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
+| `01bwb` | `BOOKING-WHATSAPP-FLOW-01B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-01` | `P0` | `01A` |
+| `01bwc` | `BOOKING-WHATSAPP-FLOW-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P0` | `01B` |
+| `01bwcr1` | `BOOKING-WHATSAPP-FLOW-01C-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P0` | `01C` |
+| `01bwd` | `BOOKING-WHATSAPP-FLOW-01D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P0` | `01C-R1` |
+| `01bwe` | `BOOKING-WHATSAPP-FLOW-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-02` | `P0` | `01D` |
 | `01be` | `BOOKING-ENGINE-V2` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P2` | hors V1 WhatsApp |
 | `02` | `INIT-SCAFFOLD-01A` | `DISCOVER` | `DONE` | `P0` | G2 |
 | `03` | `INIT-SCAFFOLD-01B` | `IMPLEMENT` | `DONE` | `P0` | `INIT-SCAFFOLD-01A` |
@@ -777,6 +791,77 @@ aucune incrémentation de version.
 - Inclus futur : disponibilités, calendrier, créneaux, fuseau, anti-conflits,
   interface Prisca, stockage, confirmations, RGPD
 - Exclus immédiat : hors parcours WhatsApp V1
+
+### BOOKING-WHATSAPP-FLOW-01 — Demande de RDV WhatsApp (calendrier + formulaire)
+
+**Métadonnées**
+
+- Feature : `FEATURE-BOOKING-WHATSAPP-FLOW-V1`
+- Mode : `IMPLEMENT`
+- Statut : `DONE — clôturé le 2026-08-02`
+- Priorité : `P0`
+- Autorité : Kyria — CTO
+- Ouverture : `2026-08-01`
+- Clôture : `2026-08-02`
+- PRD : `docs/PRD-PRIMIE-V1.md` version `1.3`
+- Distinct de : `CONTACT-BOOKING-01` (DONE historique) et `BOOKING-ENGINE-V2` (BACKLOG — NOT OPEN)
+
+**Objectif**
+
+Remplacer progressivement la simplification visuelle `ContactBooking` par un module
+de **demande** de rendez-vous (calendrier, créneaux, formulaire, résumé, message
+WhatsApp dynamique), sans confirmer automatiquement une réservation ni ouvrir
+`BOOKING-ENGINE-V2`.
+
+#### BOOKING-WHATSAPP-FLOW-01A — Discover / cadrage
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-01`
+- Inclus : audit maquettes, décisions fuseau/créneaux/horizon, découpage 01B–01E
+
+#### BOOKING-WHATSAPP-FLOW-01B — Moteur pur
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-01`
+- Dépendances : `BOOKING-WHATSAPP-FLOW-01A`
+- Inclus : `content/booking.ts`, `lib/booking/*` (calendrier, validation, message),
+  types, tests déterministes
+- Exclus : UI calendrier/formulaire, Client Component, backend, commit, ouverture 01C
+
+#### BOOKING-WHATSAPP-FLOW-01C — UI desktop
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `BOOKING-WHATSAPP-FLOW-01B`
+- Inclus : `BookingRequestWidget` Client, composition desktop 3 colonnes, branchement
+  moteur 01B, formulaire, résumé, CTA WhatsApp dynamique, bandeau `#contact`
+- Exclus : accordéon mobile final, progression par étapes, clôture, commit, 01D
+
+#### BOOKING-WHATSAPP-FLOW-01C-R1 — Corrective visuelle desktop
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `BOOKING-WHATSAPP-FLOW-01C`
+- Inclus : densité verticale, titre créneaux, bandeau informations, CTA disabled DA,
+  logo desktop, contour principal — sans changement moteur / WhatsApp
+- Exclus : accordéon mobile, 01D, clôture 01C, commit
+
+#### BOOKING-WHATSAPP-FLOW-01D — UI mobile
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `BOOKING-WHATSAPP-FLOW-01C-R1`
+- Inclus : parcours déroulant 4 étapes sous `lg`, même état que desktop, bandeau `#contact`
+- Exclus : redesign desktop, moteur 01B, stockage, commit, ouverture 01E
+
+#### BOOKING-WHATSAPP-FLOW-01E — QA / clôture
+
+- Mode : `VERIFY`
+- Statut : `DONE — Validé CTO 2026-08-02`
+- Dépendances : `BOOKING-WHATSAPP-FLOW-01D`
+- Inclus : polish UX final (verrouillage étapes, typo actions), QA complète FLOW,
+  captures, qualité, rapport de clôture candidat
+- Exclus : déploiement, BOOKING-ENGINE-V2, ouverture Gallery/Testimonials
 
 ### INIT-SCAFFOLD-01A — Audit initial du socle
 
@@ -1679,20 +1764,23 @@ commit `feat: add PRiMiE landing shell` —
 `LANDING-CORE-01` est `DONE` (clôturé le `2026-07-31` ; preuve :
 commit `feat: add PRiMiE landing core` —
 `ed4dacff6691b013d0ced07a8bc2b7c53ee813dd` sur `origin/main`).
-Handoff actif : `CONTACT-BOOKING-01` est `DONE — clôturé le 2026-08-01`
-(`01A`–`01E` DONE — Validé CTO 2026-08-01 ; preuve checkpoint :
-`feat: fuse PRiMiE booking and contact section`).
+Handoff actif : `BOOKING-WHATSAPP-FLOW-01` est `DONE — clôturé le 2026-08-02`
+(`01A`–`01E` / `01C-R1` DONE — Validé CTO ; `01E` Validé CTO 2026-08-02).
+Preuve implémentation : commit `feat: add PRiMiE WhatsApp booking flow` —
+`9ced8e52dc33264cc9e8c5a36772a345964935a2` sur `origin/main`.
+`CONTACT-BOOKING-01` reste `DONE` historiquement.
 `BOOKING-ENGINE-V2` : `BACKLOG — NOT OPEN`.
 Features futures non ouvertes : `GALLERY-CONTENT-01`, `TESTIMONIALS-CONTENT-01`,
 `BOOKING-ENGINE-V2` (`BACKLOG — NOT OPEN`).
 PRD actif : version `1.3`.
 
-### Après clôture CONTACT-BOOKING-01
+### Après clôture BOOKING-WHATSAPP-FLOW-01
 
-1. ne pas ouvrir `BOOKING-ENGINE-V2`, `GALLERY-CONTENT-01` ni `TESTIMONIALS-CONTENT-01`
+1. `CONTACT-BOOKING-01` et `BOOKING-WHATSAPP-FLOW-01` restent DONE ; ne pas les
+   rouvrir hors décision CTO ;
+2. ne pas ouvrir `BOOKING-ENGINE-V2`, `GALLERY-CONTENT-01` ni `TESTIMONIALS-CONTENT-01`
    sans décision CTO explicite ;
-2. ne déployer en Production qu’avec autorisation CTO explicite ;
-3. aucune feature suivante n’est ouverte par cette clôture.
+3. ne déployer en Production qu’avec autorisation CTO explicite.
 
 ### Décision enregistrée
 
