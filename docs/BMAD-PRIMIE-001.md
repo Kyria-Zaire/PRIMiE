@@ -476,9 +476,10 @@ Validation BMAD (G2 passé)
 │   │   ├── DEPENDENCY-SECURITY-R1B-R1 (SUPERSEDED sur la provenance CLAUDE.md)
 │   │   └── DEPENDENCY-SECURITY-R1B-R2 (DONE — Validé CTO 2026-08-04)
 │   └── DEPENDENCY-SECURITY-R1C-CHECKPOINT (DONE — publié le 2026-08-04)
-├── CLAUDE-GOVERNANCE-CLEANUP-R1 (IN_PROGRESS — cleanup gouvernance)
+├── CLAUDE-GOVERNANCE-CLEANUP-R1 (DONE — clôturé le 2026-08-04)
 │   ├── CLAUDE-GOVERNANCE-CLEANUP-R1A (DONE — Validé CTO 2026-08-04)
-│   └── CLAUDE-GOVERNANCE-CLEANUP-R1B (IN_PROGRESS — en attente CTO)
+│   ├── CLAUDE-GOVERNANCE-CLEANUP-R1B (DONE — Validé CTO 2026-08-04)
+│   └── CLAUDE-GOVERNANCE-CLEANUP-R1C-CHECKPOINT (DONE — publié le 2026-08-04)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -567,9 +568,10 @@ traçabilité.
 | `01dsr1br1` | `DEPENDENCY-SECURITY-R1B-R1` | `CORRECTIVE` | `SUPERSEDED` sur provenance `CLAUDE.md` | `P0` | restauration erronée |
 | `01dsr1br2` | `DEPENDENCY-SECURITY-R1B-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-04` | `P0` | stash `user-intent-remove-claude-md` |
 | `01dsr1c` | `DEPENDENCY-SECURITY-R1C-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push sécurité + BMAD |
-| `01cgr1` | `CLAUDE-GOVERNANCE-CLEANUP-R1` | `IMPLEMENT` | `IN_PROGRESS` | `P0` | suppression volontaire `CLAUDE.md` |
+| `01cgr1` | `CLAUDE-GOVERNANCE-CLEANUP-R1` | `IMPLEMENT` | `DONE — clôturé le 2026-08-04` | `P0` | suppression volontaire `CLAUDE.md` |
 | `01cgr1a` | `CLAUDE-GOVERNANCE-CLEANUP-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-04` | `P0` | audit refs / couverture |
-| `01cgr1b` | `CLAUDE-GOVERNANCE-CLEANUP-R1B` | `IMPLEMENT` | `IN_PROGRESS — en attente CTO` | `P0` | cleanup refs actives |
+| `01cgr1b` | `CLAUDE-GOVERNANCE-CLEANUP-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-04` | `P0` | cleanup refs actives |
+| `01cgr1c` | `CLAUDE-GOVERNANCE-CLEANUP-R1C-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push + drop stash |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
@@ -1070,7 +1072,8 @@ peuvent être centralisés avant affichage UI.
 - Commit sécurité : `a34536e` — `fix(deps): patch transitive security advisories`
 - Fichiers publiés : `package.json`, `pnpm-lock.yaml` uniquement
 - Note : suppression volontaire de `CLAUDE.md` (intention Kyria) conservée dans le
-  stash local `user-intent-remove-claude-md` (`D CLAUDE.md`) — audit `CLAUDE-GOVERNANCE-CLEANUP-R1A` DONE ; cleanup refs `R1B` en cours ;
+  stash local `user-intent-remove-claude-md` (`D CLAUDE.md`) — audit
+  `CLAUDE-GOVERNANCE-CLEANUP-R1A`/`R1B` DONE ; checkpoint `R1C` publié le 2026-08-04 ;
   hors manifeste du checkpoint sécurité
 
 #### DEPENDENCY-SECURITY-R1A — Audit read-only
@@ -1120,14 +1123,19 @@ peuvent être centralisés avant affichage UI.
 **Métadonnées**
 
 - Feature : `FEATURE-GOVERNANCE-CLEANUP`
-- Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS` — en attente CTO sur `R1B`
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — clôturé le 2026-08-04`
 - Priorité : `P0`
 - Autorité : Kyria — CTO
 - Intention : suppression volontaire de `CLAUDE.md` (Kyria)
-- Sauvegarde : stash local `user-intent-remove-claude-md` conservé jusqu’au checkpoint distant vérifié
-- Remplacement : **aucun** fichier racine substitut (`PROJECT.md` / `AI.md` interdits)
-- Sources actives : `.cursor/rules/00-project.mdc`, `.claude/rules/**`, `do-not-break`
+- Clôture : checkpoint `R1C` publié le `2026-08-04` — aucun déploiement
+- Remplacement : **aucun** fichier racine substitut (`PROJECT.md` / `AI.md` /
+  `AGENTS.md` interdits)
+- Couverture : aucune règle critique perdue ; règles distribuées entre
+  `.cursor/rules/00-project.mdc`, `.claude/rules/**` (dont `do-not-break`),
+  skills, tests et documentation
+- Références historiques : conservées uniquement pour traçabilité
+  (INIT-SCAFFOLD, DEPENDENCY-SECURITY-R1B-*, BMAD-METHOD)
 
 #### CLAUDE-GOVERNANCE-CLEANUP-R1A — Audit
 
@@ -1140,9 +1148,20 @@ peuvent être centralisés avant affichage UI.
 #### CLAUDE-GOVERNANCE-CLEANUP-R1B — Cleanup des références actives
 
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS — en attente CTO`
-- Inclus : skills, rules, docs actives, commentaires content, `.prettierignore` ; conserver `D CLAUDE.md`
-- Exclus : nouveau fichier racine ; UI ; package/lock ; commit ; pop/drop stash ; archives / BMAD-METHOD historique
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : skills, rules, docs actives, commentaires content, `.prettierignore` ;
+  suppression worktree `D CLAUDE.md`
+- Exclus : nouveau fichier racine ; UI ; package/lock ; archives / BMAD-METHOD historique
+
+#### CLAUDE-GOVERNANCE-CLEANUP-R1C-CHECKPOINT — Publication
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié le 2026-08-04`
+- Commit cleanup : `chore: remove obsolete Claude project instructions`
+- Commit BMAD : `docs: close Claude governance cleanup`
+- Inclus : push `origin/main` ; preuve d’absence distante de `CLAUDE.md` ;
+  drop explicite du stash `user-intent-remove-claude-md` après vérification
+- Exclus : déploiement ; `git stash clear` ; fichier racine substitut
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
