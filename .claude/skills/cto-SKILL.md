@@ -13,7 +13,7 @@ d’autoriser son implémentation.
 
 Avant toute décision :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md` et `.claude/rules/do-not-break.md` ;
 2. lire les règles `.claude/rules/` directement liées à la demande ;
 3. inspecter l’état réel du dépôt et les fichiers concernés ;
 4. consulter `package.json` avant de citer une commande ou une dépendance ;
@@ -26,7 +26,7 @@ Ne pas charger tout le dépôt par réflexe.
 Appliquer cet ordre :
 
 1. demande explicite et actuelle du CTO humain ;
-2. `CLAUDE.md` ;
+2. `.claude/rules/01-product-scope.md` et `.claude/rules/do-not-break.md` ;
 3. règles applicables dans `.claude/rules/` ;
 4. documentation validée ;
 5. conventions observées dans le code ;
@@ -105,7 +105,7 @@ Vérifier que la décision conserve :
 - le ton élégant, chaleureux et professionnel ;
 - l’absence de donnée métier inventée.
 
-Lire les valeurs exactes dans `CLAUDE.md` et leurs sources canoniques. Ne pas
+Lire les valeurs exactes dans `.claude/rules/do-not-break.md`, `.claude/rules/01-product-scope.md` et leurs sources canoniques. Ne pas
 créer une nouvelle copie dans le code.
 
 ## 7. Arbitrer l’architecture

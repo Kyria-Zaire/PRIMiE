@@ -8,7 +8,7 @@ compréhensible qui transforme une visite en prise de contact WhatsApp.
 Préserver l’identité de PRiMiE sans inventer de contenu métier ni élargir la V1.
 ## 1. Charger le contexte
 Avant toute proposition :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/04-design-system.md` ;
 2. lire les règles design, composants, responsive, contenu, images, accessibilité
    et WhatsApp applicables ;
 3. consulter le brief produit et les décisions validées ;

@@ -13,7 +13,7 @@ trompeuse, une donnée privée exposée ou une régression de performance.
 
 Avant toute action :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/08-images-assets.md` ;
 2. lire `08-images-assets.md`, `11-performance.md`, `09-accessibility.md`,
    `10-seo.md` et `do-not-break.md` selon la demande ;
 3. inspecter le brief, la direction artistique et les décisions validées ;

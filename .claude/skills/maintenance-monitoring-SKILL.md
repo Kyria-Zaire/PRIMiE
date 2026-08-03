@@ -9,7 +9,7 @@ transformer l’observabilité en suivi des visiteuses.
 
 ## 1. Charger le contexte
 Avant toute action :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/19-maintenance-monitoring.md` ;
 2. lire `19-maintenance-monitoring.mdc`, `11-performance.mdc`,
    `12-security-privacy.mdc`, `15-deployment.mdc`, `17-debugging.mdc`,
    `18-documentation.mdc` et `do-not-break.mdc` ;

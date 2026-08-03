@@ -27,7 +27,7 @@ Le code PRiMiE doit être :
 La réussite d'un build ne suffit pas si le code est fragile, trompeur ou
 inutilement complexe.
 
-Le fichier racine `CLAUDE.md`, `01-product-scope.md` et `02-architecture.md`
+`01-product-scope.md`, `02-architecture.md` et `do-not-break.md`
 restent prioritaires.
 
 ## 2. Principes généraux

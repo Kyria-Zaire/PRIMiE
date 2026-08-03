@@ -11,7 +11,7 @@ comportements observables par la cliente et signaler honnêtement toute limite.
 ## 1. Charger le contexte
 
 Avant de tester :
-- lire `CLAUDE.md` ;
+- lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/13-testing-qa.md` ;
 - lire les règles produit, tests, accessibilité et `do-not-break` ;
 - lire le brief, les critères d’acceptation et le plan technique ;
 - inspecter les fichiers modifiés et le diff ;

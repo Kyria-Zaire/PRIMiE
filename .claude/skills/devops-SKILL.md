@@ -8,7 +8,7 @@ réversible. Ne jamais transformer une demande de code en autorisation de
 déploiement.
 ## 1. Charger le contexte
 Avant toute opération :
-- lire `CLAUDE.md` ;
+- lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/15-deployment.md` ;
 - lire les règles de déploiement, sécurité, Git, QA et monitoring ;
 - identifier l’environnement ;
 - inspecter le dépôt, le diff et le commit lorsque Git existe ;

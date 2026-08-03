@@ -11,7 +11,7 @@ Concevoir d’abord pour le petit écran, puis enrichir lorsque l’espace le pe
 
 Avant toute action :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/06-responsive.md` ;
 2. lire `06-responsive.md`, `04-design-system.md`, `05-ui-components.md`,
    `09-accessibility.md`, `08-images-assets.md` et `do-not-break.md` ;
 3. inspecter le brief, la maquette et les décisions validées ;

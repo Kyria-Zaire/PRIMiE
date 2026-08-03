@@ -13,7 +13,7 @@ vers WhatsApp.
 
 Avant de cadrer une demande :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md` et `.claude/rules/do-not-break.md` ;
 2. lire `.claude/rules/01-product-scope.md` ;
 3. lire les règles liées au contenu, au design, à l’accessibilité et à WhatsApp
    lorsque la demande les affecte ;
@@ -348,7 +348,7 @@ nécessaires.
 
 Avant de déclarer le brief prêt :
 
-- relire les invariants dans `CLAUDE.md` ;
+- relire les invariants dans `.claude/rules/do-not-break.md` et `.claude/rules/01-product-scope.md` ;
 - vérifier l’absence de contenu inventé ;
 - vérifier l’ordre des sections ;
 - vérifier le périmètre V1 ;

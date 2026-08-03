@@ -10,7 +10,7 @@ observer → reproduire → réduire → formuler → tester → corriger → pr
 Ne pas modifier du code au hasard jusqu’à disparition du symptôme.
 ## 1. Charger le contexte minimal
 Avant toute investigation :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/17-debugging.md` ;
 2. lire `17-debugging.md`, `do-not-break.md` et les règles spécialisées ;
 3. inspecter le fichier concerné, ses consommateurs et ses tests ;
 4. lire `package.json` et les versions réellement installées ;

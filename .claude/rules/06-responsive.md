@@ -32,7 +32,7 @@ doit conserver :
 - la qualité des images ;
 - un rythme visuel cohérent.
 
-Le fichier racine `CLAUDE.md` et les règles produit, composants et design system
+Les règles produit, composants, design system et `do-not-break.md`
 restent prioritaires.
 
 ## 2. Largeur minimale

@@ -19,7 +19,7 @@ Applique cette règle pour toute tâche qui :
 - touche aux services, réalisations, avis, FAQ ou coordonnées ;
 - vérifie la conformité fonctionnelle de la V1.
 
-Le fichier racine `CLAUDE.md` reste prioritaire.
+La constitution Cursor `.cursor/rules/00-project.mdc` et `do-not-break.md` restent prioritaires pour les invariants.
 
 ## 2. Résultat produit attendu
 

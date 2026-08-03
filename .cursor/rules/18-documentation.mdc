@@ -350,7 +350,7 @@ Ne pas copier automatiquement `git log`.
 Répartition :
 
 - `.cursor/rules/` : règles Cursor ciblées ;
-- `CLAUDE.md` : contexte Claude global et concis ;
+- `.cursor/rules/00-project.mdc` et `.claude/rules/01-product-scope.md` : contexte produit et invariants ;
 - `.claude/rules/` : règles Claude ciblées ;
 - `.claude/skills/` : procédures réutilisables ;
 - `.claude/commands/` : compatibilité des commandes existantes si retenue.
@@ -363,7 +363,7 @@ Une règle doit être :
 - limitée à son contexte ;
 - sans contradiction.
 
-Ne pas recopier intégralement toutes les règles dans `CLAUDE.md`.
+Ne pas recopier intégralement toutes les règles dans une seule source.
 
 ---
 

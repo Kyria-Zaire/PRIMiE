@@ -9,7 +9,7 @@ ou une réponse réellement observée.
 
 ## 1. Charger le contexte
 Avant la revue :
-- lire `CLAUDE.md` ;
+- lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/12-security-privacy.md` ;
 - lire les règles sécurité, architecture, dépendances et déploiement ;
 - identifier le besoin et le périmètre autorisé ;
 - inspecter le diff et les fichiers touchés ;

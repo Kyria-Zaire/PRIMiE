@@ -1,6 +1,6 @@
 /**
  * Faits métier confirmés et seed contents PO_APPROVED_SEED.
- * Sources : CLAUDE.md, constitution projet, do-not-break, PRD contact, décisions PO 2026-07-31.
+ * Sources : constitution projet (`00-project`), do-not-break, PRD contact, décisions PO 2026-07-31.
  */
 
 export const siteConfig = {

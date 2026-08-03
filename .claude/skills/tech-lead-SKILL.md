@@ -13,7 +13,7 @@ existant.
 
 Avant de planifier :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/02-architecture.md` ;
 2. lire les règles applicables ;
 3. identifier la décision CTO ou le brief produit source ;
 4. inspecter le dépôt réel ;

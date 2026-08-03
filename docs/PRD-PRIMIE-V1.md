@@ -397,7 +397,7 @@ validé par Prisca. Aucun slogan non validé n’est affiché.
 6. Tissage.
 
 Alignement documentaire `2026-07-30` (`FOUNDATION-SYSTEM-01E`) : intitulés
-identiques à `CLAUDE.md`, `do-not-break` et `content/services.ts`.
+identiques à `do-not-break`, `00-project` et `content/services.ts`.
 
 ### Exigences
 - chaque service possède un titre ;
@@ -837,7 +837,7 @@ doivent jamais être remplacés par des inventions.
 
 ### Trace documentaire
 `2026-07-30` — alignement des six intitulés de prestations sur la liste
-canonique CLAUDE.md / do-not-break / `content/services.ts`
+canonique do-not-break / `00-project` / `content/services.ts`
 (`FOUNDATION-SYSTEM-01E`). Version PRD inchangée (`1.0`).
 
 ### Actions suivantes

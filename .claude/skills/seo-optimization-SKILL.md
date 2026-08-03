@@ -13,7 +13,7 @@ préserver contenu, accessibilité, performance et conversion WhatsApp.
 
 Avant toute action :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/10-seo.md` ;
 2. lire `10-seo.md`, `07-content-copy.md`, `08-images-assets.md`,
    `11-performance.md` et `do-not-break.md` ;
 3. inspecter les décisions produit et contenus validés ;

@@ -28,7 +28,7 @@ En cas de conflit, appliquer :
 
 1. demande actuelle et explicite de l’utilisatrice ;
 2. instructions système et permissions de l’environnement ;
-3. `CLAUDE.md` à la racine du projet ;
+3. `.cursor/rules/00-project.mdc` et `.claude/rules/do-not-break.md` ;
 4. règle spécialisée correspondant aux fichiers modifiés ;
 5. cahier des charges et décisions validées ;
 6. conventions déjà établies dans le code ;
@@ -47,7 +47,8 @@ jour.
 ## 3. Contexte minimal obligatoire
 Avant une modification, lire :
 
-- `CLAUDE.md` ;
+- `.cursor/rules/00-project.mdc` ;
+- `.claude/rules/do-not-break.md` ;
 - les fichiers utiles de `.claude/rules/` ;
 - les fichiers directement concernés ;
 - leurs imports, appels et tests pertinents ;
@@ -482,7 +483,9 @@ Le travail de Claude est terminé lorsque :
 ---
 
 ## 24. Références officielles
-- Claude Code — Mémoire et `CLAUDE.md` : https://docs.anthropic.com/en/docs/claude-code/memory
+- Claude Code — Mémoire projet : https://docs.anthropic.com/en/docs/claude-code/memory
+  (ce dépôt s’appuie sur `.claude/rules/` et `.cursor/rules/`, sans fichier racine
+  de mémoire projet)
 - Claude Code — Skills : https://docs.anthropic.com/en/docs/claude-code/skills
 - Claude Code — Sous-agents : https://docs.anthropic.com/en/docs/claude-code/sub-agents
 - Claude Code — Hooks : https://docs.anthropic.com/en/docs/claude-code/hooks-guide

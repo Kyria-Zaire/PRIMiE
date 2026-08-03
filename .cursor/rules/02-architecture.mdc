@@ -95,7 +95,7 @@ PRIMIE/
 ├── .cursor/
 │   └── rules/
 ├── .claude/
-├── CLAUDE.md
+├── .cursor/rules/00-project.mdc
 ├── components.json
 ├── next.config.ts
 ├── package.json

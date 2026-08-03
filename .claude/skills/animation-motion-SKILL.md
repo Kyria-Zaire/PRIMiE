@@ -9,7 +9,7 @@ compréhensible et utilisable lorsque toute animation est supprimée.
 
 ## 1. Charger le contexte
 Avant toute action :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/04-design-system.md` ;
 2. lire `04-design-system.mdc`, `05-ui-components.mdc`,
    `09-accessibility.mdc`, `11-performance.mdc`, `13-testing-qa.mdc` et
    `do-not-break.mdc` ;

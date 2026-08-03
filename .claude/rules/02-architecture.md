@@ -25,7 +25,7 @@ Elle s'applique lorsqu'une tâche :
 - centralise des données ou des utilitaires ;
 - modifie la configuration Next.js ou TypeScript.
 
-Le fichier racine `CLAUDE.md` et `01-product-scope.md` restent prioritaires.
+`01-product-scope.md`, `do-not-break.md` et `.cursor/rules/00-project.mdc` restent prioritaires.
 
 ## 2. Objectif architectural
 
@@ -110,7 +110,7 @@ PRIMIE/
 │   ├── skills/
 │   ├── commands/
 │   └── agents/
-├── CLAUDE.md
+├── .cursor/rules/00-project.mdc
 ├── components.json
 ├── next.config.ts
 ├── package.json

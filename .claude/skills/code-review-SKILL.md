@@ -7,7 +7,7 @@ Rechercher les défauts qui peuvent casser le produit, pas les préférences
 personnelles. Présenter les constats avant le résumé. Ne pas modifier le code pendant une revue sauf demande explicite distincte. Ne jamais simuler une validation humaine.
 ## 1. Charger le contexte
 Avant la revue :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/03-code-standards.md` ;
 2. lire `do-not-break.md` ;
 3. lire les règles applicables aux fichiers modifiés ;
 4. lire le besoin, les critères d’acceptation et décisions validées ;

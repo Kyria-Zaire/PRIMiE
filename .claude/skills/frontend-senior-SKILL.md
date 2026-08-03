@@ -8,7 +8,7 @@ Transformer le design validé en interface fidèle sans étendre le périmètre 
 
 ## 1. Charger le contexte minimal
 Avant toute modification :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/05-ui-components.md` ;
 2. lire les règles applicables ;
 3. lire le brief produit et le plan technique ;
 4. inspecter les fichiers ciblés, leurs imports et leurs tests ;

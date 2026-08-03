@@ -9,7 +9,7 @@ absence comme une décision d’architecture, pas comme un manque à combler.
 
 ## 1. Charger le contexte
 Avant toute action :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/02-architecture.md` ;
 2. lire les règles d’architecture, sécurité, confidentialité, performance et
    tests applicables ;
 3. lire la décision CTO et le plan Tech Lead ;

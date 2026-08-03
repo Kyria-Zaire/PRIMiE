@@ -1,7 +1,7 @@
 import type { Service } from "./types";
 
 /**
- * Prestations validées — intitulés exacts (CLAUDE.md / do-not-break).
+ * Prestations validées — intitulés exacts (do-not-break / PRD / types locaux).
  * Descriptions : PO_APPROVED_SEED activées en UI.
  * Illustrations : SERVICE_ILLUSTRATION (décoratif, pas une réalisation réelle).
  * Aucun prix ni durée.

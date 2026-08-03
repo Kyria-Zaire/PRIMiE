@@ -20,7 +20,7 @@ Applique cette règle pour toute tâche qui modifie :
 - un état interactif ;
 - une image, une ombre ou une animation.
 
-Le fichier racine `CLAUDE.md` et les règles produit, architecture et code restent
+Les règles produit, architecture, code et `do-not-break.md` restent
 prioritaires.
 
 ## 2. Intention visuelle

@@ -13,7 +13,7 @@ serveur/client, les sources de contenu et la direction artistique PRiMiE.
 
 Avant toute action :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/05-ui-components.md` ;
 2. lire `05-ui-components.md`, `02-architecture.md`, `03-code-standards.md`,
    `04-design-system.md`, `06-responsive.md`, `09-accessibility.md` et
    `do-not-break.md` selon la demande ;

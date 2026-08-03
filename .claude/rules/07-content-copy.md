@@ -28,7 +28,7 @@ La priorité est double :
 1. donner envie de contacter PRiMiE ;
 2. ne jamais tromper la cliente.
 
-Le fichier racine `CLAUDE.md` et la règle produit restent prioritaires.
+`01-product-scope.md`, `do-not-break.md` et `.cursor/rules/00-project.mdc` restent prioritaires.
 
 ## 2. Identité éditoriale
 

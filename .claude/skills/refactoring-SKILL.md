@@ -6,7 +6,7 @@ description: Restructurer le code de PRiMiE sans modifier son comportement utili
 Améliorer la structure interne sans changer le comportement observable. Refactoriser uniquement un problème démontré, avec une baseline et une surface limitée. Ne pas mélanger nettoyage, fonctionnalité et correction de bug.
 ## 1. Charger le contexte
 Avant toute modification :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/03-code-standards.md` ;
 2. lire `02-architecture.md`, `03-code-standards.md` et `do-not-break.md` ;
 3. lire les règles spécialisées liées aux fichiers ;
 4. inspecter le code cible, ses consommateurs et ses tests ;

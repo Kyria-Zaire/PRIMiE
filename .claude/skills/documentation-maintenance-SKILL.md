@@ -1,6 +1,6 @@
 ---
 name: documentation-maintenance
-description: Créer, mettre à jour, auditer, corriger, consolider, déprécier ou supprimer la documentation de PRiMiE. Utiliser cette skill pour README, guides, références, ADR, runbooks, CHANGELOG, commentaires, TSDoc, documentation produit ou technique, règles Cursor, CLAUDE.md, skills Claude, commandes, liens, sources de vérité, statut du projet, documentation obsolète, synchronisation code-docs et contrôle des contenus générés par IA.
+description: Créer, mettre à jour, auditer, corriger, consolider, déprécier ou supprimer la documentation de PRiMiE. Utiliser cette skill pour README, guides, références, ADR, runbooks, CHANGELOG, commentaires, TSDoc, documentation produit ou technique, règles Cursor, règles `.claude/rules/`, skills Claude, commandes, liens, sources de vérité, statut du projet, documentation obsolète, synchronisation code-docs et contrôle des contenus générés par IA.
 ---
 # Documentation Maintenance PRiMiE
 Maintenir une documentation courte, exacte et utile qui reflète la réalité du
@@ -9,7 +9,7 @@ une encyclopédie autour d’une landing page.
 
 ## 1. Charger le contexte
 Avant toute action :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/18-documentation.md` ;
 2. lire `18-documentation.mdc`, `00-project.mdc`, `01-product-scope.mdc`,
    `16-ai-workflow.mdc` et `do-not-break.mdc` ;
 3. lire les règles du domaine documenté ;
@@ -267,12 +267,12 @@ Répartir :
 | Emplacement | Rôle |
 | --- | --- |
 | `.cursor/rules/` | règles Cursor ciblées |
-| `CLAUDE.md` | contexte Claude global et concis |
+| `.claude/rules/01-product-scope.md` + `do-not-break.md` | contexte produit et invariants |
 | `.claude/rules/` | règles Claude ciblées |
 | `.claude/skills/` | procédures réutilisables |
 | `.claude/commands/` | commandes retenues |
 Une règle doit être spécifique, vérifiable, concise, contextualisée et sans
-contradiction. Ne pas recopier toutes les règles dans `CLAUDE.md`.
+contradiction. Ne pas recopier toutes les règles dans une seule source ; préférer les règles spécialisées.
 Lorsqu’une règle devient obsolète, proposer sa mise à jour. Ne pas la contourner
 silencieusement.
 

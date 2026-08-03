@@ -73,7 +73,7 @@ Lier vers l’explication si nécessaire.
 
 | Information | Source principale |
 | --- | --- |
-| Identité et contexte global | `CLAUDE.md` |
+| Identité et contexte global | `.cursor/rules/00-project.mdc` + `.claude/rules/01-product-scope.md` |
 | Périmètre produit | `.claude/rules/01-product-scope.md` |
 | Contenu affiché | `content/` et configuration de contenu |
 | Services validés | Règle produit/contenu et données centrales |
@@ -368,7 +368,7 @@ Ne pas copier automatiquement `git log`.
 Répartition :
 
 - `.cursor/rules/` : règles Cursor ciblées ;
-- `CLAUDE.md` : contexte Claude global et concis ;
+- `.cursor/rules/00-project.mdc` et `.claude/rules/01-product-scope.md` : contexte produit et invariants ;
 - `.claude/rules/` : règles Claude ciblées ;
 - `.claude/skills/` : procédures réutilisables ;
 - `.claude/commands/` : compatibilité de commandes existantes si retenue.
@@ -381,7 +381,7 @@ Une règle doit être :
 - limitée à son contexte ;
 - sans contradiction.
 
-Ne pas recopier intégralement toutes les règles dans `CLAUDE.md`.
+Ne pas recopier intégralement toutes les règles dans une seule source.
 
 ---
 

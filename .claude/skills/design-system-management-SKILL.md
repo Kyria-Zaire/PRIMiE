@@ -9,7 +9,7 @@ bibliothèque générique disproportionnée pour une landing page.
 
 ## 1. Charger le contexte
 Avant toute action :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/04-design-system.md` ;
 2. lire `04-design-system.mdc`, `05-ui-components.mdc`,
    `06-responsive.mdc`, `09-accessibility.mdc` et `do-not-break.mdc` ;
 3. lire le brief, les critères d’acceptation et la maquette concernée ;

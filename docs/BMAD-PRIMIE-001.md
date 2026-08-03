@@ -122,13 +122,13 @@ décision produit séparée.
 | --- | --- | --- |
 | `FACT-001` | Le PRD V1 est en version `1.0 — Validé`. | `docs/PRD-PRIMIE-V1.md` |
 | `FACT-002` | Les gates `G0` et `G1` sont passés. | PRD, section 36 |
-| `FACT-003` | La gouvernance Cursor et Claude existe. | `.cursor/`, `.claude/`, `CLAUDE.md` |
+| `FACT-003` | La gouvernance Cursor et Claude existe. | `.cursor/`, `.claude/` (fichier racine `CLAUDE.md` retiré — intention Kyria, cleanup 2026-08-04) |
 | `FACT-004` | La méthode BMAD PRiMiE existe. | `docs/governance/BMAD-METHOD.md` |
 | `FACT-005` | Aucun `package.json` n’existe actuellement. | inspection locale du `2026-07-30` |
 | `FACT-006` | Aucune application Next.js n’est initialisée. | inspection locale du `2026-07-30` |
 | `FACT-007` | Le dossier de travail inspecté n’est pas un dépôt Git actif. | `git status` impossible le `2026-07-30` |
-| `FACT-008` | Le numéro canonique est `+33749616582`. | PRD et `CLAUDE.md` |
-| `FACT-009` | Le lien canonique est `https://wa.me/33749616582`. | PRD et `CLAUDE.md` |
+| `FACT-008` | Le numéro canonique est `+33749616582`. | PRD et `do-not-break` |
+| `FACT-009` | Le lien canonique est `https://wa.me/33749616582`. | PRD et `do-not-break` |
 | `FACT-010` | Les contenus métier ouverts sont assignés à Prisca. | PRD, sections 32 et 37 |
 | `FACT-011` | Aucun domaine Production n’est confirmé. | PRD, `DEP-009` |
 | `FACT-012` | Aucune collecte utilisateur n’est autorisée en V1. | PRD, sections 28 et 31 |
@@ -278,7 +278,7 @@ PRIMIE/
 │   └── images/
 ├── tests/
 ├── BMAD-PRIMIE-001.md
-├── CLAUDE.md
+├── .cursor/rules/00-project.mdc
 ├── next.config.ts
 ├── package.json
 └── tsconfig.json
@@ -476,6 +476,9 @@ Validation BMAD (G2 passé)
 │   │   ├── DEPENDENCY-SECURITY-R1B-R1 (SUPERSEDED sur la provenance CLAUDE.md)
 │   │   └── DEPENDENCY-SECURITY-R1B-R2 (DONE — Validé CTO 2026-08-04)
 │   └── DEPENDENCY-SECURITY-R1C-CHECKPOINT (DONE — publié le 2026-08-04)
+├── CLAUDE-GOVERNANCE-CLEANUP-R1 (IN_PROGRESS — cleanup gouvernance)
+│   ├── CLAUDE-GOVERNANCE-CLEANUP-R1A (DONE — Validé CTO 2026-08-04)
+│   └── CLAUDE-GOVERNANCE-CLEANUP-R1B (IN_PROGRESS — en attente CTO)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -564,6 +567,9 @@ traçabilité.
 | `01dsr1br1` | `DEPENDENCY-SECURITY-R1B-R1` | `CORRECTIVE` | `SUPERSEDED` sur provenance `CLAUDE.md` | `P0` | restauration erronée |
 | `01dsr1br2` | `DEPENDENCY-SECURITY-R1B-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-04` | `P0` | stash `user-intent-remove-claude-md` |
 | `01dsr1c` | `DEPENDENCY-SECURITY-R1C-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push sécurité + BMAD |
+| `01cgr1` | `CLAUDE-GOVERNANCE-CLEANUP-R1` | `IMPLEMENT` | `IN_PROGRESS` | `P0` | suppression volontaire `CLAUDE.md` |
+| `01cgr1a` | `CLAUDE-GOVERNANCE-CLEANUP-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-04` | `P0` | audit refs / couverture |
+| `01cgr1b` | `CLAUDE-GOVERNANCE-CLEANUP-R1B` | `IMPLEMENT` | `IN_PROGRESS — en attente CTO` | `P0` | cleanup refs actives |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
@@ -1064,7 +1070,7 @@ peuvent être centralisés avant affichage UI.
 - Commit sécurité : `a34536e` — `fix(deps): patch transitive security advisories`
 - Fichiers publiés : `package.json`, `pnpm-lock.yaml` uniquement
 - Note : suppression volontaire de `CLAUDE.md` (intention Kyria) conservée dans le
-  stash local `user-intent-remove-claude-md` (`D CLAUDE.md`) — à auditer séparément ;
+  stash local `user-intent-remove-claude-md` (`D CLAUDE.md`) — audit `CLAUDE-GOVERNANCE-CLEANUP-R1A` DONE ; cleanup refs `R1B` en cours ;
   hors manifeste du checkpoint sécurité
 
 #### DEPENDENCY-SECURITY-R1A — Audit read-only
@@ -1108,6 +1114,35 @@ peuvent être centralisés avant affichage UI.
 - Inclus : commit + push sécurité (`package.json`, `pnpm-lock.yaml`) ; mise à jour
   BMAD ; push documentaire
 - Exclus : déploiement ; modification ou suppression du stash `user-intent-remove-claude-md`
+
+### CLAUDE-GOVERNANCE-CLEANUP-R1 — Suppression volontaire de CLAUDE.md
+
+**Métadonnées**
+
+- Feature : `FEATURE-GOVERNANCE-CLEANUP`
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS` — en attente CTO sur `R1B`
+- Priorité : `P0`
+- Autorité : Kyria — CTO
+- Intention : suppression volontaire de `CLAUDE.md` (Kyria)
+- Sauvegarde : stash local `user-intent-remove-claude-md` conservé jusqu’au checkpoint distant vérifié
+- Remplacement : **aucun** fichier racine substitut (`PROJECT.md` / `AI.md` interdits)
+- Sources actives : `.cursor/rules/00-project.mdc`, `.claude/rules/**`, `do-not-break`
+
+#### CLAUDE-GOVERNANCE-CLEANUP-R1A — Audit
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Verdict : `READY_WITH_REFERENCE_CLEANUP`
+- Inclus : apply stash sans pop ; inventaire refs ; matrice couverture ; qualité sans impact runtime
+- Exclus : modification de refs ; commit
+
+#### CLAUDE-GOVERNANCE-CLEANUP-R1B — Cleanup des références actives
+
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS — en attente CTO`
+- Inclus : skills, rules, docs actives, commentaires content, `.prettierignore` ; conserver `D CLAUDE.md`
+- Exclus : nouveau fichier racine ; UI ; package/lock ; commit ; pop/drop stash ; archives / BMAD-METHOD historique
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
@@ -1393,7 +1428,8 @@ validation G2 dans le BMAD et `git init -b main` local sans commit ni remote.
 
 - déplacement du PRD v1.0 vers `docs/PRD-PRIMIE-V1.md` ;
 - archivage du PRD v0.9 ;
-- normalisation de `CLAUDE.md` et `00-project.mdc` ;
+- normalisation historique de `CLAUDE.md` (fichier depuis retiré le 2026-08-04) et
+  `00-project.mdc` ;
 - mise à jour BMAD G2 / tickets `01A`–`01E` ;
 - initialisation Git locale sur `main`.
 
@@ -1409,7 +1445,8 @@ validation G2 dans le BMAD et `git init -b main` local sans commit ni remote.
 
 - [x] PRD canonique v1.0 en place et doublon `(1)` retiré ;
 - [x] archive v0.9 créée ;
-- [x] `CLAUDE.md` et `00-project.mdc` aux chemins canoniques ;
+- [x] `CLAUDE.md` (présent à l’époque ; retiré volontairement le 2026-08-04) et
+  `00-project.mdc` aux chemins canoniques ;
 - [x] BMAD en version `1.0`, G2 passé ; G3 passé après validation CTO de `01B` ;
 - [x] dépôt Git local sur `main` sans commit ni remote ;
 - [x] aucun scaffold applicatif créé dans ce ticket.
@@ -1551,7 +1588,7 @@ de contenu canonique avant les sections, via le découpage `01A`–`01E`.
 - Dépendances : `FOUNDATION-SYSTEM-01C`, `FOUNDATION-SYSTEM-01D`
 - Inclus : QA feature, documentation, handoff vers `LANDING-SHELL-01`
 - Dette documentaire (traitée dans ce ticket) :
-  - Normaliser dans le PRD les six intitulés de services selon CLAUDE.md / do-not-break.
+  - Normaliser dans le PRD les six intitulés de services selon do-not-break / `content/services.ts`.
 
 **Critères d’acceptation feature (clôture 01E)**
 

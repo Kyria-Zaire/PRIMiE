@@ -7,7 +7,7 @@ Mesurer avant de modifier. Optimiser la cause dominante, comparer dans des condi
 préserver l’expérience. Ne jamais déclarer un gain sur une intuition ou une seule exécution.
 ## 1. Charger le contexte
 Avant toute analyse :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/11-performance.md` ;
 2. lire `11-performance.md`, `do-not-break.md` et les règles concernées ;
 3. inspecter les fichiers, imports, assets et tests touchés ;
 4. lire `package.json` et les versions réelles ;

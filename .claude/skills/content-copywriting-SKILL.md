@@ -14,7 +14,7 @@ information convaincante.
 
 Avant toute rédaction :
 
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/07-content-copy.md` ;
 2. lire `07-content-copy.md`, `10-seo.md`, `09-accessibility.md`,
    `whatsapp.md` et `do-not-break.md` selon la demande ;
 3. lire le brief, les décisions et validations produit ;

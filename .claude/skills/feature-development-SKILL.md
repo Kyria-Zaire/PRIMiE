@@ -9,7 +9,7 @@ Ne pas confondre vitesse de génération et vitesse de livraison fiable.
 
 ## 1. Charger le contexte minimal
 Avant d’agir :
-1. lire `CLAUDE.md` ;
+1. lire `.claude/rules/01-product-scope.md`, `.claude/rules/do-not-break.md` et `.claude/rules/16-ai-workflow.md` ;
 2. lire les règles spécialisées liées aux fichiers et au besoin ;
 3. lire le brief, les décisions et critères existants ;
 4. inspecter le fichier cible, ses importateurs et ses tests ;

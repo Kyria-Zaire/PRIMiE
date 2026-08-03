@@ -1,7 +1,7 @@
 import type { NavigationItem } from "./types";
 
 /**
- * Ancres et libellés issus de l’ordre officiel PRD / CLAUDE.md.
+ * Ancres et libellés issus de l’ordre officiel PRD / `.cursor/rules/00-project.mdc`.
  * Header et Footer n’ont pas d’ancre dédiée dans le PRD.
  */
 export const navigation = [
