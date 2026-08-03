@@ -451,6 +451,15 @@ Validation BMAD (G2 passé)
 │   ├── FAQ-DESIGN-R1-R2 (DONE — Validé CTO 2026-08-03)
 │   ├── FAQ-ASSISTANT-EXPRESS-R1 (DONE — Validé CTO 2026-08-03)
 │   └── FAQ-EXPERIENCE-CHECKPOINT (DONE — publié le 2026-08-03)
+├── FOOTER-DESIGN-R1 (DONE — clôturé le 2026-08-03)
+│   ├── FOOTER-DESIGN-R1A (DONE — Validé CTO 2026-08-03)
+│   ├── FOOTER-DESIGN-R1B (DONE — Validé CTO 2026-08-03)
+│   │   └── FOOTER-DESIGN-R1B-R1 (DONE — Validé CTO 2026-08-03)
+│   ├── FOOTER-DESIGN-R1C (DONE — Validé CTO 2026-08-03)
+│   │   ├── FOOTER-DESIGN-R1C-R1 (DONE)
+│   │   └── FOOTER-DESIGN-R1C-R2 (DONE — Validé CTO 2026-08-03)
+│   ├── FOOTER-DESIGN-R1D (DONE — Validé CTO 2026-08-03)
+│   └── FOOTER-DESIGN-R1E (DONE — Validé CTO 2026-08-03)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -516,6 +525,15 @@ traçabilité.
 | `01fdr1r2` | `FAQ-DESIGN-R1-R2` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | Hero compact + portrait faux-locs |
 | `01faer1` | `FAQ-ASSISTANT-EXPRESS-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | sujets express + filtre |
 | `01fec` | `FAQ-EXPERIENCE-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-03` | `P1` | checkpoint groupé FAQ |
+| `01fda` | `FOOTER-DESIGN-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-03` | `P1` | audit architecture Footer |
+| `01fdb` | `FOOTER-DESIGN-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | Footer desktop premium |
+| `01fdbr1` | `FOOTER-DESIGN-R1B-R1` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P1` | densité / fidélité desktop |
+| `01fdc` | `FOOTER-DESIGN-R1C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | mobile disclosures |
+| `01fdcr1` | `FOOTER-DESIGN-R1C-R1` | `CORRECTIVE` | `DONE` | `P1` | xl + fallback CSS |
+| `01fdcr2` | `FOOTER-DESIGN-R1C-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P1` | matchMedia open |
+| `01fdd` | `FOOTER-DESIGN-R1D` | `VERIFY` | `DONE — Validé CTO 2026-08-03` | `P1` | QA a11y multi-route |
+| `01fde` | `FOOTER-DESIGN-R1E` | `VERIFY + PUBLISH` | `DONE — Validé CTO 2026-08-03` | `P1` | checkpoint Footer |
+| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -805,6 +823,77 @@ peuvent être centralisés avant affichage UI.
 - Mode : `VERIFY` + `PUBLISH`
 - Statut : `DONE — publié le 2026-08-03`
 - Inclus : commit + push `main` (implémentation + gouvernance BMAD) ; aucun déploiement
+
+#### FOOTER-DESIGN-R1 — Refonte Footer premium
+
+- Mode : `IMPLEMENT` (découpage R1A–R1E)
+- Statut parent : `DONE — clôturé le 2026-08-03`
+- Composition : reste dans `app/page.tsx` et `app/galerie/page.tsx` (pas `RootLayout`)
+- Dette : `LEGAL-PAGES-01` — `NOT OPEN` (pas de liens légaux sans routes)
+- Dettes transférées : Safari/iOS réel non exécuté ; Lighthouse complet non exécuté
+
+##### FOOTER-DESIGN-R1A — Audit architecture
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : audit maquettes, contenu autorisé/rejeté, découpage R1B–R1E
+
+##### FOOTER-DESIGN-R1B — Desktop
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : 5 colonnes xl, CTA WhatsApp prérempli, inspirations 3×2, bandeau factuel,
+  vague SVG, copyright dynamique ; pile temporaire sous xl
+- Exclus : disclosures mobile (R1C), commit, déploiement
+
+##### FOOTER-DESIGN-R1B-R1 — Corrective visuelle desktop
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Motif : R1B techniquement conforme mais trop vide / trop textuel vs maquette
+- Inclus : densification, logo agrandi, CTA renforcé, pictogrammes Contact,
+  mosaïque lisible, facts horizontal xl, ornements SVG, vague/bottom peaufinés
+- Exclus : R1C disclosures, changement de données métier, commit, déploiement
+
+##### FOOTER-DESIGN-R1C — Mobile / responsive
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : identité centrée, CTA hors disclosures, quatre `details`/`summary` natifs,
+  facts stack mobile, vague/bottom mobile, non-régression desktop xl
+- Exclus : Client Component (introduit en R1C-R2), dépendance, commit, déploiement
+
+##### FOOTER-DESIGN-R1C-R1 — Corrective breakpoint / compatibilité
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE`
+- Inclus : bascule disclosures `<1280` / grille 5 colonnes `≥1280`, suppression
+  composition intermédiaire 1024
+- Limite historique : Firefox desktop sans `open` réel (corrigé en R1C-R2)
+- Exclus : redesign mobile 320–768, redesign desktop 1280–1440, commit, déploiement
+
+##### FOOTER-DESIGN-R1C-R2 — Corrective cross-browser
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : Client Component minimal `FooterResponsiveGrid`, `matchMedia(1280)`,
+  attribut `open` réel, suppression hacks CSS `::details-content`
+- Exclus : duplication DOM, dépendance npm, commit, déploiement
+
+##### FOOTER-DESIGN-R1D — QA a11y multi-route
+
+- Mode : `VERIFY`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : matrice viewports, Chromium/Firefox/WebKit, clavier/a11y, multi-route,
+  resize, hydratation, performance/CLS, smoke production
+- Exclus : commit, staging, push, déploiement, refonte, contenu inventé
+
+##### FOOTER-DESIGN-R1E — Checkpoint / clôture
+
+- Mode : `VERIFY` + `PUBLISH`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : commits Git + push `origin/main` ; clôture BMAD `FOOTER-DESIGN-R1`
+- Exclus : déploiement Vercel ; ouverture de feature suivante
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
