@@ -49,4 +49,9 @@ describe("app/galerie/page — GALLERY-PAGE-HERO-R1", () => {
     expect(source).not.toMatch(/Réservation confirmée|Réserver maintenant|Créneau garanti/i);
     expect(source).not.toMatch(/lightbox|carousel|swiper/i);
   });
+
+  it("compose Footer multi-route sur /galerie avec homeHref racine", () => {
+    expect(source).toContain('<Footer navigationItems={routeNavigation} homeHref="/" />');
+    expect(source).toContain('resolveNavigationForRoute(visibleNavigation, "/galerie")');
+  });
 });

@@ -57,17 +57,19 @@ describe("MobileNavigation", () => {
     expect(html).toContain("#services");
   });
 
-  it("est le seul Client Component du shell", () => {
+  it("n’est plus le seul Client Component du shell (Header menu + Footer grid)", () => {
     const shellDir = join(process.cwd(), "components/shell");
     const files = readdirSync(shellDir).filter(
       (name) => name.endsWith(".tsx") && !name.includes(".test."),
     );
-    const clientFiles = files.filter((name) => {
-      const source = readFileSync(join(shellDir, name), "utf8");
-      return /["']use client["']/.test(source);
-    });
+    const clientFiles = files
+      .filter((name) => {
+        const source = readFileSync(join(shellDir, name), "utf8");
+        return /["']use client["']/.test(source);
+      })
+      .sort();
 
-    expect(clientFiles).toEqual(["mobile-navigation.tsx"]);
+    expect(clientFiles).toEqual(["footer-responsive-grid.tsx", "mobile-navigation.tsx"]);
   });
 
   it("n’importe pas site-config ni getVisibleNavigation", () => {

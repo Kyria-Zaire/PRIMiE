@@ -44,7 +44,7 @@ describe("Invariant de marque PRiMiE", () => {
     expect(html).toContain('alt="PRiMiE"');
     expect(html).toContain("primie-logo-v1.webp");
     expect(html).toContain("Chez PRiMiE Coiffure");
-    expect(html).toContain("© 2026 Chez PRiMiE Coiffure.");
+    expect(html).toContain("© 2026 Chez PRiMiE Coiffure. Tous droits réservés.");
     expect(html).not.toContain("PRIMiE");
     expect(html).not.toContain("Chez PRIMiE Coiffure");
   });

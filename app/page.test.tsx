@@ -52,21 +52,33 @@ describe("Home page", () => {
       expect(html).toContain(service.description);
     }
 
-    expect(html.match(/<details\b/g)).toHaveLength(5);
+    expect(html.match(/<details\b/g)).toHaveLength(9);
+    const faqBlock = html.slice(html.indexOf('id="faq"'), html.indexOf('id="reserver"'));
+    expect(faqBlock.match(/<details\b/g)).toHaveLength(5);
+    const footerBlockForDetails = html.slice(html.indexOf("<footer"));
+    expect(footerBlockForDetails.match(/<details\b/g)).toHaveLength(4);
     for (const item of faq) {
       expect(html).toContain(item.question);
       expect(html).toContain(item.answer);
     }
     expect(html).not.toMatch(/\bdimanche\b/i);
 
-    const contactBlock = html.slice(html.indexOf('id="contact"'));
-    const footerBlock = html.slice(html.indexOf("<footer"));
+    const contactStart = html.indexOf('id="contact"');
+    const footerStart = html.indexOf("<footer");
+    const contactBlock = html.slice(contactStart, footerStart);
+    const footerBlock = html.slice(footerStart);
     expect(contactBlock).toContain(`href="${plainWhatsApp}"`);
     expect(contactBlock).not.toContain("?text=");
     expect(footerBlock).toContain(`href="${plainWhatsApp}"`);
+    expect(footerBlock).toContain(`href="${bookingWhatsApp}"`);
+    expect(footerBlock).toContain("Réserver sur WhatsApp");
+    expect(footerBlock).toContain("Inspirations");
+    expect(footerBlock).toContain("6 prestations");
+    expect(footerBlock).toContain("Confirmation par Prisca");
+    expect(footerBlock).toContain("Tous droits réservés.");
     expect(footerBlock.match(/wa\.me\/33749616582(?!\?)/)).not.toBeNull();
 
-    // Header / Hero conservent le prérempli devis ; la section réservation utilise le message dynamique au submit.
+    // Header / Hero / Footer CTA : prérempli devis ; contact footer reste plain.
     expect(html).toContain(`href="${bookingWhatsApp}"`);
     expect(html).toContain("?text=");
     expect(html).toContain('href="tel:+33749616582"');
@@ -138,11 +150,13 @@ describe("Home page", () => {
     const shellFiles = readdirSync(shellDir).filter(
       (name) => name.endsWith(".tsx") && !name.includes(".test."),
     );
-    const shellClients = shellFiles.filter((name) => {
-      const source = readFileSync(join(shellDir, name), "utf8");
-      return /["']use client["']/.test(source);
-    });
-    expect(shellClients).toEqual(["mobile-navigation.tsx"]);
+    const shellClients = shellFiles
+      .filter((name) => {
+        const source = readFileSync(join(shellDir, name), "utf8");
+        return /["']use client["']/.test(source);
+      })
+      .sort();
+    expect(shellClients).toEqual(["footer-responsive-grid.tsx", "mobile-navigation.tsx"]);
 
     const sectionsDir = join(process.cwd(), "components/sections");
     const sectionFiles = readdirSync(sectionsDir).filter(
