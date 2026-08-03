@@ -34,7 +34,9 @@ describe("Home page", () => {
     expect(html).toContain(siteConfig.brand.slogan);
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Galerie d’inspirations<");
-    expect(html).toContain(">Questions fréquentes<");
+    expect(html).toContain(">QUESTIONS<");
+    expect(html).toContain(">FRÉQUENTES<");
+    expect(html).toContain("Trouvez rapidement les réponses à vos questions");
     expect(html).toContain(">Contactez PRiMiE Coiffure<");
     expect(html).toContain(
       "Préparez votre demande de rendez-vous, puis envoyez-la directement à Prisca sur WhatsApp.",
@@ -150,6 +152,7 @@ describe("Home page", () => {
       expect.arrayContaining([
         "contact-booking.tsx",
         "faq.tsx",
+        "faq-search-experience.tsx",
         "gallery-preview.tsx",
         "hero.tsx",
         "services.tsx",
@@ -157,11 +160,13 @@ describe("Home page", () => {
     );
     expect(sectionFiles).not.toContain("booking.tsx");
     expect(sectionFiles).not.toContain("contact.tsx");
+    expect(sectionFiles).not.toContain("faq-info-panel.tsx");
+    expect(sectionFiles).not.toContain("faq-search-list.tsx");
     const sectionClients = sectionFiles.filter((name) => {
       const source = readFileSync(join(sectionsDir, name), "utf8");
       return /["']use client["']/.test(source);
     });
-    expect(sectionClients).toEqual([]);
+    expect(sectionClients).toEqual(["faq-search-experience.tsx"]);
 
     const bookingWidget = readFileSync(
       join(process.cwd(), "components/booking/booking-request-widget.tsx"),
@@ -194,7 +199,8 @@ describe("Home page", () => {
 
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Galerie d’inspirations<");
-    expect(html).toContain(">Questions fréquentes<");
+    expect(html).toContain(">QUESTIONS<");
+    expect(html).toContain(">FRÉQUENTES<");
     expect(html).toContain(">Contactez PRiMiE Coiffure<");
     expect(html).toContain('href="/galerie"');
     expect(html).toContain("Découvrir la galerie");

@@ -2,9 +2,25 @@ import type { FaqItem } from "./types";
 
 /**
  * FAQ prudente — PO_APPROVED_SEED (2026-07-31).
- * Non rendue dans app/page.tsx tant que la section FAQ n’est pas activée (01C+).
- * Pas d’horaires, dimanche, paiement, zone précise ni promesse de disponibilité.
+ * `faqCopy` : chrome UI section (titres, recherche, panneau) — hors Q/R métier.
+ * Pas de dimanche, paiement, zone précise ni promesse de disponibilité dans les Q/R.
  */
+export const faqCopy = {
+  titleLead: "QUESTIONS",
+  titleAccent: "FRÉQUENTES",
+  subtitle: "Trouvez rapidement les réponses à vos questions",
+  searchPlaceholder: "Rechercher une question…",
+  emptyResults: "Aucune question ne correspond à votre recherche.",
+  resultsLiveLabel: "résultat",
+  resultsLiveLabelPlural: "résultats",
+  infoHoursTitle: "Horaires",
+  infoZoneTitle: "Zone d’intervention",
+  infoZonePrimary: "Prestations à domicile",
+  infoHelpTitle: "Besoin d’aide ?",
+  infoHelpHint: "Appelez-nous directement",
+  contactCtaLabel: "Nous contacter",
+} as const;
+
 export const faq = [
   {
     id: "prendre-rendez-vous",
