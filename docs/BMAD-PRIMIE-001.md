@@ -457,7 +457,8 @@ Validation BMAD (G2 passé)
 │   │   └── FOOTER-DESIGN-R1B-R1 (DONE — Validé CTO 2026-08-03)
 │   ├── FOOTER-DESIGN-R1C (DONE — Validé CTO 2026-08-03)
 │   │   ├── FOOTER-DESIGN-R1C-R1 (DONE)
-│   │   └── FOOTER-DESIGN-R1C-R2 (DONE — Validé CTO 2026-08-03)
+│   │   ├── FOOTER-DESIGN-R1C-R2 (DONE — compatibilité technique)
+│   │   └── FOOTER-DESIGN-R1C-R3 (DONE — Validé CTO 2026-08-03)
 │   ├── FOOTER-DESIGN-R1D (DONE — Validé CTO 2026-08-03)
 │   └── FOOTER-DESIGN-R1E (DONE — Validé CTO 2026-08-03)
 └── INIT-SCAFFOLD-01A (DONE)
@@ -530,7 +531,8 @@ traçabilité.
 | `01fdbr1` | `FOOTER-DESIGN-R1B-R1` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P1` | densité / fidélité desktop |
 | `01fdc` | `FOOTER-DESIGN-R1C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | mobile disclosures |
 | `01fdcr1` | `FOOTER-DESIGN-R1C-R1` | `CORRECTIVE` | `DONE` | `P1` | xl + fallback CSS |
-| `01fdcr2` | `FOOTER-DESIGN-R1C-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P1` | matchMedia open |
+| `01fdcr2` | `FOOTER-DESIGN-R1C-R2` | `CORRECTIVE` | `DONE — compatibilité technique` | `P1` | matchMedia open |
+| `01fdcr3` | `FOOTER-DESIGN-R1C-R3` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-03` | `P1` | fidélité maquette mobile |
 | `01fdd` | `FOOTER-DESIGN-R1D` | `VERIFY` | `DONE — Validé CTO 2026-08-03` | `P1` | QA a11y multi-route |
 | `01fde` | `FOOTER-DESIGN-R1E` | `VERIFY + PUBLISH` | `DONE — Validé CTO 2026-08-03` | `P1` | checkpoint Footer |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
@@ -861,7 +863,7 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO 2026-08-03`
 - Inclus : identité centrée, CTA hors disclosures, quatre `details`/`summary` natifs,
   facts stack mobile, vague/bottom mobile, non-régression desktop xl
-- Exclus : Client Component (introduit en R1C-R2), dépendance, commit, déploiement
+- Exclus : dépendance, commit, déploiement
 
 ##### FOOTER-DESIGN-R1C-R1 — Corrective breakpoint / compatibilité
 
@@ -875,10 +877,20 @@ peuvent être centralisés avant affichage UI.
 ##### FOOTER-DESIGN-R1C-R2 — Corrective cross-browser
 
 - Mode : `CORRECTIVE`
-- Statut : `DONE — Validé CTO 2026-08-03`
+- Statut : `DONE — compatibilité technique`
 - Inclus : Client Component minimal `FooterResponsiveGrid`, `matchMedia(1280)`,
   attribut `open` réel, suppression hacks CSS `::details-content`
 - Exclus : duplication DOM, dépendance npm, commit, déploiement
+
+##### FOOTER-DESIGN-R1C-R3 — Corrective visuelle mobile
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : états initiaux Contact/Inspirations ouverts, CTA 2 lignes, summaries
+  éditoriaux, Contact compact, rail Inspirations horizontal, facts 3 lignes,
+  bottom noir décoré, non-régression desktop ≥1280
+- Exclus : Testimonials, WHY-PRIMIE, LEGAL-PAGES-01, commit, push, déploiement
+- Preuves QA hors dépôt : `%LOCALAPPDATA%\Temp\primie-footer-r1c-r3\`
 
 ##### FOOTER-DESIGN-R1D — QA a11y multi-route
 
@@ -886,7 +898,8 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO 2026-08-03`
 - Inclus : matrice viewports, Chromium/Firefox/WebKit, clavier/a11y, multi-route,
   resize, hydratation, performance/CLS, smoke production
-- Exclus : commit, staging, push, déploiement, refonte, contenu inventé
+- Exclus : commit, staging, push, déploiement, refonte visuelle, contenu inventé
+- Dette QA transverse non bloquante : Safari/iOS réel non exécuté
 
 ##### FOOTER-DESIGN-R1E — Checkpoint / clôture
 
@@ -894,6 +907,7 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO 2026-08-03`
 - Inclus : commits Git + push `origin/main` ; clôture BMAD `FOOTER-DESIGN-R1`
 - Exclus : déploiement Vercel ; ouverture de feature suivante
+- Note : `LEGAL-PAGES-01` reste `NOT OPEN`
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
