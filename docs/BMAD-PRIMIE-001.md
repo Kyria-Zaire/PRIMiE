@@ -15,7 +15,7 @@
 | Autorité technique | Kyria — CTO |
 | Autorité Production | Kyria — confirmation explicite requise |
 | Date de création | `2026-07-30` |
-| Dernière mise à jour | `2026-07-31` |
+| Dernière mise à jour | `2026-08-03` |
 | Validation CTO | `Kyria — 2026-07-30` |
 | PRD source | `docs/PRD-PRIMIE-V1.md — version 1.3 — Validé` |
 | ADR | `Aucun requis à ce stade` |
@@ -446,6 +446,11 @@ Validation BMAD (G2 passé)
 │   ├── GALLERY-CONTENT-01E (DONE — Validé CTO 2026-08-02)
 │   ├── GALLERY-PAGE-HERO-R1 (DONE — Validé CTO 2026-08-02)
 │   └── GALLERY-DISCLOSURE-R1 (DONE — Validé CTO 2026-08-02)
+├── FAQ-EXPERIENCE (DONE — publié le 2026-08-03)
+│   ├── FAQ-DESIGN-R1 (DONE)
+│   ├── FAQ-DESIGN-R1-R2 (DONE — Validé CTO 2026-08-03)
+│   ├── FAQ-ASSISTANT-EXPRESS-R1 (DONE — Validé CTO 2026-08-03)
+│   └── FAQ-EXPERIENCE-CHECKPOINT (DONE — publié le 2026-08-03)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -507,6 +512,10 @@ traçabilité.
 | `01ge` | `GALLERY-CONTENT-01E` | `VERIFY` | `DONE — Validé CTO 2026-08-02` | `P1` | `01D` |
 | `01gphr1` | `GALLERY-PAGE-HERO-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | post-clôture `GALLERY-CONTENT-01` |
 | `01gdr1` | `GALLERY-DISCLOSURE-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-02` | `P1` | retrait disclosure public |
+| `01fdr1` | `FAQ-DESIGN-R1` | `IMPLEMENT` | `DONE` | `P1` | redesign FAQ (recherche, Hero, portrait) |
+| `01fdr1r2` | `FAQ-DESIGN-R1-R2` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | Hero compact + portrait faux-locs |
+| `01faer1` | `FAQ-ASSISTANT-EXPRESS-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P1` | sujets express + filtre |
+| `01fec` | `FAQ-EXPERIENCE-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-03` | `P1` | checkpoint groupé FAQ |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -758,6 +767,44 @@ peuvent être centralisés avant affichage UI.
 - Inclus : runtime copy/UI/tests, alignement PRD/registre/BMAD, checkpoint publish
 - Exclus : changement d’assets, Hero R1, filtres, CTA, Testimonials, déploiement
 - Note : `GALLERY-CONTENT-01` reste `DONE` ; `WHY-PRIMIE-01` non ouvert
+
+#### FAQ-EXPERIENCE — Refonte expérience FAQ
+
+- Mode : `IMPLEMENT` + `VERIFY` + `PUBLISH`
+- Statut parent : `DONE — publié le 2026-08-03`
+- Dépendances : FAQ canonique livrée via `CONTENT-VALIDATION-01` / `TRUST-CONTENT-01`
+- Conservé : cinq Q/R canoniques ; aucune nouvelle donnée métier ; Booking et Footer
+  inchangés ; `package.json` / `pnpm-lock.yaml` inchangés
+- Actif : recherche accent-insensitive ; Assistant Express (cinq sujets) ;
+  filtre + ouverture + focus ; « Voir toutes les questions » ; `details`/`summary`
+  natifs ; `id="faq"` unique ; nav Header/Mobile/Footer → `#faq`
+- Portrait officiel : `faq-portrait-faux-locs-deesse-v1.webp` (WebP alpha)
+- Retiré : ancien panneau pratique (Horaires / Zone / Contact)
+- Exclus : déploiement Production / Preview déclenché par ce checkpoint
+
+##### FAQ-DESIGN-R1 — Redesign FAQ
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE`
+- Inclus : Hero FAQ, recherche, liste filtrable, portrait, chrome UI `faqCopy`
+
+##### FAQ-DESIGN-R1-R2 — Compactage Hero + portrait faux-locs
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : Hero R2 compact ; portrait officiel faux-locs ; typo `font-display` questions
+
+##### FAQ-ASSISTANT-EXPRESS-R1 — Sujets express
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : cinq sujets mappés aux FAQ canoniques ; remplacement du panneau pratique
+
+##### FAQ-EXPERIENCE-CHECKPOINT — Publication groupée
+
+- Mode : `VERIFY` + `PUBLISH`
+- Statut : `DONE — publié le 2026-08-03`
+- Inclus : commit + push `main` (implémentation + gouvernance BMAD) ; aucun déploiement
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
