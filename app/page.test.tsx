@@ -31,6 +31,11 @@ describe("Home page", () => {
     expect(html).toContain("PRiMiE");
     expect(html).toContain("Chez PRiMiE Coiffure");
     expect(html).toContain("Coiffure et beauté afro à domicile");
+    expect(html).not.toContain("La beauté afro,");
+    expect(html).not.toContain(">sublimée<");
+    expect(html).not.toContain("avec passion");
+    expect(html).toContain("L’excellence au service de votre beauté et de votre confiance.");
+    expect(html.replace(/<br\s*\/?>/g, " ")).toContain(siteConfig.brand.slogan);
     expect(html).toContain(siteConfig.brand.slogan);
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Galerie d’inspirations<");
@@ -85,14 +90,21 @@ describe("Home page", () => {
     expect(html).toContain("+33 7 49 61 65 82");
     expect(html).toContain("Réserver sur WhatsApp");
     expect(html).toContain("Envoyer ma demande sur WhatsApp");
-    expect(html).toContain("primie-hero-v1.webp");
-    expect(html).toContain("primie-hero-mobile-v1.webp");
+    expect(html).toContain("primie-hero-r2-desktop.webp");
+    expect(html).toContain("primie-hero-r2-mobile.webp");
+    expect(html).not.toContain("primie-hero-v1.webp");
+    expect(html).not.toContain("primie-hero-mobile-v1.webp");
     expect(html).toContain("<img");
     expect(html).toMatch(/alt=""/);
     expect(html).not.toContain("primie section hero");
     expect(html).not.toContain("Site en préparation.");
     expect(html).not.toContain("Instagram");
     expect(html).not.toContain("Extensions cils");
+    expect(html).not.toContain("PROFESSIONNELLE");
+    expect(html).toContain("EXCELLENCE");
+    expect(html).toContain("À VOTRE ÉCOUTE");
+    expect(html).toContain("absolute inset-x-0 top-0");
+    expect(html).toContain("primie-logo-v1.webp");
 
     expect(html.match(/<h1\b/g)).toHaveLength(1);
     // h2 métier : Services, Galerie, FAQ, ContactBooking
@@ -106,6 +118,7 @@ describe("Home page", () => {
     expect(html).toContain(">Réserver<");
     expect(html).toContain(">Contact<");
     expect(html).toContain('href="/galerie"');
+    expect(html).toContain('href="#galerie"');
     expect(html).toContain("Découvrir la galerie");
     expect(html).not.toContain("#a-propos");
     expect(html).not.toContain("#avis");

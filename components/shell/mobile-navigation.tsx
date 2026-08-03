@@ -71,6 +71,25 @@ export function MobileNavigation({ items, whatsappUrl, whatsappLabel }: MobileNa
     };
   }, [open]);
 
+  /** Fermer + déverrouiller le scroll si le viewport passe en desktop (lg). */
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const onViewportChange = () => {
+      if (!mediaQuery.matches) {
+        return;
+      }
+      setOpen(false);
+      unlockScroll();
+    };
+
+    onViewportChange();
+    mediaQuery.addEventListener("change", onViewportChange);
+    return () => {
+      mediaQuery.removeEventListener("change", onViewportChange);
+    };
+  }, []);
+
   useEffect(() => {
     return () => {
       unlockScroll();

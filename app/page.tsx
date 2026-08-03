@@ -33,6 +33,7 @@ export default function Home() {
     <>
       <SkipLink />
       <Header
+        variant="heroOverlay"
         items={routeNavigation}
         homeHref="#accueil"
         mobileNavigation={

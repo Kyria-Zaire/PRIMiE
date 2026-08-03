@@ -81,4 +81,18 @@ describe("MobileNavigation", () => {
     expect(source).not.toContain("getVisibleNavigation");
     expect(source).not.toContain("server-only");
   });
+
+  it("ferme le menu et déverrouille le scroll au passage desktop", () => {
+    const source = readFileSync(
+      join(process.cwd(), "components/shell/mobile-navigation.tsx"),
+      "utf8",
+    );
+    expect(source).toContain('matchMedia("(min-width: 1024px)")');
+    expect(source).toContain('addEventListener("change"');
+    expect(source).toContain("unlockScroll");
+    expect(source).toContain("Escape");
+    expect(source).toContain("buttonRef.current?.focus()");
+    expect(source).toContain("aria-expanded");
+    expect(source).toContain("aria-controls");
+  });
 });

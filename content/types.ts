@@ -66,3 +66,23 @@ export type FaqItem = {
   readonly question: string;
   readonly answer: string;
 };
+
+/** Identifiants des valeurs marketing Hero R2 (HEADER-HERO-DESIGN-R1B). */
+export type HeroValueId = "home" | "excellence" | "passion" | "listening";
+
+/** Valeur marketing Hero — non contractuelle ; pictogrammes côté présentation. */
+export type HeroValue = {
+  readonly id: HeroValueId;
+  readonly title: string;
+  readonly description: string;
+};
+
+/**
+ * Copy Hero R2 — texte seul, sans URL ni JSX.
+ * H1 / slogan : `siteConfig.brand.slogan` (source canonique, hors HeroCopy).
+ */
+export type HeroCopy = {
+  readonly eyebrow: string;
+  readonly description: readonly [string, string];
+  readonly primaryCtaLabel: string;
+};

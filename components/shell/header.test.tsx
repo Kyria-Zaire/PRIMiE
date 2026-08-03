@@ -80,5 +80,29 @@ describe("Header", () => {
     expect(source).not.toMatch(/["']use client["']/);
     expect(source).toContain("whatsappPrefillMessage");
     expect(source).toContain("BrandLogo");
+    expect(source).toContain("heroOverlay");
+    expect(source).toContain('variant = "default"');
+    expect(source).not.toContain("silhouette");
+  });
+
+  it("applique la variante heroOverlay sans recréer un logo", () => {
+    const htmlDefault = renderToStaticMarkup(<Header items={sampleItems} />);
+    const htmlOverlay = renderToStaticMarkup(<Header items={sampleItems} variant="heroOverlay" />);
+
+    expect(htmlDefault).toContain("bg-hero");
+    expect(htmlDefault).toContain("relative border-b border-bronze");
+    expect(htmlDefault).toContain("lg:min-h-16");
+    expect(htmlOverlay).toContain("absolute inset-x-0 top-0");
+    expect(htmlOverlay).toContain("bg-black/55");
+    expect(htmlOverlay).toContain("border-gold/25");
+    expect(htmlOverlay).toContain("lg:min-h-0");
+    expect(htmlOverlay).toContain("lg:py-2.5");
+    expect(htmlOverlay).toContain("lg:w-[11.25rem]");
+    expect(htmlOverlay).toContain("xl:w-[12.5rem]");
+    expect(htmlOverlay).toContain("primie-logo-v1.webp");
+    expect(htmlOverlay).toContain('alt="PRiMiE"');
+    expect(htmlOverlay).not.toContain("bg-hero");
+    expect(htmlOverlay).not.toContain("xl:w-[13.75rem]");
+    expect(htmlOverlay).not.toMatch(/Avis|Nos réalisations|À propos/);
   });
 });
