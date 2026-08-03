@@ -15,7 +15,7 @@
 | Autorité technique | Kyria — CTO |
 | Autorité Production | Kyria — confirmation explicite requise |
 | Date de création | `2026-07-30` |
-| Dernière mise à jour | `2026-08-03` |
+| Dernière mise à jour | `2026-08-04` |
 | Validation CTO | `Kyria — 2026-07-30` |
 | PRD source | `docs/PRD-PRIMIE-V1.md — version 1.3 — Validé` |
 | ADR | `Aucun requis à ce stade` |
@@ -470,6 +470,12 @@ Validation BMAD (G2 passé)
 │   │   ├── HEADER-HERO-DESIGN-R1D-R1 (DONE — Validé CTO 2026-08-03)
 │   │   └── HEADER-HERO-DESIGN-R1D-R2 (DONE — Validé CTO 2026-08-03)
 │   └── HEADER-HERO-DESIGN-R1E (DONE — publié)
+├── DEPENDENCY-SECURITY-R1 (DONE — clôturé le 2026-08-04)
+│   ├── DEPENDENCY-SECURITY-R1A (DONE — Validé CTO 2026-08-04)
+│   ├── DEPENDENCY-SECURITY-R1B (DONE — Validé CTO 2026-08-04)
+│   │   ├── DEPENDENCY-SECURITY-R1B-R1 (SUPERSEDED sur la provenance CLAUDE.md)
+│   │   └── DEPENDENCY-SECURITY-R1B-R2 (DONE — Validé CTO 2026-08-04)
+│   └── DEPENDENCY-SECURITY-R1C-CHECKPOINT (DONE — publié le 2026-08-04)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -552,6 +558,12 @@ traçabilité.
 | `01hhdr1` | `HEADER-HERO-DESIGN-R1D-R1` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P0` | slogan canonique Hero |
 | `01hhdr2` | `HEADER-HERO-DESIGN-R1D-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P0` | H1 mobile authority |
 | `01hhe` | `HEADER-HERO-DESIGN-R1E` | `VERIFY + PUBLISH` | `DONE — publié` | `P0` | QA + checkpoint |
+| `01dsr1` | `DEPENDENCY-SECURITY-R1` | `VERIFY + PUBLISH` | `DONE — clôturé le 2026-08-04` | `P0` | remédiation advisories transitifs |
+| `01dsr1a` | `DEPENDENCY-SECURITY-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-04` | `P0` | audit read-only postcss / brace-expansion |
+| `01dsr1b` | `DEPENDENCY-SECURITY-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-04` | `P0` | overrides `8.5.25` / `5.0.9` |
+| `01dsr1br1` | `DEPENDENCY-SECURITY-R1B-R1` | `CORRECTIVE` | `SUPERSEDED` sur provenance `CLAUDE.md` | `P0` | restauration erronée |
+| `01dsr1br2` | `DEPENDENCY-SECURITY-R1B-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-04` | `P0` | stash `user-intent-remove-claude-md` |
+| `01dsr1c` | `DEPENDENCY-SECURITY-R1C-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push sécurité + BMAD |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
@@ -1034,13 +1046,68 @@ peuvent être centralisés avant affichage UI.
 - Déploiement : **aucun**
 - Dettes transférées :
   - **QA** : Safari / iOS réel non exécuté
-  - **Supply-chain** (préexistante, hors lot Hero — `package.json` / `pnpm-lock.yaml` inchangés) :
-    - `postcss` moderate `GHSA-fxqj-rqcc-2cmp` / advisory `1130709` — chemins
-      `@tailwindcss/postcss>postcss` et `next>postcss` ; patch `>=8.5.23` ; exposition
-      runtime publique limitée (build CSS, pas de surface Hero HTTP)
-    - `brace-expansion` high `1130734` — chemin `@eslint/eslintrc>minimatch>brace-expansion`
-      (chaîne ESLint / outillage) ; patch `>=5.0.9` ; non exposé sur les routes publiques
-  - Ne pas traiter ces dettes dans le design Header/Hero ; chantier supply-chain séparé si priorisé
+  - **Supply-chain** : remédiée dans `DEPENDENCY-SECURITY-R1` (clôturé le `2026-08-04`)
+
+### DEPENDENCY-SECURITY-R1 — Remédiation advisories transitifs
+
+**Métadonnées**
+
+- Feature : `FEATURE-SUPPLY-CHAIN-V1`
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — clôturé le 2026-08-04`
+- Priorité : `P0`
+- Autorité : Kyria — CTO
+- Clôture : `2026-08-04` — checkpoint publié sans déploiement
+- Remédiation : `pnpm.overrides` — `postcss` `8.5.25`, `brace-expansion` `5.0.9`
+  (`sharp` inchangé `0.35.3`)
+- Audits : `pnpm audit` et `pnpm audit --prod` à zéro
+- Commit sécurité : `a34536e` — `fix(deps): patch transitive security advisories`
+- Fichiers publiés : `package.json`, `pnpm-lock.yaml` uniquement
+- Note : suppression volontaire de `CLAUDE.md` (intention Kyria) conservée dans le
+  stash local `user-intent-remove-claude-md` (`D CLAUDE.md`) — à auditer séparément ;
+  hors manifeste du checkpoint sécurité
+
+#### DEPENDENCY-SECURITY-R1A — Audit read-only
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : identification advisories `1130709` / `GHSA-fxqj-rqcc-2cmp` (postcss) et
+  `1130734` / `GHSA-rgw5-rvv9-x895` (brace-expansion) ; cause `pnpm.overrides`
+- Exclus : modification de code, commit
+
+#### DEPENDENCY-SECURITY-R1B — Remédiation overrides
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Dépendances : `DEPENDENCY-SECURITY-R1A`
+- Inclus : `postcss` `8.5.18` → `8.5.25` ; `brace-expansion` `5.0.8` → `5.0.9` ;
+  régénération lockfile ; audits à zéro ; qualité complète
+- Exclus : bump Next/React/Tailwind/ESLint ; `pnpm audit fix` ; UI ; BMAD ; commit
+
+##### DEPENDENCY-SECURITY-R1B-R1 — Restauration CLAUDE.md
+
+- Mode : `CORRECTIVE`
+- Statut : `SUPERSEDED` sur la provenance `CLAUDE.md` uniquement
+- Motif : restauration depuis HEAD contraire à l’intention volontaire de Kyria ;
+  remédiation sécurité R1B reste techniquement valide
+
+##### DEPENDENCY-SECURITY-R1B-R2 — Préserver intention utilisateur
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : isolation de la suppression `CLAUDE.md` dans le stash nommé
+  `user-intent-remove-claude-md` ; manifeste actif limité à `package.json` +
+  `pnpm-lock.yaml`
+- Exclus : pop / apply / drop / clear du stash ; commit
+
+#### DEPENDENCY-SECURITY-R1C-CHECKPOINT — Publication
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié le 2026-08-04`
+- Dépendances : `DEPENDENCY-SECURITY-R1B-R2`
+- Inclus : commit + push sécurité (`package.json`, `pnpm-lock.yaml`) ; mise à jour
+  BMAD ; push documentaire
+- Exclus : déploiement ; modification ou suppression du stash `user-intent-remove-claude-md`
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
