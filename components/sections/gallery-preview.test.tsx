@@ -46,7 +46,11 @@ describe("GalleryPreview", () => {
     expect(globalsCss).not.toMatch(
       /\.gallery-preview-rail::-webkit-scrollbar\s*\{[^}]*display:\s*none/,
     );
-    expect(globalsCss).not.toMatch(/-ms-overflow-style:\s*none/);
+    const galleryRailBlock =
+      globalsCss.match(/\/\* Rails galerie[\s\S]*?(?=\/\* Rail Inspirations|$)/)?.[0] ?? "";
+    expect(galleryRailBlock.length).toBeGreaterThan(0);
+    expect(galleryRailBlock).not.toMatch(/-ms-overflow-style:\s*none/);
+    expect(globalsCss).toMatch(/\.footer-inspirations-rail[\s\S]*?-ms-overflow-style:\s*none/);
   });
 
   it("rend #galerie, CTA /galerie et 8 cartes featured sans disclosure", () => {

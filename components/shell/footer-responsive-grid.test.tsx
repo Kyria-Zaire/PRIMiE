@@ -16,7 +16,13 @@ const slots: readonly FooterDisclosureSlot[] = FOOTER_DISCLOSURE_IDS.map((id) =>
   children: <p>{`contenu-${id}`}</p>,
 }));
 
-describe("FooterResponsiveGrid — FOOTER-DESIGN-R1C-R2", () => {
+function detailsOpenFlags(html: string): boolean[] {
+  return [...html.matchAll(/<details([^>]*)>/g)].map((match) =>
+    /\sopen(?:[\s>=]|$)/.test(match[1] ?? ""),
+  );
+}
+
+describe("FooterResponsiveGrid — FOOTER-DESIGN-R1C-R2 / R1C-R3", () => {
   it("est un Client Component dédié au breakpoint 1280", () => {
     const source = readFileSync(
       join(process.cwd(), "components/shell/footer-responsive-grid.tsx"),
@@ -40,30 +46,49 @@ describe("FooterResponsiveGrid — FOOTER-DESIGN-R1C-R2", () => {
     expect(source).not.toContain("site-config");
     expect(source).not.toContain("bookingConfig");
     expect(source).not.toContain("featuredGalleryIds");
-    // window uniquement dans useEffect (pas au niveau module).
     expect(source.indexOf("window.")).toBeGreaterThan(source.indexOf("useEffect"));
   });
 
-  it("SSR mobile-first : details fermés et data-desktop false", () => {
+  it("SSR mobile-first : Navigation/Services fermés, Contact/Inspirations ouverts", () => {
+    const source = readFileSync(
+      join(process.cwd(), "components/shell/footer-responsive-grid.tsx"),
+      "utf8",
+    );
     const html = renderToStaticMarkup(
       <FooterResponsiveGrid brand={<div>Marque</div>} disclosures={slots} />,
     );
+
+    expect(source).toMatch(/navigation:\s*false/);
+    expect(source).toMatch(/services:\s*false/);
+    expect(source).toMatch(/contact:\s*true/);
+    expect(source).toMatch(/inspirations:\s*true/);
 
     expect(html).toContain("data-footer-columns");
     expect(html).toContain('data-desktop="false"');
     expect(html.match(/<details\b/g)).toHaveLength(4);
     expect(html.match(/<summary\b/g)).toHaveLength(4);
-    expect(html).not.toMatch(/<details[^>]*\sopen[\s>]/);
+    expect(detailsOpenFlags(html)).toEqual([false, false, true, true]);
     expect(html).toContain("contenu-navigation");
     expect(html).toContain("contenu-services");
     expect(html).toContain("contenu-contact");
     expect(html).toContain("contenu-inspirations");
     expect(html).toContain(">Marque<");
-    // Summaries visibles tant que isDesktop=false (pas de classe utilitaire séparée `hidden`).
     expect(html).not.toMatch(/<summary class="[^"]*\shidden(?:\s|")/);
   });
 
   it("expose les quatre ids de disclosure stables", () => {
     expect(FOOTER_DISCLOSURE_IDS).toEqual(["navigation", "services", "contact", "inspirations"]);
+  });
+
+  it("conserve la restauration mobile via état mobileOpen après resize", () => {
+    const source = readFileSync(
+      join(process.cwd(), "components/shell/footer-responsive-grid.tsx"),
+      "utf8",
+    );
+
+    expect(source).toContain("setMobileOpen");
+    expect(source).toContain("mobileOpen[disclosure.id]");
+    expect(source).toContain("isDesktop || mobileOpen");
+    expect(source).toContain('mediaQuery.addEventListener("change"');
   });
 });

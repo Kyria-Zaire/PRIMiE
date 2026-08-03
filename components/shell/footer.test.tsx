@@ -99,6 +99,9 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     const bookingUrl = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
     const plainUrl = buildWhatsAppUrl();
 
+    expect(html).toContain('aria-label="Réserver sur WhatsApp"');
+    expect(html).toContain("Réserver maintenant");
+    expect(html).toContain("Sur WhatsApp");
     expect(html).toContain("Réserver sur WhatsApp");
     expect(html).toContain(`href="${bookingUrl}"`);
     expect(html).toContain("?text=");
@@ -163,7 +166,7 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     expect(html).toContain(bookingConfig.copy.confirmationNote);
     expect(html).toContain("font-script");
     expect(html).toContain(">Prisca<");
-    expect(html).toContain("© 2026 Chez PRiMiE Coiffure. Tous droits réservés.");
+    expect(html).toContain("© 2026 Chez PRiMiE Coiffure – Tous droits réservés.");
   });
 
   it("n’invente aucun contenu hors périmètre", () => {
@@ -190,7 +193,7 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     expect(html).toContain("Réserver sur WhatsApp");
   });
 
-  it("structure corrective R1B-R1 : ornements, contact, facts et signature", () => {
+  it("structure corrective R1B-R1 / R1C-R3 : ornements, contact, facts et signature", () => {
     const html = renderToStaticMarkup(<Footer navigationItems={homeNav} year={2026} />);
     const source = readFileSync(join(process.cwd(), "components/shell/footer.tsx"), "utf8");
 
@@ -199,13 +202,16 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     expect(source).toContain("footer-signature");
     expect(source).toContain("xl:grid-cols-[1.1fr_1.1fr_1.35fr_auto]");
     expect(source).toContain("w-[14rem]");
+    expect(source).toContain("w-[11.25rem]");
     expect(source).toContain("min-h-16");
     expect(source).toContain("data-footer-facts");
     expect(source).toContain("data-footer-bottom");
+    expect(source).toContain("data-footer-contact");
     expect(html).toContain('aria-hidden="true"');
     expect(html).toContain("data-footer-facts");
     expect(html).toContain("data-footer-bottom");
     expect(html).toContain("data-footer-mosaic");
+    expect(html).toContain("data-footer-contact");
     expect(html).toContain("Téléphone");
     expect(html).toContain("Horaires");
     expect(html).toContain("Prestations à domicile");
@@ -214,9 +220,10 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     expect(html).toContain("→");
     expect(html).toContain("rounded-full");
     expect(html).toContain("aspect-[3/4]");
+    expect(html).toContain("aspect-[4/5]");
   });
 
-  it("expose quatre disclosures natifs R1C/R1C-R2 hors CTA (breakpoint xl)", () => {
+  it("expose quatre disclosures natifs R1C-R3 hors CTA (breakpoint xl)", () => {
     const html = renderToStaticMarkup(<Footer navigationItems={homeNav} year={2026} />);
     const source = readFileSync(join(process.cwd(), "components/shell/footer.tsx"), "utf8");
     const gridSource = readFileSync(
@@ -233,29 +240,42 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     expect(source).not.toContain("lg:grid-cols-3");
     expect(source).not.toContain("lg:block!");
     expect(source).not.toContain("lg:hidden");
+    expect(source).toContain("footer-inspirations-rail");
+    expect(source).toContain("xl:grid-cols-3");
+    expect(source).not.toContain("grid-cols-3 gap-1");
 
     expect(gridSource).toMatch(/^["']use client["']/m);
     expect(gridSource).toContain("footer-disclosure");
     expect(gridSource).toContain("(min-width: 1280px)");
     expect(gridSource).toContain("isDesktop || mobileOpen");
     expect(gridSource).toContain("xl:grid-cols-[1.08fr_0.92fr_1fr_1.05fr_1.22fr]");
+    expect(gridSource).toMatch(/contact:\s*true/);
+    expect(gridSource).toMatch(/inspirations:\s*true/);
+    expect(gridSource).toMatch(/navigation:\s*false/);
+    expect(gridSource).toMatch(/services:\s*false/);
 
+    expect(globalCss).toContain(".footer-inspirations-rail");
+    expect(globalCss).toContain("scrollbar-width: none");
     expect(globalCss).not.toContain("::details-content");
     expect(globalCss).not.toContain("content-visibility: visible");
     expect(globalCss).not.toContain("footer-disclosure:not([open])");
     expect(globalCss).not.toContain("Footer R1C-R1");
 
+    const openFlags = [...html.matchAll(/<details([^>]*)>/g)].map((match) =>
+      /\sopen(?:[\s>=]|$)/.test(match[1] ?? ""),
+    );
     expect(html.match(/<details\b/g)).toHaveLength(4);
     expect(html.match(/<summary\b/g)).toHaveLength(4);
-    expect(html).not.toMatch(/<details[^>]*\sopen[\s>]/);
+    expect(openFlags).toEqual([false, false, true, true]);
     expect(html).toContain('data-desktop="false"');
     expect(html).toContain(">Navigation<");
     expect(html).toContain(">Services<");
     expect(html).toContain(">Contactez-moi<");
     expect(html).toContain(">Inspirations<");
+    expect(html).toContain("footer-inspirations-rail");
     expect(html).not.toMatch(/carousel|swiper/i);
 
-    const ctaIndex = html.indexOf("Réserver sur WhatsApp");
+    const ctaIndex = html.indexOf('aria-label="Réserver sur WhatsApp"');
     const firstDetails = html.indexOf("<details");
     expect(ctaIndex).toBeGreaterThan(-1);
     expect(firstDetails).toBeGreaterThan(ctaIndex);

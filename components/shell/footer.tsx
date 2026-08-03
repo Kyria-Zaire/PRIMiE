@@ -213,26 +213,26 @@ function FooterWave() {
   return (
     <svg
       aria-hidden="true"
-      className="block h-12 w-full text-black sm:h-14 md:h-16 xl:h-[4.25rem]"
-      viewBox="0 0 1440 96"
+      className="block h-14 w-full text-black sm:h-16 md:h-[4.5rem] xl:h-[4.25rem]"
+      viewBox="0 0 1440 110"
       preserveAspectRatio="none"
       focusable="false"
     >
       <path
         fill="currentColor"
-        d="M0 58c96-22 192-36 320-34 176 3 288 30 400 30s224-27 400-30c128-2 224 12 320 34V96H0V58Z"
+        d="M0 48c110-28 220-44 360-42 190 3 300 36 420 36s230-33 420-36c140-2 250 14 360 42V110H0V48Z"
       />
       <path
         fill="currentColor"
-        opacity="0.35"
-        d="M0 68c120-18 240-28 360-26 168 3 264 22 360 22s192-19 360-22c120-2 240 8 360 26V96H0V68Z"
+        opacity="0.42"
+        d="M0 62c130-22 250-34 380-32 180 3 280 26 380 26s200-23 380-26c130-2 250 10 380 32V110H0V62Z"
       />
     </svg>
   );
 }
 
 /**
- * Pied de page public — Server Component (FOOTER-DESIGN-R1B → R1C-R2).
+ * Pied de page public — Server Component (FOOTER-DESIGN-R1B → R1C-R3).
  * Données métier côté Server ; ouverture desktop déléguée à FooterResponsiveGrid.
  */
 export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterProps) {
@@ -243,14 +243,14 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
   const galleryCta = galleryCopy.landing;
 
   const brand = (
-    <div className="mb-5 flex flex-col items-center gap-3 text-center xl:mb-0 xl:items-start xl:gap-3.5 xl:pr-7 xl:text-left">
+    <div className="mb-4 flex flex-col items-center gap-2.5 text-center xl:mb-0 xl:items-start xl:gap-3.5 xl:pr-7 xl:text-left">
       <a
         href={homeHref}
         className="inline-flex w-fit items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
       >
-        <BrandLogo className="h-auto w-[9.75rem] sm:w-[11rem] xl:w-[14rem]" />
+        <BrandLogo className="h-auto w-[11.25rem] sm:w-[12.5rem] xl:w-[14rem]" />
       </a>
-      <div className="flex max-w-sm flex-col gap-1.5 xl:max-w-none">
+      <div className="flex max-w-sm flex-col gap-1 xl:max-w-none xl:gap-1.5">
         <p className="font-display text-lg font-semibold tracking-tight text-gold sm:text-xl">
           {siteConfig.brand.commercialName}
         </p>
@@ -263,17 +263,26 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
       </div>
       <LinkButton
         href={bookingWhatsAppUrl}
+        aria-label="Réserver sur WhatsApp"
         variant="secondary"
         size="lg"
-        className="mt-1 min-h-16 w-full max-w-md justify-center gap-3 rounded-2xl border border-gold bg-black px-5 text-gold shadow-elevated hover:bg-rich-black hover:opacity-100 xl:max-w-none xl:min-h-[4.5rem]"
+        className="mt-0.5 min-h-16 w-full max-w-md justify-center gap-3 rounded-2xl border border-gold bg-black px-4 text-gold shadow-elevated hover:bg-rich-black hover:opacity-100 sm:px-5 xl:mt-1 xl:max-w-none xl:min-h-[4.5rem] xl:gap-2.5 xl:px-3.5"
       >
         <span
           aria-hidden="true"
-          className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-gold/70 bg-rich-black"
+          className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-gold/70 bg-rich-black shadow-soft xl:size-9"
         >
-          <WhatsAppGlyph className="size-5 text-gold" />
+          <WhatsAppGlyph className="size-5 text-gold xl:size-[1.15rem]" />
         </span>
-        <span className="font-sans text-[0.95rem] leading-tight font-semibold tracking-wide text-gold sm:text-base">
+        <span className="flex min-w-0 flex-col items-start gap-0.5 text-left xl:hidden">
+          <span className="font-sans text-[0.68rem] leading-none font-semibold tracking-[0.16em] text-gold uppercase">
+            Réserver maintenant
+          </span>
+          <span className="font-sans text-[0.98rem] leading-tight font-semibold tracking-wide text-gold">
+            Sur WhatsApp
+          </span>
+        </span>
+        <span className="hidden font-sans text-[0.9rem] leading-tight font-semibold tracking-wide text-gold xl:inline">
           Réserver sur WhatsApp
         </span>
       </LinkButton>
@@ -336,17 +345,17 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
       icon: <PhoneGlyph />,
       className: "xl:border-l xl:border-soft-gold/55 xl:px-7",
       children: (
-        <div className="flex flex-col gap-3">
-          <address className="m-0 flex flex-col gap-3 not-italic">
+        <div data-footer-contact className="flex flex-col">
+          <address className="m-0 flex flex-col not-italic">
             <a
               href={`tel:${siteConfig.contact.phoneE164}`}
-              className="group flex min-h-11 items-start gap-3 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+              className="group flex min-h-11 items-center gap-3 border-b border-soft-gold/35 py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
             >
               <IconBadge>
                 <PhoneGlyph />
               </IconBadge>
-              <span className="flex min-w-0 flex-col gap-0.5 pt-0.5 font-sans text-sm leading-snug">
-                <span className="text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase">
+              <span className="flex min-w-0 flex-col gap-0.5 font-sans text-sm leading-snug">
+                <span className="text-[0.68rem] tracking-[0.14em] text-muted-foreground uppercase">
                   Téléphone
                 </span>
                 <span className="font-medium text-foreground">
@@ -356,13 +365,13 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
             </a>
             <a
               href={plainWhatsAppUrl}
-              className="group flex min-h-11 items-start gap-3 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+              className="group flex min-h-11 items-center gap-3 border-b border-soft-gold/35 py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
             >
               <IconBadge>
                 <WhatsAppGlyph className="size-4 text-gold" />
               </IconBadge>
-              <span className="flex min-w-0 flex-col gap-0.5 pt-0.5 font-sans text-sm leading-snug">
-                <span className="text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase">
+              <span className="flex min-w-0 flex-col gap-0.5 font-sans text-sm leading-snug">
+                <span className="text-[0.68rem] tracking-[0.14em] text-muted-foreground uppercase">
                   WhatsApp
                 </span>
                 <span className="font-medium text-foreground">WhatsApp</span>
@@ -370,24 +379,24 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
             </a>
           </address>
 
-          <div className="flex min-h-11 items-start gap-3">
+          <div className="flex min-h-11 items-center gap-3 border-b border-soft-gold/35 py-2.5">
             <IconBadge>
               <HomeGlyph />
             </IconBadge>
-            <div className="flex min-w-0 flex-col gap-0.5 pt-0.5 font-sans text-sm leading-snug">
-              <p className="text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase">
+            <div className="flex min-w-0 flex-col gap-0.5 font-sans text-sm leading-snug">
+              <p className="text-[0.68rem] tracking-[0.14em] text-muted-foreground uppercase">
                 Prestations
               </p>
               <p className="font-medium text-foreground">Prestations à domicile</p>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
+          <div className="flex min-h-11 items-start gap-3 py-2.5">
             <IconBadge>
               <ClockGlyph />
             </IconBadge>
-            <div className="flex min-w-0 flex-col gap-0.5 pt-0.5 font-sans text-sm leading-snug">
-              <p className="text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase">
+            <div className="flex min-w-0 flex-col gap-0.5 font-sans text-sm leading-snug">
+              <p className="text-[0.68rem] tracking-[0.14em] text-muted-foreground uppercase">
                 Horaires
               </p>
               <p className="font-medium text-foreground">{hours.daysLabel}</p>
@@ -407,17 +416,22 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
         <>
           <ul
             data-footer-mosaic
-            className="m-0 grid w-full list-none grid-cols-3 gap-1 p-0 sm:gap-1.5 xl:gap-2"
+            tabIndex={0}
+            aria-label="Inspirations"
+            className="footer-inspirations-rail m-0 flex w-full list-none gap-2 overflow-x-auto p-0 xl:grid xl:grid-cols-3 xl:gap-2 xl:overflow-visible"
           >
             {footerInspirations.map((item) => (
-              <li key={item.id} className="overflow-hidden rounded-lg bg-black shadow-soft">
-                <div className="relative aspect-[3/4] w-full">
+              <li
+                key={item.id}
+                className="w-[calc((100%-2rem)/5)] shrink-0 overflow-hidden rounded-lg bg-black shadow-soft max-xl:snap-start xl:w-auto xl:min-w-0 xl:shrink"
+              >
+                <div className="relative aspect-[4/5] w-full xl:aspect-[3/4]">
                   <Image
                     src={item.src}
                     alt={item.alt}
                     width={item.width}
                     height={item.height}
-                    sizes="(max-width: 1279px) 28vw, 120px"
+                    sizes="(max-width: 1279px) 18vw, 120px"
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
@@ -427,7 +441,7 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
           </ul>
           <a
             href={galleryCta.ctaHref}
-            className={`${linkClassName} mt-3 gap-2 text-bronze underline-offset-4 hover:underline`}
+            className={`${linkClassName} mt-2.5 gap-2 text-bronze underline-offset-4 hover:underline`}
           >
             <span className="min-w-0">{galleryCta.ctaLabel}</span>
             <span aria-hidden="true" className="text-gold">
@@ -441,37 +455,38 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
 
   return (
     <footer className="border-t border-soft-gold/60 bg-ivory text-foreground">
-      <Container className="py-10 sm:py-12 md:py-14 xl:pt-16 xl:pb-12">
-        <div className="mx-auto flex w-full max-w-[min(100%,40rem)] flex-col gap-8 sm:max-w-[42rem] md:max-w-[52rem] xl:mx-0 xl:max-w-none xl:gap-12">
+      <Container className="py-8 sm:py-10 md:py-12 xl:pt-16 xl:pb-12">
+        <div className="mx-auto flex w-full max-w-[min(100%,40rem)] flex-col gap-6 sm:max-w-[42rem] sm:gap-7 md:max-w-[52rem] xl:mx-0 xl:max-w-none xl:gap-12">
           <FooterResponsiveGrid brand={brand} disclosures={disclosures} />
 
           <div
             data-footer-facts
-            className="relative overflow-hidden rounded-2xl border border-soft-gold/45 bg-warm-cream px-4 py-5 shadow-soft sm:px-6 sm:py-6 md:rounded-[1.75rem] xl:flex xl:min-h-[10.5rem] xl:items-center xl:px-8 xl:py-7"
+            className="relative overflow-hidden rounded-2xl border border-soft-gold/45 bg-warm-cream px-4 py-4 shadow-soft sm:px-6 sm:py-5 md:rounded-[1.75rem] xl:flex xl:min-h-[10.5rem] xl:items-center xl:px-8 xl:py-7"
           >
-            <div className="grid w-full gap-4 sm:gap-5 xl:grid-cols-[1.1fr_1.1fr_1.35fr_auto] xl:items-center xl:gap-6">
-              <div className="flex items-start gap-3 border-b border-soft-gold/35 pb-4 text-left xl:border-0 xl:pb-0">
+            <FloralOrnament className="pointer-events-none absolute -right-1 -bottom-1 h-16 w-28 text-gold/15 xl:hidden" />
+            <div className="relative grid w-full gap-3 sm:gap-4 xl:grid-cols-[1.1fr_1.1fr_1.35fr_auto] xl:items-center xl:gap-6">
+              <div className="flex items-start gap-3 border-b border-soft-gold/35 pb-3 text-left xl:border-0 xl:pb-0">
                 <IconBadge>
                   <ScissorsGlyph />
                 </IconBadge>
                 <div className="min-w-0">
-                  <p className="font-display text-sm font-semibold tracking-[0.12em] text-gold uppercase">
+                  <p className="font-display text-[0.8rem] font-semibold tracking-[0.14em] text-gold uppercase sm:text-sm sm:tracking-[0.12em]">
                     6 prestations
                   </p>
-                  <p className="mt-1 font-sans text-sm leading-snug text-muted-foreground">
+                  <p className="mt-0.5 font-sans text-sm leading-snug text-muted-foreground">
                     {services.length} prestations proposées.
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 border-b border-soft-gold/35 pb-4 text-left xl:border-0 xl:border-l xl:border-soft-gold/40 xl:pb-0 xl:pl-6">
+              <div className="flex items-start gap-3 border-b border-soft-gold/35 pb-3 text-left xl:border-0 xl:border-l xl:border-soft-gold/40 xl:pb-0 xl:pl-6">
                 <IconBadge>
                   <HomeGlyph />
                 </IconBadge>
                 <div className="min-w-0">
-                  <p className="font-display text-sm font-semibold tracking-[0.12em] text-gold uppercase">
+                  <p className="font-display text-[0.8rem] font-semibold tracking-[0.14em] text-gold uppercase sm:text-sm sm:tracking-[0.12em]">
                     À domicile
                   </p>
-                  <p className="mt-1 font-sans text-sm leading-snug text-muted-foreground">
+                  <p className="mt-0.5 font-sans text-sm leading-snug text-muted-foreground">
                     {siteConfig.brand.activity}
                   </p>
                 </div>
@@ -481,17 +496,17 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
                   <CheckGlyph />
                 </IconBadge>
                 <div className="min-w-0">
-                  <p className="font-display text-sm font-semibold tracking-[0.12em] text-gold uppercase">
+                  <p className="font-display text-[0.8rem] font-semibold tracking-[0.14em] text-gold uppercase sm:text-sm sm:tracking-[0.12em]">
                     Confirmation par Prisca
                   </p>
-                  <p className="mt-1 font-sans text-sm leading-snug text-muted-foreground">
+                  <p className="mt-0.5 font-sans text-sm leading-snug text-muted-foreground">
                     {bookingConfig.copy.confirmationNote}
                   </p>
                 </div>
               </div>
               <p
                 aria-hidden="true"
-                className="footer-signature pt-1 text-center font-script text-3xl leading-none text-gold xl:self-center xl:pt-0 xl:pl-2 xl:text-right xl:text-[2.35rem]"
+                className="footer-signature pt-0.5 text-right font-script text-3xl leading-none text-gold xl:self-center xl:pt-0 xl:pl-2 xl:text-right xl:text-[2.35rem]"
               >
                 Prisca
               </p>
@@ -503,14 +518,19 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
       <FooterWave />
 
       <div data-footer-bottom className="bg-black text-on-dark">
-        <Container className="flex min-h-[7.5rem] flex-col items-center justify-center gap-4 py-8 text-center sm:min-h-[8rem] xl:grid xl:min-h-[10.5rem] xl:grid-cols-[1fr_auto_1fr] xl:gap-6 xl:py-11 xl:text-left">
-          <p className="max-w-[14.5rem] text-balance font-sans text-sm text-on-dark-muted sm:max-w-none xl:text-left">
-            © {copyrightYear} {siteConfig.brand.commercialName}. Tous droits réservés.
+        <Container className="flex min-h-[9.5rem] flex-col items-center justify-center gap-3.5 py-8 text-center sm:min-h-[10.5rem] sm:gap-4 xl:grid xl:min-h-[10.5rem] xl:grid-cols-[1fr_auto_1fr] xl:gap-6 xl:py-11 xl:text-left">
+          <FloralOrnament className="order-1 h-6 w-11 text-gold xl:hidden" />
+          <p className="order-2 max-w-[16rem] text-balance font-sans text-sm text-on-dark-muted sm:max-w-none xl:order-none xl:text-left">
+            © {copyrightYear} {siteConfig.brand.commercialName} – Tous droits réservés.
           </p>
-          <div className="mx-auto flex flex-col items-center gap-2">
-            <span aria-hidden="true" className="h-px w-10 bg-gold/55" />
-            <FloralOrnament className="h-5 w-9 text-gold" />
-            <span aria-hidden="true" className="h-px w-10 bg-gold/55" />
+          <div className="order-3 mx-auto flex flex-col items-center gap-2 xl:order-none">
+            <span aria-hidden="true" className="flex items-center gap-2">
+              <span className="h-px w-8 bg-gold/55 sm:w-10" />
+              <span className="inline-block size-1.5 rotate-45 bg-gold/70" />
+              <span className="h-px w-8 bg-gold/55 sm:w-10" />
+            </span>
+            <FloralOrnament className="hidden h-5 w-9 text-gold xl:block" />
+            <span aria-hidden="true" className="hidden h-px w-10 bg-gold/55 xl:block" />
           </div>
           <span className="hidden xl:block" aria-hidden="true" />
         </Container>

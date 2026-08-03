@@ -27,8 +27,8 @@ type MobileOpenState = Record<FooterDisclosureId, boolean>;
 const INITIAL_MOBILE_OPEN: MobileOpenState = {
   navigation: false,
   services: false,
-  contact: false,
-  inspirations: false,
+  contact: true,
+  inspirations: true,
 };
 
 const panelClassName =
@@ -75,8 +75,9 @@ function ColumnHeading({ children }: { readonly children: ReactNode }) {
 }
 
 /**
- * Grille Footer responsive — Client minimal (FOOTER-DESIGN-R1C-R2).
+ * Grille Footer responsive — Client minimal (FOOTER-DESIGN-R1C-R2 / R1C-R3).
  * Ouvre les details via attribut `open` dès 1280 px (matchMedia).
+ * Mobile initial : Contact + Inspirations ouverts (SSR aligné).
  */
 export function FooterResponsiveGrid({ brand, disclosures }: FooterResponsiveGridProps) {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -107,56 +108,58 @@ export function FooterResponsiveGrid({ brand, disclosures }: FooterResponsiveGri
     <div
       data-footer-columns
       data-desktop={isDesktop ? "true" : "false"}
-      className="flex flex-col gap-1 xl:grid xl:grid-cols-[1.08fr_0.92fr_1fr_1.05fr_1.22fr] xl:items-start xl:gap-0"
+      className="flex flex-col gap-0 xl:grid xl:grid-cols-[1.08fr_0.92fr_1fr_1.05fr_1.22fr] xl:items-start xl:gap-0"
     >
       {brand}
-      {disclosures.map((disclosure) => {
-        const open = isDesktop || mobileOpen[disclosure.id];
-        return (
-          <details
-            key={disclosure.id}
-            className={[
-              "footer-disclosure group border-b border-bronze/35 xl:border-0",
-              disclosure.className,
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            open={open}
-            onToggle={(event) => handleToggle(disclosure.id, event)}
-          >
-            <summary
+      <div className="mt-1 border-t border-bronze/40 xl:mt-0 xl:contents xl:border-0">
+        {disclosures.map((disclosure) => {
+          const open = isDesktop || mobileOpen[disclosure.id];
+          return (
+            <details
+              key={disclosure.id}
               className={[
-                "flex min-h-14 cursor-pointer list-none items-center gap-3 py-3.5 marker:content-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus [&::-webkit-details-marker]:hidden",
-                isDesktop ? "hidden" : "",
+                "footer-disclosure group border-b border-bronze/40 xl:border-0",
+                disclosure.className,
               ]
                 .filter(Boolean)
                 .join(" ")}
+              open={open}
+              onToggle={(event) => handleToggle(disclosure.id, event)}
             >
-              <span
-                aria-hidden="true"
-                className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-bronze/55 bg-warm-cream text-gold shadow-soft"
+              <summary
+                className={[
+                  "flex min-h-14 cursor-pointer list-none items-center gap-3 px-0.5 py-3.5 marker:content-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus [&::-webkit-details-marker]:hidden",
+                  isDesktop ? "hidden" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
               >
-                {disclosure.icon}
-              </span>
-              <span className="min-w-0 flex-1 font-display text-base font-semibold tracking-[0.08em] text-foreground uppercase group-open:text-gold">
-                {disclosure.title}
-              </span>
-              <span
-                aria-hidden="true"
-                className="inline-flex size-8 shrink-0 items-center justify-center text-lg leading-none text-gold motion-safe:transition-transform motion-safe:duration-short motion-safe:ease-soft group-open:rotate-180 motion-reduce:transition-none"
-              >
-                ⌄
-              </span>
-            </summary>
-            <div className={panelClassName}>
-              <div className={isDesktop ? "mb-3 block" : "mb-3 hidden"}>
-                <ColumnHeading>{disclosure.title}</ColumnHeading>
+                <span
+                  aria-hidden="true"
+                  className="inline-flex size-8 shrink-0 items-center justify-center text-gold"
+                >
+                  {disclosure.icon}
+                </span>
+                <span className="min-w-0 flex-1 font-display text-[1.05rem] font-semibold tracking-[0.06em] text-foreground uppercase group-open:text-gold">
+                  {disclosure.title}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="inline-flex size-8 shrink-0 items-center justify-center text-lg leading-none text-gold motion-safe:transition-transform motion-safe:duration-short motion-safe:ease-soft group-open:rotate-180 motion-reduce:transition-none"
+                >
+                  ⌄
+                </span>
+              </summary>
+              <div className={panelClassName}>
+                <div className={isDesktop ? "mb-3 block" : "mb-3 hidden"}>
+                  <ColumnHeading>{disclosure.title}</ColumnHeading>
+                </div>
+                {disclosure.children}
               </div>
-              {disclosure.children}
-            </div>
-          </details>
-        );
-      })}
+            </details>
+          );
+        })}
+      </div>
     </div>
   );
 }
