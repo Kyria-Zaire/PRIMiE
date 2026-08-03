@@ -461,6 +461,15 @@ Validation BMAD (G2 passé)
 │   │   └── FOOTER-DESIGN-R1C-R3 (DONE — Validé CTO 2026-08-03)
 │   ├── FOOTER-DESIGN-R1D (DONE — Validé CTO 2026-08-03)
 │   └── FOOTER-DESIGN-R1E (DONE — Validé CTO 2026-08-03)
+├── HEADER-HERO-DESIGN-R1 (DONE — clôturé le 2026-08-03)
+│   ├── HEADER-HERO-DESIGN-R1A (DONE — Validé CTO 2026-08-03)
+│   ├── HEADER-HERO-DESIGN-R1B (DONE — Validé CTO 2026-08-03)
+│   ├── HEADER-HERO-DESIGN-R1C (DONE — Validé CTO 2026-08-03)
+│   │   └── HEADER-HERO-DESIGN-R1C-R1 (DONE — Validé CTO 2026-08-03)
+│   ├── HEADER-HERO-DESIGN-R1D (DONE — Validé CTO 2026-08-03)
+│   │   ├── HEADER-HERO-DESIGN-R1D-R1 (DONE — Validé CTO 2026-08-03)
+│   │   └── HEADER-HERO-DESIGN-R1D-R2 (DONE — Validé CTO 2026-08-03)
+│   └── HEADER-HERO-DESIGN-R1E (DONE — publié)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -535,6 +544,14 @@ traçabilité.
 | `01fdcr3` | `FOOTER-DESIGN-R1C-R3` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-03` | `P1` | fidélité maquette mobile |
 | `01fdd` | `FOOTER-DESIGN-R1D` | `VERIFY` | `DONE — Validé CTO 2026-08-03` | `P1` | QA a11y multi-route |
 | `01fde` | `FOOTER-DESIGN-R1E` | `VERIFY + PUBLISH` | `DONE — Validé CTO 2026-08-03` | `P1` | checkpoint Footer |
+| `01hha` | `HEADER-HERO-DESIGN-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-03` | `P0` | audit Header + Hero |
+| `01hhb` | `HEADER-HERO-DESIGN-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P0` | WebP r2 + copy typée |
+| `01hhc` | `HEADER-HERO-DESIGN-R1C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P0` | Header overlay + Hero desktop |
+| `01hhcr1` | `HEADER-HERO-DESIGN-R1C-R1` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P0` | gap Header/eyebrow desktop |
+| `01hhd` | `HEADER-HERO-DESIGN-R1D` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-03` | `P0` | mobile + responsive |
+| `01hhdr1` | `HEADER-HERO-DESIGN-R1D-R1` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P0` | slogan canonique Hero |
+| `01hhdr2` | `HEADER-HERO-DESIGN-R1D-R2` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-03` | `P0` | H1 mobile authority |
+| `01hhe` | `HEADER-HERO-DESIGN-R1E` | `VERIFY + PUBLISH` | `DONE — publié` | `P0` | QA + checkpoint |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
@@ -908,6 +925,122 @@ peuvent être centralisés avant affichage UI.
 - Inclus : commits Git + push `origin/main` ; clôture BMAD `FOOTER-DESIGN-R1`
 - Exclus : déploiement Vercel ; ouverture de feature suivante
 - Note : `LEGAL-PAGES-01` reste `NOT OPEN`
+
+#### HEADER-HERO-DESIGN-R1 — Header + Hero R2
+
+##### HEADER-HERO-DESIGN-R1A — Audit
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : audit read-only Header/Hero, sources PNG officielles, copy/valeurs candidates,
+  art direction, logo, navigation
+- Décisions CTO validées :
+  - copy Hero `APPROVED_BY_CTO` (accent gold uniquement sur « sublimée ») ;
+  - quatre valeurs marketing `APPROVED_BY_CTO` (non contractuelles) ;
+  - CTA secondaire landing → `#galerie` ;
+  - valeurs : 2×2 sous 390 px, 4 colonnes dès `min-[390px]` ;
+  - logo : initialement `BLOCKED_ASSET_LOGO` ; levé CTO 2026-08-03
+    (`BrandLogo` / `primie-logo-v1.webp` = `APPROVED_FOR_HEADER_HERO_R2`)
+- Exclus : conversion, UI, commit, déploiement
+
+##### HEADER-HERO-DESIGN-R1B — Assets + copy
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Validé CTO :
+  - PNG desktop/mobile intacts, exclus localement par chemins exacts ;
+  - WebP R2 dimensions natives, q98, budgets respectés (244,8 Ko / 255,6 Ko) ;
+  - métadonnées retirées ; aucune dérive visuelle majeure ;
+  - `heroCopy` / `heroValues` / `heroAssetsR2` centralisés ;
+  - aucune duplication URL WhatsApp ni href Gallery ;
+  - assets et runtime V1 conservés ;
+  - 198 tests + suite qualité verts ; package/lock inchangés ;
+  - aucun commit, push ou déploiement
+- Inclus :
+  - exclude local `.git/info/exclude` :
+    `/images/Hero/hero-desktop.png`, `/images/Hero/hero-mobile.png` ;
+  - WebP runtime :
+    `public/images/hero/primie-hero-r2-desktop.webp` (1536×1024, q98, ≤450 Ko),
+    `public/images/hero/primie-hero-r2-mobile.webp` (853×1844, q98, ≤350 Ko) ;
+  - copy typée `content/hero.ts` + tests `content/hero.test.ts` (non branchés UI) ;
+  - quatre valeurs marketing `heroValues` ;
+  - assets paths `heroAssetsR2` ;
+  - Hero V1 + `hero-highlights.ts` inchangés (runtime public)
+- Sources officielles (SHA256) :
+  - desktop `c272b52d80b9a64677106f6a828f1a9e70ac2c8e8d442691c46949f118d6634e` ;
+  - mobile `b0ce14f275bc05f08985753e81f84174c45cae8b14a039e1e8c32f9d96606498`
+- Conversion : `sharp@0.33.5` (transitif Next), sans crop/resize, RGB opaque
+- Exclus : Header/Hero UI, import WebP R2, commit, push, déploiement
+
+##### HEADER-HERO-DESIGN-R1C — Header overlay + Hero desktop
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Logo (décision CTO 2026-08-03) :
+  - `BLOCKED_ASSET_LOGO` : **LEVÉ** ;
+  - logo officiel = `BrandLogo` + `public/brand/logo/primie-logo-v1.webp` ;
+  - graphie `PRiMiE` ; aucun nouvel asset ; aucun redessin / silhouette / extraction maquette ;
+  - lockup maquette = référence positionnement / taille / équilibre nav seulement ;
+  - `APPROVED_FOR_HEADER_HERO_R2` ; pas de ticket `HEADER-HERO-LOGO-R1` ;
+  - ajustements CSS dimensions autorisés (ratio intrinsèque, sans déformation ni fond)
+- Inclus livré (candidat revue visuelle) :
+  - `Header variant="heroOverlay"` sur `/` ; Header solide inchangé sur `/galerie` ;
+  - Hero R2 : `heroCopy` + `heroValues` + `heroAssetsR2` ;
+  - picture mobile/desktop 1024 ; CTA WA prérempli + `#galerie` ;
+  - grille valeurs 2×2 / `min-[390px]:grid-cols-4` ;
+  - suppression `content/hero-highlights.ts` (+ test)
+- Prérequis R1B : satisfaits
+- Exclus R1C : polish mobile pixel-perfect (R1D) ; commit / push / déploiement
+
+##### HEADER-HERO-DESIGN-R1C-R1 — Corrective visuelle desktop
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Défaut : eyebrow « Chez PRiMiE Coiffure » partiellement masqué sous Header overlay (gap &lt; 24 px à 1024)
+- Inclus : densification verticale Header overlay ; `lg:justify-start` + `lg:pt-36` / `xl:pt-40` Hero ;
+  invariant `eyebrow.top >= header.bottom + 24` sur 1024 / 1280 / 1440
+- Exclus : crop, gradients, copy, valeurs, mobile polish, commit / push / déploiement
+
+##### HEADER-HERO-DESIGN-R1D — Mobile polish + responsive verify
+
+- Mode : `IMPLEMENT` + `VERIFY`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Inclus : polish mobile Header/Hero ; gap Header/eyebrow ≥ 20 px ; grille valeurs 389/390 ;
+  CTA empilés ; crop/gradients mobile ; QA matrice + menu + a11y + art direction
+- Desktop gelé : conserver composition R1C / R1C-R1 ≥ 1024 px
+
+##### HEADER-HERO-DESIGN-R1D-R1 — Restauration slogan canonique
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Motif : slogan temporaire « avec passion » refusé CTO ; restaurer `siteConfig.brand.slogan`
+- Inclus : Hero script ivoire 2 lignes via `siteConfig.brand.slogan` ; suppression cœur ;
+  retrait `scriptAccent` / `heroCopy.title` ; H1 = slogan
+
+##### HEADER-HERO-DESIGN-R1D-R2 — Micro-correctif H1 mobile
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE — Validé CTO 2026-08-03`
+- Motif : H1 slogan trop petit sur 320–390 px
+- Inclus : hausse taille / leading H1 &lt;768 px ; styles ≥768 px gelés
+
+##### HEADER-HERO-DESIGN-R1E — VERIFY + checkpoint
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié`
+- Clôture : `2026-08-03`
+- Commit implémentation : `18bf193` — `feat: redesign PRiMiE responsive header hero`
+- Commit BMAD : `docs: close header hero design refresh`
+- Déploiement : **aucun**
+- Dettes transférées :
+  - **QA** : Safari / iOS réel non exécuté
+  - **Supply-chain** (préexistante, hors lot Hero — `package.json` / `pnpm-lock.yaml` inchangés) :
+    - `postcss` moderate `GHSA-fxqj-rqcc-2cmp` / advisory `1130709` — chemins
+      `@tailwindcss/postcss>postcss` et `next>postcss` ; patch `>=8.5.23` ; exposition
+      runtime publique limitée (build CSS, pas de surface Hero HTTP)
+    - `brace-expansion` high `1130734` — chemin `@eslint/eslintrc>minimatch>brace-expansion`
+      (chaîne ESLint / outillage) ; patch `>=5.0.9` ; non exposé sur les routes publiques
+  - Ne pas traiter ces dettes dans le design Header/Hero ; chantier supply-chain séparé si priorisé
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
