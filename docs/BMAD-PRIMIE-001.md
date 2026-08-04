@@ -480,6 +480,14 @@ Validation BMAD (G2 passé)
 │   ├── CLAUDE-GOVERNANCE-CLEANUP-R1A (DONE — Validé CTO 2026-08-04)
 │   ├── CLAUDE-GOVERNANCE-CLEANUP-R1B (DONE — Validé CTO 2026-08-04)
 │   └── CLAUDE-GOVERNANCE-CLEANUP-R1C-CHECKPOINT (DONE — publié le 2026-08-04)
+├── NAVIGATION-MENU-DESIGN-R1 (IN_PROGRESS)
+│   ├── NAVIGATION-MENU-DESIGN-R1A (DONE — Validé CTO 2026-08-04)
+│   ├── NAVIGATION-MENU-DESIGN-R1A-R1 (DONE — Validé CTO 2026-08-04)
+│   ├── NAVIGATION-MENU-DESIGN-R1B (DONE — Validé CTO 2026-08-04)
+│   ├── NAVIGATION-MENU-DESIGN-R1C (IN_PROGRESS — en attente CTO)
+│   ├── NAVIGATION-OVERLAY-R1-R2B (DONE — Validé CTO 2026-08-04)
+│   ├── NAVIGATION-MENU-DESIGN-R1D (BLOCKED)
+│   └── NAVIGATION-MENU-DESIGN-R1E (BLOCKED)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -572,6 +580,14 @@ traçabilité.
 | `01cgr1a` | `CLAUDE-GOVERNANCE-CLEANUP-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-04` | `P0` | audit refs / couverture |
 | `01cgr1b` | `CLAUDE-GOVERNANCE-CLEANUP-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-04` | `P0` | cleanup refs actives |
 | `01cgr1c` | `CLAUDE-GOVERNANCE-CLEANUP-R1C-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push + drop stash |
+| `01nmr1` | `NAVIGATION-MENU-DESIGN-R1` | `IMPLEMENT` | `IN_PROGRESS` | `P0` | menu modale responsive Option A |
+| `01nmr1a` | `NAVIGATION-MENU-DESIGN-R1A` | `DISCOVER` | `DONE — Validé CTO 2026-08-04` | `P0` | audit technique menu |
+| `01nmr1ar1` | `NAVIGATION-MENU-DESIGN-R1A-R1` | `DISCOVER` | `DONE — Validé CTO 2026-08-04` | `P0` | Visual Gate maquettes |
+| `01nmr1b` | `NAVIGATION-MENU-DESIGN-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-04` | `P0` | architecture + a11y foundation |
+| `01nmr1c` | `NAVIGATION-MENU-DESIGN-R1C` | `IMPLEMENT` | `IN_PROGRESS — en attente CTO` | `P0` | fidélité visuelle |
+| `01nor1r2b` | `NAVIGATION-OVERLAY-R1-R2B` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-04` | `P0` | portrait desktop lisible |
+| `01nmr1d` | `NAVIGATION-MENU-DESIGN-R1D` | `VERIFY` | `BLOCKED` | `P0` | a11y / cross-browser / perf |
+| `01nmr1e` | `NAVIGATION-MENU-DESIGN-R1E` | `VERIFY + PUBLISH` | `BLOCKED` | `P0` | checkpoint + BMAD |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
@@ -1162,6 +1178,64 @@ peuvent être centralisés avant affichage UI.
 - Inclus : push `origin/main` ; preuve d’absence distante de `CLAUDE.md` ;
   drop explicite du stash `user-intent-remove-claude-md` après vérification
 - Exclus : déploiement ; `git stash clear` ; fichier racine substitut
+
+#### NAVIGATION-MENU-DESIGN-R1 — Menu modale responsive
+
+- Mode : `IMPLEMENT` (découpage R1A–R1E)
+- Statut : `IN_PROGRESS`
+- Décision CTO : Option A — déclencheur Menu tous viewports ; six destinations ;
+  pas de réseaux / Avis / À propos ; BrandLogo officiel ; WA prérempli via helper
+
+##### NAVIGATION-MENU-DESIGN-R1A — Audit technique
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : inventaire menu actuel, contrats a11y/multi-route, architecture cible, reco A/B
+
+##### NAVIGATION-MENU-DESIGN-R1A-R1 — Visual Gate
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : ouverture maquettes mobile/desktop ; adaptation éditoriale ; glass layers ;
+  Option A confirmée
+
+##### NAVIGATION-MENU-DESIGN-R1B — Architecture + a11y foundation
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : Header fermé ; `ResponsiveNavigationMenu` dialog ; focus trap ; Hero R2 lazy ;
+  glass socle ; tests ; pas de pixel-perfect
+- Exclus : commit / push / déploiement ; R1C fidélité
+
+##### NAVIGATION-MENU-DESIGN-R1C — Fidélité visuelle
+
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS — en attente CTO`
+- Inclus : glass/portrait, densité mobile/desktop, crops Hero, typo/icônes/CTA, Visual Gate
+- Exclus : modification contrats a11y/multi-route ; assets Hero ; commit
+
+##### NAVIGATION-OVERLAY-R1-R2B — Corrective portrait desktop
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE — Validé CTO 2026-08-04`
+- Inclus : séparation nav / éditorial / zone portrait ; voiles localisés ; mini-card retirée
+  du desktop (masquait le visage) ; Hero ambiant clarifié à droite ; mobile gelé ;
+  Fermer top-right conservé ; état actif route/hash ; Visual Gate PASS
+- Exclus : nouvel asset ; Hero fermé ; Header ; staging / commit / push (hors checkpoint)
+- Cause racine : voile uniforme + éditorial/mini-card sur la silhouette ; pas un défaut d’asset
+- Preuve : runtime frais 3010 ; Playwright Chromium/Firefox/WebKit ; 6 viewports ;
+  portrait immédiatement lisible à droite ; `#services` ≠ Accueil ; `/galerie` `aria-current="page"`
+- Validation CTO : défauts bloquants levés (portrait + état actif) — 2026-08-04
+
+##### NAVIGATION-MENU-DESIGN-R1D — VERIFY
+
+- Mode : `VERIFY`
+- Statut : `BLOCKED` (après validation R1C)
+
+##### NAVIGATION-MENU-DESIGN-R1E — PUBLISH
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `BLOCKED`
 
 #### TESTIMONIALS-CONTENT-01 — Témoignages
 
