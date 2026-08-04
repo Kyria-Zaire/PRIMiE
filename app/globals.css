@@ -143,10 +143,18 @@ body {
   }
 }
 
-/* Navigation menu dialog — glass unique + fallback opaque (R1B/R1C) */
+/* Navigation menu dialog — glass unique + fallback opaque (R1B/R1C)
+ * Mobile polish R1 : blur réduit pour laisser percevoir le portrait derrière. */
 .primie-nav-glass {
-  -webkit-backdrop-filter: blur(16px) saturate(1.1);
-  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(6px) saturate(1.06);
+  backdrop-filter: blur(6px) saturate(1.06);
+}
+
+@media (min-width: 1024px) {
+  .primie-nav-glass {
+    -webkit-backdrop-filter: blur(16px) saturate(1.1);
+    backdrop-filter: blur(16px) saturate(1.1);
+  }
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

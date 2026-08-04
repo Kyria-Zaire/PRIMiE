@@ -7,6 +7,7 @@ import {
   resolveActiveNavStateFromLocation,
 } from "./responsive-navigation-menu";
 import type { ResolvedNavigationItem } from "@/content/types";
+import { galleryCopy } from "@/content/gallery";
 import { siteConfig } from "@/content/site-config";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -19,6 +20,8 @@ const sixItems: readonly ResolvedNavigationItem[] = [
   { id: "contact", label: "Contact", href: "#contact" },
 ];
 
+const available = new Set(sixItems.map((item) => item.id));
+
 const editorial = {
   commercialName: siteConfig.brand.commercialName,
   activity: siteConfig.brand.activity,
@@ -27,7 +30,10 @@ const editorial = {
 
 const whatsappUrl = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
 
-function renderMenu(items: readonly ResolvedNavigationItem[] = sixItems) {
+function renderMenu(
+  items: readonly ResolvedNavigationItem[] = sixItems,
+  options?: { galleryLink?: { href: string; label: string }; homeActiveFallback?: boolean },
+) {
   return renderToStaticMarkup(
     <ResponsiveNavigationMenu
       items={items}
@@ -35,7 +41,8 @@ function renderMenu(items: readonly ResolvedNavigationItem[] = sixItems) {
       whatsappLabel="Réserver sur WhatsApp"
       logo={<span data-logo="true">Logo</span>}
       editorial={editorial}
-      homeActiveFallback
+      galleryLink={options?.galleryLink}
+      homeActiveFallback={options?.homeActiveFallback ?? true}
     />,
   );
 }
@@ -75,13 +82,16 @@ describe("ResponsiveNavigationMenu", () => {
     expect(icons).not.toMatch(/Instagram|TikTok|Facebook/i);
   });
 
-  it("prépare le CTA WhatsApp via props sans hardcoder wa.me ni le numéro", () => {
+  it("prépare le CTA WhatsApp via props prérempli sans hardcoder wa.me ni le numéro", () => {
     const source = readFileSync(
       join(process.cwd(), "components/shell/responsive-navigation-menu.tsx"),
       "utf8",
     );
 
     expect(source).toContain("whatsappUrl");
+    expect(source).toContain("data-menu-whatsapp-cta");
+    expect(source).toContain("md:max-lg:max-w-[16.5rem]");
+    expect(source).toContain("md:max-lg:self-start");
     expect(source).not.toContain("wa.me/33749616582");
     expect(source).not.toContain("+33749616582");
     expect(source).not.toContain("whatsappPrefillMessage");
@@ -111,6 +121,8 @@ describe("ResponsiveNavigationMenu", () => {
     expect(source).toContain("event.target === event.currentTarget");
     expect(source).toContain("pointer-events-none absolute inset-0 bg-black/50");
     expect(source).toContain("primie-nav-dialog primie-nav-glass");
+    expect(source).toContain("syncActiveFromLocation");
+    expect(source).toContain('addEventListener("hashchange"');
     expect(source).not.toMatch(/onClick=\{\(event\) => event\.stopPropagation\(\)\}/);
   });
 
@@ -134,52 +146,100 @@ describe("ResponsiveNavigationMenu", () => {
     expect(hero).toContain("/images/hero/primie-hero-r2-mobile.webp");
   });
 
-  it("résout l'état actif selon route/hash avec aria-current", () => {
-    const available = new Set(["accueil", "services", "galerie", "faq", "reserver", "contact"]);
+  it("résout l'état actif route/hash avec aria-current (contrat landing)", () => {
+    expect(resolveActiveNavStateFromLocation("/", "", available, true)).toEqual({
+      activeId: "accueil",
+      ariaCurrent: "location",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#accueil", available, true)).toEqual({
+      activeId: "accueil",
+      ariaCurrent: "location",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#services", available, true)).toEqual({
+      activeId: "services",
+      ariaCurrent: "location",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#galerie", available, true)).toEqual({
+      activeId: "galerie",
+      ariaCurrent: "location",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#faq", available, true)).toEqual({
+      activeId: "faq",
+      ariaCurrent: "location",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#reserver", available, true)).toEqual({
+      activeId: "reserver",
+      ariaCurrent: "location",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#contact", available, true)).toEqual({
+      activeId: "contact",
+      ariaCurrent: "location",
+    });
+  });
 
-    expect(resolveActiveNavStateFromLocation("/", "#services", available, true).activeId).toBe(
-      "services",
-    );
-    expect(resolveActiveNavStateFromLocation("/", "#services", available, true).ariaCurrent).toBe(
-      "location",
-    );
-
-    expect(resolveActiveNavStateFromLocation("/", "#galerie", available, true).activeId).toBe(
-      "galerie",
-    );
-    expect(resolveActiveNavStateFromLocation("/", "#galerie", available, true).ariaCurrent).toBe(
-      "location",
-    );
-
-    expect(resolveActiveNavStateFromLocation("/galerie", "", available, false).activeId).toBe(
-      "galerie",
-    );
-    expect(resolveActiveNavStateFromLocation("/galerie", "", available, false).ariaCurrent).toBe(
-      "page",
-    );
-
-    expect(resolveActiveNavStateFromLocation("/", "", available, true).activeId).toBe("accueil");
-    expect(resolveActiveNavStateFromLocation("/", "", available, true).ariaCurrent).toBe(
-      "location",
+  it("résout /galerie en page courante et refuse un faux Accueil sur hash inconnu", () => {
+    expect(resolveActiveNavStateFromLocation("/galerie", "", available, false)).toEqual({
+      activeId: "galerie",
+      ariaCurrent: "page",
+    });
+    expect(resolveActiveNavStateFromLocation("/galerie", "#faq", available, false)).toEqual({
+      activeId: "galerie",
+      ariaCurrent: "page",
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#inconnu", available, true)).toEqual({
+      activeId: undefined,
+      ariaCurrent: undefined,
+    });
+    expect(resolveActiveNavStateFromLocation("/", "#foo", available, true).activeId).not.toBe(
+      "accueil",
     );
   });
 
-  it("référence l'asset mini-card et la copy marketing du menu", () => {
+  it("n’affiche aucune copy non canonique « Chaque cliente, une reine »", () => {
+    const source = readFileSync(
+      join(process.cwd(), "components/shell/responsive-navigation-menu.tsx"),
+      "utf8",
+    );
+    const html = renderMenu(sixItems, {
+      galleryLink: {
+        href: galleryCopy.landing.ctaHref,
+        label: galleryCopy.landing.ctaLabel,
+      },
+    });
+
+    expect(source).not.toContain("menuCopy");
+    expect(source).not.toContain("citationLines");
+    expect(source).not.toContain("Chaque cliente");
+    expect(source).not.toContain("une reine");
+    expect(html).not.toContain("Chaque cliente");
+    expect(html).not.toContain("une reine");
+    expect(html).not.toContain("œuvre unique");
+  });
+
+  it("expose un vrai lien éditorial Gallery avec indicateur et copy canonique", () => {
+    const html = renderMenu(sixItems, {
+      galleryLink: {
+        href: galleryCopy.landing.ctaHref,
+        label: galleryCopy.landing.ctaLabel,
+      },
+    });
+    // Dialog fermé au SSR — le lien n’est pas monté ; contrat structurel dans la source.
     const source = readFileSync(
       join(process.cwd(), "components/shell/responsive-navigation-menu.tsx"),
       "utf8",
     );
 
-    // R1-R2B : mini-card retirée du rendu desktop (masquait le portrait) ;
-    // asset + copy restent disponibles pour une future composition.
-    expect(source).toContain("menuCopy.miniCardQuote");
-    expect(source).not.toContain("/images/menu/menu-tools-v1.webp");
-    const copy = readFileSync(join(process.cwd(), "content/menu.ts"), "utf8");
-    expect(copy).toContain("Chaque coiffure, une œuvre unique. Chaque cliente, une reine.");
-    expect(readdirSync(join(process.cwd(), "public/images/menu"))).toContain("menu-tools-v1.webp");
+    expect(galleryCopy.landing.ctaLabel).toBe("Découvrir la galerie");
+    expect(galleryCopy.landing.ctaHref).toBe("/galerie");
+    expect(source).toContain("galleryLink.href");
+    expect(source).toContain("galleryLink.label");
+    expect(source).toContain("NavChevronIcon");
+    expect(source).toContain("underline underline-offset-4");
+    expect(source).toContain("hover:text-gold-light");
+    expect(html).toContain(">Menu<");
   });
 
-  it("applique le socle glass R1C sans opacity sur le contenu", () => {
+  it("applique le socle glass R1C / polish sans opacity sur le contenu", () => {
     const source = readFileSync(
       join(process.cwd(), "components/shell/responsive-navigation-menu.tsx"),
       "utf8",
@@ -187,8 +247,13 @@ describe("ResponsiveNavigationMenu", () => {
     const globals = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
 
     expect(source).toContain("bg-black/50");
-    expect(source).toContain("bg-rich-black/60");
+    expect(source).toContain("bg-rich-black/28");
+    expect(source).toContain("lg:bg-rich-black/60");
     expect(source).toContain("primie-nav-glass");
+    expect(source).toContain("data-menu-mobile-glass-veil");
+    expect(source).toContain("data-menu-tablet-nav-veil");
+    expect(source).toContain("brightness-[0.82]");
+    expect(source).not.toContain("backdrop-blur-xl saturate-[1.08] lg:hidden");
     expect(source).toContain("rounded-[2rem]");
     expect(source).toContain("min-h-14");
     expect(source).toContain("min-h-16");
@@ -206,7 +271,9 @@ describe("ResponsiveNavigationMenu", () => {
     expect(source).not.toContain("MenuPortraitLayer");
     expect(source).not.toMatch(/opacity-\d+.*flex-1 flex-col/);
     expect(source).not.toMatch(/SUIVEZ-NOUS|Instagram|TikTok|Facebook/);
+    expect(globals).toContain("backdrop-filter: blur(6px)");
     expect(globals).toContain("backdrop-filter: blur(16px)");
+    expect(globals).toContain("@media (min-width: 1024px)");
     expect(globals).toContain("@supports not");
     expect(globals).toContain("primie-nav-backdrop-in");
     expect(globals).toContain("prefers-reduced-motion: no-preference");
@@ -239,7 +306,7 @@ describe("ResponsiveNavigationMenu", () => {
     expect(source).not.toContain("from lucide");
   });
 
-  it("accepte les href multi-route sans naviguation horizontale parallèle", () => {
+  it("accepte les href multi-route sans navigation horizontale parallèle", () => {
     const galerieItems: readonly ResolvedNavigationItem[] = [
       { id: "accueil", label: "Accueil", href: "/#accueil" },
       { id: "services", label: "Services", href: "/#services" },
@@ -249,9 +316,18 @@ describe("ResponsiveNavigationMenu", () => {
       { id: "contact", label: "Contact", href: "/#contact" },
     ];
 
-    const html = renderMenu(galerieItems);
+    const html = renderMenu(galerieItems, { homeActiveFallback: false });
     expect(html).toContain(">Menu<");
     expect(html).toContain('aria-expanded="false"');
     expect(html).not.toContain("Navigation principale");
+  });
+
+  it("préserve le contrat Hero desktop (bandeau valeurs) hors du menu", () => {
+    const hero = readFileSync(join(process.cwd(), "components/sections/hero.tsx"), "utf8");
+    expect(hero).toContain("hidden");
+    expect(hero).toContain("lg:grid");
+    expect(hero).toContain("Valeurs PRiMiE");
+    expect(hero).toContain("data-hero-editorial");
+    expect(hero).toContain("lg:items-start lg:text-left");
   });
 });

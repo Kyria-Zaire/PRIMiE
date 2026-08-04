@@ -132,12 +132,15 @@ export function Hero() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/80 to-transparent lg:h-40"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 to-transparent lg:h-40 lg:from-black/80"
       />
 
       {/* pt mobile : Header ~85–95 px + gap ≥24 — desktop pt gelé R1C-R1 */}
-      <Container className="relative z-10 flex flex-1 flex-col justify-start pb-8 pt-28 sm:pb-10 sm:pt-32 lg:pb-36 lg:pt-36 xl:pt-40">
-        <div className="flex w-full max-w-[18.5rem] flex-col items-start gap-3 text-left min-[390px]:max-w-[20rem] sm:max-w-md sm:gap-4 lg:ml-[2%] lg:max-w-[38%] xl:ml-[4%] xl:max-w-[40%] 2xl:ml-[5%]">
+      <Container className="relative z-10 flex flex-1 flex-col justify-center pb-10 pt-28 sm:pb-12 sm:pt-32 lg:justify-start lg:pb-36 lg:pt-36 xl:pt-40">
+        <div
+          data-hero-editorial
+          className="mx-auto flex w-full max-w-[18.5rem] flex-col items-center gap-3 text-center min-[390px]:max-w-[20rem] sm:max-w-md sm:gap-4 lg:mx-0 lg:ml-[2%] lg:max-w-[38%] lg:items-start lg:text-left xl:ml-[4%] xl:max-w-[40%] 2xl:ml-[5%]"
+        >
           <p
             data-hero-eyebrow
             className="font-sans text-[clamp(0.75rem,3.2vw,0.875rem)] font-medium tracking-[0.22em] text-champagne sm:tracking-[0.28em]"
@@ -166,7 +169,7 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="flex w-full flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 sm:pt-3">
+          <div className="flex w-full flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 sm:pt-3 lg:justify-start">
             <LinkButton
               href={whatsappUrl}
               size="lg"
@@ -186,8 +189,9 @@ export function Hero() {
         </div>
       </Container>
 
+      {/* Valeurs : absentes sous 1024 px (display:none) ; bandeau desktop gelé ≥ lg */}
       <ul
-        className="relative z-10 mt-auto grid w-full grid-cols-2 gap-3 px-4 pb-6 min-[390px]:grid-cols-4 min-[390px]:gap-0 sm:px-6 lg:absolute lg:inset-x-0 lg:bottom-0 lg:mt-0 lg:border-t lg:border-gold/20 lg:bg-black/50 lg:px-8 lg:pb-0 lg:backdrop-blur-[2px]"
+        className="relative z-10 mt-auto hidden w-full grid-cols-2 gap-3 px-4 pb-6 min-[390px]:grid-cols-4 min-[390px]:gap-0 sm:px-6 lg:absolute lg:inset-x-0 lg:bottom-0 lg:mt-0 lg:grid lg:border-t lg:border-gold/20 lg:bg-black/50 lg:px-8 lg:pb-0 lg:backdrop-blur-[2px]"
         aria-label="Valeurs PRiMiE"
       >
         {heroValues.map((item, index) => (

@@ -22,7 +22,6 @@ import {
   NavWhatsAppIcon,
 } from "@/components/shell/navigation-icons";
 import { heroAssetsR2 } from "@/content/hero";
-import { menuCopy } from "@/content/menu";
 import type { ResolvedNavigationItem } from "@/content/types";
 
 /** Breakpoint art direction — aligné Tailwind `lg` (1024px). */
@@ -85,7 +84,7 @@ function normalizeHashId(hash: string): string {
 
 /**
  * Résout l'état actif visuel du menu selon route/hash.
- * (Ne sert qu'à l'aria-current et aux classes d'état actif.)
+ * Les ids viennent des items de navigation (pas de liste dupliquée).
  */
 export function resolveActiveNavStateFromLocation(
   pathname: string,
@@ -99,22 +98,19 @@ export function resolveActiveNavStateFromLocation(
   }
 
   const hashId = normalizeHashId(hash);
-  const mapping: Record<string, string> = {
-    accueil: "accueil",
-    services: "services",
-    galerie: "galerie",
-    faq: "faq",
-    reserver: "reserver",
-    contact: "contact",
-  };
 
-  const resolvedId = mapping[hashId];
-  if (resolvedId && availableIds.has(resolvedId)) {
-    return { activeId: resolvedId, ariaCurrent: "location" };
+  // Hash connu = ancre landing active (aria-current="location").
+  if (hashId && availableIds.has(hashId)) {
+    return { activeId: hashId, ariaCurrent: "location" };
+  }
+
+  // Hash inconnu : ne jamais forcer Accueil.
+  if (hashId) {
+    return { activeId: undefined, ariaCurrent: undefined };
   }
 
   // "/" sans hash => Accueil si fallback (contrat homeActiveFallback).
-  if (!hashId && homeActiveFallback && availableIds.has("accueil")) {
+  if (homeActiveFallback && availableIds.has("accueil")) {
     return { activeId: "accueil", ariaCurrent: "location" };
   }
 
@@ -173,7 +169,7 @@ function MenuHeroArtDirection() {
           {...mobileProps}
           alt=""
           srcSet={mobileSrcSet}
-          className={`absolute inset-0 h-full w-full object-cover ${HERO_OBJECT_POSITION_CLASS} blur-[1.5px] brightness-[0.56] saturate-[0.93] scale-[1.03] lg:blur-[0.75px] lg:brightness-[0.88] lg:saturate-[1.02] lg:scale-[1.02]`}
+          className={`absolute inset-0 h-full w-full object-cover ${HERO_OBJECT_POSITION_CLASS} blur-[0.35px] brightness-[0.82] saturate-[0.98] scale-[1.02] lg:blur-[0.75px] lg:brightness-[0.88] lg:saturate-[1.02] lg:scale-[1.02]`}
           style={{
             ...mobileProps.style,
             width: "100%",
@@ -222,22 +218,6 @@ export function ResponsiveNavigationMenu({
     return `${before}${marker}${after}`;
   })();
 
-  const citationLines = (() => {
-    const quote = menuCopy.miniCardQuote;
-    const trimmed = quote.endsWith(".") ? quote.slice(0, -1) : quote;
-    const sentences = trimmed.split(". ");
-
-    const lines: string[] = [];
-    for (const sentence of sentences) {
-      const [left, right] = sentence.split(", ");
-      if (!left || !right) continue;
-      lines.push(`${left},`);
-      lines.push(`${right}.`);
-    }
-
-    return lines.slice(0, 4);
-  })();
-
   const initialActive: ActiveNavState = (() => {
     const current = items.find((item) => item.current);
     if (current?.id === "galerie") {
@@ -250,6 +230,17 @@ export function ResponsiveNavigationMenu({
   })();
 
   const [activeNav, setActiveNav] = useState<ActiveNavState>(initialActive);
+
+  const syncActiveFromLocation = useCallback(() => {
+    setActiveNav(
+      resolveActiveNavStateFromLocation(
+        window.location.pathname,
+        window.location.hash,
+        availableIds,
+        homeActiveFallback,
+      ),
+    );
+  }, [availableIds, homeActiveFallback]);
 
   const unlockScroll = useCallback(() => {
     if (previousOverflowRef.current !== null) {
@@ -277,9 +268,10 @@ export function ResponsiveNavigationMenu({
   );
 
   const openMenu = useCallback(() => {
+    syncActiveFromLocation();
     lockScroll();
     setOpen(true);
-  }, [lockScroll]);
+  }, [lockScroll, syncActiveFromLocation]);
 
   const toggleMenu = () => {
     if (open) {
@@ -291,13 +283,26 @@ export function ResponsiveNavigationMenu({
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    syncActiveFromLocation();
+  }, [syncActiveFromLocation]);
 
   useEffect(() => {
     return () => {
       unlockScroll();
     };
   }, [unlockScroll]);
+
+  // Sync route/hash en continu (ouverture + navigation ancre sans ScrollSpy).
+  useEffect(() => {
+    if (!mounted) return;
+    syncActiveFromLocation();
+    window.addEventListener("hashchange", syncActiveFromLocation);
+    window.addEventListener("popstate", syncActiveFromLocation);
+    return () => {
+      window.removeEventListener("hashchange", syncActiveFromLocation);
+      window.removeEventListener("popstate", syncActiveFromLocation);
+    };
+  }, [mounted, syncActiveFromLocation]);
 
   useEffect(() => {
     if (!open) {
@@ -354,27 +359,6 @@ export function ResponsiveNavigationMenu({
     };
   }, [open, closeMenu]);
 
-  // Synchronisation de l'état actif sur hash/route pendant l'ouverture.
-  useEffect(() => {
-    if (!open || !mounted) return;
-    const update = () => {
-      const next = resolveActiveNavStateFromLocation(
-        window.location.pathname,
-        window.location.hash,
-        availableIds,
-        homeActiveFallback,
-      );
-      setActiveNav(next);
-    };
-    update();
-    window.addEventListener("hashchange", update);
-    window.addEventListener("popstate", update);
-    return () => {
-      window.removeEventListener("hashchange", update);
-      window.removeEventListener("popstate", update);
-    };
-  }, [open, mounted, availableIds, homeActiveFallback]);
-
   const onBackdropClick = (event: ReactMouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       closeMenu({ restoreFocus: true });
@@ -406,22 +390,34 @@ export function ResponsiveNavigationMenu({
           aria-modal="true"
           aria-labelledby={titleId}
           tabIndex={-1}
-          className="primie-nav-dialog primie-nav-glass relative flex max-h-full w-full max-w-[1240px] flex-col overflow-hidden rounded-[2rem] border border-bronze/45 bg-rich-black/60 shadow-elevated ring-1 ring-gold/15 lg:max-h-[90dvh] lg:min-h-[min(88dvh,48rem)] lg:flex-row"
+          className="primie-nav-dialog primie-nav-glass relative flex max-h-full w-full max-w-[1240px] flex-col overflow-hidden rounded-[2rem] border border-bronze/45 bg-rich-black/28 shadow-elevated ring-1 ring-gold/15 lg:max-h-[90dvh] lg:min-h-[min(88dvh,48rem)] lg:flex-row lg:bg-rich-black/60"
           onKeyDown={onDialogKeyDown}
         >
           {/* Hero + gradients (montés seulement à l’ouverture) — déjà pointer-events-none */}
           {open ? <MenuHeroArtDirection /> : null}
 
           {/*
-            Voiles R1-R2B — pas de voile uniforme sur toute la scène :
-            mobile : lisibilité verticale ; desktop : nav + éditorial seulement, portrait libre.
+            Voiles — mobile : verre fumé léger (portrait perceptible) ;
+            desktop R2B : nav + éditorial seulement, portrait libre.
           */}
           <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-rich-black/52 via-rich-black/40 to-rich-black/18 backdrop-blur-xl saturate-[1.08] lg:hidden"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-rich-black/22 via-rich-black/08 to-rich-black/16 lg:hidden"
+            aria-hidden="true"
+            data-menu-mobile-glass-veil
+          />
+          {/* Lisibilité locale derrière la colonne de liens — sans flou excessif. */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-[min(68%,28rem)] bg-gradient-to-b from-rich-black/32 via-rich-black/12 to-transparent lg:hidden"
             aria-hidden="true"
           />
+          {/* Tablette 768–1023 : voile gauche renforcé (nav + CTA) — portrait droite intact. */}
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-full bg-gradient-to-b from-rich-black/74 via-rich-black/60 to-rich-black/12 backdrop-blur-xl saturate-[1.08] lg:w-[35%] lg:bg-rich-black/55 lg:bg-gradient-to-b lg:from-rich-black/55 lg:via-rich-black/55 lg:to-rich-black/55 lg:backdrop-blur-md"
+            className="pointer-events-none absolute inset-y-0 left-0 hidden w-[min(58%,24rem)] bg-gradient-to-r from-rich-black/42 via-rich-black/16 to-transparent md:max-lg:block lg:hidden"
+            aria-hidden="true"
+            data-menu-tablet-nav-veil
+          />
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 hidden w-full bg-gradient-to-b from-rich-black/74 via-rich-black/60 to-rich-black/12 backdrop-blur-xl saturate-[1.08] lg:block lg:w-[35%] lg:bg-rich-black/55 lg:bg-gradient-to-b lg:from-rich-black/55 lg:via-rich-black/55 lg:to-rich-black/55 lg:backdrop-blur-md"
             aria-hidden="true"
           />
           {/* Masque éditorial uniquement — s’arrête avant la zone portrait (~42 %+ à droite). */}
@@ -461,7 +457,7 @@ export function ResponsiveNavigationMenu({
               Navigation principale
             </h2>
 
-            <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 pb-6 sm:px-5 lg:px-6 lg:pb-7 lg:overflow-y-hidden">
+            <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 pb-6 sm:px-5 md:max-lg:max-w-[min(100%,22rem)] lg:max-w-none lg:px-6 lg:pb-7 lg:overflow-y-hidden">
               <nav aria-label="Navigation principale" className="flex flex-col">
                 {items.map((item, index) => {
                   const isActive = item.id === activeNav.activeId;
@@ -494,7 +490,15 @@ export function ResponsiveNavigationMenu({
                 })}
               </nav>
 
-              <div className="mt-6 flex flex-col items-stretch gap-5 lg:mt-auto lg:pt-8">
+              {/*
+                CTA : pleine largeur sur petit mobile ; zone éditoriale stable
+                (max-width + alignement gauche) entre 768 et 1023 px pour éviter
+                le visage ; desktop lg: inchangé dans la colonne nav.
+              */}
+              <div
+                className="mt-6 flex w-full flex-col items-stretch gap-5 md:max-lg:mt-auto md:max-lg:w-[min(100%,16.5rem)] md:max-lg:max-w-[16.5rem] md:max-lg:self-start lg:mt-auto lg:w-full lg:max-w-none lg:pt-8"
+                data-menu-whatsapp-cta
+              >
                 <LinkButton
                   href={whatsappUrl}
                   size="lg"
@@ -506,7 +510,10 @@ export function ResponsiveNavigationMenu({
                   <NavWhatsAppIcon className="size-5 shrink-0 text-primary-foreground" />
                   {whatsappLabel}
                 </LinkButton>
-                <div className="flex justify-center pb-1 lg:justify-start" aria-hidden="true">
+                <div
+                  className="flex justify-center pb-1 md:max-lg:justify-start lg:justify-start"
+                  aria-hidden="true"
+                >
                   <NavOrnament className="h-4 w-28 text-gold/75" />
                 </div>
               </div>
@@ -533,43 +540,10 @@ export function ResponsiveNavigationMenu({
                   {editorial.slogan}
                 </p>
 
-                {/* Mini-card retirée du desktop R1-R2B : masquait le portrait (visage/épaule).
-                    Asset + copy restent disponibles dans content/menu.ts pour une future composition. */}
-
-                <div className="mt-4">
-                  <p className="relative mx-auto max-w-[17rem] font-serif text-center text-sm text-ivory leading-relaxed xl:max-w-[18rem] xl:text-base">
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-0 top-[-0.55rem] text-gold/90 text-xl"
-                    >
-                      &laquo;
-                    </span>
-                    <span className="sr-only">{menuCopy.miniCardQuote}</span>
-                    <span aria-hidden="true" className="block">
-                      {citationLines[0]}
-                    </span>
-                    <span aria-hidden="true" className="block">
-                      {citationLines[1]}
-                    </span>
-                    <span aria-hidden="true" className="block">
-                      {citationLines[2]}
-                    </span>
-                    <span aria-hidden="true" className="block">
-                      {citationLines[3]}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="absolute right-0 bottom-[-0.4rem] text-gold/90 text-xl"
-                    >
-                      &raquo;
-                    </span>
-                  </p>
-                </div>
-
                 {galleryLink ? (
                   <a
                     href={galleryLink.href}
-                    className="mt-5 inline-flex min-h-11 items-center justify-center gap-3 font-sans text-sm font-semibold text-gold underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+                    className="mt-8 inline-flex min-h-11 items-center justify-center gap-2 font-sans text-sm font-semibold text-gold underline underline-offset-4 transition-colors hover:text-gold-light hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
                     onClick={() => {
                       closeMenu();
                     }}

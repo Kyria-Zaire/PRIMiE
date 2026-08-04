@@ -44,12 +44,17 @@ describe("Hero R2", () => {
     expect(html).toContain("md:text-[clamp(1.75rem,5.2vw,3.35rem)]");
     expect(html).toContain("md:leading-snug");
     expect(html).toContain("leading-[1.12]");
-    expect(html).toContain("flex-1 flex-col justify-start");
+    expect(html).toContain("flex-1 flex-col justify-center");
+    expect(html).toContain("lg:justify-start");
+    expect(html).toContain("data-hero-editorial");
+    expect(html).toContain("items-center");
+    expect(html).toContain("text-center");
+    expect(html).toContain("lg:items-start");
+    expect(html).toContain("lg:text-left");
     expect(html).toContain("pt-28");
     expect(html).toContain("sm:pt-32");
     expect(html).toContain("lg:pt-36");
     expect(html).toContain("xl:pt-40");
-    expect(html).not.toContain("flex-1 flex-col justify-center");
     expect(html).not.toContain("pt-20");
     expect(html).not.toContain("lg:pt-28");
     expect(html).toContain("min-h-14");
@@ -62,6 +67,10 @@ describe("Hero R2", () => {
       expect(html).toContain(item.description.replaceAll("&", "&amp;"));
     }
 
+    // Valeurs présentes dans le DOM unique, masquées sous lg via hidden lg:grid
+    expect(html).toContain("hidden");
+    expect(html).toContain("lg:grid");
+    expect(html).toContain('aria-label="Valeurs PRiMiE"');
     expect(html).not.toContain("Site en préparation.");
     expect(html).not.toContain("Découvrir nos services");
     expect(html).not.toContain('href="#services"');
@@ -120,18 +129,22 @@ describe("Hero R2", () => {
     expect(source).not.toMatch(/\b(useState|useEffect|window|document)\b/);
   });
 
-  it("applique la grille 2×2 puis 4 colonnes dès 390 px", () => {
+  it("masque les valeurs sous 1024 px et conserve le bandeau desktop gelé", () => {
     const html = renderToStaticMarkup(<Hero />);
     const source = readFileSync(join(process.cwd(), "components/sections/hero.tsx"), "utf8");
 
     expect(html).toContain("grid-cols-2");
     expect(html).toContain("min-[390px]:grid-cols-4");
-    expect(html).toContain("bg-black/70");
+    expect(html).toContain("hidden");
+    expect(html).toContain("lg:grid");
+    expect(html).toContain("lg:absolute lg:inset-x-0 lg:bottom-0");
     expect(html).toContain("border-gold/70");
     expect(html).toContain("h-10 w-10");
     expect(html).toContain("min-[390px]:h-11");
     expect(html).toMatch(/aria-hidden="true"/);
     expect(html).toContain('aria-label="Valeurs PRiMiE"');
+    // Une seule liste de valeurs (pas de duplication mobile/desktop)
+    expect(html.match(/aria-label="Valeurs PRiMiE"/g)).toHaveLength(1);
 
     expect(heroValues).toHaveLength(4);
     for (const item of heroValues) {
@@ -142,6 +155,8 @@ describe("Hero R2", () => {
     expect(source).toContain("min-width: 1024px");
     expect(source).toContain("getImageProps");
     expect(source).toContain("min-[390px]:grid-cols-4");
+    expect(source).toContain("hidden");
+    expect(source).toContain("lg:grid");
     expect(source).not.toContain("min-[400px]:grid-cols");
     expect(source).not.toContain("min-[430px]:grid-cols");
     expect(source).not.toMatch(/scale-\[/);
@@ -163,10 +178,31 @@ describe("Hero R2", () => {
     expect(source).toContain("lg:object-[78%_center]");
     expect(source).toContain("xl:object-[82%_center]");
     expect(source).toContain("lg:absolute lg:inset-x-0 lg:bottom-0");
+    expect(source).toContain("lg:items-start");
+    expect(source).toContain("lg:text-left");
+    expect(source).toContain("lg:justify-start");
+    expect(source).toContain("lg:grid");
     expect(source).not.toMatch(/["']use client["']/);
     expect(source).not.toMatch(/\b(useState|useEffect|window|document)\b/);
     expect(source).not.toContain("hero-highlights");
     expect(source).not.toContain(".png");
+  });
+
+  it("centre le bloc éditorial mobile sans modifier le texte canonique", () => {
+    const html = renderToStaticMarkup(<Hero />);
+    const source = readFileSync(join(process.cwd(), "components/sections/hero.tsx"), "utf8");
+
+    expect(html).toContain("data-hero-editorial");
+    expect(source).toContain("items-center");
+    expect(source).toContain("text-center");
+    expect(source).toContain("mx-auto");
+    expect(source).toContain("lg:items-start");
+    expect(source).toContain("lg:text-left");
+    expect(html).toContain("<br/>");
+    expect(html).toContain("La beauté commence");
+    expect(html).toContain("par une belle coiffure.");
+    expect(html.match(/<h1\b/g)).toHaveLength(1);
+    expect(html.replace(/<br\s*\/?>/g, " ")).toContain(siteConfig.brand.slogan);
   });
 
   it("utilise le slogan canonique comme unique H1 sans ancien titre", () => {
