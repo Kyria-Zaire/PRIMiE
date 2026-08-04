@@ -488,6 +488,10 @@ Validation BMAD (G2 passé)
 │   ├── NAVIGATION-OVERLAY-R1-R2B (DONE — Validé CTO 2026-08-04)
 │   ├── NAVIGATION-MENU-DESIGN-R1D (BLOCKED)
 │   └── NAVIGATION-MENU-DESIGN-R1E (BLOCKED)
+├── MOBILE-HERO-NAV-POLISH-R1 (DONE — clôturé le 2026-08-04)
+│   ├── MOBILE-HERO-NAV-POLISH-R1-R1 (DONE — Validé CTO le 2026-08-04)
+│   ├── MOBILE-HERO-NAV-POLISH-R1-R1-VISUAL-GATE (DONE — PASS le 2026-08-04)
+│   └── MOBILE-HERO-NAV-POLISH-R1-R1-CHECKPOINT (DONE — publié le 2026-08-04)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -586,6 +590,10 @@ traçabilité.
 | `01nmr1b` | `NAVIGATION-MENU-DESIGN-R1B` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-04` | `P0` | architecture + a11y foundation |
 | `01nmr1c` | `NAVIGATION-MENU-DESIGN-R1C` | `IMPLEMENT` | `IN_PROGRESS — en attente CTO` | `P0` | fidélité visuelle |
 | `01nor1r2b` | `NAVIGATION-OVERLAY-R1-R2B` | `CORRECTIVE` | `DONE — Validé CTO 2026-08-04` | `P0` | portrait desktop lisible |
+| `01mhnpr1` | `MOBILE-HERO-NAV-POLISH-R1` | `CORRECTIVE` | `DONE — clôturé le 2026-08-04` | `P0` | verre menu + Hero mobile |
+| `01mhnpr1r1` | `MOBILE-HERO-NAV-POLISH-R1-R1` | `CORRECTIVE + VISUAL GATE` | `DONE — Validé CTO le 2026-08-04` | `P0` | CTA tablette / actif / copy |
+| `01mhnpr1r1vg` | `MOBILE-HERO-NAV-POLISH-R1-R1-VISUAL-GATE` | `VERIFY` | `DONE — PASS le 2026-08-04` | `P0` | gate multi-viewports |
+| `01mhnpr1r1cp` | `MOBILE-HERO-NAV-POLISH-R1-R1-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push Git |
 | `01nmr1d` | `NAVIGATION-MENU-DESIGN-R1D` | `VERIFY` | `BLOCKED` | `P0` | a11y / cross-browser / perf |
 | `01nmr1e` | `NAVIGATION-MENU-DESIGN-R1E` | `VERIFY + PUBLISH` | `BLOCKED` | `P0` | checkpoint + BMAD |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
@@ -1226,6 +1234,43 @@ peuvent être centralisés avant affichage UI.
 - Preuve : runtime frais 3010 ; Playwright Chromium/Firefox/WebKit ; 6 viewports ;
   portrait immédiatement lisible à droite ; `#services` ≠ Accueil ; `/galerie` `aria-current="page"`
 - Validation CTO : défauts bloquants levés (portrait + état actif) — 2026-08-04
+
+#### MOBILE-HERO-NAV-POLISH-R1 — Corrective visuelle mobile
+
+- Mode : `CORRECTIVE`
+- Statut : `DONE — clôturé le 2026-08-04`
+- Inclus : verre fumé menu mobile ; centrage éditorial Hero mobile ; retrait des
+  quatre valeurs sous `1024 px` (conservées desktop)
+- Exclus : desktop Header/Hero/Overlay R2B ; nouvel asset ; dépendances
+- Checkpoint : `b140b77` (`fix: polish PRiMiE responsive hero navigation`)
+
+##### MOBILE-HERO-NAV-POLISH-R1-R1 — Corrective menu + Visual Gate
+
+- Mode : `CORRECTIVE + VISUAL GATE`
+- Statut : `DONE — Validé CTO le 2026-08-04`
+- Inclus : CTA WhatsApp tablette hors visage (768–1023) ; sync actif route/hash ;
+  retrait copy non canonique « Chaque cliente, une reine » ; preuves 375/768/820/912/1023/1024
+- Exclus : refonte Hero ; assets R2 ; desktop ≥1024 gelé ; ScrollSpy
+- Défauts corrigés :
+  - CTA tablette traversant le visage (repositionnement bas gauche, `max-width: 16.5rem`) ;
+  - faux état actif Accueil (sync route/hash, hash inconnu → aucun actif) ;
+  - voile local tablette limité à la zone navigation ;
+  - copy éditoriale non canonique retirée du panneau desktop.
+- Preuve Visual Gate : multi-viewports + Chromium/Firefox/WebKit ; `overlap === false`
+  sur 768/820/912/1023 ; `/#services` Services actif ; `/galerie` `aria-current="page"`
+
+##### MOBILE-HERO-NAV-POLISH-R1-R1-VISUAL-GATE — VERIFY
+
+- Mode : `VERIFY`
+- Statut : `DONE — PASS le 2026-08-04`
+- Verdict : `READY FOR CTO VALIDATION` puis validation CTO explicite
+
+##### MOBILE-HERO-NAV-POLISH-R1-R1-CHECKPOINT — PUBLISH
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié le 2026-08-04`
+- Commits : implémentation `b140b77` ; documentation (ce fichier)
+- Aucun déploiement
 
 ##### NAVIGATION-MENU-DESIGN-R1D — VERIFY
 
