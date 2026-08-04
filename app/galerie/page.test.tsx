@@ -16,6 +16,10 @@ describe("app/galerie/page — GALLERY-PAGE-HERO-R1", () => {
     expect(source).toContain("SkipLink");
     expect(source).toContain("Header");
     expect(source).toContain("Footer");
+    expect(source).toContain("ResponsiveNavigationMenu");
+    expect(source).toContain("navigationMenu=");
+    expect(source).not.toContain("MobileNavigation");
+    expect(source).not.toContain("mobileNavigation");
     expect(source).toContain('id="contenu-principal"');
     expect(source).toContain("tabIndex={-1}");
     expect(source).toContain('homeHref="/"');

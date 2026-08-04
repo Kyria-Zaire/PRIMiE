@@ -111,6 +111,9 @@ describe("Home page", () => {
     const h2Count = html.match(/<h2\b/g)?.length ?? 0;
     expect(h2Count).toBe(4);
 
+    expect(html).toContain(">Menu<");
+    expect(html).toContain('aria-expanded="false"');
+    expect(html).toContain('aria-haspopup="dialog"');
     expect(html).toContain(">Accueil<");
     expect(html).toContain(">Services<");
     expect(html).toContain(">Galerie<");
@@ -125,6 +128,7 @@ describe("Home page", () => {
     expect(html).not.toMatch(/Nos réalisations|témoignage|avis clientes/i);
     expect(html).not.toContain("PRIMiE");
     expect(html).not.toMatch(/\.png"/);
+    expect(html).not.toContain('aria-label="Navigation principale"');
 
     for (const service of services) {
       expect(html).toContain(`${service.id}.webp`);
@@ -169,7 +173,7 @@ describe("Home page", () => {
         return /["']use client["']/.test(source);
       })
       .sort();
-    expect(shellClients).toEqual(["footer-responsive-grid.tsx", "mobile-navigation.tsx"]);
+    expect(shellClients).toEqual(["footer-responsive-grid.tsx", "responsive-navigation-menu.tsx"]);
 
     const sectionsDir = join(process.cwd(), "components/sections");
     const sectionFiles = readdirSync(sectionsDir).filter(

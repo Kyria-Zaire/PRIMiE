@@ -213,10 +213,11 @@ function FooterWave() {
   return (
     <svg
       aria-hidden="true"
-      className="block h-14 w-full text-black sm:h-16 md:h-[4.5rem] xl:h-[4.25rem]"
+      className="relative z-[1] -mb-[4px] block h-14 w-full text-black sm:h-16 md:h-[4.5rem] xl:-mb-[3px] xl:h-[4.25rem]"
       viewBox="0 0 1440 110"
       preserveAspectRatio="none"
       focusable="false"
+      shapeRendering="geometricPrecision"
     >
       <path
         fill="currentColor"
@@ -227,6 +228,8 @@ function FooterWave() {
         opacity="0.42"
         d="M0 62c130-22 250-34 380-32 180 3 280 26 380 26s200-23 380-26c130-2 250 10 380 32V110H0V62Z"
       />
+      {/* Remplissage bas opaque : masque le trait anti-alias SVG ↔ bloc noir. */}
+      <rect x="0" y="100" width="1440" height="20" fill="currentColor" />
     </svg>
   );
 }
@@ -515,9 +518,9 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
         </div>
       </Container>
 
+      {/* Vague sur fond ivoire (haut transparent = courbe visible) + chevauchement sur le bas noir. */}
       <FooterWave />
-
-      <div data-footer-bottom className="bg-black text-on-dark">
+      <div data-footer-bottom className="relative z-0 bg-black text-on-dark">
         <Container className="flex min-h-[9.5rem] flex-col items-center justify-center gap-3.5 py-8 text-center sm:min-h-[10.5rem] sm:gap-4 xl:grid xl:min-h-[10.5rem] xl:grid-cols-[1fr_auto_1fr] xl:gap-6 xl:py-11 xl:text-left">
           <FloralOrnament className="order-1 h-6 w-11 text-gold xl:hidden" />
           <p className="order-2 max-w-[16rem] text-balance font-sans text-sm text-on-dark-muted sm:max-w-none xl:order-none xl:text-left">

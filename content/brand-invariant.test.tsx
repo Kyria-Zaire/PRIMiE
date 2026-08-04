@@ -22,7 +22,7 @@ describe("Invariant de marque PRiMiE", () => {
 
   it("rend le logo Header avec alt PRiMiE sans uppercase CSS", () => {
     const html = renderToStaticMarkup(
-      <Header items={[{ id: "accueil", label: "Accueil", href: "#accueil" }]} />,
+      <Header navigationMenu={<button type="button">Menu</button>} />,
     );
     const source = readFileSync(join(process.cwd(), "components/shell/header.tsx"), "utf8");
 

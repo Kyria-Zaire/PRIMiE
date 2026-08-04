@@ -49,6 +49,7 @@
 :root {
   --z-header: 20;
   --z-mobile-nav: 30;
+  --z-nav-dialog: 40;
 
   --gradient-hero: linear-gradient(180deg, var(--color-black), var(--color-rich-black));
   --gradient-cta: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));

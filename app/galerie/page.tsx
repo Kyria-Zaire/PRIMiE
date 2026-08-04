@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { GalleryFilters } from "@/components/gallery/gallery-filters";
 import { GalleryPageHero } from "@/components/gallery/gallery-page-hero";
+import { BrandLogo } from "@/components/shell/brand-logo";
 import { Footer } from "@/components/shell/footer";
 import { Header } from "@/components/shell/header";
-import { MobileNavigation } from "@/components/shell/mobile-navigation";
+import { ResponsiveNavigationMenu } from "@/components/shell/responsive-navigation-menu";
 import { SkipLink } from "@/components/shell/skip-link";
 import { LinkButton } from "@/components/ui/button";
 import { gallery, galleryCopy } from "@/content/gallery";
@@ -35,18 +36,31 @@ export default function GaleriePage() {
   const visibleNavigation = getVisibleNavigation(RENDERED_SECTION_IDS);
   const routeNavigation = resolveNavigationForRoute(visibleNavigation, "/galerie");
   const bookingWhatsAppUrl = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
+  const galleryItem = routeNavigation.find((item) => item.id === "galerie");
 
   return (
     <>
       <SkipLink />
       <Header
-        items={routeNavigation}
         homeHref="/"
-        mobileNavigation={
-          <MobileNavigation
+        navigationMenu={
+          <ResponsiveNavigationMenu
             items={routeNavigation}
             whatsappUrl={bookingWhatsAppUrl}
             whatsappLabel="Réserver sur WhatsApp"
+            logo={
+              <BrandLogo className="h-11 w-auto sm:h-12 lg:h-auto lg:w-[10.5rem] xl:w-[12rem]" />
+            }
+            editorial={{
+              commercialName: siteConfig.brand.commercialName,
+              activity: siteConfig.brand.activity,
+              slogan: siteConfig.brand.slogan,
+            }}
+            galleryLink={
+              galleryItem
+                ? { href: galleryItem.href, label: galleryCopy.landing.ctaLabel }
+                : undefined
+            }
           />
         }
       />

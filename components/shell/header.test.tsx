@@ -3,91 +3,67 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { Header } from "./header";
-import { siteConfig } from "@/content/site-config";
-import type { NavigationItem } from "@/content/types";
-import { buildWhatsAppUrl } from "@/lib/whatsapp";
-
-const sampleItems: readonly NavigationItem[] = [
-  { id: "accueil", label: "Accueil", href: "#accueil" },
-  { id: "services", label: "Services", href: "#services" },
-  { id: "faq", label: "FAQ", href: "#faq" },
-  { id: "reserver", label: "Réserver", href: "#reserver" },
-  { id: "contact", label: "Contact", href: "#contact" },
-];
 
 describe("Header", () => {
-  it("rend le landmark, le mot-symbole et le CTA WhatsApp prérempli", () => {
-    const html = renderToStaticMarkup(<Header items={sampleItems} />);
-    const expectedWhatsApp = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
+  it("rend le landmark, le mot-symbole et le slot Menu sans nav horizontale ni CTA desktop", () => {
+    const html = renderToStaticMarkup(
+      <Header navigationMenu={<button type="button">Menu</button>} />,
+    );
 
     expect(html).toContain("<header");
     expect(html).toContain('href="#accueil"');
     expect(html).toContain('alt="PRiMiE"');
     expect(html).toContain("primie-logo-v1.webp");
     expect(html).toContain("bg-hero");
-    expect(html).toContain("text-gold");
     expect(html).toContain("border-bronze");
-    expect(html).toContain('aria-label="Navigation principale"');
-    expect(html).toContain("Accueil");
-    expect(html).toContain("Services");
-    expect(html).toContain("FAQ");
-    expect(html).toContain("Réserver");
-    expect(html).toContain("Contact");
-    expect(html).toContain("Réserver sur WhatsApp");
-    expect(html).toContain(`href="${expectedWhatsApp}"`);
-    expect(html).toContain("?text=");
-    expect(html).toContain("bg-cta-gold");
-    expect(html).toContain("hidden lg:block");
-    expect(html).toContain("min-w-11");
+    expect(html).toContain(">Menu<");
     expect(html).toContain('style="z-index:var(--z-header)"');
+    expect(html).not.toContain('aria-label="Navigation principale"');
+    expect(html).not.toContain("Réserver sur WhatsApp");
+    expect(html).not.toContain("hidden lg:flex");
+    expect(html).not.toContain("hidden lg:block");
   });
 
-  it("omet la navigation lorsqu’aucun élément n’est visible", () => {
-    const html = renderToStaticMarkup(<Header items={[]} />);
-    const expectedWhatsApp = buildWhatsAppUrl(siteConfig.contact.whatsappPrefillMessage);
+  it("conserve le logo même sans items de navigation dans le Header", () => {
+    const html = renderToStaticMarkup(
+      <Header navigationMenu={<div data-nav-slot="true">Menu</div>} />,
+    );
 
-    expect(html).not.toContain("<nav");
-    expect(html).toContain("Réserver sur WhatsApp");
-    expect(html).toContain(`href="${expectedWhatsApp}"`);
+    expect(html).toContain('data-nav-slot="true"');
     expect(html).toContain('alt="PRiMiE"');
     expect(html).toContain("primie-logo-v1.webp");
+    expect(html).not.toContain("<nav");
   });
 
-  it("n’affiche que les items fournis", () => {
+  it("rend le slot menu lorsque fourni", () => {
     const html = renderToStaticMarkup(
-      <Header items={[{ id: "accueil", label: "Accueil", href: "#accueil" }]} />,
+      <Header navigationMenu={<div data-nav-slot="true">Menu</div>} />,
     );
 
-    expect(html).toContain("Accueil");
-    expect(html).not.toContain(">Services<");
-    expect(html).not.toContain(">Contact<");
-  });
-
-  it("rend le slot menu mobile lorsqu’il est fourni", () => {
-    const html = renderToStaticMarkup(
-      <Header
-        items={[{ id: "accueil", label: "Accueil", href: "#accueil" }]}
-        mobileNavigation={<div data-mobile-slot="true">Menu</div>}
-      />,
-    );
-
-    expect(html).toContain('data-mobile-slot="true"');
+    expect(html).toContain('data-nav-slot="true"');
     expect(html).toContain("Menu");
   });
 
-  it("reste un Server Component sans directive client", () => {
+  it("reste un Server Component sans directive client ni WhatsApp", () => {
     const source = readFileSync(join(process.cwd(), "components/shell/header.tsx"), "utf8");
     expect(source).not.toMatch(/["']use client["']/);
-    expect(source).toContain("whatsappPrefillMessage");
     expect(source).toContain("BrandLogo");
     expect(source).toContain("heroOverlay");
     expect(source).toContain('variant = "default"');
+    expect(source).toContain("navigationMenu");
+    expect(source).not.toContain("buildWhatsAppUrl");
+    expect(source).not.toContain("LinkButton");
     expect(source).not.toContain("silhouette");
+    expect(source).not.toContain("items.map");
   });
 
   it("applique la variante heroOverlay sans recréer un logo", () => {
-    const htmlDefault = renderToStaticMarkup(<Header items={sampleItems} />);
-    const htmlOverlay = renderToStaticMarkup(<Header items={sampleItems} variant="heroOverlay" />);
+    const htmlDefault = renderToStaticMarkup(
+      <Header navigationMenu={<button type="button">Menu</button>} />,
+    );
+    const htmlOverlay = renderToStaticMarkup(
+      <Header navigationMenu={<button type="button">Menu</button>} variant="heroOverlay" />,
+    );
 
     expect(htmlDefault).toContain("bg-hero");
     expect(htmlDefault).toContain("relative border-b border-bronze");

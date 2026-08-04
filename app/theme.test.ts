@@ -112,6 +112,7 @@ describe("Design tokens PRiMiE v1.0", () => {
   it("expose les z-index shell Header et menu mobile", () => {
     expect(themeCss).toContain("--z-header: 20");
     expect(themeCss).toContain("--z-mobile-nav: 30");
+    expect(themeCss).toContain("--z-nav-dialog: 40");
   });
 
   it("définit prefers-reduced-motion dans les styles globaux", () => {
