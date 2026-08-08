@@ -12,7 +12,13 @@ export function GalleryPreview() {
   const { title, accent, description, ctaLabel, ctaHref } = galleryCopy.landing;
 
   return (
-    <Section id="galerie" tone="cream" aria-labelledby="galerie-heading">
+    <Section
+      id="galerie"
+      tone="cream"
+      spacing="none"
+      className="pt-16 pb-10 md:pt-24 md:pb-12 lg:pb-12"
+      aria-labelledby="galerie-heading"
+    >
       <Container className="flex flex-col gap-8 md:gap-10">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 text-center">
           <h2

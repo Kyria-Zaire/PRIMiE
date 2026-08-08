@@ -1,3 +1,4 @@
+import { AdvicePreview } from "@/components/sections/advice-preview";
 import { ContactBooking } from "@/components/sections/contact-booking";
 import { Faq } from "@/components/sections/faq";
 import { GalleryPreview } from "@/components/sections/gallery-preview";
@@ -64,6 +65,7 @@ export default function Home() {
         <Hero />
         <Services />
         <GalleryPreview />
+        <AdvicePreview />
         <Faq />
         <ContactBooking />
       </main>

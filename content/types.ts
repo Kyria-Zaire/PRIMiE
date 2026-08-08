@@ -86,3 +86,44 @@ export type HeroCopy = {
   readonly description: readonly [string, string];
   readonly primaryCtaLabel: string;
 };
+
+/** Statut de publication Preview Conseils — aucun lien tant que ≠ published. */
+export type AdvicePublicationStatus = "preview_only" | "published";
+
+/**
+ * Illustration Conseils — `ILLUSTRATION_APPROVED_BY_CTO`.
+ * Pas une réalisation, ni un produit commercialisé, ni un avis.
+ */
+export type AdviceIllustration = {
+  readonly src: string;
+  readonly width: number;
+  readonly height: number;
+  readonly alt: string;
+  readonly kind: "illustration";
+  readonly rightsStatus: "project_approved";
+};
+
+/** Carte d’aperçu Conseils — sans href / route publique en 01B. */
+export type AdviceItem = {
+  readonly id: string;
+  readonly number: "01" | "02" | "03";
+  readonly category: string;
+  readonly title: string;
+  readonly summary: string;
+  readonly image: AdviceIllustration;
+  readonly publicationStatus: AdvicePublicationStatus;
+};
+
+/**
+ * Copy éditoriale future de la section Preview Conseils.
+ * `ctaLabel` est un libellé seul — aucun href tant que `/conseils` n’existe pas.
+ */
+export type AdviceCopy = {
+  readonly eyebrowLead: string;
+  readonly eyebrowBrand: string;
+  readonly titleLead: string;
+  readonly titleAccent: string;
+  readonly titleEnd: string;
+  readonly description: string;
+  readonly ctaLabel: string;
+};

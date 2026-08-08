@@ -37,6 +37,8 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Illus. service tissage | WebP `public/images/services/tissage.webp` | PUBLISHED_SERVICE_ILLUSTRATION | PO / CTO | 2026-08-01 | Carte Service uniquement | — | Pas une réalisation réelle |
 | Galerie | 14 illustrations WebP + page `/galerie` + aperçu landing | PUBLISHED_GALLERY_ILLUSTRATION (01B–01D) | CTO | 2026-08-02 | `gallery.ts` + `public/images/gallery/*.webp` + `app/galerie` | Sources PNG locales hors suivi | `GALLERY-CONTENT-01E` QA / clôture |
 | Portrait Hero `/galerie` | `public/images/gallery/gallery-hero-model-v1.webp` (source `images/gallery/tresses-longues.png`) | PUBLISHED_GALLERY_HERO_ASSET | CTO | 2026-08-02 | `GalleryPageHero` uniquement | Alpha préservé ; hors grille Gallery | `GALLERY-PAGE-HERO-R1` |
+| Conseils Preview (3 cartes) | WebP `preparation-cheveux` / `entretien-tresses` + Gallery `perruque-deep-wave` + `content/advice.ts` | ILLUSTRATION_APPROVED_BY_CTO · `preview_only` | CTO | 2026-08-08 | `AdvicePreview` / `AdviceCard` · `#conseils` | Pas de `/conseils` / pas de lien carte ; packaging `soin-perruque` retiré | `CONSEILS-PREVIEW` clôturé 2026-08-08 |
+| Portrait intro Conseils | `advice-portrait-bantu-knots-v1.webp` (source `images/gallery/bantu-knots.png`) | ILLUSTRATION_APPROVED_BY_CTO · décoratif (01C-R2) | CTO / Kyria | 2026-08-05 | `AdvicePreview` intro uniquement | Alpha ; hors carte 02 ; aucune PNG public | Décision CTO gelée — ne pas revenir à `entretien-tresses` |
 | Témoignages / Avis | Section retirée de la V1 | `CANCELLED` — CTO 2026-08-02 | CTO | 2026-08-02 | scaffolding `testimonials.ts` / nav `#avis` supprimés | Aucun avis authentique publiable | Réouverture uniquement sur décision CTO + avis réels + consentements |
 | Pistes avis (historiques) | Olive, Octavie, Annaelle, Plamédie — pistes seules, jamais publiées | `REJECTED_FOR_PUBLICATION` (V1) | PO / CTO | 2026-08-02 | hors runtime | Quotes/consentements absents | Ne pas réintroduire sans preuves |
 | Pourquoi choisir PRiMiE | 5 brouillons PO | PENDING_PRISCA | Prisca | 2026-07-31 | futur `benefits.ts` | Non créé | Validation Prisca |
@@ -62,6 +64,14 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
   UI : aperçu landing `#galerie` + page `/galerie` + filtres (01C–01D).
   Transition future vers `kind=realisation` : consentements clientes requis
   avant remplacement. Wording interdit : « Nos réalisations », « Mes réalisations ».
+- Conseils Preview (`CONSEILS-PREVIEW-01B`) : 3 illustrations
+  `kind=illustration` / `rightsStatus=project_approved` (CTO). Sources PNG
+  `images/conseil/carte-{1,2,3}.png` hors suivi (chemins exacts dans
+  `.git/info/exclude`). Runtime WebP uniquement (`public/images/advice/`).
+  `publicationStatus=preview_only` — **aucun lien**, aucune route `/conseils`,
+  aucune UI publique en 01B. Emballages/flacons de `carte-3` = illustration
+  seulement. Portrait décoratif futur : réutiliser `entretien-tresses.webp`
+  (carte-2) sans 4ᵉ asset. Placement UI futur : après GalleryPreview, avant FAQ.
 - Témoignages : `TESTIMONIALS-CONTENT-01` = `CANCELLED` (CTO 2026-08-02) —
   aucun avis inventé ; section hors V1 ; pas de `content/testimonials.ts`.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.

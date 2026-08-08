@@ -24,9 +24,18 @@ describe("Home page", () => {
     expect(html).toContain('id="services"');
     expect(html).toContain('id="galerie"');
     expect(html.match(/id="galerie"/g)).toHaveLength(1);
+    expect(html).toContain('id="conseils"');
+    expect(html.match(/id="conseils"/g)).toHaveLength(1);
     expect(html).toContain('id="faq"');
     expect(html).toContain('id="reserver"');
     expect(html).toContain('id="contact"');
+
+    const galeriePos = html.indexOf('id="galerie"');
+    const conseilsPos = html.indexOf('id="conseils"');
+    const faqPos = html.indexOf('id="faq"');
+    expect(galeriePos).toBeGreaterThan(-1);
+    expect(conseilsPos).toBeGreaterThan(galeriePos);
+    expect(faqPos).toBeGreaterThan(conseilsPos);
     expect(html).toContain("bg-hero");
     expect(html).toContain("PRiMiE");
     expect(html).toContain("Chez PRiMiE Coiffure");
@@ -39,6 +48,12 @@ describe("Home page", () => {
     expect(html).toContain(siteConfig.brand.slogan);
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Galerie d’inspirations<");
+    expect(html).toContain("Le carnet de conseils");
+    expect(html).toContain("PRiMiE");
+    expect(html).not.toContain(">PRIMIE<");
+    expect(html).toContain("Nos conseils");
+    expect(html).toContain("pour sublimer");
+    expect(html).toContain("vos cheveux au quotidien");
     expect(html).toContain(">QUESTIONS<");
     expect(html).toContain(">FRÉQUENTES<");
     expect(html).toContain("Trouvez rapidement les réponses à vos questions");
@@ -107,9 +122,9 @@ describe("Home page", () => {
     expect(html).toContain("primie-logo-v1.webp");
 
     expect(html.match(/<h1\b/g)).toHaveLength(1);
-    // h2 métier : Services, Galerie, FAQ, ContactBooking
+    // h2 métier : Services, Galerie, Conseils, FAQ, ContactBooking
     const h2Count = html.match(/<h2\b/g)?.length ?? 0;
-    expect(h2Count).toBe(4);
+    expect(h2Count).toBe(5);
 
     expect(html).toContain(">Menu<");
     expect(html).toContain('aria-expanded="false"');
@@ -123,6 +138,18 @@ describe("Home page", () => {
     expect(html).toContain('href="/galerie"');
     expect(html).toContain('href="#galerie"');
     expect(html).toContain("Découvrir la galerie");
+    expect(html).not.toContain('href="#conseils"');
+    expect(html).not.toContain('href="/conseils"');
+    expect(html).not.toContain("/conseils");
+    expect(html).not.toContain("Découvrir tous nos conseils");
+    expect(html).not.toContain("Lire l’article");
+    expect(html).not.toContain("Lire l'article");
+    // Navigation publique inchangée — pas d’entrée « Conseils »
+    const navLabels = [">Accueil<", ">Services<", ">Galerie<", ">FAQ<", ">Réserver<", ">Contact<"];
+    for (const label of navLabels) {
+      expect(html).toContain(label);
+    }
+    expect(html).not.toContain(">Conseils<");
     expect(html).not.toContain("#a-propos");
     expect(html).not.toContain("#avis");
     expect(html).not.toMatch(/Nos réalisations|témoignage|avis clientes/i);
@@ -157,6 +184,8 @@ describe("Home page", () => {
     );
     expect(pageSource).toContain('from "@/components/sections/contact-booking"');
     expect(pageSource).toContain('from "@/components/sections/gallery-preview"');
+    expect(pageSource).toContain('from "@/components/sections/advice-preview"');
+    expect(pageSource).toMatch(/<GalleryPreview\s*\/>\s*<AdvicePreview\s*\/>\s*<Faq\s*\/>/);
     expect(pageSource).not.toContain('from "@/components/sections/booking"');
     expect(pageSource).not.toContain('from "@/components/sections/contact"');
     expect(pageSource).not.toMatch(/from ["']@\/components\/sections\/booking["']/);
@@ -181,6 +210,7 @@ describe("Home page", () => {
     );
     expect(sectionFiles).toEqual(
       expect.arrayContaining([
+        "advice-preview.tsx",
         "contact-booking.tsx",
         "faq.tsx",
         "faq-search-experience.tsx",
@@ -220,6 +250,7 @@ describe("Home page", () => {
       "accueil",
       "services",
       "galerie",
+      "conseils",
       "faq",
       "reserver",
       "contact",
@@ -230,11 +261,14 @@ describe("Home page", () => {
 
     expect(html).toContain(">Nos services<");
     expect(html).toContain(">Galerie d’inspirations<");
+    expect(html).toContain("pour sublimer");
     expect(html).toContain(">QUESTIONS<");
     expect(html).toContain(">FRÉQUENTES<");
     expect(html).toContain(">Contactez PRiMiE Coiffure<");
     expect(html).toContain('href="/galerie"');
     expect(html).toContain("Découvrir la galerie");
+    expect(html).not.toContain("/conseils");
+    expect(html).not.toContain(">Conseils<");
     expect(html).toContain("Choisissez votre date");
     expect(html).toContain("Choisissez votre créneau");
     expect(html).toContain("Détails de la demande");
@@ -243,5 +277,26 @@ describe("Home page", () => {
     expect(html).not.toMatch(/Déplacement inclus|06 00 00 00 00|Octobre 2024/i);
     expect(html).not.toMatch(/BOOKING-ENGINE-V2/i);
     expect(html).toContain("<form");
+  });
+
+  it("conserve l’ordre Hero → Services → Gallery → Advice → FAQ → Contact → Footer", () => {
+    const pageSource = readFileSync(join(process.cwd(), "app/page.tsx"), "utf8");
+    const mainBlock = pageSource.slice(pageSource.indexOf("<main"), pageSource.indexOf("</main>"));
+
+    const order = [
+      "<Hero",
+      "<Services",
+      "<GalleryPreview",
+      "<AdvicePreview",
+      "<Faq",
+      "<ContactBooking",
+    ].map((token) => mainBlock.indexOf(token));
+
+    expect(order.every((pos) => pos >= 0)).toBe(true);
+    for (let i = 1; i < order.length; i += 1) {
+      expect(order[i]!).toBeGreaterThan(order[i - 1]!);
+    }
+
+    expect(pageSource.indexOf("<Footer")).toBeGreaterThan(pageSource.indexOf("</main>"));
   });
 });

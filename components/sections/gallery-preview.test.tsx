@@ -22,6 +22,16 @@ describe("GalleryPreview", () => {
     expect(source).not.toMatch(/scrollLeft|scrollTo|scrollBy/);
   });
 
+  it("conserve le padding haut et réduit le bas pour la transition Conseils", () => {
+    expect(source).toMatch(/spacing="none"/);
+    expect(source).toMatch(/pt-16/);
+    expect(source).toMatch(/pb-10/);
+    expect(source).toMatch(/md:pt-24/);
+    expect(source).toMatch(/md:pb-12/);
+    expect(source).toMatch(/lg:pb-12/);
+    expect(source).not.toMatch(/-mb-|-mt-|translate-y-/);
+  });
+
   it("expose un rail .gallery-preview-rail scrollable et focusable, scrollbar non masquée", () => {
     expect(source).toContain("gallery-preview-rail");
     expect(source).toContain("focus-visible:outline");
