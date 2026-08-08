@@ -1,8 +1,9 @@
 /**
  * Aperçu Conseils — données (UI : `AdvicePreview` / 01C).
  * Illustrations : ILLUSTRATION_APPROVED_BY_CTO · sources `images/conseil/carte-*.png`
- * pour les cartes 01–02 ; carte 03 réutilise `perruque-deep-wave.webp` (Gallery)
- * — PASS CTO DESIGN-R1-R2 / blocker packaging levé.
+ * (cartes 01–03). Carte 03 : `soin-perruque.webp` — illustration éditoriale
+ * (`PRODUCT_VISUAL_AMBIGUITY — ACCEPTED_BY_CTO 2026-08-08`), sans revendication
+ * d’une gamme commerciale.
  *
  * Portrait intro officiel (CTO) : Bantu Knots —
  * `advice-portrait-bantu-knots-v1.webp` (source `images/gallery/bantu-knots.png`).
@@ -86,10 +87,10 @@ export const advice = [
     summary:
       "Des conseils simples pour préserver l’éclat, la souplesse et la forme de votre perruque.",
     image: {
-      src: "/images/gallery/perruque-deep-wave.webp",
-      width: 1024,
-      height: 1536,
-      alt: "Perruque aux longues ondulations profondes",
+      src: "/images/advice/soin-perruque.webp",
+      width: 1536,
+      height: 1024,
+      alt: "Perruque ondulée présentée avec des accessoires de soin",
       kind: "illustration",
       rightsStatus: "project_approved",
     },

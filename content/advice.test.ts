@@ -33,9 +33,9 @@ const EXPECTED = [
     number: "03",
     category: "Perruques",
     title: "Prendre soin d’une perruque",
-    src: "/images/gallery/perruque-deep-wave.webp",
-    width: 1024,
-    height: 1536,
+    src: "/images/advice/soin-perruque.webp",
+    width: 1536,
+    height: 1024,
   },
 ] as const;
 
@@ -91,6 +91,7 @@ describe("advice content — CONSEILS-PREVIEW-01B", () => {
         "advice-portrait-bantu-knots-v1.webp",
         "entretien-tresses.webp",
         "preparation-cheveux.webp",
+        "soin-perruque.webp",
       ].sort(),
     );
 
@@ -110,10 +111,13 @@ describe("advice content — CONSEILS-PREVIEW-01B", () => {
     }
 
     const card3 = advice.find((item) => item.id === "soin-perruque");
-    expect(card3?.image.src).toBe("/images/gallery/perruque-deep-wave.webp");
-    expect(card3?.image.alt).toBe("Perruque aux longues ondulations profondes");
-    expect(JSON.stringify(advice)).not.toContain("/images/advice/soin-perruque.webp");
-    expect(existsSync(join(PUBLIC_ADVICE, "soin-perruque.webp"))).toBe(false);
+    expect(card3?.image.src).toBe("/images/advice/soin-perruque.webp");
+    expect(card3?.image.alt).toBe("Perruque ondulée présentée avec des accessoires de soin");
+    expect(JSON.stringify(advice)).not.toContain("/images/gallery/perruque-deep-wave.webp");
+    expect(existsSync(join(PUBLIC_ADVICE, "soin-perruque.webp"))).toBe(true);
+    expect(card3?.image.alt).not.toMatch(
+      /produits? PRiMiE|gamme PRiMiE|coffret PRiMiE|disponible à la vente/i,
+    );
   });
 
   it("n’importe aucun PNG ni wording interdit dans la source", () => {

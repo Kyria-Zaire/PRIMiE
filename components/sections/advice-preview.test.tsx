@@ -107,9 +107,10 @@ describe("AdvicePreview", () => {
       expect(html).toContain(item.image.src.replace(/^\//, "").split("/").at(-1)!);
     }
 
-    expect(html).toContain("perruque-deep-wave.webp");
-    expect(html).not.toContain("soin-perruque.webp");
-    expect(html).toContain("Perruque aux longues ondulations profondes");
+    expect(html).toContain("soin-perruque.webp");
+    expect(html).not.toContain("perruque-deep-wave.webp");
+    expect(html).toContain("Perruque ondulée présentée avec des accessoires de soin");
+    expect(html).not.toMatch(/produits? PRiMiE|gamme PRiMiE|coffret PRiMiE|disponible à la vente/i);
 
     expect(adviceDecorativePortrait.src).toBe("/images/advice/advice-portrait-bantu-knots-v1.webp");
     expect(html).toContain("advice-portrait-bantu-knots-v1.webp");

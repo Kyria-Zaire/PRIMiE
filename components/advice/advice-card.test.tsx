@@ -45,8 +45,8 @@ describe("AdviceCard", () => {
     expect(source).not.toMatch(/cursor-pointer/);
   });
 
-  it("cadre la carte Perruques sur l’illustration Gallery deep wave sans packaging", () => {
-    expect(source).toContain('"soin-perruque": "50% 22%"');
+  it("cadre la carte Perruques sur l’illustration éditoriale soin-perruque", () => {
+    expect(source).toContain('"soin-perruque": "18% 30%"');
     expect(source).not.toMatch(/gamme de produits/i);
     expect(source).not.toMatch(/produits? PRiMiE/i);
   });

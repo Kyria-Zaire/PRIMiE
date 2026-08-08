@@ -13,8 +13,8 @@ const DEFAULT_SIZES = "(max-width: 1023px) 39vw, 30vw";
 const OBJECT_POSITION: Record<AdviceItem["id"], string> = {
   "preparation-cheveux": "50% 42%",
   "entretien-tresses": "42% 28%",
-  /** Portrait Gallery deep wave — visage et longueurs dans le crop 3/2. */
-  "soin-perruque": "50% 22%",
+  /** Illustration éditoriale packaging — focale perruque (historique 18% 30%). */
+  "soin-perruque": "18% 30%",
 };
 
 /**
