@@ -1300,9 +1300,10 @@ peuvent être centralisés avant affichage UI.
 #### CONSEILS-PREVIEW-01 — Aperçu Conseils (landing)
 
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS`
-- Placement futur gelé : GalleryPreview → ConseilsPreview → FAQ
-- Exclus immédiat : nav Header/Footer ; route `/conseils` ; liens morts
+- Statut : `DONE — clôturée le 2026-08-08`
+- Placement : GalleryPreview → AdvicePreview (`#conseils`) → FAQ
+- Exclus V1 : nav Header/Footer Conseils ; route `/conseils` ; liens cartes
+- Checkpoint : `CONSEILS-PREVIEW-DESIGN-R1-CLOSE` publié `origin/main`
 
 ##### CONSEILS-PREVIEW-01A — DISCOVER
 
