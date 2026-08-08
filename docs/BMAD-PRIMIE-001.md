@@ -503,7 +503,8 @@ Validation BMAD (G2 passé)
 │   ├── CONSEILS-PREVIEW-DESIGN-R1-R2 (DONE — Validé CTO 2026-08-08)
 │   ├── CONSEILS-PREVIEW-01D (CANCELLED — V1 preview sans `/conseils`)
 │   ├── CONSEILS-PREVIEW-01E (DONE — checkpoint publié 2026-08-08)
-│   └── CONSEILS-PREVIEW-DESIGN-R1-CLOSE (DONE — publié origin/main 2026-08-08)
+│   ├── CONSEILS-PREVIEW-DESIGN-R1-CLOSE (DONE — publié origin/main 2026-08-08)
+│   └── CONSEILS-PREVIEW-ASSET-R1 (DONE — Validé CTO et publié le 2026-08-08)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -618,6 +619,7 @@ traçabilité.
 | `01cp01d` | `CONSEILS-PREVIEW-01D` | `INTEGRATE` | `CANCELLED — V1 preview sans /conseils` | `P1` | activation liens différée |
 | `01cp01e` | `CONSEILS-PREVIEW-01E` | `VERIFY + PUBLISH` | `DONE — checkpoint 2026-08-08` | `P1` | QA + publication Git |
 | `01cp01close` | `CONSEILS-PREVIEW-DESIGN-R1-CLOSE` | `VERIFY + PUBLISH` | `DONE — publié origin/main 2026-08-08` | `P1` | clôture feature |
+| `01cp01asset` | `CONSEILS-PREVIEW-ASSET-R1` | `CORRECTIVE VISUAL` | `DONE — Validé CTO et publié le 2026-08-08` | `P1` | restaurer soin-perruque carte 03 |
 | `01cpage` | `CONSEILS-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/conseils` |
 | `01nmr1d` | `NAVIGATION-MENU-DESIGN-R1D` | `VERIFY` | `BLOCKED` | `P0` | a11y / cross-browser / perf |
 | `01nmr1e` | `NAVIGATION-MENU-DESIGN-R1E` | `VERIFY + PUBLISH` | `BLOCKED` | `P0` | checkpoint + BMAD |
@@ -1368,8 +1370,9 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO 2026-08-08`
 - Inclus : carte 03 → `/images/gallery/perruque-deep-wave.webp` ;
   alt `Perruque aux longues ondulations profondes` ; object-position `50% 22%`
-- Blocker : `BLOCKED_ASSET_PRODUCT_AMBIGUITY — LEVÉ DÉFINITIVEMENT`
-- Verdict : `PASS VISUEL`
+- Note historique : objection packaging alors en vigueur ; remplacée ensuite par
+  `CONSEILS-PREVIEW-ASSET-R1` (décision CTO 2026-08-08)
+- Verdict : `PASS VISUEL` (à la date de R2)
 
 ##### CONSEILS-PREVIEW-01D — INTEGRATE
 
@@ -1389,6 +1392,19 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — publié origin/main 2026-08-08`
 - Feature parente : `CONSEILS-PREVIEW-01` → `DONE — clôturée le 2026-08-08`
 - Exclus : déploiement Vercel ; page Blog/CMS ; route `/conseils`
+
+##### CONSEILS-PREVIEW-ASSET-R1 — Restauration illustration Perruques
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — Validé CTO et publié le 2026-08-08`
+- Feature parente : `CONSEILS-PREVIEW-01` / `CONSEILS-PREVIEW-DESIGN-R1` restent `DONE`
+- Inclus : carte 03 → `/images/advice/soin-perruque.webp` ; object-position
+  `18% 30%` ; alt descriptif non commercial
+- Décision : `PRODUCT_VISUAL_AMBIGUITY — ACCEPTED_BY_CTO 2026-08-08`
+  Asset utilisé comme illustration éditoriale, sans revendication d’une gamme
+  de produits commercialisée.
+- Checkpoint : `CONSEILS-PREVIEW-ASSET-R1-CHECKPOINT` publié `origin/main`
+- Exclus : déploiement Vercel ; Blog/CMS ; page produits ; e-commerce
 
 #### CONSEILS-PAGE-01 — Page Conseils
 
