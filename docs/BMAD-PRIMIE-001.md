@@ -492,6 +492,18 @@ Validation BMAD (G2 passé)
 │   ├── MOBILE-HERO-NAV-POLISH-R1-R1 (DONE — Validé CTO le 2026-08-04)
 │   ├── MOBILE-HERO-NAV-POLISH-R1-R1-VISUAL-GATE (DONE — PASS le 2026-08-04)
 │   └── MOBILE-HERO-NAV-POLISH-R1-R1-CHECKPOINT (DONE — publié le 2026-08-04)
+├── CONSEILS-PREVIEW-01 (DONE — clôturée le 2026-08-08)
+│   ├── CONSEILS-PREVIEW-01A (DONE — Validé CTO)
+│   ├── CONSEILS-PREVIEW-01B (DONE — Validé CTO)
+│   ├── CONSEILS-PREVIEW-01C (DONE — Validé CTO 2026-08-08)
+│   ├── CONSEILS-PREVIEW-01C-R1 (DONE — remplacé par R2)
+│   ├── CONSEILS-PREVIEW-01C-R2 (DONE — portrait et mobile validés CTO)
+│   ├── CONSEILS-PREVIEW-01C-R3 (DONE — remplacé par DESIGN-R1-R1)
+│   ├── CONSEILS-PREVIEW-DESIGN-R1-R1 (DONE — Validé CTO 2026-08-08)
+│   ├── CONSEILS-PREVIEW-DESIGN-R1-R2 (DONE — Validé CTO 2026-08-08)
+│   ├── CONSEILS-PREVIEW-01D (CANCELLED — V1 preview sans `/conseils`)
+│   ├── CONSEILS-PREVIEW-01E (DONE — checkpoint publié 2026-08-08)
+│   └── CONSEILS-PREVIEW-DESIGN-R1-CLOSE (DONE — publié origin/main 2026-08-08)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -594,6 +606,19 @@ traçabilité.
 | `01mhnpr1r1` | `MOBILE-HERO-NAV-POLISH-R1-R1` | `CORRECTIVE + VISUAL GATE` | `DONE — Validé CTO le 2026-08-04` | `P0` | CTA tablette / actif / copy |
 | `01mhnpr1r1vg` | `MOBILE-HERO-NAV-POLISH-R1-R1-VISUAL-GATE` | `VERIFY` | `DONE — PASS le 2026-08-04` | `P0` | gate multi-viewports |
 | `01mhnpr1r1cp` | `MOBILE-HERO-NAV-POLISH-R1-R1-CHECKPOINT` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-04` | `P0` | commit + push Git |
+| `01cp01` | `CONSEILS-PREVIEW-01` | `IMPLEMENT` | `DONE — clôturée le 2026-08-08` | `P1` | aperçu Conseils landing |
+| `01cp01a` | `CONSEILS-PREVIEW-01A` | `DISCOVER` | `DONE — Validé CTO` | `P1` | audit maquettes + assets |
+| `01cp01b` | `CONSEILS-PREVIEW-01B` | `IMPLEMENT` | `DONE — Validé CTO` | `P1` | data + WebP + tests |
+| `01cp01c` | `CONSEILS-PREVIEW-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-08` | `P1` | UI Preview sans liens |
+| `01cp01cr1` | `CONSEILS-PREVIEW-01C-R1` | `CORRECTIVE VISUAL` | `DONE — remplacé par R2` | `P1` | densité desktop + intro mobile |
+| `01cp01cr2` | `CONSEILS-PREVIEW-01C-R2` | `CORRECTIVE VISUAL` | `DONE — portrait et mobile validés CTO` | `P1` | portrait Bantu Knots WebP |
+| `01cp01cr3` | `CONSEILS-PREVIEW-01C-R3` | `CORRECTIVE VISUAL` | `DONE — remplacé par DESIGN-R1-R1` | `P1` | composition desktop Galerie→Conseils |
+| `01cp01dr1r1` | `CONSEILS-PREVIEW-DESIGN-R1-R1` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-08` | `P1` | transition, cartes mobile, PRiMiE, Cas C |
+| `01cp01dr1r2` | `CONSEILS-PREVIEW-DESIGN-R1-R2` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-08` | `P1` | asset carte 03 deep wave |
+| `01cp01d` | `CONSEILS-PREVIEW-01D` | `INTEGRATE` | `CANCELLED — V1 preview sans /conseils` | `P1` | activation liens différée |
+| `01cp01e` | `CONSEILS-PREVIEW-01E` | `VERIFY + PUBLISH` | `DONE — checkpoint 2026-08-08` | `P1` | QA + publication Git |
+| `01cp01close` | `CONSEILS-PREVIEW-DESIGN-R1-CLOSE` | `VERIFY + PUBLISH` | `DONE — publié origin/main 2026-08-08` | `P1` | clôture feature |
+| `01cpage` | `CONSEILS-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/conseils` |
 | `01nmr1d` | `NAVIGATION-MENU-DESIGN-R1D` | `VERIFY` | `BLOCKED` | `P0` | a11y / cross-browser / perf |
 | `01nmr1e` | `NAVIGATION-MENU-DESIGN-R1E` | `VERIFY + PUBLISH` | `BLOCKED` | `P0` | checkpoint + BMAD |
 | `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
@@ -1271,6 +1296,106 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — publié le 2026-08-04`
 - Commits : implémentation `b140b77` ; documentation (ce fichier)
 - Aucun déploiement
+
+#### CONSEILS-PREVIEW-01 — Aperçu Conseils (landing)
+
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS`
+- Placement futur gelé : GalleryPreview → ConseilsPreview → FAQ
+- Exclus immédiat : nav Header/Footer ; route `/conseils` ; liens morts
+
+##### CONSEILS-PREVIEW-01A — DISCOVER
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO`
+- Inclus : audit maquettes desktop/mobile ; 3 PNG `images/conseil/carte-*.png` ;
+  copy candidate sans « secrets d’experte » ; stratégie preview sans liens
+
+##### CONSEILS-PREVIEW-01B — DATA + ASSETS
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO`
+- Inclus : `content/advice.ts` + types ; 3 WebP `public/images/advice/` ;
+  tests data ; exclusions `.git/info/exclude` exactes ; registre contenu
+- Décision : réutilisation décorative de `entretien-tresses.webp` (carte-2)
+  sans 4ᵉ asset
+- Exclus : UI ; routes ; navigation ; commit
+- Classification : `ILLUSTRATION_APPROVED_BY_CTO` · `preview_only`
+
+##### CONSEILS-PREVIEW-01C — UI Preview
+
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS — en attente CTO`
+- Placement : GalleryPreview → AdvicePreview (`#conseils`) → FAQ
+- Inclus : Server Components `AdvicePreview` + `AdviceCard` ; section statique
+  sans liens ni CTA ; portrait décoratif réutilisant `entretien-tresses.webp`
+  (cadrage distinct de la carte 02) ; tests UI + page order
+- Exclus : route `/conseils` ; entrée nav Header/Footer ; « Lire l’article » ;
+  CTA « Découvrir tous nos conseils » ; Client Component ; commit
+- Note : activation des actions différée jusqu’à création de la page Conseils (01D)
+
+##### CONSEILS-PREVIEW-01C-R1 — Corrective visuelle CTO
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — remplacé par R2`
+- Note : densité et composition reprises puis remplacées par R2/R3
+
+##### CONSEILS-PREVIEW-01C-R2 — Portrait Bantu Knots & Visual Gate
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — portrait et mobile validés CTO`
+- Décision CTO : portrait intro officiel = Bantu Knots
+  (`advice-portrait-bantu-knots-v1.webp`) ; `entretien-tresses.webp` reste
+  réservé à la carte 02 uniquement
+
+##### CONSEILS-PREVIEW-01C-R3 — Corrective composition desktop
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — remplacé par DESIGN-R1-R1`
+- Cible : transition Galerie → Conseils ; grille intro 3 colonnes alignée
+  sur les cartes ; titre deux lignes ≥1280 ; densité intro desktop
+
+##### CONSEILS-PREVIEW-DESIGN-R1-R1 — Corrective visuelle et parcours
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — Validé CTO 2026-08-08`
+- Inclus : réduction espacements Gallery→Conseils ; cartes mobile lisibles ;
+  badges sans collision ; graphie `PRiMiE` (eyebrowLead/Brand) ; Cas C
+  `DETAIL_ROUTE_NOT_READY` ; overflow-x-clip
+
+##### CONSEILS-PREVIEW-DESIGN-R1-R2 — Micro-correctif asset Perruques
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — Validé CTO 2026-08-08`
+- Inclus : carte 03 → `/images/gallery/perruque-deep-wave.webp` ;
+  alt `Perruque aux longues ondulations profondes` ; object-position `50% 22%`
+- Blocker : `BLOCKED_ASSET_PRODUCT_AMBIGUITY — LEVÉ DÉFINITIVEMENT`
+- Verdict : `PASS VISUEL`
+
+##### CONSEILS-PREVIEW-01D — INTEGRATE
+
+- Mode : `INTEGRATE`
+- Statut : `CANCELLED — V1 preview sans route /conseils`
+- Note : activation des liens différée à `CONSEILS-PAGE-01`
+
+##### CONSEILS-PREVIEW-01E — VERIFY / PUBLISH
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — checkpoint 2026-08-08`
+- Inclus : QA complète ; commits Git ; push `origin/main` ; aucun déploiement
+
+##### CONSEILS-PREVIEW-DESIGN-R1-CLOSE — Checkpoint final
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié origin/main 2026-08-08`
+- Feature parente : `CONSEILS-PREVIEW-01` → `DONE — clôturée le 2026-08-08`
+- Exclus : déploiement Vercel ; page Blog/CMS ; route `/conseils`
+
+#### CONSEILS-PAGE-01 — Page Conseils
+
+- Mode : `IMPLEMENT`
+- Statut : `NOT OPEN`
+- Note : non ouverte par le Preview V1 ; maquettes page requises
 
 ##### NAVIGATION-MENU-DESIGN-R1D — VERIFY
 
