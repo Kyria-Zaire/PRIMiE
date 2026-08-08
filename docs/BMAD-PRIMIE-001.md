@@ -1326,14 +1326,12 @@ peuvent être centralisés avant affichage UI.
 ##### CONSEILS-PREVIEW-01C — UI Preview
 
 - Mode : `IMPLEMENT`
-- Statut : `IN_PROGRESS — en attente CTO`
+- Statut : `DONE — Validé CTO 2026-08-08`
 - Placement : GalleryPreview → AdvicePreview (`#conseils`) → FAQ
 - Inclus : Server Components `AdvicePreview` + `AdviceCard` ; section statique
-  sans liens ni CTA ; portrait décoratif réutilisant `entretien-tresses.webp`
-  (cadrage distinct de la carte 02) ; tests UI + page order
+  sans liens ni CTA ; portrait Bantu Knots WebP ; carte 03 Gallery deep wave
 - Exclus : route `/conseils` ; entrée nav Header/Footer ; « Lire l’article » ;
-  CTA « Découvrir tous nos conseils » ; Client Component ; commit
-- Note : activation des actions différée jusqu’à création de la page Conseils (01D)
+  CTA « Découvrir tous nos conseils » ; Client Component
 
 ##### CONSEILS-PREVIEW-01C-R1 — Corrective visuelle CTO
 
