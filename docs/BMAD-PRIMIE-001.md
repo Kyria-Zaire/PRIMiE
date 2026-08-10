@@ -514,6 +514,11 @@ Validation BMAD (G2 passé)
 │   ├── WIG-SALES-CONTENT-01C-R2-R1 (DONE — Validé CTO 2026-08-10)
 │   ├── WIG-SALES-CONTENT-01D (DONE — Validé CTO 2026-08-10)
 │   ├── WIG-SALES-CONTENT-01E (DONE — publié le 2026-08-10)
+│   ├── WIG-SALES-DESIGN-R1 (DONE — clôturé le 2026-08-11)
+│   ├── WIG-SALES-DESIGN-R1-R1 (DONE — étape intermédiaire)
+│   ├── WIG-SALES-DESIGN-R1-R2 (DONE — Validé CTO 2026-08-11)
+│   ├── WIG-SALES-DESIGN-R1D (DONE — Validé CTO 2026-08-11)
+│   ├── WIG-SALES-DESIGN-R1E (DONE — checkpoint publié le 2026-08-11)
 │   ├── WIG-CATALOG-PAGE-01 (NOT OPEN)
 │   └── WIG-COMMERCE-ENGINE (BACKLOG — NOT OPEN)
 └── INIT-SCAFFOLD-01A (DONE)
@@ -640,6 +645,11 @@ traçabilité.
 | `01wigcr2r1` | `WIG-SALES-CONTENT-01C-R2-R1` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-10` | `P1` | CTA ≤2 lignes à 320 px |
 | `01wigd` | `WIG-SALES-CONTENT-01D` | `IMPLEMENT/VERIFY` | `DONE — Validé CTO 2026-08-10` | `P1` | verify responsive / a11y / browsers |
 | `01wige` | `WIG-SALES-CONTENT-01E` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-10` | `P1` | QA + checkpoint |
+| `01wigdr1` | `WIG-SALES-DESIGN-R1` | `CORRECTIVE VISUAL` | `DONE — clôturé le 2026-08-11` | `P1` | refonte maquette desktop/mobile |
+| `01wigdr1r1` | `WIG-SALES-DESIGN-R1-R1` | `CORRECTIVE VISUAL` | `DONE — étape intermédiaire` | `P1` | arguments, densité, cartes |
+| `01wigdr1r2` | `WIG-SALES-DESIGN-R1-R2` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-11` | `P1` | tablette/desktop micro-corrective |
+| `01wigdr1d` | `WIG-SALES-DESIGN-R1D` | `VERIFY` | `DONE — Validé CTO 2026-08-11` | `P1` | verify final design gelé |
+| `01wigdr1e` | `WIG-SALES-DESIGN-R1E` | `VERIFY + PUBLISH` | `DONE — checkpoint publié le 2026-08-11` | `P1` | checkpoint / clôture |
 | `01wigpage` | `WIG-CATALOG-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/perruques` |
 | `01wigeng` | `WIG-COMMERCE-ENGINE` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P2` | panier / paiement / stock |
 | `01cpage` | `CONSEILS-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/conseils` |
@@ -1504,6 +1514,54 @@ peuvent être centralisés avant affichage UI.
 - Inclus : gel fonctionnel ; qualité complète ; smoke prod 3010 ; deux commits
   séparés (`feat` puis `docs`) sur `main` ; aucun déploiement
 - Dette transférée : Safari/iOS physique zoom 200 % (documentaire, non bloquant)
+
+##### WIG-SALES-DESIGN-R1 — Corrective visuelle maquette
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — clôturé le 2026-08-11`
+- Relation : postérieure à `WIG-SALES-CONTENT-01` (`DONE`) — ne rouvre pas l’historique
+- Inclus : composition éditoriale ample ; portrait dominant ; cartes premium ;
+  CTA global WhatsApp ; bandeau trust factuel ; tests négatifs anti-claims
+- Exclus : prix / longueurs / matière / livraison / paiement / retour inventés ;
+  route `/perruques`
+- Clôture : checkpoint `WIG-SALES-DESIGN-R1E` publié le 2026-08-11
+  (deux commits `feat` puis `docs` sur `main` ; aucun déploiement)
+
+##### WIG-SALES-DESIGN-R1-R1 — Corrective visuelle stricte
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — étape intermédiaire`
+- Inclus : arguments/trust `2×2` mobile sûrs ; portrait plus présent ;
+  densité desktop réduite ; ratios cartes ; 3 cols dès `xl` ; mesures DOM
+- Exclus : invention commerciale ; publication Git
+
+##### WIG-SALES-DESIGN-R1-R2 — Micro-corrective tablette/desktop
+
+- Mode : `CORRECTIVE VISUAL`
+- Statut : `DONE — Validé CTO 2026-08-11`
+- Inclus : trunc arguments = 0 (2×2 jusqu’à xl) ; CTA produit ≤2 lignes ;
+  ratio contenu cartes élargi ; gap args→cartes 16–24 px ; pb WIG resserré
+  vers Gallery ; hauteurs cartes égalisées
+- Exclus : refonte mobile R1-R1 ; invention commerciale ; GalleryPreview
+- Design gelé après validation CTO
+
+##### WIG-SALES-DESIGN-R1D — VERIFY final
+
+- Mode : `VERIFY`
+- Statut : `DONE — Validé CTO 2026-08-11`
+- Inclus : matrice responsive 9 viewports ; frontière 1279→1280 ;
+  WhatsApp ; a11y clavier ; cross-browser Chromium/Firefox/WebKit ;
+  assets WebP ; qualité complète ; smoke prod
+- Exclus : refonte visuelle ; changement de breakpoints gelés
+- Dette documentaire : Safari/iOS physique non bloquant
+
+##### WIG-SALES-DESIGN-R1E — Checkpoint / clôture
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — checkpoint publié le 2026-08-11`
+- Inclus : commit implémentation WIG ; commit documentation BMAD ;
+  push `origin/main` ; vérification SHA local/origin/ls-remote
+- Exclus : déploiement ; amend ; force push ; mise à jour dépendances
 
 #### WIG-CATALOG-PAGE-01 — Page catalogue `/perruques`
 
