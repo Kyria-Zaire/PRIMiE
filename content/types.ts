@@ -173,7 +173,16 @@ export type WigProduct = {
   readonly inquiryMessage: string;
 };
 
-/** Copy section future — aucun href catalogue tant que `/perruques` n’existe pas. */
+/** Fait de réassurance — formulations factuelles uniquement, sans promesse commerciale. */
+export type WigTrustItem = {
+  readonly title: string;
+  readonly detail: string;
+};
+
+/**
+ * Copy section sélection perruques — aucun href catalogue tant que `/perruques` n’existe pas.
+ * `globalInquiryMessage` : message pur ; URL via `buildWhatsAppUrl` côté UI.
+ */
 export type WigSelectionCopy = {
   readonly eyebrowLead: string;
   readonly eyebrowBrand: string;
@@ -181,6 +190,10 @@ export type WigSelectionCopy = {
   readonly titleAccent: string;
   readonly description: string;
   readonly productCtaLabel: string;
+  readonly productTariffNote: string;
+  readonly globalCtaLabel: string;
+  /** Message WhatsApp générique — aucun produit pré-sélectionné. */
+  readonly globalInquiryMessage: string;
   readonly values: readonly [string, string, string, string];
-  readonly trustItems: readonly [string, string, string, string];
+  readonly trustItems: readonly [WigTrustItem, WigTrustItem, WigTrustItem, WigTrustItem];
 };

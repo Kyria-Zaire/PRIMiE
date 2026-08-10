@@ -1,18 +1,79 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { WigSelection } from "./wig-selection";
 import { getFeaturedWigs, wigSelectionCopy, wigs } from "@/content/wigs";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-describe("WigSelection", () => {
-  const source = readFileSync(join(process.cwd(), "components/sections/wig-selection.tsx"), "utf8");
+const FORBIDDEN_COMMERCIAL = [
+  "240 €",
+  "260 €",
+  "220 €",
+  "100 % cheveux humains",
+  "100% cheveux humains",
+  "Naturel (1B)",
+  "qualité premium",
+  "aspect naturel",
+  "confort optimal",
+  "longue durée",
+  "livraison rapide",
+  "paiement sécurisé",
+  "retour facile",
+  "PayPal",
+  "Mobile Money",
+  "Sous 14 jours",
+  "2 à 5 jours",
+] as const;
 
-  it("reste un Server Component sans client ni carousel", () => {
-    expect(source).not.toMatch(/["']use client["']/);
-    expect(source).not.toMatch(/\b(useState|useEffect|useRef)\b/);
-    expect(source).not.toMatch(/carousel|swiper|embla/i);
+describe("WigSelection — WIG-SALES-DESIGN-R1-R2", () => {
+  const source = readFileSync(join(process.cwd(), "components/sections/wig-selection.tsx"), "utf8");
+  const heroSource = readFileSync(
+    join(process.cwd(), "components/wigs/wig-editorial-hero.tsx"),
+    "utf8",
+  );
+  const ctaSource = readFileSync(join(process.cwd(), "components/wigs/wig-global-cta.tsx"), "utf8");
+  const trustSource = readFileSync(
+    join(process.cwd(), "components/wigs/wig-trust-strip.tsx"),
+    "utf8",
+  );
+  const gridSource = readFileSync(
+    join(process.cwd(), "components/wigs/wig-product-grid.tsx"),
+    "utf8",
+  );
+  const cardSource = readFileSync(join(process.cwd(), "components/wigs/wig-card.tsx"), "utf8");
+  const bmad = readFileSync(join(process.cwd(), "docs/BMAD-PRIMIE-001.md"), "utf8");
+
+  it("reste un Server Component sans client ni carousel ni second Header", () => {
+    for (const file of [source, heroSource, ctaSource, trustSource, gridSource, cardSource]) {
+      expect(file).not.toMatch(/["']use client["']/);
+      expect(file).not.toMatch(/\b(useState|useEffect|useRef)\b/);
+      expect(file).not.toMatch(/carousel|swiper|embla/i);
+      expect(file).not.toMatch(/\bHeader\b/);
+      expect(file).not.toMatch(/ResponsiveNavigationMenu|BrandLogo/);
+    }
+  });
+
+  it("conserve WIG-SALES-CONTENT-01 DONE et la gouvernance R1/R1-R1/R1-R2/R1D/R1E", () => {
+    expect(bmad).toMatch(/WIG-SALES-CONTENT-01 \(DONE/);
+    expect(bmad).toMatch(/WIG-SALES-DESIGN-R1/);
+    expect(bmad).toMatch(/WIG-SALES-DESIGN-R1-R1/);
+    expect(bmad).toMatch(/WIG-SALES-DESIGN-R1-R2/);
+    expect(bmad).toMatch(/WIG-SALES-DESIGN-R1D/);
+    expect(bmad).toMatch(/WIG-SALES-DESIGN-R1E/);
+    expect(bmad).toMatch(/DONE — Validé CTO 2026-08-11/);
+  });
+
+  it("orchestre hero, grille, CTA global et bandeau trust", () => {
+    expect(source).toContain("WigEditorialHero");
+    expect(source).toContain("WigProductGrid");
+    expect(source).toContain("WigGlobalCta");
+    expect(source).toContain("WigTrustStrip");
+    const html = renderToStaticMarkup(<WigSelection />);
+    expect(html).toContain("data-wig-intro");
+    expect(html).toContain("data-wig-products");
+    expect(html).toContain("data-wig-global-cta");
+    expect(html).toContain("data-wig-facts");
   });
 
   it("expose une section #perruques unique avec titre et accent gold", () => {
@@ -36,8 +97,8 @@ describe("WigSelection", () => {
     expect(html).toContain("PRiMiE Coiffure");
     expect(html).not.toMatch(/>PRIMIE</);
     expect(html).not.toMatch(/>Primie</);
-    expect(source).toMatch(/uppercase.*eyebrowLead|eyebrowLead[\s\S]*uppercase/);
-    expect(source).not.toMatch(/uppercase[^"]*eyebrowBrand|eyebrowBrand[\s\S]{0,80}uppercase/);
+    expect(heroSource).toMatch(/uppercase.*eyebrowLead|eyebrowLead[\s\S]*uppercase/);
+    expect(heroSource).not.toMatch(/uppercase[^"]*eyebrowBrand|eyebrowBrand[\s\S]{0,80}uppercase/);
   });
 
   it("réutilise le portrait vente-pose-perruques et exclut Gallery Hero", () => {
@@ -45,17 +106,17 @@ describe("WigSelection", () => {
     expect(html).toContain("vente-pose-perruques.webp");
     expect(html).toMatch(/alt=""/);
     expect(html).toContain("data-wig-portrait");
-    expect(source).toContain("wigDecorativePortrait");
+    expect(heroSource).toContain("wigDecorativePortrait");
     expect(html).not.toContain("gallery-hero-model-v1.webp");
     expect(html).not.toContain("/images/wigs/gallery-hero");
   });
 
-  it("rend trois cartes ordonnées avec badges et CTA WhatsApp", () => {
+  it("rend trois cartes ordonnées avec badges et CTA WhatsApp produit", () => {
     const html = renderToStaticMarkup(<WigSelection />);
     const featured = getFeaturedWigs();
 
     expect(featured).toHaveLength(3);
-    expect(html.match(/<article\b/g)).toHaveLength(3);
+    expect(html.match(/data-wig-card(?![-\w])/g)).toHaveLength(3);
     expect(html.match(/<h3\b/g)).toHaveLength(3);
     expect(html).toContain(">01<");
     expect(html).toContain(">02<");
@@ -70,6 +131,7 @@ describe("WigSelection", () => {
     for (const item of featured) {
       expect(html).toContain(item.shortDescription);
       expect(html).toContain(buildWhatsAppUrl(item.inquiryMessage));
+      expect(item.inquiryMessage).toContain(item.name);
     }
     expect(wigSelectionCopy.productCtaLabel).toBe("Demander le tarif sur WhatsApp");
     expect(html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")).toContain(
@@ -78,43 +140,91 @@ describe("WigSelection", () => {
     expect(html.match(/data-wig-cta-label/g)).toHaveLength(3);
   });
 
-  it("affiche les quatre valeurs et n’expose plus le bandeau de faits", () => {
+  it("affiche les quatre arguments et le bandeau trust factuel exacts", () => {
     const html = renderToStaticMarkup(<WigSelection />);
+    expect(html.match(/data-wig-value(?![-\w])/g)).toHaveLength(4);
+    expect(html.match(/data-wig-fact(?![-\w])/g)).toHaveLength(4);
     for (const value of wigSelectionCopy.values) {
       expect(html).toContain(value.replaceAll("&", "&amp;"));
     }
-    expect(html).toContain("data-wig-values");
-    expect(html).not.toContain("data-wig-facts");
-    expect(html).not.toContain("Confirmation par Prisca");
+    for (const item of wigSelectionCopy.trustItems) {
+      expect(html).toContain(item.title);
+      expect(html).toContain(item.detail);
+    }
   });
 
-  it("structure intro texte|portrait, grille 3 cols et valeurs densifiées", () => {
-    const html = renderToStaticMarkup(<WigSelection />);
-
-    expect(html).toContain("data-wig-intro");
-    expect(html).toContain("data-wig-intro-copy");
-    expect(html).toContain("data-wig-portrait");
-    expect(html).toContain("data-wig-products");
-    expect(html).toMatch(/absolute[^"]*right-0/);
-    expect(html).toContain("lg:grid-cols-3");
-    expect(html).toContain("min-[390px]:grid-cols-4");
-    expect(html).not.toContain("data-wig-facts");
-    expect(source).toContain("data-wig-intro");
-    expect(source).toContain("lg:grid-cols-3");
+  it("structure arguments en 2×2 jusqu’à xl sans truncate ni break-words", () => {
+    expect(heroSource).toContain("grid-cols-2");
+    expect(heroSource).toContain("xl:grid-cols-4");
+    expect(heroSource).not.toContain("sm:grid-cols-4");
+    expect(heroSource).not.toContain("min-[390px]:grid-cols-4");
+    expect(heroSource).not.toContain("lg:grid-cols-4");
+    expect(trustSource).toContain("grid-cols-2");
+    expect(heroSource).toContain("min-w-0");
+    expect(heroSource).toContain("hyphens-none");
+    expect(heroSource).toContain("[word-break:normal]");
+    expect(heroSource).not.toContain("break-words");
+    expect(heroSource).not.toContain("line-clamp");
+    expect(heroSource).not.toContain("truncate");
+    expect(trustSource).toContain("hyphens-none");
+    expect(trustSource).not.toContain("break-words");
+    const valuesBlock = heroSource.slice(heroSource.indexOf("data-wig-values"));
+    expect(valuesBlock).not.toMatch(/whitespace-nowrap/);
   });
 
-  it("rejette catalogue, prix et claims inventés", () => {
+  it("expose un CTA global WhatsApp générique sans route catalogue", () => {
     const html = renderToStaticMarkup(<WigSelection />);
-    expect(html).not.toContain("VOIR TOUTES NOS PERRUQUES");
+    const expected = buildWhatsAppUrl(wigSelectionCopy.globalInquiryMessage);
+    expect(html).toContain("data-wig-global-cta");
+    expect(html).toContain(wigSelectionCopy.globalCtaLabel);
+    expect(html).toContain(`href="${expected}"`);
     expect(html).not.toContain('href="/perruques"');
+    expect(html).not.toContain("VOIR TOUTES NOS PERRUQUES");
+    expect(ctaSource).toContain("buildWhatsAppUrl");
+    expect(ctaSource).not.toContain("wa.me/33749616582");
+    expect(ctaSource).toContain("min-h-[3.25rem]");
+    expect(expected).toMatch(/^https:\/\/wa\.me\/33749616582\?text=/);
+    expect(expected).not.toContain("%25");
+    expect(wigSelectionCopy.globalInquiryMessage).not.toMatch(/Body Wave|Deep Wave|Lisse/);
+  });
+
+  it("structure responsive : 2 cols lg, 3 cols xl, CTA en bas, ratios contenu", () => {
+    const html = renderToStaticMarkup(<WigSelection />);
+    expect(gridSource).toContain("lg:grid-cols-2");
+    expect(gridSource).toContain("xl:grid-cols-3");
+    expect(gridSource).not.toContain("lg:grid-cols-3");
+    expect(gridSource).not.toMatch(/-mt-/);
+    expect(cardSource).toContain("w-[43%]");
+    expect(cardSource).toContain("xl:w-[47%]");
+    expect(cardSource).toContain("xl:w-[53%]");
+    expect(cardSource).toContain("mt-auto");
+    expect(cardSource).toContain("text-sm");
+    expect(cardSource).not.toMatch(/whitespace-nowrap/);
+    expect(cardSource).not.toContain("line-clamp");
+    expect(source).toContain("pb-0");
+    expect(html).toContain("data-wig-intro");
+    expect(existsSync(join(process.cwd(), "public/images/wigs/body-wave.png"))).toBe(false);
+  });
+
+  it("laisse GalleryPreview inchangée (pas de refonte WIG→Gallery côté Gallery)", () => {
+    const gallerySource = readFileSync(
+      join(process.cwd(), "components/sections/gallery-preview.tsx"),
+      "utf8",
+    );
+    expect(gallerySource).toContain('id="galerie"');
+    expect(gallerySource).toContain("pt-16");
+    expect(gallerySource).toContain("md:pt-24");
+  });
+
+  it("rejette prix, engagements fictifs et catalogue inventés", () => {
+    const html = renderToStaticMarkup(<WigSelection />);
+    const plain = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+    for (const forbidden of FORBIDDEN_COMMERCIAL) {
+      expect(plain.toLowerCase()).not.toContain(forbidden.toLowerCase());
+    }
+    expect(plain).not.toMatch(/\d+\s*€/);
+    expect(plain).not.toMatch(/14\s*["″]|16\s*["″]|12\s*["″]|26\s*["″]|28\s*["″]/);
     expect(html).not.toContain("/perruques");
-    expect(html).not.toContain("240 €");
-    expect(html).not.toContain("260 €");
-    expect(html).not.toContain("220 €");
-    expect(html).not.toMatch(/\d+\s*€/);
-    expect(html).not.toMatch(/qualité premium|confort optimal|longue durée/i);
-    expect(html).not.toMatch(/livraison rapide|paiement sécurisé|retour facile/i);
-    expect(html).not.toMatch(/en stock|100\s*%\s*cheveux humains|Naturel \(1B\)/i);
-    expect(html).not.toMatch(/Aspect naturel/i);
+    expect(html).not.toMatch(/en stock|disponible immédiatement/i);
   });
 });

@@ -97,13 +97,18 @@ describe("wigs content — WIG-SALES-CONTENT-01B", () => {
       "Gamme classique",
       "Conseils personnalisés",
     ]);
-    expect(wigSelectionCopy.trustItems).toEqual([
-      "Vente et pose",
-      "Demande sur WhatsApp",
-      "Confirmation par Prisca",
+    expect(wigSelectionCopy.trustItems.map((item) => item.title)).toEqual([
+      "3 modèles présentés",
+      "Informations sur demande",
+      "Demande via WhatsApp",
       "Conseils personnalisés",
     ]);
     expect(wigSelectionCopy.productCtaLabel).toBe("Demander le tarif sur WhatsApp");
+    expect(wigSelectionCopy.productTariffNote).toBe("Informations et tarif sur demande");
+    expect(wigSelectionCopy.globalCtaLabel).toBe("Voir les modèles disponibles");
+    expect(wigSelectionCopy.globalInquiryMessage).toContain("PRiMiE Coiffure");
+    expect(wigSelectionCopy.globalInquiryMessage).not.toMatch(/Body Wave|Deep Wave|\bLisse\b/);
+    expect(wigSelectionCopy.globalInquiryMessage).not.toMatch(/wa\.me|https?:\/\//i);
     expect(wigSelectionCopy).not.toHaveProperty("catalogHref");
     expect(wigSelectionCopy).not.toHaveProperty("ctaHref");
   });

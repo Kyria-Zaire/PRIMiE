@@ -18,27 +18,27 @@ const OBJECT_POSITION: Record<WigProductId, string> = {
   lisse: "50% 14%",
 };
 
-const DEFAULT_SIZES = "(max-width: 1023px) 44vw, 15vw";
+/** Mobile ~43 % image ; xl ~47 % image / 53 % contenu (R1-R2). */
+const DEFAULT_SIZES = "(max-width: 1279px) 46vw, 16vw";
 
 /**
  * Carte produit Sélection perruques — Server Component.
- * Micro-correctif 01C-R2-R1 : CTA ≤2 lignes à 320 px.
+ * WIG-SALES-DESIGN-R1-R2 : contenu plus large, CTA ≤2 lignes, hauteurs égales.
  */
 export function WigCard({ product, index, sizes = DEFAULT_SIZES }: WigCardProps) {
   const badge = BADGES[index];
   const whatsappUrl = buildWhatsAppUrl(product.inquiryMessage);
-  const ctaLabel = wigSelectionCopy.productCtaLabel;
-  const ctaBreak = " sur ";
-  const ctaBreakIndex = ctaLabel.lastIndexOf(ctaBreak);
-  const ctaLine1 = ctaBreakIndex >= 0 ? ctaLabel.slice(0, ctaBreakIndex) : ctaLabel;
-  const ctaLine2 = ctaBreakIndex >= 0 ? ctaLabel.slice(ctaBreakIndex + 1) : "";
+  const tariffNote = wigSelectionCopy.productTariffNote;
 
   return (
     <article
       data-wig-card
-      className="relative flex h-full min-h-[11.25rem] flex-row overflow-hidden rounded-2xl border border-bronze/35 bg-background shadow-soft sm:min-h-[12rem] lg:min-h-[17rem] lg:max-h-[18.125rem]"
+      className="relative flex h-full min-h-[16.75rem] flex-row overflow-hidden rounded-2xl border border-bronze/40 bg-background shadow-soft sm:min-h-[14rem] xl:min-h-[17.5rem]"
     >
-      <div className="relative w-[44%] shrink-0 self-stretch sm:w-[45%] lg:w-[42%]">
+      <div
+        data-wig-card-media
+        className="relative w-[43%] shrink-0 self-stretch sm:w-[44%] xl:w-[47%]"
+      >
         <Image
           src={product.image.src}
           alt={product.image.alt}
@@ -50,58 +50,61 @@ export function WigCard({ product, index, sizes = DEFAULT_SIZES }: WigCardProps)
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-2.5 left-2.5 z-[1] flex size-7 items-center justify-center rounded-full border border-bronze/45 bg-background/95 font-display text-[0.6875rem] font-semibold tracking-wide text-foreground shadow-soft sm:size-8 sm:text-xs"
+          className="pointer-events-none absolute top-2.5 left-2.5 z-[1] flex size-8 items-center justify-center rounded-full border border-gold/55 bg-background/95 font-display text-xs font-semibold tracking-wide text-foreground shadow-soft sm:size-9 xl:top-3 xl:left-3"
         >
           {badge}
         </span>
       </div>
 
-      <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-1 px-3 py-3 sm:gap-1.5 sm:px-3.5 sm:py-3.5 lg:px-4 lg:py-4">
-        <p className="font-sans text-[0.625rem] font-medium tracking-[0.16em] text-gold uppercase sm:text-[0.6875rem] sm:tracking-[0.18em]">
-          {product.textureLabel}
-        </p>
+      <div
+        data-wig-card-body
+        className="relative flex min-w-0 flex-1 flex-col gap-2 px-3 py-3.5 sm:gap-2.5 sm:px-4 sm:py-4 xl:w-[53%] xl:px-5 xl:py-5"
+      >
+        <div className="flex min-w-0 flex-col gap-1 sm:gap-1.5">
+          <p className="font-sans text-xs font-medium tracking-[0.14em] text-gold uppercase sm:tracking-[0.16em]">
+            {product.textureLabel}
+          </p>
 
-        <h3 className="font-display text-[0.875rem] leading-snug font-semibold tracking-tight text-balance text-foreground sm:text-[0.9375rem] lg:text-base">
-          {product.name}
-        </h3>
+          <h3 className="font-display text-base leading-snug font-semibold tracking-tight text-balance text-foreground sm:text-[1.0625rem] xl:text-lg">
+            {product.name}
+          </h3>
 
-        <span aria-hidden="true" className="my-0.5 flex items-center gap-1 text-gold">
-          <span className="h-px w-3.5 bg-gold/60" />
-          <span className="size-1 rotate-45 bg-gold" />
-          <span className="h-px w-3.5 bg-gold/60" />
-        </span>
+          <span aria-hidden="true" className="my-0.5 flex items-center gap-1.5 text-gold">
+            <span className="h-px w-4 bg-gold/65" />
+            <span className="size-1 rotate-45 bg-gold" />
+            <span className="h-px w-4 bg-gold/65" />
+          </span>
 
-        <p className="font-sans text-[0.75rem] leading-[1.4] text-muted-foreground sm:text-[0.8125rem] lg:text-sm">
-          {product.shortDescription}
-        </p>
+          <p className="font-sans text-xs leading-[1.45] text-muted-foreground sm:text-[0.8125rem] xl:text-sm">
+            {product.shortDescription}
+          </p>
 
-        <p className="font-sans text-[0.6875rem] leading-snug text-bronze sm:text-xs">
-          Informations et tarif sur demande
-        </p>
+          <p className="font-sans text-xs leading-snug text-bronze">{tariffNote}</p>
+        </div>
 
-        <div className="mt-auto pt-1.5 sm:pt-2">
+        {/*
+          CTA toujours ≤2 lignes : label en 2 spans + flèche à droite
+          (jamais seule sur une 3e ligne). Texte ≥14 px (text-sm).
+        */}
+        <div data-wig-card-cta className="mt-auto pt-1">
           <LinkButton
             href={whatsappUrl}
             size="sm"
             variant="ghost"
-            className="min-h-11 w-full flex-col justify-center gap-0.5 border border-bronze/50 px-1.5 text-center text-xs leading-[1.25] text-foreground hover:bg-champagne/35 min-[390px]:flex-row min-[390px]:gap-1 sm:px-2 sm:text-[0.75rem] lg:px-2.5 lg:text-xs xl:text-[0.8125rem]"
+            className="min-h-12 w-full flex-row items-center justify-center gap-1.5 rounded-md border border-bronze/55 px-2.5 text-center font-sans text-sm leading-snug text-foreground hover:bg-champagne/35 sm:px-3"
             aria-label={`Demander le tarif de la ${product.name} sur WhatsApp`}
           >
-            <span data-wig-cta-label className="min-w-0 text-center">
-              <span className="block whitespace-nowrap min-[390px]:inline min-[390px]:whitespace-normal">
-                {ctaLine1}
-              </span>
-              {ctaLine2 ? (
-                <span className="block whitespace-nowrap min-[390px]:inline min-[390px]:whitespace-normal">
-                  {" "}
-                  {ctaLine2}
-                </span>
-              ) : null}
+            <span
+              data-wig-cta-label
+              className="flex min-w-0 flex-col items-center justify-center text-center leading-[1.25]"
+            >
+              <span>Demander le tarif</span>
+              <span>sur WhatsApp</span>
             </span>
             <svg
               aria-hidden="true"
               viewBox="0 0 16 16"
-              className="size-3 shrink-0 text-bronze sm:size-3.5"
+              className="size-3.5 shrink-0 self-center text-bronze"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"

@@ -1,5 +1,5 @@
 /**
- * Sélection de perruques — données (UI : WIG-SALES-CONTENT-01C).
+ * Sélection de perruques — données (UI : WIG-SALES-DESIGN-R1).
  * Sources PNG : `images/wigs/{body-wave,deep-wave,lisse}.png` (hors commit).
  * Runtime WebP : `public/images/wigs/*.webp`.
  *
@@ -21,12 +21,28 @@ export const wigSelectionCopy = {
   description:
     "Découvrez une sélection de perruques du Vietnam, d’Inde et de modèles classiques proposés par PRiMiE Coiffure.",
   productCtaLabel: "Demander le tarif sur WhatsApp",
+  productTariffNote: "Informations et tarif sur demande",
+  globalCtaLabel: "Voir les modèles disponibles",
+  globalInquiryMessage:
+    "Bonjour Prisca 👋\nJe souhaite découvrir les modèles de perruques disponibles chez PRiMiE Coiffure.\nPouvez-vous me communiquer les informations et tarifs de la sélection actuelle ?\nMerci 😊",
   values: ["Sélection PRiMiE", "Vietnam & Inde", "Gamme classique", "Conseils personnalisés"],
   trustItems: [
-    "Vente et pose",
-    "Demande sur WhatsApp",
-    "Confirmation par Prisca",
-    "Conseils personnalisés",
+    {
+      title: "3 modèles présentés",
+      detail: "Body Wave, Deep Wave et Lisse",
+    },
+    {
+      title: "Informations sur demande",
+      detail: "Tarifs précisés sur WhatsApp",
+    },
+    {
+      title: "Demande via WhatsApp",
+      detail: "Échange direct avec Prisca",
+    },
+    {
+      title: "Conseils personnalisés",
+      detail: "Selon votre projet coiffure",
+    },
   ],
 } as const satisfies WigSelectionCopy;
 
