@@ -4,6 +4,7 @@ import { Faq } from "@/components/sections/faq";
 import { GalleryPreview } from "@/components/sections/gallery-preview";
 import { Hero } from "@/components/sections/hero";
 import { Services } from "@/components/sections/services";
+import { WigSelection } from "@/components/sections/wig-selection";
 import { BrandLogo } from "@/components/shell/brand-logo";
 import { Footer } from "@/components/shell/footer";
 import { Header } from "@/components/shell/header";
@@ -64,6 +65,7 @@ export default function Home() {
       <main id="contenu-principal" tabIndex={-1}>
         <Hero />
         <Services />
+        <WigSelection />
         <GalleryPreview />
         <AdvicePreview />
         <Faq />

@@ -39,6 +39,13 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Portrait Hero `/galerie` | `public/images/gallery/gallery-hero-model-v1.webp` (source `images/gallery/tresses-longues.png`) | PUBLISHED_GALLERY_HERO_ASSET | CTO | 2026-08-02 | `GalleryPageHero` uniquement | Alpha préservé ; hors grille Gallery | `GALLERY-PAGE-HERO-R1` |
 | Conseils Preview (3 cartes) | WebP `preparation-cheveux` / `entretien-tresses` / `soin-perruque` + `content/advice.ts` | ILLUSTRATION_APPROVED_BY_CTO · `preview_only` · `PRODUCT_VISUAL_AMBIGUITY — ACCEPTED_BY_CTO 2026-08-08` | CTO | 2026-08-08 | `AdvicePreview` / `AdviceCard` · `#conseils` | Pas de `/conseils` / pas de lien carte ; packaging = illustration éditoriale uniquement | `CONSEILS-PREVIEW-ASSET-R1` |
 | Portrait intro Conseils | `advice-portrait-bantu-knots-v1.webp` (source `images/gallery/bantu-knots.png`) | ILLUSTRATION_APPROVED_BY_CTO · décoratif (01C-R2) | CTO / Kyria | 2026-08-05 | `AdvicePreview` intro uniquement | Alpha ; hors carte 02 ; aucune PNG public | Décision CTO gelée — ne pas revenir à `entretien-tresses` |
+| Wig Sales — familles | Vietnam · Inde · Gamme classique (« normale » Prisca) | `CONFIRMED_BY_PRISCA` | Prisca / CTO | 2026-08-10 | `content/wigs.ts` (`wigCollectionSources`) | Pas d’origine inventée | Vietnam/Inde = `kind:origin` ; classique = `kind:range` |
+| Wig Sales — 3 modèles | Body Wave · Deep Wave · Lisse | `CONFIRMED` (présentation) | CTO | 2026-08-10 | `content/wigs.ts` + WebP `public/images/wigs/` | Aucun mapping famille | Descriptions visuelles uniquement |
+| Wig Sales — mapping produit↔famille | Non fourni | `PENDING_PRISCA` | Prisca | 2026-08-10 | — | Ne pas attribuer | Attendre mapping précis |
+| Wig Sales — prix / longueurs / matière / couleur | Non confirmés | `PENDING_PRISCA` | Prisca | 2026-08-10 | hors runtime public | Inventaire interdit | Option WhatsApp tarif |
+| Wig Sales — stock | Hors périmètre | `NOT OPEN` | CTO | 2026-08-10 | — | — | `WIG-COMMERCE-ENGINE` |
+| Wig Sales — livraison / paiement / retour | Non confirmés | `NOT OPEN` | CTO | 2026-08-10 | hors runtime | Ne pas inventer | Attendre décisions métier |
+| Wig Sales — portrait intro | `vente-pose-perruques.webp` (service) | `APPROVED_REUSE` | CTO | 2026-08-10 | `WigSelection` | Pas de copie sous `/images/wigs/` ; remplace Gallery Hero | UI 01C-R2 |
 | Témoignages / Avis | Section retirée de la V1 | `CANCELLED` — CTO 2026-08-02 | CTO | 2026-08-02 | scaffolding `testimonials.ts` / nav `#avis` supprimés | Aucun avis authentique publiable | Réouverture uniquement sur décision CTO + avis réels + consentements |
 | Pistes avis (historiques) | Olive, Octavie, Annaelle, Plamédie — pistes seules, jamais publiées | `REJECTED_FOR_PUBLICATION` (V1) | PO / CTO | 2026-08-02 | hors runtime | Quotes/consentements absents | Ne pas réintroduire sans preuves |
 | Pourquoi choisir PRiMiE | 5 brouillons PO | PENDING_PRISCA | Prisca | 2026-07-31 | futur `benefits.ts` | Non créé | Validation Prisca |
@@ -74,6 +81,14 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
   revendication de gamme commercialisée**. Portrait décoratif :
   `advice-portrait-bantu-knots-v1.webp` (hors carte 02). Placement UI :
   après GalleryPreview, avant FAQ.
+- Wig Sales (`WIG-SALES-CONTENT-01B`) : 3 modèles Body Wave / Deep Wave / Lisse
+  (`status=confirmed` = présentation uniquement). Familles générales
+  `wigCollectionSources` : Vietnam & Inde (`kind=origin`) + Gamme classique
+  (`kind=range`, terme Prisca « normale »). **Aucun mapping produit↔famille.**
+  Runtime sans prix, matière, couleur, stock, livraison, paiement, retour,
+  `Naturel`, « 100 % cheveux humains » ou « synthétique ». Portrait :
+  `APPROVED_REUSE` `gallery-hero-model-v1.webp`. CTA futur WhatsApp via
+  `buildWhatsAppUrl(inquiryMessage)`. UI et `/perruques` hors 01B.
 - Témoignages : `TESTIMONIALS-CONTENT-01` = `CANCELLED` (CTO 2026-08-02) —
   aucun avis inventé ; section hors V1 ; pas de `content/testimonials.ts`.
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.

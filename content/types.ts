@@ -127,3 +127,60 @@ export type AdviceCopy = {
   readonly description: string;
   readonly ctaLabel: string;
 };
+
+/** Identifiants produits sélection perruques (WIG-SALES-CONTENT-01B). */
+export type WigProductId = "body-wave" | "deep-wave" | "lisse";
+
+/**
+ * `confirmed` = approuvé pour présentation uniquement.
+ * Ne signifie jamais stock, disponibilité, livraison ou prix confirmé.
+ */
+export type WigProductStatus = "confirmed" | "pending" | "unavailable";
+
+/**
+ * Familles générales confirmées par Prisca.
+ * `origin` = Vietnam | Inde ; `range` = Gamme classique (jamais une origine).
+ * Aucun mapping produit ↔ famille tant que PENDING_PRISCA.
+ */
+export type WigCollectionSource =
+  | {
+      readonly id: "vietnam" | "india";
+      readonly kind: "origin";
+      readonly label: string;
+    }
+  | {
+      readonly id: "classic";
+      readonly kind: "range";
+      readonly label: "Gamme classique";
+    };
+
+export type WigProductImage = {
+  readonly src: string;
+  readonly width: number;
+  readonly height: number;
+  readonly alt: string;
+};
+
+export type WigProduct = {
+  readonly id: WigProductId;
+  readonly name: string;
+  readonly textureLabel: string;
+  readonly shortDescription: string;
+  readonly image: WigProductImage;
+  readonly status: WigProductStatus;
+  readonly featured: boolean;
+  /** Message pur — URL via `buildWhatsAppUrl` côté UI future. */
+  readonly inquiryMessage: string;
+};
+
+/** Copy section future — aucun href catalogue tant que `/perruques` n’existe pas. */
+export type WigSelectionCopy = {
+  readonly eyebrowLead: string;
+  readonly eyebrowBrand: string;
+  readonly titleLead: string;
+  readonly titleAccent: string;
+  readonly description: string;
+  readonly productCtaLabel: string;
+  readonly values: readonly [string, string, string, string];
+  readonly trustItems: readonly [string, string, string, string];
+};
