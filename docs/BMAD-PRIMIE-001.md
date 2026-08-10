@@ -505,6 +505,17 @@ Validation BMAD (G2 passé)
 │   ├── CONSEILS-PREVIEW-01E (DONE — checkpoint publié 2026-08-08)
 │   ├── CONSEILS-PREVIEW-DESIGN-R1-CLOSE (DONE — publié origin/main 2026-08-08)
 │   └── CONSEILS-PREVIEW-ASSET-R1 (DONE — Validé CTO et publié le 2026-08-08)
+├── WIG-SALES-CONTENT-01 (DONE — clôturé le 2026-08-10)
+│   ├── WIG-SALES-CONTENT-01A (DONE — Validé CTO)
+│   ├── WIG-SALES-CONTENT-01B (DONE — Validé CTO)
+│   ├── WIG-SALES-CONTENT-01C (DONE — Validé CTO 2026-08-10)
+│   ├── WIG-SALES-CONTENT-01C-R1 (DONE — remplacé)
+│   ├── WIG-SALES-CONTENT-01C-R2 (DONE — remplacé par R2-R1)
+│   ├── WIG-SALES-CONTENT-01C-R2-R1 (DONE — Validé CTO 2026-08-10)
+│   ├── WIG-SALES-CONTENT-01D (DONE — Validé CTO 2026-08-10)
+│   ├── WIG-SALES-CONTENT-01E (DONE — publié le 2026-08-10)
+│   ├── WIG-CATALOG-PAGE-01 (NOT OPEN)
+│   └── WIG-COMMERCE-ENGINE (BACKLOG — NOT OPEN)
 └── INIT-SCAFFOLD-01A (DONE)
     └── INIT-SCAFFOLD-01B (DONE)
         └── INIT-SCAFFOLD-01C (DONE — 01C-R4 ACCEPTED)
@@ -620,6 +631,17 @@ traçabilité.
 | `01cp01e` | `CONSEILS-PREVIEW-01E` | `VERIFY + PUBLISH` | `DONE — checkpoint 2026-08-08` | `P1` | QA + publication Git |
 | `01cp01close` | `CONSEILS-PREVIEW-DESIGN-R1-CLOSE` | `VERIFY + PUBLISH` | `DONE — publié origin/main 2026-08-08` | `P1` | clôture feature |
 | `01cp01asset` | `CONSEILS-PREVIEW-ASSET-R1` | `CORRECTIVE VISUAL` | `DONE — Validé CTO et publié le 2026-08-08` | `P1` | restaurer soin-perruque carte 03 |
+| `01wig` | `WIG-SALES-CONTENT-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-10` | `P1` | sélection perruques landing |
+| `01wiga` | `WIG-SALES-CONTENT-01A` | `DISCOVER` | `DONE — Validé CTO` | `P1` | audit maquettes + assets |
+| `01wigb` | `WIG-SALES-CONTENT-01B` | `IMPLEMENT` | `DONE — Validé CTO` | `P1` | data + WebP + tests |
+| `01wigc` | `WIG-SALES-CONTENT-01C` | `IMPLEMENT` | `DONE — Validé CTO 2026-08-10` | `P1` | section landing desktop |
+| `01wigcr1` | `WIG-SALES-CONTENT-01C-R1` | `CORRECTIVE VISUAL` | `DONE — remplacé` | `P1` | composition densifiée maquette |
+| `01wigcr2` | `WIG-SALES-CONTENT-01C-R2` | `CORRECTIVE VISUAL` | `DONE — remplacé par R2-R1` | `P1` | densités, portrait, CTA, PRiMiE |
+| `01wigcr2r1` | `WIG-SALES-CONTENT-01C-R2-R1` | `CORRECTIVE VISUAL` | `DONE — Validé CTO 2026-08-10` | `P1` | CTA ≤2 lignes à 320 px |
+| `01wigd` | `WIG-SALES-CONTENT-01D` | `IMPLEMENT/VERIFY` | `DONE — Validé CTO 2026-08-10` | `P1` | verify responsive / a11y / browsers |
+| `01wige` | `WIG-SALES-CONTENT-01E` | `VERIFY + PUBLISH` | `DONE — publié le 2026-08-10` | `P1` | QA + checkpoint |
+| `01wigpage` | `WIG-CATALOG-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/perruques` |
+| `01wigeng` | `WIG-COMMERCE-ENGINE` | `IMPLEMENT` | `BACKLOG — NOT OPEN` | `P2` | panier / paiement / stock |
 | `01cpage` | `CONSEILS-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/conseils` |
 | `01nmr1d` | `NAVIGATION-MENU-DESIGN-R1D` | `VERIFY` | `BLOCKED` | `P0` | a11y / cross-browser / perf |
 | `01nmr1e` | `NAVIGATION-MENU-DESIGN-R1E` | `VERIFY + PUBLISH` | `BLOCKED` | `P0` | checkpoint + BMAD |
@@ -1405,6 +1427,94 @@ peuvent être centralisés avant affichage UI.
   de produits commercialisée.
 - Checkpoint : `CONSEILS-PREVIEW-ASSET-R1-CHECKPOINT` publié `origin/main`
 - Exclus : déploiement Vercel ; Blog/CMS ; page produits ; e-commerce
+
+#### WIG-SALES-CONTENT-01 — Sélection de perruques
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — clôturé le 2026-08-10`
+- Placement : Services → WigSelection → Gallery → Conseils → FAQ
+- Portrait runtime : `/images/services/vente-pose-perruques.webp` (décision CTO R1+)
+- Checkpoint : `WIG-SALES-CONTENT-01E-CLOSE` publié `origin/main` le `2026-08-10`
+- Distinct de / hors périmètre conservé :
+  - Catalogue complet : `NOT OPEN`
+  - Commerce / paiement : `NOT OPEN`
+  - Prix et stock runtime : `NOT OPEN`
+  - Route `/perruques` : `NOT OPEN` (`WIG-CATALOG-PAGE-01`)
+  - `WIG-COMMERCE-ENGINE` : `BACKLOG — NOT OPEN`
+
+##### WIG-SALES-CONTENT-01A — DISCOVER
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO`
+- Inclus : audit maquettes desktop/mobile ; 3 PNG produit ; portrait Gallery Hero
+
+##### WIG-SALES-CONTENT-01B — DATA + ASSETS
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO`
+- Inclus : WebP `public/images/wigs/*` ; `content/wigs.ts` ; types ; tests ;
+  familles Vietnam / Inde / Gamme classique ; messages WhatsApp ; aucun prix
+- Décision CTO : « Normale » → label public `Gamme classique` (`kind: "range"`) ;
+  aucun mapping produit ↔ famille ; runtime sans `Naturel` / matière inventée
+- Exclus : UI ; route `/perruques` ; navigation ; staging / commit / push / deploy
+
+##### WIG-SALES-CONTENT-01C — UI Landing desktop
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-10`
+- Inclus : `WigSelection` + `WigCard` Server Components ; branchement
+  Services → WigSelection → Gallery ; CTA WhatsApp ; pas de CTA catalogue
+- Note : correctives R1 / R2 / R2-R1 validées CTO 2026-08-10
+
+##### WIG-SALES-CONTENT-01C-R1 — Corrective visuelle stricte
+
+- Mode : `IMPLEMENT + VISUAL GATE`
+- Statut : `DONE — remplacé`
+- Inclus : composition intro texte|portrait densifiée ; valeurs 4 cols ;
+  cartes horizontales compactes ; décor premium léger
+- Note : bandeau facts retiré ; portrait `vente-pose-perruques.webp` ; remplacé par R2
+
+##### WIG-SALES-CONTENT-01C-R2 — Corrective visuelle ciblée
+
+- Mode : `IMPLEMENT + VISUAL GATE`
+- Statut : `DONE — remplacé par R2-R1`
+- Inclus : densifier transitions ; portrait desktop ; CTA compact ; graphie `PRiMiE` ;
+  `Vietnam & Inde` (CONFIRMED_BY_PRISCA)
+
+##### WIG-SALES-CONTENT-01C-R2-R1 — Micro-correctif CTA 320 px
+
+- Mode : `IMPLEMENT + VISUAL GATE`
+- Statut : `DONE — Validé CTO 2026-08-10`
+- Inclus : découpage contrôlé du CTA en 2 lignes sous 390 px ; police ≥12 px
+
+##### WIG-SALES-CONTENT-01D — VERIFY responsive / a11y / cross-browser
+
+- Mode : `VERIFY`
+- Statut : `DONE — Validé CTO 2026-08-10`
+- Inclus : matrice 8 viewports ; Chromium/Firefox/WebKit ; WhatsApp ; a11y ;
+  smoke prod ; correctif unique police CTA ≥12 px dès 1024
+- Décision CTO : rendu validé ; cartes empilées sous `1024px` ; grille 3 cols dès
+  `1024px` ; espacement Galerie accepté ; aucun micro-correctif UI supplémentaire
+- Exclus : redesign ; catalogue ; déploiement
+
+##### WIG-SALES-CONTENT-01E — VERIFY / PUBLISH
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié le 2026-08-10`
+- Inclus : gel fonctionnel ; qualité complète ; smoke prod 3010 ; deux commits
+  séparés (`feat` puis `docs`) sur `main` ; aucun déploiement
+- Dette transférée : Safari/iOS physique zoom 200 % (documentaire, non bloquant)
+
+#### WIG-CATALOG-PAGE-01 — Page catalogue `/perruques`
+
+- Mode : `IMPLEMENT`
+- Statut : `NOT OPEN`
+
+#### WIG-COMMERCE-ENGINE — Moteur e-commerce
+
+- Mode : `IMPLEMENT`
+- Statut : `BACKLOG — NOT OPEN`
+- Note : panier, checkout, paiement, stock — hors V1 WhatsApp
 
 #### CONSEILS-PAGE-01 — Page Conseils
 
