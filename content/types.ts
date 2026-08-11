@@ -197,3 +197,64 @@ export type WigSelectionCopy = {
   readonly values: readonly [string, string, string, string];
   readonly trustItems: readonly [WigTrustItem, WigTrustItem, WigTrustItem, WigTrustItem];
 };
+
+/** Source attendue pour une complétion légale en attente. */
+export type PendingLegalRequestFrom = "Prisca" | "CTO" | "deployment";
+
+/** Fait légal confirmé — jamais un placeholder ni une valeur inventée. */
+export type ConfirmedLegalFact<T> = {
+  readonly status: "confirmed";
+  readonly value: T;
+  readonly source: string;
+};
+
+/** Fait légal en attente — raison explicite, sans valeur fictive. */
+export type PendingLegalFact = {
+  readonly status: "pending";
+  readonly reason: string;
+  readonly requestedFrom: PendingLegalRequestFrom;
+};
+
+export type LegalFact<T> = ConfirmedLegalFact<T> | PendingLegalFact;
+
+/** Périmètre CGV — distinct des faits commerciaux individuels. */
+export type TermsScopeStatus =
+  "required" | "not_required_for_current_scope" | "blocked_legal_scope";
+
+export type BlockedTermsScope = {
+  readonly status: "blocked_legal_scope";
+  readonly reason: string;
+};
+
+export type RequiredTermsScope = {
+  readonly status: "required";
+};
+
+export type NotRequiredTermsScope = {
+  readonly status: "not_required_for_current_scope";
+  readonly reason: string;
+};
+
+export type TermsScope = BlockedTermsScope | RequiredTermsScope | NotRequiredTermsScope;
+
+/** Candidat d’hébergement — jamais un hébergeur confirmé avant déploiement réel. */
+export type HostingCandidate = {
+  readonly provider: string;
+  readonly status: "candidate";
+  readonly confirmationCondition: string;
+};
+
+/** Sélection médiation (sélection effective pour publication des mentions). */
+export type MediatorSelectionStatusValue = "not_selected" | "selected";
+
+export type MediatorSelectionStatus = {
+  readonly status: "confirmed";
+  readonly value: MediatorSelectionStatusValue;
+  readonly source: string;
+};
+
+export type MarketingConsentMechanismStatus = {
+  readonly status: "pending";
+  readonly reason: string;
+  readonly requestedFrom: PendingLegalRequestFrom;
+};

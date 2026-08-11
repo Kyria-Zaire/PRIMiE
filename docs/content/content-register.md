@@ -3,6 +3,7 @@
 Document public versionnable. Statuts : `VALIDATED` · `PO_APPROVED_SEED` ·
 `PUBLISHED_PO_APPROVED_SEED` · `PUBLISHED_SERVICE_ILLUSTRATION` ·
 `PUBLISHED_BRAND_ASSET` · `ACTIVATED_BOOKING_ONLY` · `PENDING_PRISCA` ·
+`PENDING_DEPLOYMENT` · `CONFIRMED_PUBLIC` · `BLOCKED_LEGAL_SCOPE` ·
 `DEFERRED` · `REJECTED_FOR_PUBLICATION`.
 
 Les preuves privées (consentements, conversations, identité) restent hors dépôt.
@@ -55,7 +56,14 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | Zone | Domicile OK, zone précise non | PENDING_PRISCA | Prisca | 2026-07-31 | — | — | Confirmer formulation |
 | Réseaux sociaux | En création, aucun lien | PENDING_PRISCA | Prisca | 2026-07-31 | — | — | Attendre URL publiques |
 | Mentions légales | Absentes | PENDING_PRISCA | Prisca / CTO | 2026-07-31 | — | Production | Gate Release |
-| Domaine | Non confirmé | PENDING_PRISCA | CTO | 2026-07-31 | — | SEO / Prod | Décision domaine |
+| Architecture légale non publique | `content/legal.ts` + `lib/legal-readiness.ts` — confirmed/pending | `BLOCKED_LEGAL_SCOPE` (publication) | CTO | 2026-08-11 | couche data interne | Données Prisca + déploiement | Consolidation R2 ; pas de route publique |
+| Domaine | Non confirmé | PENDING_DEPLOYMENT | CTO | 2026-07-31 | — | SEO / Prod | Décision domaine |
+| Hébergeur confirmé | Non déployé | PENDING_DEPLOYMENT | CTO | 2026-08-11 | `legalContent.hosting.confirmedHost` | Déploiement réel | Vercel = candidat uniquement |
+| CGV | Fonctionnement commercial non fixé | BLOCKED_LEGAL_SCOPE | Prisca / CTO | 2026-08-11 | `legalContent.termsScope` | Prix, paiement, acompte, annulation, déplacement, perruques, contrat | Attendre décisions métier |
+| Identité publique autorisée | Prisca Foani | `CONFIRMED_PUBLIC` | CTO | 2026-08-11 | `legalContent.publisher.legalIdentity` | — | Identité publique confirmée ; identité légale complète reste bloquée (statut, SIREN/SIRET, adresse, email, directeur de publication, etc.). |
+| Email professionnel | Non confirmé | PENDING_PRISCA | Prisca | 2026-08-11 | `legalContent.publisher.publicProfessionalEmail` | — | Attendre email public |
+| Médiation consommation | Aucun médiateur choisi | `CONFIRMED_PUBLIC` | CTO | 2026-08-11 | `legalContent.mediation.mediatorName` | — | La publication légale reste bloquée (adresse/URL/procédure de saisine non confirmées). |
+| Inventaire technique confidentialité | Booking local → WhatsApp ; pas de stockage serveur | CONFIRMED_PUBLIC (technique) | CTO | 2026-08-11 | `legalContent.technicalPrivacyInventory` | Responsable traitement / conservation métier | Ne pas publier comme politique complète |
 
 ## Politiques
 
@@ -94,4 +102,9 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.
 - CTA ContactBooking demande RDV : message dynamique généré au submit (pas de stockage).
+- Architecture légale (`LEGAL-PAGES-01B-R1`) : couche `content/legal.ts` non branchée à
+  l’UI ; statuts `confirmed` / `pending` / `blocked_legal_scope` ; Vercel =
+  `hostingCandidate` uniquement ; aucune route `/mentions-legales`, `/confidentialite`,
+  `/cgv` ; aucun lien Footer ; `getPublishableLegalContent()` retourne `not_ready`
+  tant que les gates ne sont pas complets.
 - Sources locales : dossier canonique `images/services/` (pluriel) pour les illustrations Services.
