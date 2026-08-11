@@ -15,8 +15,10 @@ describe("Invariant de marque PRiMiE", () => {
 
   it("branche les metadata Next sur le nom commercial canonique", () => {
     const layout = readFileSync(join(process.cwd(), "app/layout.tsx"), "utf8");
-    expect(layout).toContain("title: siteConfig.brand.commercialName");
-    expect(layout).toContain("description: siteConfig.brand.activity");
+    const rootMetadata = readFileSync(join(process.cwd(), "app/root-metadata.ts"), "utf8");
+    expect(layout).toContain("buildRootMetadata");
+    expect(rootMetadata).toContain("title: siteConfig.brand.commercialName");
+    expect(rootMetadata).toContain("description: siteConfig.brand.activity");
     expect(siteConfig.brand.commercialName).toBe("Chez PRiMiE Coiffure");
   });
 

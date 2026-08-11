@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
 import { Cormorant_Garamond, Great_Vibes, Manrope } from "next/font/google";
 import { siteConfig } from "@/content/site-config";
+import { buildRootMetadata } from "./root-metadata";
 import "./globals.css";
+
+export const metadata = buildRootMetadata();
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -22,11 +24,6 @@ const greatVibes = Great_Vibes({
   variable: "--font-great-vibes",
   display: "swap",
 });
-
-export const metadata: Metadata = {
-  title: siteConfig.brand.commercialName,
-  description: siteConfig.brand.activity,
-};
 
 export default function RootLayout({
   children,
