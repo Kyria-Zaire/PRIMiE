@@ -655,7 +655,13 @@ traçabilité.
 | `01cpage` | `CONSEILS-PAGE-01` | `IMPLEMENT` | `NOT OPEN` | `P1` | route `/conseils` |
 | `01nmr1d` | `NAVIGATION-MENU-DESIGN-R1D` | `VERIFY` | `BLOCKED` | `P0` | a11y / cross-browser / perf |
 | `01nmr1e` | `NAVIGATION-MENU-DESIGN-R1E` | `VERIFY + PUBLISH` | `BLOCKED` | `P0` | checkpoint + BMAD |
-| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `NOT OPEN` | `P2` | mentions / confidentialité / CGV |
+| `01lega` | `LEGAL-PAGES-01A` | `DISCOVER` | `DONE — Validé CTO` | `P2` | audit juridique read-only |
+| `01legb` | `LEGAL-PAGES-01B` | `IMPLEMENT` | `BLOCKED_BUSINESS_INFO` | `P2` | gate données métier Prisca |
+| `01legbr1` | `LEGAL-PAGES-01B-R1` | `IMPLEMENT` | `IN_PROGRESS — en attente CTO` | `P2` | architecture légale progressive |
+| `01legc` | `LEGAL-PAGES-01C` | `IMPLEMENT` | `BLOCKED par 01B` | `P2` | rédaction mentions légales |
+| `01legd` | `LEGAL-PAGES-01D` | `IMPLEMENT` | `BLOCKED par 01B` | `P2` | rédaction confidentialité |
+| `01lege` | `LEGAL-PAGES-01E` | `IMPLEMENT` | `BLOCKED par 01B` | `P2` | routes + Footer |
+| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `BLOCKED_BUSINESS_INFO` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -951,7 +957,7 @@ peuvent être centralisés avant affichage UI.
 - Mode : `IMPLEMENT` (découpage R1A–R1E)
 - Statut parent : `DONE — clôturé le 2026-08-03`
 - Composition : reste dans `app/page.tsx` et `app/galerie/page.tsx` (pas `RootLayout`)
-- Dette : `LEGAL-PAGES-01` — `NOT OPEN` (pas de liens légaux sans routes)
+- Dette : `LEGAL-PAGES-01` — `BLOCKED_BUSINESS_INFO` (architecture R1 prête ; pas de liens sans routes)
 - Dettes transférées : Safari/iOS réel non exécuté ; Lighthouse complet non exécuté
 
 ##### FOOTER-DESIGN-R1A — Audit architecture
@@ -1571,6 +1577,78 @@ peuvent être centralisés avant affichage UI.
 #### WIG-COMMERCE-ENGINE — Moteur e-commerce
 
 - Mode : `IMPLEMENT`
+- Statut : `BACKLOG — NOT OPEN`
+
+#### LEGAL-PAGES-01 — Pages légales
+
+- Mode : `IMPLEMENT` (découpage 01A–01E)
+- Statut parent : `DEFERRED_PENDING_BUSINESS_INFO` — non bloquant pour le projet
+- Architecture progressive R1 implémentée ; publication publique toujours bloquée
+- Exclus : routes `/mentions-legales`, `/confidentialite`, `/cgv` ; liens Footer ;
+  CGV génériques ; confirmation Vercel avant déploiement réel
+
+##### LEGAL-PAGES-01A — Audit juridique read-only
+
+- Mode : `DISCOVER`
+- Statut : `DONE — Validé CTO`
+- Inclus : obligations identifiées ; questionnaire Prisca ; aucun fichier modifié
+- Verdict : `BLOCKED_BUSINESS_INFO`
+
+##### LEGAL-PAGES-01B — Gate données métier
+
+- Mode : `IMPLEMENT`
+- Statut : `BLOCKED_BUSINESS_INFO`
+- Inclus : matrice 42 champs ; CGV `BLOCKED_LEGAL_SCOPE` ; gate obligatoire avant contenu public
+- Exclus : création `content/legal.ts` (reporté à R1)
+
+##### LEGAL-PAGES-01B-R1 — Architecture légale progressive non publique
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO`
+- Inclus : `content/legal.ts`, `lib/legal-readiness.ts`, tests ; union `confirmed` /
+  `pending` ; inventaire technique ; Vercel candidat ; `getLegalReadiness()` ;
+  `getPublishableLegalContent()` non branché UI
+- Exclus : pages publiques ; Footer ; Booking ; WhatsApp ; déploiement ; commit
+- Blockers restants : identité légale, SIREN/SIRET, adresse, email, domaine,
+  hébergeur confirmé, médiateur, règles commerciales, conservation WhatsApp
+
+##### LEGAL-PAGES-01B-R2 — Consolidate & defer (couche data uniquement)
+
+- Mode : `IMPLEMENT / VERIFY`
+- Statut : `DONE — Validé CTO, consolidation partielle`
+- Inclus : consolidation des faits confirmés (identité publique, réservation,
+  paiements, vente de perruques seules via WhatsApp, confidentialité métier, absence
+  de médiateur) ; maintien du reste en `pending` ; publication publique toujours
+  bloquée via readiness
+- Exclus : pages publiques ; Footer ; Booking ; WhatsApp ; déploiement ; commit
+- Blockers restants : statut juridique, SIREN/SIRET, adresse, email, domaine,
+  hébergeur confirmé, médiation complète, mécanismes de conformité prospection
+
+##### LEGAL-PAGES-01B-R2-R1 — Micro-corrective modeling (couche data uniquement)
+
+- Mode : `IMPLEMENT / VERIFY`
+- Statut : `DONE — Validé CTO, modèle corrigé`
+- Inclus : médiation séparée via `selectionStatus=not_selected` (nom médiateur
+  reste `pending`), prospection promo via champs marketing dédiés
+  (`marketingConsentMechanism`, `marketingOptOutMechanism`,
+  `marketingInformationNotice` en `pending`)
+- Exclus : pages publiques ; Footer ; Booking ; WhatsApp ; déploiement ; commit
+
+##### LEGAL-PAGES-01C — Rédaction mentions légales
+
+- Mode : `IMPLEMENT`
+- Statut : `DEFERRED — NOT OPEN`
+
+##### LEGAL-PAGES-01D — Rédaction confidentialité
+
+- Mode : `IMPLEMENT`
+- Statut : `DEFERRED — NOT OPEN`
+
+##### LEGAL-PAGES-01E — Routes et Footer
+
+- Mode : `IMPLEMENT`
+- Statut : `DEFERRED — NOT OPEN`
+
 - Statut : `BACKLOG — NOT OPEN`
 - Note : panier, checkout, paiement, stock — hors V1 WhatsApp
 
