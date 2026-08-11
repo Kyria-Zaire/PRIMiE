@@ -15,7 +15,7 @@
 | Autorité technique | Kyria — CTO |
 | Autorité Production | Kyria — confirmation explicite requise |
 | Date de création | `2026-07-30` |
-| Dernière mise à jour | `2026-08-04` |
+| Dernière mise à jour | `2026-08-11` |
 | Validation CTO | `Kyria — 2026-07-30` |
 | PRD source | `docs/PRD-PRIMIE-V1.md — version 1.3 — Validé` |
 | ADR | `Aucun requis à ce stade` |
@@ -2551,13 +2551,79 @@ ou exposition inattendue.
 - [ ] aucune erreur console bloquante n’existe ;
 - [ ] tous les CTA critiques utilisent les données canoniques.
 
+### STAGING-FOUNDATION-01A — Fondation projet Vercel staging
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — PROJECT CREATED`
+- Projet : `primie-staging` (staging technique, hors lancement public)
+- Exclus : premier Preview ; reconnect GitHub ; lancement public
+
+#### STAGING-FOUNDATION-01A-R1
+
+- Mode : `VERIFY`
+- Statut : `SUPERSEDED BY R2`
+
+#### STAGING-FOUNDATION-01A-R2
+
+- Mode : `VERIFY`
+- Statut : `DONE — FOUNDATION CONFIGURED`
+- Inclus : lien Git nul ; build `pnpm build` ; Node 22.x ; Auth Standard ;
+  deployments = 0
+- Suite obligatoire : `STAGING-SAFETY-01` avant tout Preview
+
+### STAGING-SAFETY-01 — Gate d’indexation noindex par défaut
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-11`
+- Contrat :
+
+```text
+Indexation autorisée seulement si :
+VERCEL_ENV=production
+ET
+SITE_PUBLIC_LAUNCH_ENABLED=true
+```
+
+- Défaut : `noindex, nofollow, noarchive` (metadata + `robots.txt` +
+  `X-Robots-Tag`)
+- Preview / Development / absent / invalide : toujours non indexable
+- Preuve : commit `feat: add staging search indexing safeguards`
+- Exclus (toujours) : variable Vercel de lancement public ; `.env*` ;
+  Preview dans ce ticket ; lancement public ; pages légales
+
+#### STAGING-SAFETY-01-CHECKPOINT
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié le 2026-08-11`
+- Inclus : commit code/tests + commit documentation BMAD ; push
+  `origin/main` ; aucun déploiement
+- Exclus : Preview ; Production ; reconnect GitHub ; variables Vercel
+
+### SITE-RELEASE-STAGING-01 — Premier Preview Vercel
+
+- Mode : `DEPLOY / VERIFY`
+- Statut : `READY — safety gate satisfied; aucun déploiement exécuté`
+- Exclus : Production ; domaine public ; indexation ouverte
+
+#### SITE-RELEASE-STAGING-01-R1
+
+- Mode : `DEPLOY / VERIFY`
+- Statut : `NOT OPEN — prochain ticket`
+- Inclus attendu (après autorisation CTO) : premier Preview Vercel protégé
+
+### PUBLIC LAUNCH
+
+- Statut : `DEFERRED — LEGAL GATES FALSE`
+- Bloqué par : pages légales non publiables ; gates readiness `false` ;
+  `SITE_PUBLIC_LAUNCH_ENABLED` non activé
+
 ### DEPLOY-PREVIEW-01 — Créer et valider une Preview
 
 **Métadonnées**
 
 - Feature : `FEATURE-RELEASE-V1`
 - Mode : `DEPLOY`
-- Statut : `BLOCKED par G4 et autorisation`
+- Statut : `BLOCKED` — attendre `SITE-RELEASE-STAGING-01-R1` + autorisation
 - Priorité : `P0`
 - Autorité : Kyria — action distante et validation
 
@@ -2820,9 +2886,19 @@ Base Git attendue après clôture : commits Gallery sur `origin/main`.
 `BOOKING-WHATSAPP-FLOW-01` et `CONTACT-BOOKING-01` restent `DONE`.
 `BOOKING-ENGINE-V2` : `BACKLOG — NOT OPEN`.
 `TESTIMONIALS-CONTENT-01` : `CANCELLED` — décision CTO 2026-08-02.
-**Handoff** : en attente d’une décision CTO (réalisations clientes,
-lightbox, Pourquoi me choisir, ou autre priorité). Aucune lightbox ouverte. Galerie V1 = illustrations
-approuvées ; réalisations réelles évolutives avec droits.
+`STAGING-FOUNDATION-01A` : `DONE — PROJECT CREATED`.
+`STAGING-FOUNDATION-01A-R1` : `SUPERSEDED BY R2`.
+`STAGING-FOUNDATION-01A-R2` : `DONE — FOUNDATION CONFIGURED`.
+`STAGING-SAFETY-01` : `DONE — Validé CTO 2026-08-11`.
+`STAGING-SAFETY-01-CHECKPOINT` : `DONE — publié le 2026-08-11`.
+`SITE-RELEASE-STAGING-01` : `READY — safety gate satisfied; aucun
+déploiement exécuté`.
+`SITE-RELEASE-STAGING-01-R1` : `NOT OPEN — prochain ticket`.
+`PUBLIC LAUNCH` : `DEFERRED — LEGAL GATES FALSE`.
+**Handoff** : attendre autorisation CTO pour ouvrir
+`SITE-RELEASE-STAGING-01-R1` (premier Preview Vercel protégé). Aucune
+Preview créée dans ce checkpoint. Aucune lightbox ouverte. Galerie V1 =
+illustrations approuvées ; réalisations réelles évolutives avec droits.
 PRD actif : version `1.3`.
 
 ### Après GALLERY-CONTENT-01 (clôturé)
