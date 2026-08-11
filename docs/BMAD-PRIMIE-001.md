@@ -15,7 +15,7 @@
 | Autorité technique | Kyria — CTO |
 | Autorité Production | Kyria — confirmation explicite requise |
 | Date de création | `2026-07-30` |
-| Dernière mise à jour | `2026-08-11` |
+| Dernière mise à jour | `2026-08-12` |
 | Validation CTO | `Kyria — 2026-07-30` |
 | PRD source | `docs/PRD-PRIMIE-V1.md — version 1.3 — Validé` |
 | ADR | `Aucun requis à ce stade` |
@@ -2602,20 +2602,56 @@ SITE_PUBLIC_LAUNCH_ENABLED=true
 ### SITE-RELEASE-STAGING-01 — Premier Preview Vercel
 
 - Mode : `DEPLOY / VERIFY`
-- Statut : `READY — safety gate satisfied; aucun déploiement exécuté`
-- Exclus : Production ; domaine public ; indexation ouverte
+- Statut : `DONE — First Protected Preview accepted (via R1)`
+- Exclus (toujours) : Production ; domaine public ; indexation ouverte ;
+  lancement public
 
 #### SITE-RELEASE-STAGING-01-R1
 
 - Mode : `DEPLOY / VERIFY`
-- Statut : `NOT OPEN — prochain ticket`
-- Inclus attendu (après autorisation CTO) : premier Preview Vercel protégé
+- Statut : `DONE — Validé CTO 2026-08-12`
+- FIRST PROTECTED PREVIEW : `ACCEPTED`
+- PRODUCTION DEPLOYMENT : `NOT AUTHORIZED`
+- Références immuables :
+
+```text
+Source SHA : ce4cfd50ea30192e2f61d93c8606d9f2ea0399ec
+Deployment ID : dpl_92gXSBA6KRXusrgFbrZAWeQNxm5D
+Preview URL : https://primie-staging-qan7pvcyq-kyrias-projects-f231e33a.vercel.app
+Project : primie-staging
+Production deployments : 0
+Protection : Vercel Authentication / SSO active
+Robots : noindex, nofollow, noarchive (metadata + X-Robots-Tag)
+robots.txt : Disallow: / (sans Allow / Sitemap / Host)
+```
+
+- QA validée CTO : protection anonyme (302 SSO) ; noindex ; smoke `/`,
+  `/galerie`, `/robots.txt` ; assets WebP ; menu mobile ; FAQ express /
+  recherche ; booking → résumé → URL WhatsApp canonique `wa.me/33749616582`
+  (sans envoi) ; overflow 320 / 390 / 768 / 1280 / 1440 ; rail galerie home
+  (8) ; footer resize
+- Exclus durant R1 et ensuite : Production ; `--prod` ; promote ; domaine ;
+  alias ; DNS ; reconnect GitHub ; variable de lancement public ; Shareable
+  Link ; pages légales
+
+#### SITE-RELEASE-STAGING-01-R1-CLOSE
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — Validé CTO 2026-08-12`
+- Inclus : clôture documentaire BMAD uniquement ; commit
+  `docs: close protected staging review` ; push `origin/main`
+- Aucun déploiement créé, modifié, promu ni supprimé pendant la clôture
+- Aucun bypass secret créé ; `vercel curl` interdit (recrée un bypass)
+- `PUBLIC LAUNCH` : `DEFERRED`
+- `LEGAL GATES` : `FALSE`
 
 ### PUBLIC LAUNCH
 
 - Statut : `DEFERRED — LEGAL GATES FALSE`
 - Bloqué par : pages légales non publiables ; gates readiness `false` ;
   `SITE_PUBLIC_LAUNCH_ENABLED` non activé
+- Note : la validation du Preview protégé (`SITE-RELEASE-STAGING-01-R1`)
+  n’ouvre pas le lancement public ni la Production
 
 ### DEPLOY-PREVIEW-01 — Créer et valider une Preview
 
@@ -2623,7 +2659,9 @@ SITE_PUBLIC_LAUNCH_ENABLED=true
 
 - Feature : `FEATURE-RELEASE-V1`
 - Mode : `DEPLOY`
-- Statut : `BLOCKED` — attendre `SITE-RELEASE-STAGING-01-R1` + autorisation
+- Statut : `BLOCKED` — Preview staging protégé livré via
+  `SITE-RELEASE-STAGING-01-R1` (`DONE`) ; tout autre Preview / promote /
+  domaine public exige une autorisation CTO distincte
 - Priorité : `P0`
 - Autorité : Kyria — action distante et validation
 
@@ -2891,15 +2929,20 @@ Base Git attendue après clôture : commits Gallery sur `origin/main`.
 `STAGING-FOUNDATION-01A-R2` : `DONE — FOUNDATION CONFIGURED`.
 `STAGING-SAFETY-01` : `DONE — Validé CTO 2026-08-11`.
 `STAGING-SAFETY-01-CHECKPOINT` : `DONE — publié le 2026-08-11`.
-`SITE-RELEASE-STAGING-01` : `READY — safety gate satisfied; aucun
-déploiement exécuté`.
-`SITE-RELEASE-STAGING-01-R1` : `NOT OPEN — prochain ticket`.
+`SITE-RELEASE-STAGING-01` : `DONE — First Protected Preview accepted`.
+`SITE-RELEASE-STAGING-01-R1` : `DONE — Validé CTO 2026-08-12`.
+`SITE-RELEASE-STAGING-01-R1-CLOSE` : `DONE — Validé CTO 2026-08-12`.
+`FIRST PROTECTED PREVIEW` : `ACCEPTED` —
+`dpl_92gXSBA6KRXusrgFbrZAWeQNxm5D` /
+`https://primie-staging-qan7pvcyq-kyrias-projects-f231e33a.vercel.app`
+(source `ce4cfd50ea30192e2f61d93c8606d9f2ea0399ec`) ; Production = `0` ;
+SSO ON ; noindex / Disallow `/`.
 `PUBLIC LAUNCH` : `DEFERRED — LEGAL GATES FALSE`.
-**Handoff** : attendre autorisation CTO pour ouvrir
-`SITE-RELEASE-STAGING-01-R1` (premier Preview Vercel protégé). Aucune
-Preview créée dans ce checkpoint. Aucune lightbox ouverte. Galerie V1 =
-illustrations approuvées ; réalisations réelles évolutives avec droits.
-PRD actif : version `1.3`.
+`PRODUCTION DEPLOYMENT` : `NOT AUTHORIZED`.
+**Handoff** : ne pas ouvrir lancement public, pages légales ni Production
+sans ticket et autorisation CTO distincts. Aucune lightbox ouverte.
+Galerie V1 = illustrations approuvées ; réalisations réelles évolutives
+avec droits. PRD actif : version `1.3`.
 
 ### Après GALLERY-CONTENT-01 (clôturé)
 
