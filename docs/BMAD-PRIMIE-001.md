@@ -660,9 +660,11 @@ traçabilité.
 | `01legbr1` | `LEGAL-PAGES-01B-R1` | `IMPLEMENT` | `DONE — Validé CTO` | `P2` | architecture légale progressive |
 | `01legc` | `LEGAL-PAGES-01C` | `IMPLEMENT` | `IN_PROGRESS — BLOCKED_BUSINESS_INFO` | `P2` | routes légales partielles |
 | `01legcr1` | `LEGAL-PAGES-01C-R1` | `IMPLEMENT + VERIFY` | `DONE — Validé CTO — checkpoint et staging protégé publiés` | `P2` | correctif SIRET/gates + Preview |
+| `01legcr2` | `LEGAL-PAGES-01C-R2` | `IMPLEMENT + VERIFY` | `DONE_WITH_CORRECTIVE_R2-R1` | `P2` | acteurs Prisca/partenaire + email mandaté |
+| `01legcr2r1` | `LEGAL-PAGES-01C-R2-R1` | `CORRECTIVE + VERIFY` | `DONE — Validé CTO 2026-08-12` | `P2` | retrait SIRET dépôt + qualification RGPD |
 | `01legd` | `LEGAL-PAGES-01D` | `IMPLEMENT` | `BLOCKED_BUSINESS_INFO` | `P2` | complétion contenu + gates |
 | `01lege` | `LEGAL-PAGES-01E` | `IMPLEMENT` | `BLOCKED` | `P2` | lancement / indexation |
-| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `IN_PROGRESS — 01C BLOCKED_BUSINESS_INFO` | `P2` | mentions / confidentialité / CGV |
+| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `IN_PROGRESS — BLOCKED_LEGAL_GATES` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -1660,6 +1662,44 @@ peuvent être centralisés avant affichage UI.
   `noindex,nofollow,noarchive` ; annulation/perruques non inventées
 - Exclus : Production ; PUBLIC LAUNCH ; ouverture 01D/01E ; clôture 01C ;
   bypass secret persistant
+
+##### LEGAL-PAGES-01C-R2 — Partenaire technique et contact RGPD mandaté
+
+- Mode : `IMPLEMENT + VERIFY`
+- Statut : `DONE_WITH_CORRECTIVE_R2-R1`
+- Baseline documentaire : `ca741c703b89add91087b28f268c94bc6df1b9a5` (inclut
+  `a2bc46d` portrait Deep Wave — `AUTHORIZED PRODUCT CHANGE` ; `ca741c7` fondu
+  FAQ)
+- Ancien baseline ticket : `8bae57c6797066a3a26cdb09afbd888f02c979ca`
+- Inclus R2 :
+  - séparation `legalActors` : `serviceProvider`, `publicationDirector`,
+    `dataController`, `technicalPartner`, `privacyRightsContact` ;
+  - email mandaté `imoria.co@gmail.com` sur `/confidentialite` uniquement ;
+  - readiness partenaire ; Prisca reste RT et directrice de publication ;
+  - pas de rubrique « Partenaire technique » sur `/mentions-legales`
+- Réserve CTO corrigée par R2-R1 : identifiants candidats retirés du dépôt ;
+  qualification RGPD partenaire `pending_qualification`
+- Exclus : commit / push / déploiement R2 ; `/cgv` ; médiateur inventé ;
+  identifiants SIREN/SIRET candidats dans le dépôt ; Production ; PUBLIC LAUNCH
+
+##### LEGAL-PAGES-01C-R2-R1 — Corrective data-governance / RGPD
+
+- Mode : `CORRECTIVE + VERIFY`
+- Statut : `DONE — Validé CTO 2026-08-12`
+- Baseline Git : `ca741c703b89add91087b28f268c94bc6df1b9a5`
+- Correctifs :
+  - retrait total des identifiants SIREN/SIRET candidats partenaire du dépôt
+    public (vérification administrative hors repo) ;
+  - modèle `TechnicalPartner` : `identityStatus`, `gdprRole`,
+    `gdprRoleStatus` — état obligatoire `pending_qualification` /
+    `pending_verification` ;
+  - suppression des qualifications RGPD non vérifiées (`serviceProvider`,
+    `dataController`, `vatApplicable` sur partenaire) ;
+  - contact mandaté conservé avec explication de transfert vers Prisca (RT) ;
+  - readiness : `partnerGdprRoleQualified = false`,
+    `partnerIdentityVerified = false`, LEGAL GATES `FALSE`
+- Exclus : commit / push / déploiement ; Production ; PUBLIC LAUNCH ; enregistrer
+  l’identifiant retiré dans la doc du ticket
 
 ##### LEGAL-PAGES-01D — Complétion contenu et gates
 
@@ -2959,6 +2999,9 @@ SSO ON ; noindex / Disallow `/`.
 `LEGAL-PAGES-01A` : `DONE — Validé CTO`.
 `LEGAL-PAGES-01B` : `DONE — Validé CTO — legal readiness model published`.
 `LEGAL-PAGES-01C-R1` : `DONE — Validé CTO — checkpoint et staging protégé publiés`.
+`LEGAL-PAGES-01C-R2` : `DONE_WITH_CORRECTIVE_R2-R1`.
+`LEGAL-PAGES-01C-R2-R1` : `DONE — Validé CTO 2026-08-12`.
+`LEGAL-PAGES-01` : `IN_PROGRESS — BLOCKED_LEGAL_GATES`.
 `LEGAL-PAGES-01C` : `IN_PROGRESS — BLOCKED_BUSINESS_INFO`.
 `LEGAL-PAGES-01D` : `BLOCKED_BUSINESS_INFO`.
 `LEGAL-PAGES-01E` : `BLOCKED`.

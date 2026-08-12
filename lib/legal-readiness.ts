@@ -40,6 +40,13 @@ export type LegalReadiness = {
   readonly protectedStagingReady: boolean;
   readonly cookieConsentBannerRequired: boolean;
   readonly productionDomainCookieReauditRequired: boolean;
+  readonly partnerRelationshipConfirmed: boolean;
+  readonly partnerEmailReady: boolean;
+  readonly partnerIdentityVerified: boolean;
+  readonly partnerSiretOfficiallyVerified: boolean;
+  readonly partnerGdprRoleQualified: boolean;
+  readonly privacyRightsContactReady: boolean;
+  readonly serviceProviderBusinessIdentityReady: boolean;
   readonly missingFields: readonly string[];
 };
 
@@ -259,6 +266,23 @@ export function getLegalReadiness(content: LegalContent = legalContent): LegalRe
   const mediatorReady = isMediatorReady(content);
   const pricingDisplayReady = content.readinessFlags.pricingDisplayReady;
   const wigSalesTermsReady = content.readinessFlags.wigSalesTermsReady;
+  const partnerRelationshipConfirmed = content.readinessFlags.partnerRelationshipConfirmed;
+  const partnerEmailReady = content.readinessFlags.partnerEmailReady;
+  const partnerIdentityVerified =
+    content.readinessFlags.partnerIdentityVerified &&
+    content.actors.technicalPartner.identityStatus !== "pending_verification";
+  const partnerSiretOfficiallyVerified = content.readinessFlags.partnerSiretOfficiallyVerified;
+  const partnerGdprRoleQualified =
+    content.readinessFlags.partnerGdprRoleQualified &&
+    content.actors.technicalPartner.gdprRole !== "pending_qualification" &&
+    content.actors.technicalPartner.gdprRoleStatus !== "pending_verification";
+  const privacyRightsContactReady =
+    content.readinessFlags.privacyRightsContactReady &&
+    isConfirmedLegalFact(content.actors.privacyRightsContact.email) &&
+    isConfirmedLegalFact(content.actors.privacyRightsContact.mandateLabel) &&
+    isConfirmedLegalFact(content.actors.privacyRightsContact.transferNotice);
+  const serviceProviderBusinessIdentityReady =
+    content.readinessFlags.serviceProviderBusinessIdentityReady;
 
   const legalNoticeRouteImplemented = content.routesImplementation.legalNoticeRouteImplemented;
   const privacyNoticeRouteImplemented = content.routesImplementation.privacyNoticeRouteImplemented;
@@ -287,6 +311,13 @@ export function getLegalReadiness(content: LegalContent = legalContent): LegalRe
     protectedStagingReady: content.readinessFlags.protectedStagingReady,
     cookieConsentBannerRequired: false,
     productionDomainCookieReauditRequired: cookieConsentRuntime.productionDomainReauditRequired,
+    partnerRelationshipConfirmed,
+    partnerEmailReady,
+    partnerIdentityVerified,
+    partnerSiretOfficiallyVerified,
+    partnerGdprRoleQualified,
+    privacyRightsContactReady,
+    serviceProviderBusinessIdentityReady,
     missingFields,
   };
 }

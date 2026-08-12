@@ -268,3 +268,44 @@ export type MediatorSelectionStatus = {
   readonly value: MediatorSelectionStatusValue;
   readonly source: LegalFactSource;
 };
+
+/** Rôle limité du partenaire technique et administratif — jamais exploitant PRiMiE. */
+export type TechnicalPartnerRole = "technical_administrative_partner";
+
+/** Qualification RGPD — non choisie tant que le circuit réel n’est pas vérifié. */
+export type TechnicalPartnerGdprRole =
+  "pending_qualification" | "authorized_recipient" | "processor" | "joint_controller";
+
+export type TechnicalPartnerIdentityStatus = "pending_verification" | "verified";
+
+export type TechnicalPartnerGdprRoleStatus = "pending_verification" | "verified";
+
+export type TechnicalPartnerRelationshipStatus = "confirmed";
+
+/** Contact mandaté pour l’exercice des droits RGPD — distinct du responsable de traitement. */
+export type PrivacyRightsContact = {
+  readonly email: LegalFact<string>;
+  readonly mandateLabel: LegalFact<string>;
+  readonly transferNotice: LegalFact<string>;
+};
+
+/**
+ * Partenaire technique — jamais vendeur, coiffeur, RT qualifié, cotraitant ni cocontractant client.
+ * Aucun identifiant SIREN/SIRET candidat dans le dépôt.
+ */
+export type TechnicalPartner = {
+  readonly displayName: LegalFact<string>;
+  readonly operationalRole: LegalFact<TechnicalPartnerRole>;
+  readonly identityStatus: TechnicalPartnerIdentityStatus;
+  readonly relationshipStatus: TechnicalPartnerRelationshipStatus;
+  readonly gdprRole: TechnicalPartnerGdprRole;
+  readonly gdprRoleStatus: TechnicalPartnerGdprRoleStatus;
+  readonly commercialContractingParty: LegalFact<false>;
+};
+
+/** Exploitante des prestations — distincte du partenaire technique. */
+export type LegalServiceProvider = {
+  readonly legalIdentity: LegalFact<string>;
+  readonly role: LegalFact<string>;
+  readonly commercialName: LegalFact<string>;
+};

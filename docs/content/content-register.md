@@ -62,6 +62,7 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 | CGV | Fonctionnement commercial non fixé | BLOCKED_LEGAL_SCOPE | Prisca / CTO | 2026-08-12 | `legalContent.termsScope` | Identité, tarifs affichage, annulation, perruques, médiateur | Attendre décisions métier |
 | Identité publique autorisée | Prisca Foani | `PO_CONFIRMED` | PO / CTO | 2026-08-12 | `legalContent.publisher.legalIdentity` | — | Identité légale complète reste bloquée (statut, SIREN/SIRET, adresse, email, directeur de publication, etc.). |
 | Email professionnel | Non confirmé | PENDING_PRISCA | Prisca | 2026-08-11 | `legalContent.publisher.publicProfessionalEmail` | — | Attendre email public |
+| Partenaire technique (contact RGPD mandaté) | `imoria.co@gmail.com` — mandat PO confirmé | `PO_CONFIRMED` (contact uniquement) | PO / CTO | 2026-08-12 | `legalContent.actors.privacyRightsContact` | Qualification RGPD partenaire + identité juridique | Rôle RGPD `pending_qualification` ; identité `pending_verification` ; identifiants SIREN/SIRET hors dépôt ; jamais RT ni exploitant PRiMiE |
 | Médiation consommation | Aucun médiateur choisi | `PO_CONFIRMED` (`not_selected`) | PO / CTO | 2026-08-12 | `legalContent.mediation` | Convention + coordonnées | Ne pas inventer de médiateur |
 | Inventaire technique confidentialité | Booking mémoire → URL WhatsApp → Meta/WhatsApp ; pas de stockage serveur ; rétention WA ≤ 1 mois | PO_CONFIRMED (technique + métier) | PO / CTO | 2026-08-12 | `legalContent.technicalPrivacyInventory` | RT / formalisation politique | Ne pas publier comme politique complète ; Meta ≠ sous-traitant sans preuve |
 
@@ -102,10 +103,12 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.
 - CTA ContactBooking demande RDV : message dynamique généré au submit (pas de stockage).
-- Architecture légale (`LEGAL-PAGES-01C` / `01C-R1`) : faits `confirmed` sur
-  `/mentions-legales` et `/confidentialite` ; SIREN/SIRET en
-  `pending_verification` (aucun candidat invalide conservé) ; helper
-  `lib/siren-siret.ts` ; Footer → Mentions + Confidentialité ; pas de `/cgv` ;
+- Architecture légale (`LEGAL-PAGES-01C` / `01C-R1` / `01C-R2` / `01C-R2-R1`) : faits `confirmed` sur
+  `/mentions-legales` et `/confidentialite` ; SIREN/SIRET Prisca en
+  `pending_verification` ; identifiants partenaire hors dépôt (R2-R1) ;
+  email mandaté RGPD `imoria.co@gmail.com` sur `/confidentialite` avec
+  explication de transfert vers Prisca (RT) ; helper `lib/siren-siret.ts` ;
+  Footer → Mentions + Confidentialité ; pas de `/cgv` ;
   robots `noindex,nofollow,noarchive` ; gates readiness toujours `false` pour
-  launch ; contact RGPD provisoire = téléphone + WhatsApp (`siteConfig`).
+  launch ; contact RGPD provisoire = téléphone + WhatsApp + email mandaté.
 - Sources locales : dossier canonique `images/services/` (pluriel) pour les illustrations Services.

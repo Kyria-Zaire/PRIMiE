@@ -12,8 +12,11 @@ import type {
   HostingCandidate,
   LegalFact,
   LegalFactSource,
+  LegalServiceProvider,
   PendingLegalFact,
   PendingLegalRequestFrom,
+  PrivacyRightsContact,
+  TechnicalPartner,
   TermsScope,
 } from "./types";
 
@@ -64,6 +67,14 @@ const termsScope: TermsScope = {
 
 /** Date de mise à jour des pages légales partielles (01C). */
 export const legalPagesLastUpdated = "12 août 2026";
+
+const partnerContactEmail = "imoria.co@gmail.com" as const;
+
+const privacyRightsMandateLabel =
+  "Contact pour l'exercice de vos droits, mandaté pour Chez PRiMiE Coiffure" as const;
+
+const privacyRightsTransferNotice =
+  "Les informations transmises à cette adresse sont reçues pour le compte de Chez PRiMiE Coiffure et communiquées à Prisca Foani, responsable du traitement, afin de traiter votre demande." as const;
 
 export const VERCEL_HOST_PUBLIC = {
   legalName: "Vercel Inc.",
@@ -136,7 +147,37 @@ export const cookieConsentRuntime: CookieConsentRuntimeVerdict = {
   productionDomainReauditRequired: true,
 };
 
+/** Séparation explicite Prisca (prestations / RT / publication) ↔ partenaire technique. */
+export const legalActors = {
+  serviceProvider: {
+    legalIdentity: confirmed("Prisca Foani", "po_confirmation"),
+    role: confirmed("Exploitante et prestataire des services de coiffure", "po_confirmation"),
+    commercialName: confirmed(
+      siteConfig.brand.commercialName,
+      "site_config",
+      "content/site-config.ts — brand.commercialName",
+    ),
+  } satisfies LegalServiceProvider,
+  publicationDirector: confirmed("Prisca Foani", "po_confirmation"),
+  dataController: confirmed("Prisca Foani", "po_confirmation"),
+  technicalPartner: {
+    displayName: confirmed("Partenaire technique et administratif", "po_confirmation"),
+    operationalRole: confirmed("technical_administrative_partner", "po_confirmation"),
+    identityStatus: "pending_verification",
+    relationshipStatus: "confirmed",
+    gdprRole: "pending_qualification",
+    gdprRoleStatus: "pending_verification",
+    commercialContractingParty: confirmed(false, "po_confirmation"),
+  } satisfies TechnicalPartner,
+  privacyRightsContact: {
+    email: confirmed(partnerContactEmail, "po_confirmation"),
+    mandateLabel: confirmed(privacyRightsMandateLabel, "po_confirmation"),
+    transferNotice: confirmed(privacyRightsTransferNotice, "po_confirmation"),
+  } satisfies PrivacyRightsContact,
+} as const;
+
 export const legalContent = {
+  actors: legalActors,
   publisher: {
     legalIdentity: confirmed("Prisca Foani", "po_confirmation"),
     commercialName: confirmed(
@@ -374,6 +415,13 @@ export const legalContent = {
     pricingDisplayReady: false,
     wigSalesTermsReady: false,
     protectedStagingReady: true,
+    partnerRelationshipConfirmed: true,
+    partnerEmailReady: true,
+    partnerIdentityVerified: false,
+    partnerSiretOfficiallyVerified: false,
+    partnerGdprRoleQualified: false,
+    privacyRightsContactReady: true,
+    serviceProviderBusinessIdentityReady: false,
   },
   legalPagesLastUpdated: confirmed(legalPagesLastUpdated, "po_confirmation"),
   cookieConsentRuntime,
@@ -383,6 +431,7 @@ export const legalContent = {
 };
 
 export type LegalContent = {
+  readonly actors: typeof legalContent.actors;
   readonly publisher: typeof legalContent.publisher;
   readonly hosting: typeof legalContent.hosting;
   readonly mediation: typeof legalContent.mediation;

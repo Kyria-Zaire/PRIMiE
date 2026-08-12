@@ -132,6 +132,21 @@ export default function ConfidentialitePage() {
           Contact provisoire : téléphone <a href={`tel:${phoneE164}`}>{phoneDisplay}</a> ou{" "}
           <a href={whatsappUrl}>WhatsApp</a> (sans message prérempli).
         </p>
+        {getConfirmedLegalValue(legalContent.actors.privacyRightsContact.mandateLabel) &&
+        getConfirmedLegalValue(legalContent.actors.privacyRightsContact.email) ? (
+          <p>
+            {getConfirmedLegalValue(legalContent.actors.privacyRightsContact.mandateLabel)} :{" "}
+            <a
+              href={`mailto:${getConfirmedLegalValue(legalContent.actors.privacyRightsContact.email)}`}
+            >
+              {getConfirmedLegalValue(legalContent.actors.privacyRightsContact.email)}
+            </a>
+            .
+          </p>
+        ) : null}
+        {getConfirmedLegalValue(legalContent.actors.privacyRightsContact.transferNotice) ? (
+          <p>{getConfirmedLegalValue(legalContent.actors.privacyRightsContact.transferNotice)}</p>
+        ) : null}
       </LegalSection>
     </LegalPageShell>
   );

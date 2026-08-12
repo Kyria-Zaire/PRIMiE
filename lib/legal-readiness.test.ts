@@ -30,6 +30,13 @@ describe("getLegalReadiness — LEGAL-PAGES-01C", () => {
     expect(readiness.protectedStagingReady).toBe(true);
     expect(readiness.cookieConsentBannerRequired).toBe(false);
     expect(readiness.productionDomainCookieReauditRequired).toBe(true);
+    expect(readiness.partnerRelationshipConfirmed).toBe(true);
+    expect(readiness.partnerEmailReady).toBe(true);
+    expect(readiness.partnerIdentityVerified).toBe(false);
+    expect(readiness.partnerSiretOfficiallyVerified).toBe(false);
+    expect(readiness.partnerGdprRoleQualified).toBe(false);
+    expect(readiness.privacyRightsContactReady).toBe(true);
+    expect(readiness.serviceProviderBusinessIdentityReady).toBe(false);
   });
 
   it("liste explicitement les champs manquants depuis les statuts pending", () => {

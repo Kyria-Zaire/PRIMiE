@@ -189,12 +189,96 @@ describe("legalContent — LEGAL-PAGES-01C faits confirmés", () => {
     expect(getConfirmedLegalValue(legalContent.legalPagesLastUpdated)).toBe(legalPagesLastUpdated);
   });
 
-  it("ne stocke aucune donnée sensible ni email inventé", () => {
+  it("ne stocke aucune donnée sensible inventée pour Prisca ni identifiant SIREN/SIRET publiable", () => {
     const serialized = JSON.stringify(legalContent);
     expect(serialized).not.toMatch(/carte.?identit/i);
     expect(serialized).not.toMatch(/passport/i);
-    expect(serialized).not.toMatch(/@[a-z0-9.-]+\.[a-z]{2,}/i);
     expect(serialized).not.toMatch(/SIRE[NT]\s*[:=]\s*["'][0-9]/i);
+    expect(legalContent.publisher.publicProfessionalEmail.status).toBe("pending_prisca");
+    expect(getConfirmedLegalValue(legalContent.publisher.siret)).toBeUndefined();
+  });
+});
+
+const LEGAL_R2_PRODUCTION_FILES = [
+  "content/legal.ts",
+  "content/types.ts",
+  "lib/legal-readiness.ts",
+  "app/confidentialite/page.tsx",
+  "docs/BMAD-PRIMIE-001.md",
+  "docs/content/content-register.md",
+] as const;
+
+describe("legalContent — LEGAL-PAGES-01C-R2-R1 data-governance et RGPD partenaire", () => {
+  it("n’expose aucun identifiant SIREN/SIRET candidat partenaire dans le lot Legal", () => {
+    const legalSource = readFileSync(join(process.cwd(), "content/legal.ts"), "utf8");
+    expect(legalSource).not.toMatch(/technicalPartnerSiretCandidate/);
+    expect(legalSource).not.toMatch(/technicalPartnerSirenCandidate/);
+    expect(legalSource).not.toMatch(/SIRET candidat partenaire/i);
+
+    for (const relativePath of LEGAL_R2_PRODUCTION_FILES) {
+      const source = readFileSync(join(process.cwd(), relativePath), "utf8");
+      expect(source, relativePath).not.toMatch(/\b\d{14}\b/);
+      expect(source, relativePath).not.toMatch(/partnerSiretLuhnValid/);
+    }
+  });
+
+  it("modélise le partenaire avec qualification RGPD en attente", () => {
+    const partner = legalContent.actors.technicalPartner;
+    expect(partner.identityStatus).toBe("pending_verification");
+    expect(partner.gdprRole).toBe("pending_qualification");
+    expect(partner.gdprRoleStatus).toBe("pending_verification");
+    expect(partner.relationshipStatus).toBe("confirmed");
+    expect(getConfirmedLegalValue(partner.operationalRole)).toBe(
+      "technical_administrative_partner",
+    );
+    expect(getConfirmedLegalValue(partner.commercialContractingParty)).toBe(false);
+    expect(partner).not.toHaveProperty("serviceProvider");
+    expect(partner).not.toHaveProperty("dataController");
+    expect(partner).not.toHaveProperty("vatApplicable");
+    expect(partner).not.toHaveProperty("siret");
+    expect(partner).not.toHaveProperty("legalIdentity");
+    expect(partner).not.toHaveProperty("contactEmail");
+  });
+
+  it("sépare Prisca (RT, publication, prestataire) du partenaire technique", () => {
+    expect(getConfirmedLegalValue(legalContent.actors.dataController)).toBe("Prisca Foani");
+    expect(getConfirmedLegalValue(legalContent.actors.publicationDirector)).toBe("Prisca Foani");
+    expect(getConfirmedLegalValue(legalContent.actors.serviceProvider.legalIdentity)).toBe(
+      "Prisca Foani",
+    );
+    expect(getConfirmedLegalValue(legalContent.actors.technicalPartner.displayName)).toBe(
+      "Partenaire technique et administratif",
+    );
+  });
+
+  it("normalise le contact mandaté RGPD et l’explication de transfert", () => {
+    expect(getConfirmedLegalValue(legalContent.actors.privacyRightsContact.email)).toBe(
+      "imoria.co@gmail.com",
+    );
+    expect(getConfirmedLegalValue(legalContent.actors.privacyRightsContact.mandateLabel)).toBe(
+      "Contact pour l'exercice de vos droits, mandaté pour Chez PRiMiE Coiffure",
+    );
+    expect(getConfirmedLegalValue(legalContent.actors.privacyRightsContact.transferNotice)).toMatch(
+      /reçues pour le compte de Chez PRiMiE Coiffure/i,
+    );
+    expect(getConfirmedLegalValue(legalContent.actors.privacyRightsContact.transferNotice)).toMatch(
+      /Prisca Foani, responsable du traitement/i,
+    );
+    expect(JSON.stringify(legalContent)).not.toMatch(/293\s*B/i);
+    expect(JSON.stringify(legalContent)).not.toMatch(/article\s*293/i);
+  });
+
+  it("expose les indicateurs readiness partenaire sans ouvrir les legal gates", () => {
+    const readiness = getLegalReadiness();
+    expect(readiness.partnerRelationshipConfirmed).toBe(true);
+    expect(readiness.partnerEmailReady).toBe(true);
+    expect(readiness.partnerIdentityVerified).toBe(false);
+    expect(readiness.partnerSiretOfficiallyVerified).toBe(false);
+    expect(readiness.partnerGdprRoleQualified).toBe(false);
+    expect(readiness.privacyRightsContactReady).toBe(true);
+    expect(readiness.serviceProviderBusinessIdentityReady).toBe(false);
+    expect(readiness.legalRoutesReady).toBe(false);
+    expect(readiness.publicLaunchReady).toBe(false);
   });
 });
 

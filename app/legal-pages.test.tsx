@@ -40,6 +40,8 @@ describe("pages légales — LEGAL-PAGES-01C", () => {
     expect(html).toContain('id="contenu-principal"');
     expect(html).toContain('tabindex="-1"');
     expect(html).not.toMatch(/SIREN|SIRET/i);
+    expect(html).not.toContain("imoria.co@gmail.com");
+    expect(html).not.toMatch(/partenaire technique/i);
     expect(source).not.toMatch(/["']use client["']/);
     expect(mentionsMetadata.robots).toEqual({
       index: false,
@@ -72,6 +74,22 @@ describe("pages légales — LEGAL-PAGES-01C", () => {
     expect(html).toContain("https://www.cnil.fr/fr/plaintes");
     expect(html).toContain(`href="${siteConfig.contact.whatsappUrl}"`);
     expect(html).toMatch(/Exercer vos droits[\s\S]*?href="https:\/\/wa\.me\/33749616582"(?!\?)/);
+    expect(html).toContain("imoria.co@gmail.com");
+    expect(html).toContain("mailto:imoria.co@gmail.com");
+    expect(html).toMatch(
+      /Contact pour l(?:&#x27;|')exercice de vos droits, mandaté pour Chez PRiMiE Coiffure/i,
+    );
+    expect(html).toMatch(
+      /reçues pour le compte de Chez PRiMiE Coiffure[\s\S]*?Prisca Foani, responsable du traitement/i,
+    );
+    expect((html.match(/imoria\.co@gmail\.com/g) ?? []).length).toBe(2);
+    expect(html).not.toMatch(/partenaire technique/i);
+    expect(html).not.toMatch(/\bDPO\b/i);
+    expect(html).not.toMatch(/délégué[^<]{0,40}protection des données/i);
+    expect(html).not.toContain("cotraitant");
+    expect(html).not.toMatch(/sous-traitant confirmé/i);
+    expect(html).not.toMatch(/responsable du traitement[^<]{0,120}imoria/i);
+    expect(html).not.toMatch(/imoria[^<]{0,120}responsable du traitement/i);
     expect(html).toContain("sous-traitant");
     expect(source).not.toMatch(/["']use client["']/);
     expect(privacyMetadata.robots).toEqual({
