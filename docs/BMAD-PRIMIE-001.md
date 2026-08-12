@@ -2792,6 +2792,66 @@ LEGAL GATES = FALSE
 - Exclus : upgrade Pro ; All Deployments ; reconnect Git ; deploy `d4415f0` ;
   rollback protection ; modification alias ; `SECURITY-DEPS-01A`
 
+### SECURITY-DEPS-01 — Correctif supply-chain js-yaml / nanoid
+
+- Mode : `IMPLEMENT` (via 01A audit + 01B overrides)
+- Statut : `DONE — clôturé le 2026-08-12`
+- Gouvernance inchangée :
+
+```text
+PUBLIC LAUNCH = DEFERRED
+PRODUCTION AUTHORIZATION = FALSE
+LEGAL GATES = FALSE
+```
+
+- Vercel Option B Hobby conservée ; Git Integration déconnectée ; aucune
+  promotion du checkpoint legal `d4415f0`
+
+#### SECURITY-DEPS-01A — Audit read-only
+
+- Mode : `DISCOVER / READ-ONLY`
+- Statut : `DONE — Validé CTO 2026-08-12`
+- Classification : `js-yaml` = `DEV_ONLY` ; `nanoid` = `BUILD_TIME_ONLY` ;
+  `SECURITY_HOLD_RUNTIME` = `FALSE`
+- Advisories : GHSA-5p4m-2wfm-xmqj (`js-yaml`) ;
+  GHSA-2v37-7h3g-55p8 / CVE-2026-67213 (`nanoid`, sévérité officielle
+  **High, CVSS 8.2**)
+- Versions avant : `js-yaml@4.3.0` ; `nanoid@3.3.16`
+- Correctifs candidats : `js-yaml@4.3.1` ; `nanoid` minimal `3.3.17`,
+  retenu `3.3.18`
+- Stratégie validée CTO : Option B — `pnpm.overrides` exacts
+- Exposition runtime : non démontrée (lint / PostCSS build-time)
+
+#### SECURITY-DEPS-01B — Overrides minimaux
+
+- Mode : `IMPLEMENT`
+- Statut : `DONE — Validé CTO 2026-08-12`
+- Overrides appliqués (préservant `postcss`, `sharp`, `brace-expansion`) :
+
+```text
+"js-yaml": "4.3.1"
+"nanoid": "3.3.18"
+```
+
+- Versions : `js-yaml` `4.3.0 → 4.3.1` ; `nanoid` `3.3.16 → 3.3.18`
+- `nanoid` : High, CVSS 8.2
+- `pnpm audit` : 0 vulnerability (exit 0)
+- `pnpm audit --prod` : 0 vulnerability (exit 0)
+- Qualité : format / typecheck / lint / test (336) / build / check OK
+- Smoke local : `/` `/galerie` `/mentions-legales` `/confidentialite` → 200 ;
+  `/cgv` → 404
+- Commit supply-chain : `fix(security): patch transitive build dependencies`
+- Aucun déploiement Vercel
+- Exclus : upgrade toolchain ; `pnpm audit --fix` ; mise à jour Next/ESLint/
+  Tailwind/Vitest/PostCSS
+
+#### SECURITY-DEPS-01B-CHECKPOINT
+
+- Mode : `VERIFY + PUBLISH`
+- Statut : `DONE — publié le 2026-08-12`
+- Inclus : commit supply-chain + commit documentaire BMAD ; push `origin/main`
+- Exclus : déploiement Vercel ; promotion ; reconnect Git ; upgrade Pro
+
 ### DEPLOY-PREVIEW-01 — Créer et valider une Preview
 
 **Métadonnées**
@@ -3092,6 +3152,10 @@ SSO ON ; noindex / Disallow `/`.
 `VERCEL-PRODUCTION-GATE-01B` : `DONE_WITH_ACCEPTED_PLAN_LIMITATION — Validé
 CTO 2026-08-12` (Option B — Hobby ; alias staging public accepté).
 `VERCEL-PRODUCTION-GATE-01B-CHECKPOINT` : `DONE — publié le 2026-08-12`.
+`SECURITY-DEPS-01` : `DONE — clôturé le 2026-08-12`.
+`SECURITY-DEPS-01A` : `DONE — Validé CTO 2026-08-12`.
+`SECURITY-DEPS-01B` : `DONE — Validé CTO 2026-08-12`.
+`SECURITY-DEPS-01B-CHECKPOINT` : `DONE — publié le 2026-08-12`.
 `PUSH_MAIN_TO_PRODUCTION_RISK` : `NOT_VERIFIABLE` (Git déconnectée ;
 Production Branch null).
 Preview légal partiel courant : `dpl_5Yz3fc6R8Zw2e6WrjiDPw5jygBRR` /
