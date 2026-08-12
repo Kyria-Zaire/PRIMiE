@@ -280,4 +280,14 @@ describe("Footer — FOOTER-DESIGN-R1B", () => {
     expect(ctaIndex).toBeGreaterThan(-1);
     expect(firstDetails).toBeGreaterThan(ctaIndex);
   });
+
+  it("expose Mentions légales et Confidentialité sans CGV ni cookies", () => {
+    const html = renderToStaticMarkup(<Footer navigationItems={homeNav} year={2026} />);
+    expect(html).toContain('href="/mentions-legales"');
+    expect(html).toContain("Mentions légales");
+    expect(html).toContain('href="/confidentialite"');
+    expect(html).toContain("Confidentialité");
+    expect(html).not.toMatch(/\/cgv/i);
+    expect(html).not.toMatch(/cookie/i);
+  });
 });

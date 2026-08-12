@@ -535,7 +535,23 @@ export function Footer({ navigationItems, homeHref = "#accueil", year }: FooterP
             <FloralOrnament className="hidden h-5 w-9 text-gold xl:block" />
             <span aria-hidden="true" className="hidden h-px w-10 bg-gold/55 xl:block" />
           </div>
-          <span className="hidden xl:block" aria-hidden="true" />
+          <nav
+            aria-label="Informations légales"
+            className="order-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 xl:order-none xl:justify-end"
+          >
+            <a
+              href="/mentions-legales"
+              className="inline-flex min-h-11 items-center font-sans text-sm text-on-dark-muted underline-offset-4 hover:text-gold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+            >
+              Mentions légales
+            </a>
+            <a
+              href="/confidentialite"
+              className="inline-flex min-h-11 items-center font-sans text-sm text-on-dark-muted underline-offset-4 hover:text-gold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
+            >
+              Confidentialité
+            </a>
+          </nav>
         </Container>
       </div>
     </footer>

@@ -102,10 +102,10 @@ Les preuves privées (consentements, conversations, identité) restent hors dép
 - Preuves de consentement : hors `public/` et hors ce registre détaillé.
 - CTA ContactBooking `#contact` et Footer : WhatsApp sans message prérempli.
 - CTA ContactBooking demande RDV : message dynamique généré au submit (pas de stockage).
-- Architecture légale (`LEGAL-PAGES-01B`) : couche `content/legal.ts` non branchée à
-  l’UI ; statuts `confirmed` / `pending_prisca` / `pending_verification` /
-  `blocked_legal_scope` ; Vercel = `hostingCandidate` uniquement ; aucune route
-  `/mentions-legales`, `/politique-de-confidentialite`, `/cgv` ; aucun lien Footer ;
-  aucun cookie banner ; `getPublishableLegalContent()` retourne `not_ready` ;
-  `publicLaunchReady=false` ; ré-audit cookies domaine public requis avant Production.
+- Architecture légale (`LEGAL-PAGES-01C` / `01C-R1`) : faits `confirmed` sur
+  `/mentions-legales` et `/confidentialite` ; SIREN/SIRET en
+  `pending_verification` (aucun candidat invalide conservé) ; helper
+  `lib/siren-siret.ts` ; Footer → Mentions + Confidentialité ; pas de `/cgv` ;
+  robots `noindex,nofollow,noarchive` ; gates readiness toujours `false` pour
+  launch ; contact RGPD provisoire = téléphone + WhatsApp (`siteConfig`).
 - Sources locales : dossier canonique `images/services/` (pluriel) pour les illustrations Services.

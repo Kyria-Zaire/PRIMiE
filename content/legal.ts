@@ -1,7 +1,8 @@
 /**
- * Couche légale non publique — LEGAL-PAGES-01B.
- * Statuts `confirmed` / `pending_prisca` / `pending_verification` uniquement ;
- * aucune page légale ni lien Footer.
+ * Couche légale — LEGAL-PAGES-01C-R1.
+ * Statuts `confirmed` / `pending_prisca` / `pending_verification`.
+ * Les pages publiques n’affichent que des faits confirmés (jamais de mentions fictives).
+ * SIREN/SIRET : `pending_verification` jusqu’à attestation officielle + Annuaire + Luhn.
  */
 
 import { siteConfig } from "./site-config";
@@ -37,7 +38,7 @@ function pendingPrisca(reason: string): PendingLegalFact {
 
 function pendingVerification(
   reason: string,
-  requestedFrom: Exclude<PendingLegalRequestFrom, "Prisca">,
+  requestedFrom: PendingLegalRequestFrom,
 ): PendingLegalFact {
   return {
     status: "pending_verification",
@@ -47,18 +48,28 @@ function pendingVerification(
   };
 }
 
-/** Candidat d’infrastructure — distinct de l’hébergeur légal confirmé. */
+/** Candidat d’infrastructure — téléphone hébergeur et domaine public restent à vérifier. */
 export const hostingCandidate: HostingCandidate = {
   provider: "Vercel",
   status: "candidate",
-  confirmationCondition: "À confirmer uniquement après le déploiement réel du site de production.",
+  confirmationCondition:
+    "Raison sociale et adresse publiques Vercel Inc. vérifiées ; téléphone hébergeur et domaine public final restent à confirmer.",
 };
 
 const termsScope: TermsScope = {
   status: "blocked_legal_scope",
   reason:
-    "CGV non publiables tant que manquent : identité juridique complète, politique tarifaire (affichage public ou sur demande), règles d’annulation/report/absence, règles de livraison/retrait/retour et garanties des perruques, médiateur de la consommation réellement conventionné.",
+    "CGV non publiables tant que manquent : SIREN/SIRET, email, TVA, médiateur conventionné, catalogue de prix détaillé et conditions complètes de vente des perruques.",
 };
+
+/** Date de mise à jour des pages légales partielles (01C). */
+export const legalPagesLastUpdated = "12 août 2026";
+
+export const VERCEL_HOST_PUBLIC = {
+  legalName: "Vercel Inc.",
+  address: "440 N Barranca Avenue #4133, Covina, CA 91723, United States",
+  sourceUrl: "https://vercel.com/legal/privacy-notice",
+} as const;
 
 /**
  * Cartographie technique du flux Booking → WhatsApp.
@@ -138,16 +149,33 @@ export const legalContent = {
       "site_config",
       "content/site-config.ts — brand.shortName",
     ),
-    legalStatus: pendingPrisca(
-      "Statut juridique exact (micro-entreprise, EI, société, etc.) non confirmé.",
+    legalStatus: confirmed(
+      "Entrepreneure individuelle relevant du régime micro-entrepreneur",
+      "po_confirmation",
     ),
-    siren: pendingPrisca("Numéro SIREN non fourni."),
-    siret: pendingPrisca("Numéro SIRET non fourni."),
-    registration: pendingPrisca("Mention d’immatriculation applicable (RCS/RNE/RM) non confirmée."),
-    vatNumber: pendingPrisca("Régime de TVA et mention exacte applicable non confirmés."),
-    publicProfessionalAddress: pendingVerification(
-      "Adresse professionnelle ou de domiciliation publiable non autorisée pour le moment.",
-      "CTO",
+    siren: pendingVerification(
+      "SIREN non vérifié — copie exacte depuis attestation INSEE/INPI/URSSAF puis contrôle Annuaire des entreprises et Luhn requis avant confirmed.",
+      "Prisca",
+    ),
+    siret: pendingVerification(
+      "SIRET non vérifié — copie exacte depuis attestation INSEE/INPI/URSSAF puis contrôle Annuaire des entreprises et Luhn requis avant confirmed. Aucun candidat invalide n’est conservé.",
+      "Prisca",
+    ),
+    registration: pendingVerification(
+      "Registre d’immatriculation exact (RNE/RM) non vérifié.",
+      "Prisca",
+    ),
+    vatNumber: pendingPrisca(
+      "Régime de TVA exact et numéro de TVA intracommunautaire éventuel non confirmés. L’absence de facture ne prouve pas le régime de TVA.",
+    ),
+    publicProfessionalAddress: confirmed(
+      {
+        street: "24 rue Docteur Thomas",
+        postalCode: "02200",
+        city: "Soissons",
+        country: "France",
+      },
+      "po_confirmation",
     ),
     publicProfessionalEmail: pendingPrisca("Email professionnel public non confirmé."),
     phone: confirmed(
@@ -158,10 +186,7 @@ export const legalContent = {
       "site_config",
       "content/site-config.ts — contact.phoneDisplay / phoneE164",
     ),
-    publicationDirector: pendingVerification(
-      "Identité exacte du directeur de publication non confirmée juridiquement.",
-      "CTO",
-    ),
+    publicationDirector: confirmed("Prisca Foani", "po_confirmation"),
     publicOwnerFirstName: confirmed(
       siteConfig.brand.owner,
       "site_config",
@@ -175,20 +200,19 @@ export const legalContent = {
   },
   hosting: {
     publicDomain: pendingVerification("Nom de domaine public final non confirmé.", "deployment"),
-    confirmedHost: pendingVerification(
-      "Identité et coordonnées légales exactes de l’hébergeur applicables au contrat non confirmées — Vercel reste un candidat distinct et non publiable.",
-      "deployment",
+    confirmedHost: confirmed("Vercel Inc. — hébergement technique du site", "po_confirmation"),
+    hostLegalName: confirmed(
+      VERCEL_HOST_PUBLIC.legalName,
+      "official_source",
+      VERCEL_HOST_PUBLIC.sourceUrl,
     ),
-    hostLegalName: pendingVerification(
-      "Raison sociale de l’hébergeur confirmé non disponible tant que l’hébergement de production n’est pas déployé.",
-      "deployment",
-    ),
-    hostAddress: pendingVerification(
-      "Adresse de l’hébergeur confirmé non disponible tant que l’hébergement de production n’est pas déployé.",
-      "deployment",
+    hostAddress: confirmed(
+      VERCEL_HOST_PUBLIC.address,
+      "official_source",
+      VERCEL_HOST_PUBLIC.sourceUrl,
     ),
     hostPhone: pendingVerification(
-      "Téléphone de l’hébergeur confirmé non applicable tant que l’hébergeur n’est pas confirmé.",
+      "Téléphone de l’hébergeur non publié dans les sources officielles Vercel vérifiées — non inventé.",
       "deployment",
     ),
   },
@@ -214,11 +238,11 @@ export const legalContent = {
       "po_confirmation",
     ),
     priceCommunication: confirmed(
-      "Le prix est communiqué sur WhatsApp avant la prestation.",
+      "Le tarif applicable est communiqué à la cliente et accepté avant la confirmation définitive du rendez-vous.",
       "po_confirmation",
     ),
     pricingDisplayPolicy: pendingPrisca(
-      "Politique tarifaire d’affichage non tranchée : tarifs publics ou communiqués uniquement sur demande.",
+      "Catalogue de prix détaillé non validé — pricingDisplayReady reste false.",
     ),
     deposit: confirmed("Aucun acompte n’est demandé actuellement.", "po_confirmation"),
     paymentMethods: confirmed(
@@ -228,41 +252,67 @@ export const legalContent = {
       "po_confirmation",
     ),
     cancellationRescheduling: pendingPrisca(
-      "Règles exactes d’annulation, de report et d’absence non confirmées.",
+      "Politique d’annulation, de report et d’absence non confirmée — aucune pénalité inventée.",
     ),
     travelFees: confirmed("Aucun frais de déplacement actuellement.", "po_confirmation"),
     separateWigSales: confirmed(
-      "Les perruques peuvent être vendues seules, sans prestation. Les demandes et commandes passent par WhatsApp.",
+      "Les perruques peuvent faire l’objet d’une demande sur WhatsApp. Le site ne comporte ni panier, ni paiement en ligne, ni commande automatique.",
       "po_confirmation",
     ),
     wigDeliveryWithdrawalReturns: pendingPrisca(
-      "Règles exactes de livraison, retrait et retour des perruques non confirmées.",
+      "Conditions de livraison, retrait et retour des perruques non confirmées — wigSalesTermsReady reste false.",
     ),
     wigLegalGuarantees: pendingPrisca(
-      "Garanties légales applicables aux ventes de perruques non formalisées pour publication.",
+      "Garanties commerciales éventuelles non confirmées — les garanties légales applicables ne sont jamais écartées.",
     ),
     contractConclusionPlace: pendingPrisca("Lieu de conclusion du contrat non confirmé."),
     distanceSelling: pendingPrisca("Périmètre vente à distance non confirmé."),
     delayAbsenceImpossibility: pendingPrisca(
-      "Règles en cas de retard, absence ou impossibilité non confirmées.",
+      "Règles en cas de retard, absence ou impossibilité non confirmées — aucune pénalité inventée.",
     ),
   },
   privacy: {
-    dataController: pendingPrisca("Identité complète du responsable du traitement non confirmée."),
-    rightsContact: pendingPrisca("Contact retenu pour l’exercice des droits RGPD non confirmé."),
-    purposes: pendingPrisca("Finalités de traitement non formalisées pour publication."),
-    concernedData: pendingPrisca(
-      "Liste exhaustive des données concernées hors inventaire technique non confirmée.",
+    dataController: confirmed("Prisca Foani", "po_confirmation"),
+    rightsContact: confirmed(
+      {
+        phoneDisplay: siteConfig.contact.phoneDisplay,
+        phoneE164: siteConfig.contact.phoneE164,
+        whatsappUrl: siteConfig.contact.whatsappUrl,
+      },
+      "po_confirmation",
     ),
-    legalBasis: pendingPrisca("Bases légales par finalité non confirmées."),
-    mandatoryOptionalCharacter: pendingPrisca(
-      "Caractère obligatoire ou facultatif des données non formalisé pour publication.",
+    purposes: confirmed(
+      [
+        "Répondre à la demande de contact ou de rendez-vous",
+        "Organiser et confirmer le rendez-vous",
+        "Assurer les échanges nécessaires à la prestation",
+      ] as const,
+      "po_confirmation",
     ),
-    recipients: pendingPrisca(
-      "Destinataires des données non formalisés pour publication (hors canal WhatsApp documenté techniquement).",
+    concernedData: confirmed(
+      ["Nom", "Téléphone", "Prestation", "Date souhaitée", "Créneau souhaité"] as const,
+      "po_confirmation",
+    ),
+    legalBasis: confirmed(
+      [
+        "Mesures précontractuelles demandées par la personne",
+        "Exécution de la relation lorsqu’un rendez-vous est confirmé",
+      ] as const,
+      "po_confirmation",
+    ),
+    mandatoryOptionalCharacter: confirmed(
+      "Les champs du module de demande sont nécessaires pour transmettre la demande à Prisca via WhatsApp.",
+      "po_confirmation",
+    ),
+    recipients: confirmed(
+      [
+        "Prisca Foani",
+        "WhatsApp/Meta après activation volontaire du lien par la personne",
+      ] as const,
+      "po_confirmation",
     ),
     retention: confirmed(
-      "Les conversations WhatsApp sont conservées au maximum un mois par Prisca après la dernière interaction.",
+      "Les échanges opérationnels conservés par Prisca le sont au maximum un mois, sauf obligation légale distincte.",
       "po_confirmation",
     ),
     prospecting: confirmed(false, "po_confirmation"),
@@ -279,15 +329,24 @@ export const legalContent = {
       "CTO",
     ),
     thirdPartySharing: confirmed(
-      "Aucune transmission commerciale volontaire des coordonnées à des tiers. WhatsApp/Meta intervient uniquement lorsque l’utilisateur ouvre WhatsApp.",
+      "Aucune transmission commerciale volontaire des coordonnées à des tiers. WhatsApp/Meta intervient uniquement lorsque la personne active le CTA WhatsApp.",
       "po_confirmation",
     ),
-    transferOutsideEu: pendingPrisca(
-      "Transferts hors Union européenne non formalisés pour publication (WhatsApp/Meta à documenter sans inventer un rôle de sous-traitant).",
+    transferOutsideEu: confirmed(
+      "Lors de l’utilisation de WhatsApp, des traitements peuvent être réalisés par WhatsApp/Meta selon leurs propres conditions, éventuellement hors Union européenne. WhatsApp/Meta n’est pas présentée comme sous-traitant de PRiMiE sans preuve contractuelle.",
+      "po_confirmation",
     ),
-    rightsExerciseProcedure: pendingPrisca("Procédure d’exercice des droits non confirmée."),
-    cnilComplaintRight: pendingPrisca(
-      "Mention du droit de réclamation auprès de la CNIL — contact droits manquant.",
+    rightsExerciseProcedure: confirmed(
+      "Pour exercer vos droits, contactez Prisca par téléphone ou WhatsApp (sans message prérempli obligatoire).",
+      "po_confirmation",
+    ),
+    cnilComplaintRight: confirmed(
+      {
+        label: "Vous pouvez introduire une réclamation auprès de la CNIL.",
+        url: "https://www.cnil.fr/fr/plaintes",
+      },
+      "official_source",
+      "https://www.cnil.fr/fr/plaintes",
     ),
   },
   bookingDataCollection: {
@@ -306,6 +365,17 @@ export const legalContent = {
     noOnlineOrder: confirmed(true, "runtime_audit"),
     noClientAccount: confirmed(true, "runtime_audit"),
   },
+  routesImplementation: {
+    legalNoticeRouteImplemented: true,
+    privacyNoticeRouteImplemented: true,
+    termsRouteImplemented: false,
+  },
+  readinessFlags: {
+    pricingDisplayReady: false,
+    wigSalesTermsReady: false,
+    protectedStagingReady: true,
+  },
+  legalPagesLastUpdated: confirmed(legalPagesLastUpdated, "po_confirmation"),
   cookieConsentRuntime,
   termsScope,
   hostingCandidate,
@@ -319,6 +389,9 @@ export type LegalContent = {
   readonly commercialOperations: typeof legalContent.commercialOperations;
   readonly privacy: typeof legalContent.privacy;
   readonly bookingDataCollection: typeof legalContent.bookingDataCollection;
+  readonly routesImplementation: typeof legalContent.routesImplementation;
+  readonly readinessFlags: typeof legalContent.readinessFlags;
+  readonly legalPagesLastUpdated: typeof legalContent.legalPagesLastUpdated;
   readonly cookieConsentRuntime: CookieConsentRuntimeVerdict;
   readonly termsScope: TermsScope;
   readonly hostingCandidate: HostingCandidate;

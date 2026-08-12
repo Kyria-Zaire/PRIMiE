@@ -1,6 +1,7 @@
 /**
- * Readiness et garde anti-publication — LEGAL-PAGES-01B.
- * Calcul dérivé des statuts confirmed / pending_prisca / pending_verification.
+ * Readiness et garde anti-publication — LEGAL-PAGES-01C.
+ * Distingue routesImplemented / contentComplete / publicLaunchReady.
+ * Une route existante ne satisfait pas le gate légal de contenu.
  */
 
 import {
@@ -17,13 +18,26 @@ type LegalFactResolver = {
 };
 
 export type LegalReadiness = {
+  /** Routes HTTP implémentées (existence ≠ contenu complet). */
+  readonly legalNoticeRouteImplemented: boolean;
+  readonly privacyNoticeRouteImplemented: boolean;
+  readonly termsRouteImplemented: boolean;
+  readonly routesImplemented: boolean;
+  /** Contenu administratif / commercial complet pour publication. */
+  readonly contentComplete: boolean;
   readonly legalNoticeReady: boolean;
   readonly privacyNoticeReady: boolean;
   readonly termsScopeReady: boolean;
   readonly mediatorReady: boolean;
+  readonly pricingDisplayReady: boolean;
+  readonly wigSalesTermsReady: boolean;
+  /** Gates de contenu + routes : faux tant que le contenu légal n’est pas complet. */
+  readonly legalRoutesReady: boolean;
+  /** Alias historique : contenu prêt pour routes publiques complètes. */
   readonly publicRoutesReady: boolean;
   /** Toujours false tant que LEGAL GATES / PUBLIC LAUNCH restent fermés. */
   readonly publicLaunchReady: boolean;
+  readonly protectedStagingReady: boolean;
   readonly cookieConsentBannerRequired: boolean;
   readonly productionDomainCookieReauditRequired: boolean;
   readonly missingFields: readonly string[];
@@ -72,6 +86,7 @@ const LEGAL_NOTICE_REQUIRED: readonly LegalFactResolver[] = [
   { path: "hosting.confirmedHost", resolve: (c) => c.hosting.confirmedHost },
   { path: "hosting.hostLegalName", resolve: (c) => c.hosting.hostLegalName },
   { path: "hosting.hostAddress", resolve: (c) => c.hosting.hostAddress },
+  { path: "hosting.hostPhone", resolve: (c) => c.hosting.hostPhone },
   { path: "mediation.membershipOrConvention", resolve: (c) => c.mediation.membershipOrConvention },
   { path: "mediation.mediatorName", resolve: (c) => c.mediation.mediatorName },
   { path: "mediation.mediatorAddress", resolve: (c) => c.mediation.mediatorAddress },
@@ -82,6 +97,10 @@ const LEGAL_NOTICE_REQUIRED: readonly LegalFactResolver[] = [
 const PRIVACY_NOTICE_REQUIRED: readonly LegalFactResolver[] = [
   { path: "privacy.dataController", resolve: (c) => c.privacy.dataController },
   { path: "privacy.rightsContact", resolve: (c) => c.privacy.rightsContact },
+  {
+    path: "publisher.publicProfessionalEmail",
+    resolve: (c) => c.publisher.publicProfessionalEmail,
+  },
   { path: "privacy.purposes", resolve: (c) => c.privacy.purposes },
   { path: "privacy.concernedData", resolve: (c) => c.privacy.concernedData },
   { path: "privacy.legalBasis", resolve: (c) => c.privacy.legalBasis },
@@ -238,15 +257,34 @@ export function getLegalReadiness(content: LegalContent = legalContent): LegalRe
   const privacyNoticeReady = privacyMissing.length === 0;
   const termsScopeReady = isTermsScopeReady(termsScope, content);
   const mediatorReady = isMediatorReady(content);
-  const publicRoutesReady = legalNoticeReady && privacyNoticeReady && termsScopeReady;
+  const pricingDisplayReady = content.readinessFlags.pricingDisplayReady;
+  const wigSalesTermsReady = content.readinessFlags.wigSalesTermsReady;
+
+  const legalNoticeRouteImplemented = content.routesImplementation.legalNoticeRouteImplemented;
+  const privacyNoticeRouteImplemented = content.routesImplementation.privacyNoticeRouteImplemented;
+  const termsRouteImplemented = content.routesImplementation.termsRouteImplemented;
+  const routesImplemented = legalNoticeRouteImplemented && privacyNoticeRouteImplemented;
+
+  const contentComplete = legalNoticeReady && privacyNoticeReady && termsScopeReady;
+  const legalRoutesReady = routesImplemented && contentComplete;
+  const publicRoutesReady = contentComplete;
 
   return {
+    legalNoticeRouteImplemented,
+    privacyNoticeRouteImplemented,
+    termsRouteImplemented,
+    routesImplemented,
+    contentComplete,
     legalNoticeReady,
     privacyNoticeReady,
     termsScopeReady,
     mediatorReady,
+    pricingDisplayReady,
+    wigSalesTermsReady,
+    legalRoutesReady,
     publicRoutesReady,
     publicLaunchReady: false,
+    protectedStagingReady: content.readinessFlags.protectedStagingReady,
     cookieConsentBannerRequired: false,
     productionDomainCookieReauditRequired: cookieConsentRuntime.productionDomainReauditRequired,
     missingFields,
@@ -309,7 +347,10 @@ export function isLegalIdentityComplete(content: LegalContent = legalContent): b
   );
 }
 
-/** Vercel ou candidat d’hébergement — jamais publiable comme hébergeur confirmé. */
+/**
+ * Hébergement encore partiel (téléphone / domaine) — le candidat reste non
+ * « complet » même si raison sociale et adresse publiques sont confirmées.
+ */
 export function isHostingCandidatePublishable(content: LegalContent = legalContent): boolean {
   return content.hostingCandidate.status === "candidate";
 }

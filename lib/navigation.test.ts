@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { navigation } from "@/content/navigation";
 import {
+  getPublicShellNavigation,
   getVisibleNavigation,
   resolveNavigationForRoute,
   type NavigationSectionId,
@@ -129,6 +130,37 @@ describe("resolveNavigationForRoute", () => {
       { id: "contact", href: "/#contact", current: undefined },
     ]);
     expect(resolved.some((item) => item.href === "#galerie")).toBe(false);
+  });
+
+  it("résout les ancres croisées depuis /mentions-legales et /confidentialite", () => {
+    for (const route of ["/mentions-legales", "/confidentialite"] as const) {
+      const resolved = resolveNavigationForRoute(visible, route);
+      expect(
+        resolved.map((item) => ({ id: item.id, href: item.href, current: item.current })),
+      ).toEqual([
+        { id: "accueil", href: "/#accueil", current: undefined },
+        { id: "services", href: "/#services", current: undefined },
+        { id: "galerie", href: "/galerie", current: undefined },
+        { id: "faq", href: "/#faq", current: undefined },
+        { id: "reserver", href: "/#reserver", current: undefined },
+        { id: "contact", href: "/#contact", current: undefined },
+      ]);
+    }
+  });
+
+  it("expose getPublicShellNavigation sans liste dupliquée", () => {
+    const source = readFileSync(join(process.cwd(), "lib/navigation.ts"), "utf8");
+    expect(source).toContain("getPublicShellNavigation");
+    expect(source).toContain('"/mentions-legales"');
+    expect(source).toContain('"/confidentialite"');
+    expect(getPublicShellNavigation("/confidentialite").map((item) => item.href)).toEqual([
+      "/#accueil",
+      "/#services",
+      "/galerie",
+      "/#faq",
+      "/#reserver",
+      "/#contact",
+    ]);
   });
 
   it("ne mute pas la navigation visible ni la source", () => {

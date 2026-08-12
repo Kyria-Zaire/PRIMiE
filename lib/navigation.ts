@@ -8,7 +8,17 @@ import type { NavigationItem, ResolvedNavigationItem } from "@/content/types";
 export type NavigationSectionId = (typeof navigation)[number]["id"];
 
 /** Routes publiques V1 pour la résolution des liens de navigation. */
-export type PublicRoute = "/" | "/galerie";
+export type PublicRoute = "/" | "/galerie" | "/mentions-legales" | "/confidentialite";
+
+/** Sections du shell public partagées (Header / Footer). */
+export const PUBLIC_SHELL_SECTION_IDS = [
+  "accueil",
+  "services",
+  "galerie",
+  "faq",
+  "reserver",
+  "contact",
+] as const satisfies readonly NavigationSectionId[];
 
 /**
  * Contenu « Pourquoi me choisir ? » non validé — section hors navigation.
@@ -59,8 +69,15 @@ export function getVisibleNavigation(
 }
 
 /**
+ * Navigation shell résolue pour une route publique (sans liste dupliquée par page).
+ */
+export function getPublicShellNavigation(route: PublicRoute): readonly ResolvedNavigationItem[] {
+  return resolveNavigationForRoute(getVisibleNavigation(PUBLIC_SHELL_SECTION_IDS), route);
+}
+
+/**
  * Résout les href pour la route courante sans muter la source.
- * Sur `/galerie`, les ancres landing deviennent `/#…` ; Galerie pointe vers `/galerie`.
+ * Hors `/`, les ancres landing deviennent `/#…` ; Galerie pointe vers `/galerie`.
  */
 export function resolveNavigationForRoute(
   items: readonly NavigationItem[],
@@ -80,7 +97,7 @@ export function resolveNavigationForRoute(
         id: item.id,
         label: item.label,
         href: "/galerie",
-        current: true,
+        current: route === "/galerie" ? true : undefined,
       };
     }
 
