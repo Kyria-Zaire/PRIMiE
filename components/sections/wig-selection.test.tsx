@@ -108,11 +108,10 @@ describe("WigSelection — WIG-SALES-DESIGN-R1-R2", () => {
     expect(html).not.toContain("pose-perruque-lace-portrait.webp");
     expect(html).toMatch(/alt=""/);
     expect(html).toContain("data-wig-portrait");
-    expect(html).toContain("data-wig-portrait-fog");
     expect(heroSource).toContain("wigDecorativePortrait");
     expect(heroSource).toContain("unoptimized");
-    expect(heroSource).toMatch(/mask-image/);
-    expect(heroSource).toMatch(/from-white/);
+    expect(heroSource).toMatch(/mask-image:linear-gradient\(180deg,#000_66%,transparent\)/);
+    expect(heroSource).not.toMatch(/from-white|data-wig-portrait-fog/);
     expect(html).not.toContain("gallery-hero-model-v1.webp");
     expect(html).not.toContain("/images/wigs/gallery-hero");
   });

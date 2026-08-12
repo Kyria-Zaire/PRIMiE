@@ -198,12 +198,7 @@ export function WigEditorialHero() {
             fill
             sizes="(max-width: 1023px) 54vw, 48vw"
             unoptimized
-            className="z-[1] object-contain object-[center_top] drop-shadow-[0_12px_28px_rgb(0_0_0_/0.18)] [mask-image:linear-gradient(180deg,#000_72%,transparent_100%)]"
-          />
-          {/* Brouillard blanc bas — fondu léger sur la coupe du buste. */}
-          <span
-            data-wig-portrait-fog
-            className="pointer-events-none absolute inset-x-[-6%] bottom-0 z-[2] h-[26%] bg-gradient-to-t from-white/90 from-[8%] via-white/35 via-[55%] to-transparent sm:h-[24%] lg:h-[22%]"
+            className="z-[1] object-contain object-[center_top] drop-shadow-[0_12px_28px_rgb(0_0_0_/0.18)] [mask-image:linear-gradient(180deg,#000_66%,transparent)] lg:[mask-image:linear-gradient(180deg,#000_76%,transparent)]"
           />
         </div>
       </div>
