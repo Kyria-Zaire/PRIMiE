@@ -658,10 +658,11 @@ traçabilité.
 | `01lega` | `LEGAL-PAGES-01A` | `DISCOVER` | `DONE — Validé CTO` | `P2` | audit juridique read-only |
 | `01legb` | `LEGAL-PAGES-01B` | `IMPLEMENT` | `DONE — Validé CTO — legal readiness model published` | `P2` | gate données métier Prisca |
 | `01legbr1` | `LEGAL-PAGES-01B-R1` | `IMPLEMENT` | `DONE — Validé CTO` | `P2` | architecture légale progressive |
-| `01legc` | `LEGAL-PAGES-01C` | `IMPLEMENT` | `BLOCKED_BUSINESS_INFO` | `P2` | rédaction mentions légales |
-| `01legd` | `LEGAL-PAGES-01D` | `IMPLEMENT` | `BLOCKED` | `P2` | rédaction confidentialité |
-| `01lege` | `LEGAL-PAGES-01E` | `IMPLEMENT` | `BLOCKED` | `P2` | routes + Footer |
-| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `BLOCKED_BUSINESS_INFO` | `P2` | mentions / confidentialité / CGV |
+| `01legc` | `LEGAL-PAGES-01C` | `IMPLEMENT` | `IN_PROGRESS — BLOCKED_BUSINESS_INFO` | `P2` | routes légales partielles |
+| `01legcr1` | `LEGAL-PAGES-01C-R1` | `IMPLEMENT + VERIFY` | `DONE — Validé CTO — checkpoint et staging protégé publiés` | `P2` | correctif SIRET/gates + Preview |
+| `01legd` | `LEGAL-PAGES-01D` | `IMPLEMENT` | `BLOCKED_BUSINESS_INFO` | `P2` | complétion contenu + gates |
+| `01lege` | `LEGAL-PAGES-01E` | `IMPLEMENT` | `BLOCKED` | `P2` | lancement / indexation |
+| `01leg` | `LEGAL-PAGES-01` | `IMPLEMENT` | `IN_PROGRESS — 01C BLOCKED_BUSINESS_INFO` | `P2` | mentions / confidentialité / CGV |
 | `01t` | `TESTIMONIALS-CONTENT-01` | `IMPLEMENT` | `CANCELLED` — décision CTO 2026-08-02 | `P1` | aucun avis authentique publiable |
 | `01cb` | `CONTACT-BOOKING-01` | `IMPLEMENT` | `DONE — clôturé le 2026-08-01` | `P0` | CONTENT-VALIDATION-01 DONE |
 | `01cba` | `CONTACT-BOOKING-01A` | `DISCOVER` | `DONE — Validé CTO 2026-08-01` | `P0` | — |
@@ -1582,11 +1583,11 @@ peuvent être centralisés avant affichage UI.
 #### LEGAL-PAGES-01 — Pages légales
 
 - Mode : `IMPLEMENT` (découpage 01A–01E)
-- Statut parent : `BLOCKED_BUSINESS_INFO` — non bloquant pour le Preview staging
-- Architecture progressive consolidée en 01B ; publication publique toujours bloquée
-- Exclus : routes `/mentions-legales`, `/politique-de-confidentialite`, `/cgv` ;
-  liens Footer ; CGV génériques ; confirmation Vercel avant déploiement réel ;
-  Production ; PUBLIC LAUNCH
+- Statut parent : `IN_PROGRESS — 01C BLOCKED_BUSINESS_INFO` — non bloquant pour le Preview staging
+- Architecture progressive consolidée en 01B ; routes partielles 01C/R1 publiées
+  sur Preview protégé ; LEGAL GATES / PUBLIC LAUNCH toujours bloqués
+- Exclus encore : `/cgv` ; cookies banner ; Production ; PUBLIC LAUNCH ;
+  indexation tant que gates incomplets
 
 ##### LEGAL-PAGES-01A — Audit juridique read-only
 
@@ -1629,17 +1630,43 @@ peuvent être centralisés avant affichage UI.
 - Statut : `DONE — Validé CTO, modèle corrigé`
 - Note : absorbé dans `LEGAL-PAGES-01B` courant
 
-##### LEGAL-PAGES-01C — Rédaction mentions légales
+##### LEGAL-PAGES-01C — Routes légales avec faits confirmés
+
+- Mode : `IMPLEMENT`
+- Statut : `IN_PROGRESS — BLOCKED_BUSINESS_INFO`
+- Note : routes partielles publiées via `LEGAL-PAGES-01C-R1` ; contenu
+  administratif incomplet ; LEGAL GATES / PUBLIC LAUNCH toujours fermés
+- Inclus : `/mentions-legales`, `/confidentialite` ; Footer Mentions +
+  Confidentialité ; readiness routes vs contenu ; pas de `/cgv`
+- Pending info : SIREN/SIRET vérifiés, email, TVA, médiateur, prix détaillés,
+  domaine final, téléphone hébergeur, conditions perruques, annulation/report
+
+##### LEGAL-PAGES-01C-R1 — Correctif données, validation SIRET et gates
+
+- Mode : `IMPLEMENT + VERIFY`
+- Statut : `DONE — Validé CTO — checkpoint et staging protégé publiés`
+- Commit implémentation : `c3466269264fa83162409d357c88e10bb6bc106f`
+  (`feat: add partial PRiMiE legal pages`)
+- Preview protégé (nouveau) :
+  - Deployment ID : `dpl_5Yz3fc6R8Zw2e6WrjiDPw5jygBRR`
+  - URL : `https://primie-staging-jzrnaxxxs-kyrias-projects-f231e33a.vercel.app`
+  - Inspector :
+    `https://vercel.com/kyrias-projects-f231e33a/primie-staging/5Yz3fc6R8Zw2e6WrjiDPw5jygBRR`
+  - Source SHA : `c3466269264fa83162409d357c88e10bb6bc106f`
+  - État : READY · Preview · SSO ON · Production = 0
+- Ancien Preview conservé : `dpl_92gXSBA6KRXusrgFbrZAWeQNxm5D`
+- Inclus R1 : SIREN/SIRET `pending_verification` ; helper Luhn
+  `lib/siren-siret.ts` ; adresse `24 rue Docteur Thomas` ; robots
+  `noindex,nofollow,noarchive` ; annulation/perruques non inventées
+- Exclus : Production ; PUBLIC LAUNCH ; ouverture 01D/01E ; clôture 01C ;
+  bypass secret persistant
+
+##### LEGAL-PAGES-01D — Complétion contenu et gates
 
 - Mode : `IMPLEMENT`
 - Statut : `BLOCKED_BUSINESS_INFO`
 
-##### LEGAL-PAGES-01D — Rédaction confidentialité
-
-- Mode : `IMPLEMENT`
-- Statut : `BLOCKED`
-
-##### LEGAL-PAGES-01E — Routes et Footer
+##### LEGAL-PAGES-01E — Lancement / indexation
 
 - Mode : `IMPLEMENT`
 - Statut : `BLOCKED`
@@ -2931,14 +2958,20 @@ Base Git attendue après clôture : commits Gallery sur `origin/main`.
 SSO ON ; noindex / Disallow `/`.
 `LEGAL-PAGES-01A` : `DONE — Validé CTO`.
 `LEGAL-PAGES-01B` : `DONE — Validé CTO — legal readiness model published`.
-`LEGAL-PAGES-01C` : `BLOCKED_BUSINESS_INFO`.
-`LEGAL-PAGES-01D` / `01E` : `BLOCKED`.
+`LEGAL-PAGES-01C-R1` : `DONE — Validé CTO — checkpoint et staging protégé publiés`.
+`LEGAL-PAGES-01C` : `IN_PROGRESS — BLOCKED_BUSINESS_INFO`.
+`LEGAL-PAGES-01D` : `BLOCKED_BUSINESS_INFO`.
+`LEGAL-PAGES-01E` : `BLOCKED`.
+`LEGAL GATES` : `FALSE`.
 `PUBLIC LAUNCH` : `DEFERRED — LEGAL GATES FALSE`.
 `PRODUCTION DEPLOYMENT` : `NOT AUTHORIZED`.
-**Handoff** : collecter auprès de Prisca les champs `pending_prisca` /
-`pending_verification` avant d’ouvrir `LEGAL-PAGES-01C`. Ne pas ouvrir
-lancement public, pages légales publiques ni Production sans ticket et
-autorisation CTO distincts.
+Preview légal partiel courant : `dpl_5Yz3fc6R8Zw2e6WrjiDPw5jygBRR` /
+`https://primie-staging-jzrnaxxxs-kyrias-projects-f231e33a.vercel.app`
+(source `c3466269264fa83162409d357c88e10bb6bc106f`) ; SSO ON ; Production = `0` ;
+ancien Preview `dpl_92gXSBA6KRXusrgFbrZAWeQNxm5D` conservé.
+**Handoff** : collecter SIREN/SIRET officiels vérifiés (Luhn + Annuaire),
+email, TVA, médiateur, prix, domaine avant d’ouvrir `LEGAL-PAGES-01D`.
+Ne pas ouvrir lancement public ni Production sans ticket et autorisation CTO.
 Aucune lightbox ouverte. Galerie V1 = illustrations approuvées ; réalisations
 réelles évolutives avec droits. PRD actif : version `1.3`.
 
