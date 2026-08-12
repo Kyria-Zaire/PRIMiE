@@ -7,8 +7,9 @@
  * Aucun mapping produit ↔ famille tant que PENDING_PRISCA.
  * Aucun prix, matière, couleur, stock, livraison, paiement ou retour.
  *
- * Portrait décoratif : APPROVED_REUSE
- * `/images/services/vente-pose-perruques.webp` (source `images/services/vente-pose-perruques.png`).
+ * Portrait décoratif : APPROVED_REUSE cutout
+ * `/images/wigs/perruque-deep-wave-portrait.webp`
+ * (source `images/gallery/perruque-deep-wave.png`, fond retiré).
  */
 
 import type { WigCollectionSource, WigProduct, WigSelectionCopy } from "./types";
@@ -56,11 +57,11 @@ export const wigCollectionSources = [
   { id: "classic", kind: "range", label: "Gamme classique" },
 ] as const satisfies readonly WigCollectionSource[];
 
-/** Portrait décoratif section — réutilisation illustration service vente-pose-perruques. */
+/** Portrait décoratif section — cutout perruque-deep-wave (fond retiré). */
 export const wigDecorativePortrait = {
-  src: "/images/services/vente-pose-perruques.webp",
+  src: "/images/wigs/perruque-deep-wave-portrait.webp",
   width: 900,
-  height: 600,
+  height: 1350,
   role: "section_intro_decorative",
   reuseDecision: "APPROVED_REUSE",
 } as const;

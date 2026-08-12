@@ -188,24 +188,22 @@ export function WigEditorialHero() {
           aria-hidden="true"
           className="pointer-events-none absolute top-0 right-[-4%] z-[5] aspect-[3/4] w-[52%] max-w-[16.75rem] sm:right-[-2%] sm:w-[54%] max-sm:min-h-[17rem] sm:max-w-[20.5rem] md:max-w-[22.5rem] lg:top-[-0.5rem] lg:right-[-0.75rem] lg:bottom-auto lg:w-[56%] lg:max-w-[30rem] lg:aspect-[4/5] xl:right-[-1rem] xl:w-[58%] xl:max-w-[34rem]"
         >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-[2%] right-[2%] z-0 size-[96%] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_srgb,var(--color-gold)_22%,transparent)_0%,transparent_70%)] sm:border sm:border-gold/40 lg:right-[4%] lg:size-[98%]"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-[9%] right-[9%] z-0 hidden size-[82%] rounded-full border border-gold/20 lg:block"
-          />
           {/*
-            Asset paysage 900×600 : fill + object-cover ancré sur le visage
-            (droite haute). Une seule liste arguments ci-dessous.
+            Cutout transparent Deep Wave 900×1350 : object-contain pour
+            respecter la silhouette sans fond ni disque décoratif.
           */}
           <Image
             src={PORTRAIT.src}
             alt=""
             fill
             sizes="(max-width: 1023px) 54vw, 48vw"
-            className="z-[1] object-cover object-[78%_18%] [mask-image:linear-gradient(180deg,#000_68%,transparent)] lg:object-[72%_14%] lg:[mask-image:linear-gradient(180deg,#000_78%,transparent)]"
+            unoptimized
+            className="z-[1] object-contain object-[center_top] drop-shadow-[0_12px_28px_rgb(0_0_0_/0.18)] [mask-image:linear-gradient(180deg,#000_72%,transparent_100%)]"
+          />
+          {/* Brouillard blanc bas — fondu léger sur la coupe du buste. */}
+          <span
+            data-wig-portrait-fog
+            className="pointer-events-none absolute inset-x-[-6%] bottom-0 z-[2] h-[26%] bg-gradient-to-t from-white/90 from-[8%] via-white/35 via-[55%] to-transparent sm:h-[24%] lg:h-[22%]"
           />
         </div>
       </div>

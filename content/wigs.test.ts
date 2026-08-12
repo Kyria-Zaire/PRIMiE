@@ -11,7 +11,7 @@ import {
 
 const MAX_WEBP_BYTES = 180 * 1024;
 const PUBLIC_WIGS = join(process.cwd(), "public/images/wigs");
-const PORTRAIT = join(process.cwd(), "public/images/services/vente-pose-perruques.webp");
+const PORTRAIT = join(process.cwd(), "public/images/wigs/perruque-deep-wave-portrait.webp");
 
 describe("wigs content — WIG-SALES-CONTENT-01B", () => {
   it("expose exactement trois produits ordonnés Body Wave → Deep Wave → Lisse", () => {
@@ -32,7 +32,9 @@ describe("wigs content — WIG-SALES-CONTENT-01B", () => {
     const publicFiles = readdirSync(PUBLIC_WIGS);
     expect(publicFiles.every((name) => name.endsWith(".webp"))).toBe(true);
     expect(publicFiles.some((name) => name.endsWith(".png"))).toBe(false);
-    expect(publicFiles.sort()).toEqual(["body-wave.webp", "deep-wave.webp", "lisse.webp"].sort());
+    expect(publicFiles.sort()).toEqual(
+      ["body-wave.webp", "deep-wave.webp", "lisse.webp", "perruque-deep-wave-portrait.webp"].sort(),
+    );
 
     for (const item of wigs) {
       expect(item.image.src.endsWith(".webp")).toBe(true);
@@ -125,11 +127,12 @@ describe("wigs content — WIG-SALES-CONTENT-01B", () => {
     }
   });
 
-  it("réutilise le portrait vente-pose-perruques sans copie sous /images/wigs/", () => {
-    expect(wigDecorativePortrait.src).toBe("/images/services/vente-pose-perruques.webp");
+  it("réutilise le portrait perruque-deep-wave cutout sans doublon galerie", () => {
+    expect(wigDecorativePortrait.src).toBe("/images/wigs/perruque-deep-wave-portrait.webp");
+    expect(wigDecorativePortrait.width).toBe(900);
+    expect(wigDecorativePortrait.height).toBe(1350);
     expect(wigDecorativePortrait.reuseDecision).toBe("APPROVED_REUSE");
     expect(existsSync(PORTRAIT)).toBe(true);
-    expect(existsSync(join(PUBLIC_WIGS, "vente-pose-perruques.webp"))).toBe(false);
   });
 
   it("interdit les formulations commerciales non confirmées dans le runtime", () => {

@@ -101,12 +101,18 @@ describe("WigSelection — WIG-SALES-DESIGN-R1-R2", () => {
     expect(heroSource).not.toMatch(/uppercase[^"]*eyebrowBrand|eyebrowBrand[\s\S]{0,80}uppercase/);
   });
 
-  it("réutilise le portrait vente-pose-perruques et exclut Gallery Hero", () => {
+  it("réutilise le portrait perruque-deep-wave cutout et exclut Gallery Hero", () => {
     const html = renderToStaticMarkup(<WigSelection />);
-    expect(html).toContain("vente-pose-perruques.webp");
+    expect(html).toContain("perruque-deep-wave-portrait.webp");
+    expect(html).not.toContain("vente-pose-perruques.webp");
+    expect(html).not.toContain("pose-perruque-lace-portrait.webp");
     expect(html).toMatch(/alt=""/);
     expect(html).toContain("data-wig-portrait");
+    expect(html).toContain("data-wig-portrait-fog");
     expect(heroSource).toContain("wigDecorativePortrait");
+    expect(heroSource).toContain("unoptimized");
+    expect(heroSource).toMatch(/mask-image/);
+    expect(heroSource).toMatch(/from-white/);
     expect(html).not.toContain("gallery-hero-model-v1.webp");
     expect(html).not.toContain("/images/wigs/gallery-hero");
   });
