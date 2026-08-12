@@ -2712,6 +2712,86 @@ robots.txt : Disallow: / (sans Allow / Sitemap / Host)
 - Note : la validation du Preview protégé (`SITE-RELEASE-STAGING-01-R1`)
   n’ouvre pas le lancement public ni la Production
 
+### VERCEL-PRODUCTION-GATE-01A — Audit gouvernance Production staging
+
+- Mode : `DISCOVER / READ-ONLY`
+- Statut : `DONE — Validé CTO 2026-08-12`
+- Classification : `CLI_PRODUCTION_DEPLOYMENTS_CONFIRMED` ;
+  `NO_AUTODEPLOY_EVIDENCE` ; `CHECKPOINT_SHA_SERVED = FALSE`
+- Constats : Git Integration déconnectée ; deux déploiements Production créés
+  via `vercel --prod --yes` (~08:09 et ~08:29 le 2026-08-12) ; alias
+  `primie-staging.vercel.app` servait publiquement `ca741c7`, pas `d4415f0`
+- Gouvernance inchangée :
+
+```text
+PRODUCTION AUTHORIZATION = FALSE
+PUBLIC LAUNCH = DEFERRED
+LEGAL GATES = FALSE
+```
+
+### VERCEL-PRODUCTION-GATE-01B — Protéger l’alias staging
+
+- Mode : `IMPLEMENT — protection Vercel uniquement`
+- Statut : `DONE_WITH_ACCEPTED_PLAN_LIMITATION — Validé CTO 2026-08-12`
+- Décision CTO : **Option B** — pas d’upgrade Vercel Pro ; limite plan Hobby
+  acceptée
+- Verdict technique initial : `BLOCKED_PLAN` pour **All Deployments** ; clôturé
+  avec limitation acceptée
+- Plan Vercel team : **Hobby** (`kyrias-projects-f231e33a`)
+- Git Integration : **déconnectée** (`link: null`, API projet)
+- Production Branch : **`null`** → `MAIN_NOT_CONFIGURED_AS_PRODUCTION_BRANCH`
+- Protection conservée (ne pas restaurer la portée plus faible) :
+
+```text
+Vercel Authentication — Standard Protection
+ssoProtection.deploymentType = prod_deployment_urls_and_all_previews
+(valeur précédente : all_except_custom_domains — ne pas restaurer)
+```
+
+- État accepté :
+  - URLs immuables protégées par Vercel Authentication ;
+  - alias `https://primie-staging.vercel.app` **publiquement accessible**
+    (HTTP 200 anonyme) ;
+  - alias rattaché à `dpl_A2KJTiXdP2dH33JhEJ8GYSaSh3NM` (SHA servi ≠ `d4415f0`) ;
+  - aucun auto-déploiement attendu (Git déconnectée) ;
+  - `d4415f0` non déployé
+- Risque accepté : l’alias Production Domain reste accessible anonymement car
+  **All Deployments** est réservé Pro/Enterprise ; le contenu **ne constitue pas
+  un lancement public** et ne doit contenir aucun secret ni donnée
+  confidentielle
+- Règles opératoires obligatoires :
+  1. conserver Standard Protection ; ne pas restaurer `all_except_custom_domains` ;
+  2. ne pas supprimer ni déplacer l’alias ;
+  3. ne pas reconnecter GitHub ;
+  4. ne pas définir `main` comme Production Branch ;
+  5. interdire `vercel --prod`, promote, redeploy ou changement d’alias sans
+     ticket `DEPLOY-PRODUCTION-*` et autorisation CTO explicite ;
+  6. ne pas déployer `d4415f0` dans ce périmètre ;
+  7. ne jamais documenter ni committer le token CLI local ;
+  8. ne pas ouvrir `SECURITY-DEPS-01A` automatiquement
+- Règle opératoire (rappel) :
+
+> Toute commande `vercel --prod`, promotion vers Production, création ou
+> modification d’un alias Production exige un ticket `DEPLOY-PRODUCTION-*`
+> ouvert et une autorisation CTO explicite. Une authentification CLI active
+> ne constitue jamais une autorisation de déploiement.
+
+- Gouvernance inchangée :
+
+```text
+PRODUCTION AUTHORIZATION = FALSE
+PUBLIC LAUNCH = DEFERRED
+LEGAL GATES = FALSE
+```
+
+#### VERCEL-PRODUCTION-GATE-01B-CHECKPOINT
+
+- Mode : `VERIFY + PUBLISH` (documentaire)
+- Statut : `DONE — publié le 2026-08-12`
+- Inclus : commit documentaire BMAD ; push `origin/main` ; aucun déploiement Vercel
+- Exclus : upgrade Pro ; All Deployments ; reconnect Git ; deploy `d4415f0` ;
+  rollback protection ; modification alias ; `SECURITY-DEPS-01A`
+
 ### DEPLOY-PREVIEW-01 — Créer et valider une Preview
 
 **Métadonnées**
@@ -3008,6 +3088,12 @@ SSO ON ; noindex / Disallow `/`.
 `LEGAL GATES` : `FALSE`.
 `PUBLIC LAUNCH` : `DEFERRED — LEGAL GATES FALSE`.
 `PRODUCTION DEPLOYMENT` : `NOT AUTHORIZED`.
+`VERCEL-PRODUCTION-GATE-01A` : `DONE — Validé CTO 2026-08-12`.
+`VERCEL-PRODUCTION-GATE-01B` : `DONE_WITH_ACCEPTED_PLAN_LIMITATION — Validé
+CTO 2026-08-12` (Option B — Hobby ; alias staging public accepté).
+`VERCEL-PRODUCTION-GATE-01B-CHECKPOINT` : `DONE — publié le 2026-08-12`.
+`PUSH_MAIN_TO_PRODUCTION_RISK` : `NOT_VERIFIABLE` (Git déconnectée ;
+Production Branch null).
 Preview légal partiel courant : `dpl_5Yz3fc6R8Zw2e6WrjiDPw5jygBRR` /
 `https://primie-staging-jzrnaxxxs-kyrias-projects-f231e33a.vercel.app`
 (source `c3466269264fa83162409d357c88e10bb6bc106f`) ; SSO ON ; Production = `0` ;
