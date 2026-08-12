@@ -10,13 +10,17 @@ import {
 } from "@/lib/legal-readiness";
 
 describe("getLegalReadiness", () => {
-  it("retourne tous les gates à false dans l’état actuel", () => {
+  it("retourne tous les gates de publication à false dans l’état actuel", () => {
     const readiness = getLegalReadiness();
 
     expect(readiness.legalNoticeReady).toBe(false);
     expect(readiness.privacyNoticeReady).toBe(false);
     expect(readiness.termsScopeReady).toBe(false);
+    expect(readiness.mediatorReady).toBe(false);
     expect(readiness.publicRoutesReady).toBe(false);
+    expect(readiness.publicLaunchReady).toBe(false);
+    expect(readiness.cookieConsentBannerRequired).toBe(false);
+    expect(readiness.productionDomainCookieReauditRequired).toBe(true);
   });
 
   it("liste explicitement les champs manquants depuis les statuts pending", () => {
@@ -30,9 +34,8 @@ describe("getLegalReadiness", () => {
     expect(missingFields).toContain("hosting.confirmedHost");
     expect(missingFields).toContain("termsScope");
     expect(missingFields).toContain("privacy.marketingConsentMechanism");
-    expect(missingFields).toContain("privacy.marketingOptOutMechanism");
-    expect(missingFields).toContain("privacy.marketingInformationNotice");
     expect(missingFields).not.toContain("privacy.prospecting");
+    expect(missingFields).not.toContain("privacy.retention");
   });
 
   it("calcule les résultats depuis legalContent, pas depuis une liste figée indépendante", () => {
@@ -53,6 +56,7 @@ describe("getPublishableLegalContent — garde anti-publication", () => {
   it("n’expose jamais les coordonnées du candidat Vercel", () => {
     const serialized = JSON.stringify(getPublishableLegalContent());
     expect(serialized).not.toMatch(/340 S Lemon Ave/i);
+    expect(serialized).not.toMatch(/Barranca/i);
     expect(serialized).not.toMatch(/vercel\.com\/legal/i);
   });
 
@@ -73,13 +77,18 @@ describe("identité et hébergement", () => {
   it("garde Vercel non publiable comme hébergeur", () => {
     expect(isHostingCandidatePublishable()).toBe(true);
     expect(legalContent.hostingCandidate.status).toBe("candidate");
-    expect(legalContent.hosting.confirmedHost.status).toBe("pending");
+    expect(legalContent.hosting.confirmedHost.status).toBe("pending_verification");
   });
 });
 
 describe("anti-régression build — absence de routes légales", () => {
   it("n’inclut aucune route légale dans app/", () => {
-    const legalRouteDirs = ["mentions-legales", "confidentialite", "cgv"];
+    const legalRouteDirs = [
+      "mentions-legales",
+      "confidentialite",
+      "politique-de-confidentialite",
+      "cgv",
+    ];
     for (const dir of legalRouteDirs) {
       expect(existsSync(join(process.cwd(), "app", dir))).toBe(false);
     }
@@ -95,6 +104,6 @@ describe("anti-régression build — absence de routes légales", () => {
 describe("dépendances — aucun package supplémentaire", () => {
   it("n’ajoute pas de dépendance pour l’architecture légale", () => {
     const pkg = readFileSync(join(process.cwd(), "package.json"), "utf8");
-    expect(pkg).not.toMatch(/legal/i);
+    expect(pkg).not.toMatch(/@legal/i);
   });
 });

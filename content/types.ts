@@ -201,21 +201,37 @@ export type WigSelectionCopy = {
 /** Source attendue pour une complétion légale en attente. */
 export type PendingLegalRequestFrom = "Prisca" | "CTO" | "deployment";
 
+/** Provenance d’un fait légal confirmé ou d’un champ en attente. */
+export type LegalFactSource =
+  "site_config" | "po_confirmation" | "official_source" | "runtime_audit" | "pending";
+
+/** Statuts exposables — jamais de valeur publique pour les pending. */
+export type LegalFieldStatus = "confirmed" | "pending_prisca" | "pending_verification";
+
 /** Fait légal confirmé — jamais un placeholder ni une valeur inventée. */
 export type ConfirmedLegalFact<T> = {
   readonly status: "confirmed";
   readonly value: T;
-  readonly source: string;
+  readonly source: LegalFactSource;
+  /** Précision non publiable (chemin fichier, ticket) — jamais une donnée métier. */
+  readonly sourceDetail?: string;
 };
 
 /** Fait légal en attente — raison explicite, sans valeur fictive. */
 export type PendingLegalFact = {
-  readonly status: "pending";
+  readonly status: "pending_prisca" | "pending_verification";
   readonly reason: string;
   readonly requestedFrom: PendingLegalRequestFrom;
+  readonly source: "pending";
 };
 
 export type LegalFact<T> = ConfirmedLegalFact<T> | PendingLegalFact;
+
+/** Verdict cookies runtime — ré-audit domaine public obligatoire avant Production. */
+export type CookieConsentRuntimeVerdict = {
+  readonly currentRuntime: "NO_CONSENT_BANNER_REQUIRED_CURRENT_RUNTIME";
+  readonly productionDomainReauditRequired: true;
+};
 
 /** Périmètre CGV — distinct des faits commerciaux individuels. */
 export type TermsScopeStatus =
@@ -250,11 +266,5 @@ export type MediatorSelectionStatusValue = "not_selected" | "selected";
 export type MediatorSelectionStatus = {
   readonly status: "confirmed";
   readonly value: MediatorSelectionStatusValue;
-  readonly source: string;
-};
-
-export type MarketingConsentMechanismStatus = {
-  readonly status: "pending";
-  readonly reason: string;
-  readonly requestedFrom: PendingLegalRequestFrom;
+  readonly source: LegalFactSource;
 };

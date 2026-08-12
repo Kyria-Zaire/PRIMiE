@@ -1,9 +1,14 @@
 /**
- * Readiness et garde anti-publication — LEGAL-PAGES-01B-R1.
- * Calcul dérivé des statuts `confirmed` / `pending` dans legalContent.
+ * Readiness et garde anti-publication — LEGAL-PAGES-01B.
+ * Calcul dérivé des statuts confirmed / pending_prisca / pending_verification.
  */
 
-import { isConfirmedLegalFact, legalContent, type LegalContent } from "@/content/legal";
+import {
+  cookieConsentRuntime,
+  isConfirmedLegalFact,
+  legalContent,
+  type LegalContent,
+} from "@/content/legal";
 import type { LegalFact, TermsScope } from "@/content/types";
 
 type LegalFactResolver = {
@@ -15,19 +20,27 @@ export type LegalReadiness = {
   readonly legalNoticeReady: boolean;
   readonly privacyNoticeReady: boolean;
   readonly termsScopeReady: boolean;
+  readonly mediatorReady: boolean;
   readonly publicRoutesReady: boolean;
+  /** Toujours false tant que LEGAL GATES / PUBLIC LAUNCH restent fermés. */
+  readonly publicLaunchReady: boolean;
+  readonly cookieConsentBannerRequired: boolean;
+  readonly productionDomainCookieReauditRequired: boolean;
   readonly missingFields: readonly string[];
 };
 
 export type PublishableLegalContent = {
   readonly publisher: {
     readonly commercialName: string;
+    readonly shortBrandName: string;
     readonly phone: { readonly display: string; readonly e164: string };
     readonly publicOwnerFirstName: string;
     readonly activity: string;
+    readonly legalIdentity: string;
   };
   readonly bookingDataCollection: LegalContent["bookingDataCollection"];
   readonly technicalPrivacyInventory: LegalContent["technicalPrivacyInventory"];
+  readonly cookieConsentRuntime: LegalContent["cookieConsentRuntime"];
 };
 
 export type PublishableLegalResult =
@@ -109,6 +122,10 @@ const TERMS_SCOPE_COMMERCIAL_REQUIRED: readonly LegalFactResolver[] = [
     path: "commercialOperations.priceCommunication",
     resolve: (c) => c.commercialOperations.priceCommunication,
   },
+  {
+    path: "commercialOperations.pricingDisplayPolicy",
+    resolve: (c) => c.commercialOperations.pricingDisplayPolicy,
+  },
   { path: "commercialOperations.deposit", resolve: (c) => c.commercialOperations.deposit },
   {
     path: "commercialOperations.paymentMethods",
@@ -122,6 +139,14 @@ const TERMS_SCOPE_COMMERCIAL_REQUIRED: readonly LegalFactResolver[] = [
   {
     path: "commercialOperations.separateWigSales",
     resolve: (c) => c.commercialOperations.separateWigSales,
+  },
+  {
+    path: "commercialOperations.wigDeliveryWithdrawalReturns",
+    resolve: (c) => c.commercialOperations.wigDeliveryWithdrawalReturns,
+  },
+  {
+    path: "commercialOperations.wigLegalGuarantees",
+    resolve: (c) => c.commercialOperations.wigLegalGuarantees,
   },
   {
     path: "commercialOperations.contractConclusionPlace",
@@ -181,6 +206,17 @@ function getMediationSelectionStatusMissing(content: LegalContent): string[] {
   return [];
 }
 
+function isMediatorReady(content: LegalContent): boolean {
+  return (
+    getMediationSelectionStatusMissing(content).length === 0 &&
+    isConfirmedLegalFact(content.mediation.membershipOrConvention) &&
+    isConfirmedLegalFact(content.mediation.mediatorName) &&
+    isConfirmedLegalFact(content.mediation.mediatorAddress) &&
+    isConfirmedLegalFact(content.mediation.mediatorUrl) &&
+    isConfirmedLegalFact(content.mediation.referralProcedure)
+  );
+}
+
 export function getLegalReadiness(content: LegalContent = legalContent): LegalReadiness {
   const legalNoticeMissing = collectMissingFields(content, LEGAL_NOTICE_REQUIRED);
   const mediationSelectionStatusMissing = getMediationSelectionStatusMissing(content);
@@ -201,13 +237,18 @@ export function getLegalReadiness(content: LegalContent = legalContent): LegalRe
     !missingFields.includes("mediation.selectionStatus") && legalNoticeMissing.length === 0;
   const privacyNoticeReady = privacyMissing.length === 0;
   const termsScopeReady = isTermsScopeReady(termsScope, content);
+  const mediatorReady = isMediatorReady(content);
   const publicRoutesReady = legalNoticeReady && privacyNoticeReady && termsScopeReady;
 
   return {
     legalNoticeReady,
     privacyNoticeReady,
     termsScopeReady,
+    mediatorReady,
     publicRoutesReady,
+    publicLaunchReady: false,
+    cookieConsentBannerRequired: false,
+    productionDomainCookieReauditRequired: cookieConsentRuntime.productionDomainReauditRequired,
     missingFields,
   };
 }
@@ -217,9 +258,11 @@ function extractPublishableConfirmed(content: LegalContent): PublishableLegalCon
 
   if (
     !isConfirmedLegalFact(publisher.commercialName) ||
+    !isConfirmedLegalFact(publisher.shortBrandName) ||
     !isConfirmedLegalFact(publisher.phone) ||
     !isConfirmedLegalFact(publisher.publicOwnerFirstName) ||
-    !isConfirmedLegalFact(publisher.activity)
+    !isConfirmedLegalFact(publisher.activity) ||
+    !isConfirmedLegalFact(publisher.legalIdentity)
   ) {
     throw new Error("extractPublishableConfirmed called with incomplete confirmed publisher facts");
   }
@@ -227,12 +270,15 @@ function extractPublishableConfirmed(content: LegalContent): PublishableLegalCon
   return {
     publisher: {
       commercialName: publisher.commercialName.value,
+      shortBrandName: publisher.shortBrandName.value,
       phone: publisher.phone.value,
       publicOwnerFirstName: publisher.publicOwnerFirstName.value,
       activity: publisher.activity.value,
+      legalIdentity: publisher.legalIdentity.value,
     },
     bookingDataCollection: content.bookingDataCollection,
     technicalPrivacyInventory: content.technicalPrivacyInventory,
+    cookieConsentRuntime: content.cookieConsentRuntime,
   };
 }
 
@@ -263,7 +309,7 @@ export function isLegalIdentityComplete(content: LegalContent = legalContent): b
   );
 }
 
-/** Coordonnées Vercel ou candidat d’hébergement — jamais publiables en R1. */
+/** Vercel ou candidat d’hébergement — jamais publiable comme hébergeur confirmé. */
 export function isHostingCandidatePublishable(content: LegalContent = legalContent): boolean {
   return content.hostingCandidate.status === "candidate";
 }
